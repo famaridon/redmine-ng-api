@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.famaridon</groupId>
+  <artifactId>redmine-ng-api</artifactId>
+  <name>WildFly Swarm Example</name>
+  <version>1.0.0-SNAPSHOT</version>
+  <packaging>war</packaging>
+
+  <properties>
+    <version.wildfly>11.0.0.Final</version.wildfly>
+    <jackson.version>2.9.0</jackson.version>
+    <org.mapstruct.version>1.2.0.Final</org.mapstruct.version>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <failOnMissingWebXml>false</failOnMissingWebXml>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.wildfly.bom</groupId>
+        <artifactId>wildfly-javaee7-with-tools</artifactId>
+        <scope>import</scope>
+        <type>pom</type>
+        <version>${version.wildfly}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <dependencies>
+    <!-- Java EE 7 dependency -->
+    <dependency>
+      <groupId>javax</groupId>
+      <artifactId>javaee-api</artifactId>
+      <version>7.0</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jboss.resteasy</groupId>
+      <artifactId>resteasy-jaxrs</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jboss.resteasy</groupId>
+      <artifactId>resteasy-jackson-provider</artifactId>
+    </dependency>
+
+    <!-- speck JSON -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>${jackson.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-annotations</artifactId>
+      <version>${jackson.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-core</artifactId>
+      <version>${jackson.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.mapstruct</groupId>
+      <artifactId>mapstruct-jdk8</artifactId> <!-- use mapstruct-jdk8 for Java 8 or higher -->
+      <version>${org.mapstruct.version}</version>
+    </dependency>
+    <dependency> <!-- hack for intellij -->
+      <groupId>org.mapstruct</groupId>
+      <artifactId>mapstruct-processor</artifactId>
+      <version>${org.mapstruct.version}</version>
+      <optional>true</optional>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-configuration2</artifactId>
+      <version>2.2</version>
+    </dependency>
+
+    <dependency>
+      <groupId>commons-beanutils</groupId>
+      <artifactId>commons-beanutils</artifactId>
+      <version>1.9.3</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>fluent-hc</artifactId>
+      <version>4.5.4</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>1.7.25</version>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+    <finalName>redmine-ng-api</finalName>
+    <pluginManagement>
+      <plugins>
+        <!-- The Maven Surefire plugin tests your application. Here we ensure we are using a version compatible with Arquillian -->
+        <plugin>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>2.17</version>
+        </plugin>
+        <!-- The WildFly Maven Plugin deploys your war to a local WildFly container -->
+        <!-- To use, set the JBOSS_HOME environment variable and run:
+						 mvn package wildfly:deploy -->
+        <plugin>
+          <groupId>org.wildfly.plugins</groupId>
+          <artifactId>wildfly-maven-plugin</artifactId>
+          <version>1.0.2.Final</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+    <plugins>
+      <plugin>
+        <groupId>org.wildfly.plugins</groupId>
+        <artifactId>wildfly-maven-plugin</artifactId>
+        <version>1.2.1.Final</version>
+        <configuration>
+          <java-opts>
+            <java-opt>-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005</java-opt>
+          </java-opts>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.5.1</version>
+        <configuration>
+          <source>1.8</source> <!-- or higher, depending on your project -->
+          <target>1.8</target> <!-- or higher, depending on your project -->
+          <annotationProcessorPaths>
+            <path>
+              <groupId>org.mapstruct</groupId>
+              <artifactId>mapstruct-processor</artifactId>
+              <version>${org.mapstruct.version}</version>
+            </path>
+          </annotationProcessorPaths>
+					<compilerArgs>
+						<compilerArg>
+							-Amapstruct.defaultComponentModel=cdi
+						</compilerArg>
+            <compilerArg>
+              -Amapstruct.unmappedTargetPolicy=ERROR
+            </compilerArg>
+					</compilerArgs>
+        </configuration>
+      </plugin>
+    </plugins>
+
+  </build>
+
+</project>
