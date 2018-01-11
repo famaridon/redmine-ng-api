@@ -1,6 +1,6 @@
 package com.famaridon.redminengapi.rest.api;
 
-import com.famaridon.redminengapi.rest.dto.Paginable;
+import com.famaridon.redminengapi.rest.dto.PageDto;
 import com.famaridon.redminengapi.rest.dto.ProjectDto;
 
 import javax.ws.rs.Consumes;
@@ -16,7 +16,7 @@ import javax.ws.rs.core.MediaType;
 public interface IssuesEndpoint {
 	
 	@GET
-	public Paginable<ProjectDto> findAll();
+	public PageDto<ProjectDto> findAll();
 	
 	@GET
 	@Path("/{id}")

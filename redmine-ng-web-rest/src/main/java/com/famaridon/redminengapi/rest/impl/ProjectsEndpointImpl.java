@@ -2,11 +2,13 @@ package com.famaridon.redminengapi.rest.impl;
 
 import com.famaridon.redminengapi.rest.AbstractRedmineEndpoint;
 import com.famaridon.redminengapi.rest.api.ProjectsEndpoint;
-import com.famaridon.redminengapi.rest.dto.Paginable;
+import com.famaridon.redminengapi.rest.dto.PageDto;
 import com.famaridon.redminengapi.rest.dto.ProjectDto;
 import com.famaridon.redminengapi.rest.dto.TrackerDto;
 import com.famaridon.redminengapi.rest.mapper.DtoMapper;
 import com.famaridon.redminengapi.services.redmine.ProjectService;
+import com.famaridon.redminengapi.services.redmine.rest.client.beans.Page;
+import com.famaridon.redminengapi.services.redmine.rest.client.beans.Project;
 import org.apache.commons.lang3.NotImplementedException;
 
 import javax.ejb.EJB;
@@ -28,11 +30,14 @@ public class ProjectsEndpointImpl extends AbstractRedmineEndpoint implements Pro
 		return p;
 	}
 	
-	public Paginable<ProjectDto> findAll() {
-		throw new NotImplementedException("");
+	public PageDto<ProjectDto> findAll() {
+		Page<Project> projectPage = this.projectService.findAll("***REMOVED***");
+		PageDto<ProjectDto> projectDtoPage = this.mapper.pageToPageDto(projectPage);
+		projectDtoPage.setElements(this.mapper.projectsToProjectDtos(projectPage.getElements()));
+		return projectDtoPage;
 	}
 	
-	public Paginable<TrackerDto> findTrackersById(@PathParam("id") Long id) {
+	public PageDto<TrackerDto> findTrackersById(@PathParam("id") Long id) {
 		throw new NotImplementedException("");
 	}
 	

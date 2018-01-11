@@ -1,6 +1,6 @@
 package com.famaridon.redminengapi.rest.api;
 
-import com.famaridon.redminengapi.rest.dto.Paginable;
+import com.famaridon.redminengapi.rest.dto.PageDto;
 import com.famaridon.redminengapi.rest.dto.ProjectDto;
 import com.famaridon.redminengapi.rest.dto.TrackerDto;
 
@@ -21,11 +21,11 @@ public interface ProjectsEndpoint {
 	public ProjectDto findById(@PathParam("id") Long id);
 	
 	@GET
-	public Paginable<ProjectDto> findAll();
+	public PageDto<ProjectDto> findAll();
 	
 	@GET
 	@Path("/{id}/trackers")
-	public Paginable<TrackerDto> findTrackersById(@PathParam("id") Long id);
+	public PageDto<TrackerDto> findTrackersById(@PathParam("id") Long id);
 	
 	@GET
 	@Path("/{id}/memberships")
