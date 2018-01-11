@@ -15,14 +15,13 @@
   <packaging>pom</packaging>
 
   <properties>
-    <version.wildfly>11.0.0.Final</version.wildfly>
+    <wildfly.version>11.0.0.Final</wildfly.version>
     <jackson.version>2.9.0</jackson.version>
     <org.mapstruct.version>1.2.0.Final</org.mapstruct.version>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <failOnMissingWebXml>false</failOnMissingWebXml>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.test.skip>true</maven.test.skip>
   </properties>
 
   <dependencyManagement>
@@ -32,7 +31,7 @@
         <artifactId>wildfly-javaee7-with-tools</artifactId>
         <scope>import</scope>
         <type>pom</type>
-        <version>${version.wildfly}</version>
+        <version>${wildfly.version}</version>
       </dependency>
       <dependency>
         <groupId>com.famaridon</groupId>
@@ -66,6 +65,12 @@
         <version>1.2.0.Final</version>
         <scope>import</scope>
         <type>pom</type>
+      </dependency>
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.12</version>
+        <scope>test</scope>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -120,20 +125,13 @@
     </dependency>
 
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.8.1</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
       <groupId>org.jboss.arquillian.junit</groupId>
       <artifactId>arquillian-junit-container</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.wildfly.arquillian</groupId>
-      <artifactId>wildfly-arquillian-container-embedded</artifactId>
-      <version>2.1.0.Final</version>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -197,7 +195,63 @@
         </configuration>
       </plugin>
     </plugins>
-
   </build>
+  <profiles>
+    <!-- Arquillian WildFly managed profile -->
+    <profile>
+      <id>arq-wildfly-managed</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <dependencies>
+        <dependency>
+          <groupId>org.wildfly.arquillian</groupId>
+          <artifactId>wildfly-arquillian-container-managed</artifactId>
+          <version>2.1.0.Final</version>
+          <scope>test</scope>
+        </dependency>
+        <dependency>
+          <groupId>junit</groupId>
+          <artifactId>junit</artifactId>
+          <scope>test</scope>
+        </dependency>
+      </dependencies>
+      <build>
+        <testResources>
+          <testResource>
+            <directory>src/test/resources</directory>
+          </testResource>
+        </testResources>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-dependency-plugin</artifactId>
+            <inherited>false</inherited>
+            <executions>
+              <execution>
+                <id>unpack</id>
+                <phase>process-test-classes</phase>
+                <goals>
+                  <goal>unpack</goal>
+                </goals>
+                <configuration>
+                  <artifactItems>
+                    <artifactItem>
+                      <groupId>org.wildfly</groupId>
+                      <artifactId>wildfly-dist</artifactId>
+                      <version>${wildfly.version}</version>
+                      <type>zip</type>
+                      <overWrite>false</overWrite>
+                      <outputDirectory>${project.build.directory}</outputDirectory>
+                    </artifactItem>
+                  </artifactItems>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 
 </project>

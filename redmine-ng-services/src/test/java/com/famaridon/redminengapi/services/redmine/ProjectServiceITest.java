@@ -5,6 +5,9 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
@@ -15,19 +18,19 @@ public class ProjectServiceITest {
 		return ShrinkWrap.create(JavaArchive.class).addClass(ProjectService.class).addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 	
-	@org.junit.Before
+	@Before
 	public void setUp() throws Exception {
 	}
 	
-	@org.junit.After
+	@After
 	public void tearDown() throws Exception {
 	}
 	
-	@org.junit.Test
+	@Test
 	public void findById() {
 	}
 	
-	@org.junit.Test
+	@Test
 	public void findAll() {
 	}
 }
