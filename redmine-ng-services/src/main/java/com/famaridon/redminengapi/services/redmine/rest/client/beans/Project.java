@@ -1,24 +1,25 @@
-package com.famaridon.redminengapi.rest.dto;
+package com.famaridon.redminengapi.services.redmine.rest.client.beans;
 
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class ProjectDto extends AbstractDto {
+public class Project extends AbstractRedmineBean {
 	
 	private String identifier;
 	private String description;
+	private String homepage;
 	private long status;
 	@JsonProperty("created_on")
 	private Date createdOn;
 	@JsonProperty("updated_on")
 	private Date updatedOn;
-	private ProjectDto parent;
-	private List<TrackerDto> trackers = new ArrayList<>();
+	private Project parent;
+	private List<Tracker> trackers = new ArrayList<>();
 	@JsonProperty("issue_categories")
-	private List<CategoryDto> issueCategories = new ArrayList<>();
+	private List<Category> issueCategories = new ArrayList<>();
 	
 	public String getIdentifier() {
 		return this.identifier;
@@ -34,6 +35,14 @@ public class ProjectDto extends AbstractDto {
 	
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	
+	public String getHomepage() {
+		return this.homepage;
+	}
+	
+	public void setHomepage(String homepage) {
+		this.homepage = homepage;
 	}
 	
 	public long getStatus() {
@@ -60,27 +69,27 @@ public class ProjectDto extends AbstractDto {
 		this.updatedOn = updatedOn;
 	}
 	
-	public ProjectDto getParent() {
+	public Project getParent() {
 		return this.parent;
 	}
 	
-	public void setParent(ProjectDto parent) {
+	public void setParent(Project parent) {
 		this.parent = parent;
 	}
 	
-	public List<TrackerDto> getTrackers() {
+	public List<Tracker> getTrackers() {
 		return this.trackers;
 	}
 	
-	public void setTrackers(List<TrackerDto> trackers) {
+	public void setTrackers(List<Tracker> trackers) {
 		this.trackers = trackers;
 	}
 	
-	public List<CategoryDto> getIssueCategories() {
+	public List<Category> getIssueCategories() {
 		return this.issueCategories;
 	}
 	
-	public void setIssueCategories(List<CategoryDto> issueCategories) {
+	public void setIssueCategories(List<Category> issueCategories) {
 		this.issueCategories = issueCategories;
 	}
 }

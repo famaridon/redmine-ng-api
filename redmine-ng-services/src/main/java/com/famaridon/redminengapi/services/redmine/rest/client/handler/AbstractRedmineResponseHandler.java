@@ -1,6 +1,7 @@
 package com.famaridon.redminengapi.services.redmine.rest.client.handler;
 
-import com.famaridon.redminengapi.services.redmine.rest.client.dto.AbstractRDto;
+import com.famaridon.redminengapi.services.ConfigurationService;
+import com.famaridon.redminengapi.services.redmine.rest.client.beans.AbstractRedmineBean;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;
@@ -11,7 +12,13 @@ import org.apache.http.entity.ContentType;
 
 import java.io.IOException;
 
-public abstract class AbstractRedmineResponseHandler<T extends AbstractRDto> implements ResponseHandler<T> {
+public abstract class AbstractRedmineResponseHandler<T extends AbstractRedmineBean> implements ResponseHandler<T> {
+	
+	protected final ConfigurationService configurationService;
+	
+	protected AbstractRedmineResponseHandler(ConfigurationService configurationService) {
+		this.configurationService = configurationService;
+	}
 	
 	@Override
 	public T handleResponse(HttpResponse response) throws IOException {

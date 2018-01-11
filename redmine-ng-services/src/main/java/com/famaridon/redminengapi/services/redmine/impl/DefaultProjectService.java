@@ -1,59 +1,43 @@
 package com.famaridon.redminengapi.services.redmine.impl;
 
+import com.famaridon.redminengapi.services.ConfigurationService;
 import com.famaridon.redminengapi.services.redmine.ProjectService;
-import com.famaridon.redminengapi.services.redmine.rest.client.dto.ProjectRDto;
-import com.taskadapter.redmineapi.RedmineException;
-import com.taskadapter.redmineapi.RedmineManager;
-import com.taskadapter.redmineapi.RedmineManagerFactory;
-import com.taskadapter.redmineapi.bean.Project;
+import com.famaridon.redminengapi.services.redmine.rest.client.beans.Page;
+import com.famaridon.redminengapi.services.redmine.rest.client.beans.Project;
+import com.famaridon.redminengapi.services.redmine.rest.client.handler.ProjectResponseHandler;
+import org.apache.commons.lang3.NotImplementedException;
+import org.apache.http.client.fluent.Request;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import java.util.List;
+import java.io.IOException;
 
 @Stateless
 public class DefaultProjectService extends AbstractRedmineService<Project> implements ProjectService {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(DefaultProjectService.class);
 	
+	@EJB
+	private ConfigurationService configurationService;
+	
 	@Override
-	public List<Project> findAll(String apiAccessKey) {
-		RedmineManager mgr = RedmineManagerFactory.createWithApiKey(this.configurationService.getRedmineServer(), apiAccessKey);
-		
-		try {
-			return mgr.getProjectManager().getProjects();
-		} catch (RedmineException e) {
-			throw new IllegalStateException(e);
-		}
+	public Page<Project> findAll(String apiAccessKey) {
+		throw new NotImplementedException("");
 	}
 	
 	@Override
-	public ProjectRDto findById(String apiAccessKey, Long id) {
-		RedmineManager mgr = RedmineManagerFactory.createWithApiKey(this.configurationService.getRedmineServer(), apiAccessKey);
+	public Project findById(String apiAccessKey, Long id) {
 		try {
-			return this.map(mgr.getProjectManager().getProjectById(Math.toIntExact(id)));
-		} catch (RedmineException e) {
-			throw new IllegalStateException(e);
+			Project p = Request.Get(this.configurationService.buildUrl("/projects/%s.json", id))
+			.addHeader("X-Redmine-API-Key", apiAccessKey)
+			.execute()
+			.handleResponse(new ProjectResponseHandler(this.configurationService));
+			return p;
+		} catch (IOException e) {
+			throw new IllegalStateException("Can't join Redmine server",e);
 		}
-	}
-	
-	private ProjectRDto map(Project p) {
-		ProjectRDto rDto = new ProjectRDto();
-		rDto.id = p.getId();
-		rDto.name = p.getName();
-		rDto.identifier = p.getIdentifier();
-		rDto.description = p.getDescription();
-		rDto.homepage = p.getHomepage();
-//		rDto.status = ;
-//		rDto.is_public;
-		rDto.created_on = p.getCreatedOn();
-		rDto.updated_on = p.getUpdatedOn();
-		rDto.parent = p.getParentId();
-//		rDto.trackers = new ArrayList<>();
-//		rDto.issue_categories = new ArrayList<>();
-		
-		return rDto;
 	}
 	
 }

@@ -1,23 +1,23 @@
 package com.famaridon.redminengapi.services.redmine.rest.client.handler;
 
 import com.famaridon.redminengapi.services.ConfigurationService;
-import com.famaridon.redminengapi.services.redmine.rest.client.dto.ProjectRDto;
-import org.apache.commons.lang3.NotImplementedException;
+import com.famaridon.redminengapi.services.redmine.rest.client.beans.Project;
+import com.fasterxml.jackson.databind.JsonNode;
 import org.apache.http.HttpEntity;
 
-import javax.faces.bean.SessionScoped;
-import javax.inject.Inject;
+import javax.enterprise.context.RequestScoped;
 import java.io.IOException;
 
-@SessionScoped
-public class ProjectResponseHandler extends AbstractRedmineResponseHandler<ProjectRDto> {
+@RequestScoped
+public class ProjectResponseHandler extends AbstractRedmineResponseHandler<Project> {
 	
-	@Inject
-	private ConfigurationService configurationService;
+	public ProjectResponseHandler(ConfigurationService configurationService) {
+		super(configurationService);
+	}
 	
 	@Override
-	protected ProjectRDto parse(HttpEntity entity) throws IOException {
-		throw new NotImplementedException("");
-		//		return configurationService.getObjectMapper().readValue(entity.getContent(), RedmineProjectHolder.class).project;
+	protected Project parse(HttpEntity entity) throws IOException {
+		JsonNode holder = this.configurationService.getObjectMapper().readTree(entity.getContent());
+		return this.configurationService.getObjectMapper().treeToValue(holder.get("project"), Project.class);
 	}
 }

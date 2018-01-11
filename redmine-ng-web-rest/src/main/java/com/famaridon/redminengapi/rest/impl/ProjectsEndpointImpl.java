@@ -24,7 +24,8 @@ public class ProjectsEndpointImpl extends AbstractRedmineEndpoint implements Pro
 	private DtoMapper mapper;
 	
 	public ProjectDto findById(@PathParam("id") Long id) {
-		return this.mapper.projectToProjectDto(this.projectService.findById("***REMOVED***", id));
+		ProjectDto p = this.mapper.projectToProjectDto(this.projectService.findById("***REMOVED***", id));
+		return p;
 	}
 	
 	public Paginable<ProjectDto> findAll() {

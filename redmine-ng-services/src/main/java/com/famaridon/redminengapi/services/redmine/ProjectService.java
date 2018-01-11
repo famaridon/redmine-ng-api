@@ -1,12 +1,10 @@
 package com.famaridon.redminengapi.services.redmine;
 
-import com.famaridon.redminengapi.services.redmine.rest.client.dto.ProjectRDto;
-import com.taskadapter.redmineapi.bean.Project;
-
-import java.util.List;
+import com.famaridon.redminengapi.services.redmine.rest.client.beans.Page;
+import com.famaridon.redminengapi.services.redmine.rest.client.beans.Project;
 
 public interface ProjectService {
 	
-	ProjectRDto findById(String key, Long id);
-	List<Project> findAll(String key);
+	Project findById(String key, Long id);
+	Page<Project> findAll(String key);
 }

@@ -1,5 +1,6 @@
 package com.famaridon.redminengapi.services;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.configuration2.Configuration;
 import org.apache.commons.configuration2.builder.fluent.Configurations;
 import org.apache.commons.configuration2.ex.ConfigurationException;
@@ -11,6 +12,7 @@ import javax.ejb.Singleton;
 public class ConfigurationService {
 	
 	private Configuration configuration;
+	private ObjectMapper objectMapper;
 	
 	@PostConstruct
 	protected void startup() {
@@ -20,10 +22,19 @@ public class ConfigurationService {
 		} catch (ConfigurationException e) {
 			throw new IllegalArgumentException("Can't read configuration!");
 		}
+		
+		this.objectMapper = new ObjectMapper();
 	}
 	
-	public String getRedmineServer() {
+	protected String getRedmineServer() {
 		return this.configuration.getString("redmine.server.url");
 	}
-
+	
+	public String buildUrl(String path, Object... parameters) {
+		return this.getRedmineServer() + String.format(path, parameters);
+	}
+	
+	public ObjectMapper getObjectMapper() {
+		return this.objectMapper;
+	}
 }

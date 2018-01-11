@@ -12,10 +12,14 @@
 
 	<artifactId>redmine-ng-services</artifactId>
 	<dependencies>
+		<!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/fluent-hc -->
 		<dependency>
-			<groupId>com.taskadapter</groupId>
-			<artifactId>redmine-java-api</artifactId>
-			<version>3.1.0</version>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>fluent-hc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
 		</dependency>
 	</dependencies>
 
