@@ -9,6 +9,7 @@ import javax.ejb.EJB;
 public abstract class AbstractRedmineService<T> {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractRedmineService.class);
+	public static final String X_REDMINE_API_KEY = "X-Redmine-API-Key";
 
 	@EJB
 	protected ConfigurationService configurationService;

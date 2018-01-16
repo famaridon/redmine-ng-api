@@ -33,7 +33,7 @@ public class DefaultProjectService extends AbstractRedmineService<Project> imple
 	public Page<Project> findAll(String apiAccessKey) {
 		try {
 			Page<Project> p = Request.Get(this.configurationService.buildUrl("/projects.json"))
-				.addHeader("X-Redmine-API-Key", apiAccessKey)
+				.addHeader(X_REDMINE_API_KEY, apiAccessKey)
 				.execute()
 				.handleResponse(new PageResponseHandler<>(this.configurationService, Project.class));
 			return p;
@@ -46,7 +46,7 @@ public class DefaultProjectService extends AbstractRedmineService<Project> imple
 	public Project findById(String apiAccessKey, Long id) {
 		try {
 			Project p = Request.Get(this.configurationService.buildUrl("/projects/%s.json", id))
-			.addHeader("X-Redmine-API-Key", apiAccessKey)
+			.addHeader(X_REDMINE_API_KEY, apiAccessKey)
 			.execute()
 			.handleResponse(new ProjectResponseHandler(this.configurationService));
 			return p;
