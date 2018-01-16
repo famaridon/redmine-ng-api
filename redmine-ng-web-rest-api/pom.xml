@@ -11,5 +11,15 @@
 
 	<artifactId>redmine-ng-web-rest-api</artifactId>
 
+	<dependencies>
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-jaxrs</artifactId>
+		</dependency>
 
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-jackson-provider</artifactId>
+		</dependency>
+	</dependencies>
 </project>

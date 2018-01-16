@@ -22,6 +22,13 @@ public class DefaultProjectService extends AbstractRedmineService<Project> imple
 	@EJB
 	private ConfigurationService configurationService;
 	
+	public DefaultProjectService() {
+	}
+	
+	public DefaultProjectService(ConfigurationService configurationService) {
+	this.configurationService = configurationService;
+	}
+	
 	@Override
 	public Page<Project> findAll(String apiAccessKey) {
 		try {

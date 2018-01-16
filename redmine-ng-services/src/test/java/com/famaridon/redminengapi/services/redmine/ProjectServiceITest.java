@@ -1,36 +1,31 @@
 package com.famaridon.redminengapi.services.redmine;
 
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.After;
+import com.famaridon.redminengapi.services.ConfigurationService;
+import com.famaridon.redminengapi.services.impl.TestConfigurationService;
+import com.famaridon.redminengapi.services.redmine.impl.DefaultProjectService;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
-@RunWith(Arquillian.class)
 public class ProjectServiceITest {
 	
-	@Deployment
-	public static JavaArchive createDeployment() {
-		return ShrinkWrap.create(JavaArchive.class).addClass(ProjectService.class).addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
-	}
+	ConfigurationService configurationService;
+	ProjectService projectService;
+	String testApiKey;
 	
 	@Before
 	public void setUp() throws Exception {
-	}
-	
-	@After
-	public void tearDown() throws Exception {
+		this.configurationService = new TestConfigurationService();
+		this.testApiKey = this.configurationService.getString("redmine.server.test.apiKey");
+		this.projectService = new DefaultProjectService(this.configurationService);
 	}
 	
 	@Test
 	public void findById() {
+		this.projectService.findById(this.testApiKey, 372L);
 	}
 	
 	@Test
 	public void findAll() {
+		this.projectService.findAll(this.testApiKey);
 	}
 }

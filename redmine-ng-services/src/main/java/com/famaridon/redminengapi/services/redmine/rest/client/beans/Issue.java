@@ -1,6 +1,6 @@
 package com.famaridon.redminengapi.services.redmine.rest.client.beans;
 
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
 import java.util.Date;
