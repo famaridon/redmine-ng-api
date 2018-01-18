@@ -8,6 +8,7 @@ import org.apache.http.client.fluent.Request;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.cache.annotation.CacheResult;
 import javax.ejb.Stateless;
 import java.io.IOException;
 
@@ -23,7 +24,7 @@ public class DefaultUserService extends AbstractRedmineService<User> implements 
 	this.configurationService = configurationService;
 	}
 	
-	
+	@CacheResult(cacheName = "userByApiKey")
 	@Override
 	public User findCurrent(String apiKey) {
 		try {
