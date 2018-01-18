@@ -5,10 +5,8 @@ import com.famaridon.redminengapi.services.redmine.rest.client.beans.Page;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.apache.http.HttpEntity;
 
-import javax.enterprise.context.RequestScoped;
 import java.io.IOException;
 
-@RequestScoped
 public class PageResponseHandler<T> extends AbstractRedmineResponseHandler<Page<T>> {
 	
 	private final Class<T> elementType;

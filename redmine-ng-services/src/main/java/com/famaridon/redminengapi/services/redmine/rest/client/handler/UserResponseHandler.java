@@ -5,10 +5,8 @@ import com.famaridon.redminengapi.services.redmine.rest.client.beans.User;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.apache.http.HttpEntity;
 
-import javax.enterprise.context.RequestScoped;
 import java.io.IOException;
 
-@RequestScoped
 public class UserResponseHandler extends AbstractRedmineResponseHandler<User> {
 	
 	public UserResponseHandler(ConfigurationService configurationService) {
