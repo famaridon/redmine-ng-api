@@ -4,7 +4,9 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-public abstract class AbstractRedmineBean {
+import java.io.Serializable;
+
+public abstract class AbstractRedmineBean implements Serializable {
 	
 	private long id;
 	private String name;

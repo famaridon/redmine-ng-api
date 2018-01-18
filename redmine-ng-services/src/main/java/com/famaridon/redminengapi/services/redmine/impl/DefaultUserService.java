@@ -5,17 +5,21 @@ import com.famaridon.redminengapi.services.redmine.UserService;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.User;
 import com.famaridon.redminengapi.services.redmine.rest.client.handler.UserResponseHandler;
 import org.apache.http.client.fluent.Request;
+import org.infinispan.Cache;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.cache.annotation.CacheResult;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import java.io.IOException;
 
 @Stateless
 public class DefaultUserService extends AbstractRedmineService<User> implements UserService {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(DefaultUserService.class);
+	
+	@Inject
+	private Cache<String, User> cache;
 	
 	public DefaultUserService() {
 	}
@@ -24,18 +28,21 @@ public class DefaultUserService extends AbstractRedmineService<User> implements 
 	this.configurationService = configurationService;
 	}
 	
-	@CacheResult(cacheName = "userByApiKey")
 	@Override
 	public User findCurrent(String apiKey) {
-		try {
-			User r = Request.Get(this.configurationService.buildUrl("/users/current.json"))
-			.addHeader(X_REDMINE_API_KEY, apiKey)
-			.execute()
-			.handleResponse(new UserResponseHandler(this.configurationService));
-			return r;
-		} catch (IOException e) {
-			throw new IllegalStateException("Can't join Redmine server",e);
+		User r = this.cache.get(apiKey);
+		if(r == null) {
+			try {
+				r = Request.Get(this.configurationService.buildUrl("/users/current.json"))
+					.addHeader(X_REDMINE_API_KEY, apiKey)
+					.execute()
+					.handleResponse(new UserResponseHandler(this.configurationService));
+				this.cache.put(apiKey, r);
+			} catch (IOException e) {
+				throw new IllegalStateException("Can't join Redmine server",e);
+			}
 		}
+		return r;
 	}
 
 }
