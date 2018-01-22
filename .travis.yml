@@ -1,0 +1,23 @@
+language: node_js
+
+script: # the build step
+   - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+
+#before_deploy:
+#  - ssh-keyscan -p $DEPLOY_PORT $DEPLOY_HOST >> ~/.ssh/known_hosts
+#  - openssl aes-256-cbc -K $encrypted_041de9b33623_key -iv $encrypted_041de9b33623_iv -in ssh_key.enc -out /tmp/ssh_key -d
+#  - eval "$(ssh-agent -s)"
+#  - chmod 600 /tmp/ssh_key
+#  - ssh-add /tmp/ssh_key
+#
+#deploy:
+#  skip_cleanup: true
+#  provider: script
+#  script: rsync -r -v -e "ssh -p $DEPLOY_PORT -i /tmp/ssh_key" $TRAVIS_BUILD_DIR/dist/* $DEPLOY_LOGIN@$DEPLOY_HOST:$DEPLOY_FOLDER
+#  on:
+#    branch: develop
+
+notifications:
+  email: # only receive email when the build status changes (someone broke the build!)
+    on_failure: change
+    on_success: change
