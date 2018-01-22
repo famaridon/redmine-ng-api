@@ -7,7 +7,7 @@
 
 ## File-based project format:
 *.iws
-
+*.iml
 ### Maven template
 target/
 pom.xml.tag
