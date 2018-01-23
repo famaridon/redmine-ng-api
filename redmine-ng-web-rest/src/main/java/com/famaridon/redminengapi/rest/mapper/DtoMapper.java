@@ -1,11 +1,13 @@
 package com.famaridon.redminengapi.rest.mapper;
 
 import com.famaridon.redminengapi.rest.dto.CategoryDto;
+import com.famaridon.redminengapi.rest.dto.MembershipDto;
 import com.famaridon.redminengapi.rest.dto.PageDto;
 import com.famaridon.redminengapi.rest.dto.ProjectDto;
 import com.famaridon.redminengapi.rest.dto.TrackerDto;
 import com.famaridon.redminengapi.rest.dto.UserDto;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Category;
+import com.famaridon.redminengapi.services.redmine.rest.client.beans.Membership;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Page;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Project;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Tracker;
@@ -25,7 +27,10 @@ public interface DtoMapper {
 	
 	UserDto userToUserDto(User project);
 	ProjectDto projectToProjectDto(Project project);
+	MembershipDto membershipToMembershipDto(Membership membership);
+	
 	List<ProjectDto> projectsToProjectDtos(List<Project> project);
+	List<MembershipDto> membershipsToMembershipDtos(List<Membership> memberships);
 	
 	TrackerDto trackerToTrackerDto(Tracker tracker);
 	CategoryDto categoryToCategoryDto(Category category);

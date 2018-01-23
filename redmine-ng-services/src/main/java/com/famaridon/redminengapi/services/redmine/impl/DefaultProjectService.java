@@ -30,29 +30,22 @@ public class DefaultProjectService extends AbstractRedmineService<Project> imple
 	}
 	
 	@Override
-	public Page<Project> findAll(String apiAccessKey) {
-		try {
-			Page<Project> p = Request.Get(this.configurationService.buildUrl("/projects.json"))
-				.addHeader(X_REDMINE_API_KEY, apiAccessKey)
-				.execute()
-				.handleResponse(new PageResponseHandler<>(this.configurationService, Project.class));
-			return p;
-		} catch (IOException e) {
-			throw new IllegalStateException("Can't join Redmine server",e);
-		}
+	public Page<Project> findAll(String apiAccessKey) throws IOException {
+		Page<Project> p = Request.Get(this.configurationService.buildUrl("/projects.json"))
+			.addHeader(X_REDMINE_API_KEY, apiAccessKey)
+			.execute()
+			.handleResponse(new PageResponseHandler<>(this.configurationService, Project.class, "projects"));
+		return p;
 	}
 	
 	@Override
-	public Project findById(String apiAccessKey, Long id) {
-		try {
-			Project p = Request.Get(this.configurationService.buildUrl("/projects/%s.json", id))
+	public Project findById(String apiAccessKey, Long id) throws IOException {
+		Project p = Request.Get(this.configurationService.buildUrl("/projects/%s.json?include=trackers,issue_categories", id))
 			.addHeader(X_REDMINE_API_KEY, apiAccessKey)
 			.execute()
 			.handleResponse(new ProjectResponseHandler(this.configurationService));
-			return p;
-		} catch (IOException e) {
-			throw new IllegalStateException("Can't join Redmine server",e);
-		}
+		return p;
+
 	}
 	
 }

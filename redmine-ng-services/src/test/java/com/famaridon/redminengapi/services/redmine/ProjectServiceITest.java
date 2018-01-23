@@ -6,6 +6,8 @@ import com.famaridon.redminengapi.services.redmine.impl.DefaultProjectService;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
+
 public class ProjectServiceITest {
 	
 	ConfigurationService configurationService;
@@ -20,12 +22,12 @@ public class ProjectServiceITest {
 	}
 	
 	@Test
-	public void findById() {
+	public void findById() throws IOException {
 		this.projectService.findById(this.testApiKey, 372L);
 	}
 	
 	@Test
-	public void findAll() {
+	public void findAll() throws IOException {
 		this.projectService.findAll(this.testApiKey);
 	}
 }
