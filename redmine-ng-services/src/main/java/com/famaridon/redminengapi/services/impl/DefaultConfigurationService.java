@@ -9,6 +9,7 @@ import org.apache.commons.configuration2.ex.ConfigurationException;
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import java.net.URL;
+import java.util.List;
 
 @Singleton
 public class DefaultConfigurationService implements ConfigurationService {
@@ -37,13 +38,23 @@ public class DefaultConfigurationService implements ConfigurationService {
 	}
 	
 	@Override
-	public String getString(String s) {
-		return this.configuration.getString(s);
+	public String getString(String key) {
+		return this.configuration.getString(key);
 	}
 	
 	@Override
-	public String getString(String s, String s1) {
-		return this.configuration.getString(s, s1);
+	public <T> List<T> getList(Class<T> type, String key) {
+		return this.configuration.getList(type, key);
+	}
+	
+	@Override
+	public <T> List<T> getList(Class<T> type, String key, List<T> defaultValues) {
+		return this.configuration.getList(type, key, defaultValues);
+	}
+	
+	@Override
+	public String getString(String key, String def) {
+		return this.configuration.getString(key, def);
 	}
 	
 	protected String getRedmineServer() {

@@ -7,6 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.Priority;
 import javax.ejb.EJB;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
@@ -16,6 +17,7 @@ import java.io.IOException;
 
 @Provider
 @PreMatching
+@Priority(5000)
 public class XRedmineAPIKeyRequestFilter implements ContainerRequestFilter {
 	
 	private static final Logger LOG = LoggerFactory.getLogger(XRedmineAPIKeyRequestFilter.class);
@@ -32,7 +34,7 @@ public class XRedmineAPIKeyRequestFilter implements ContainerRequestFilter {
 		
 		try {
 			User user = this.userService.findCurrent(apiKey);
-			LOG.debug("{} match user {}", SecurityHeaders.X_REDMINE_API_KEY,user.getLogin());
+			LOG.debug("{} match user {}", SecurityHeaders.X_REDMINE_API_KEY, user.getLogin());
 		} catch (IOException e) {
 			throw new SecurityException("Can't validate " + SecurityHeaders.X_REDMINE_API_KEY, e);
 		}
