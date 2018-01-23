@@ -23,4 +23,9 @@ public class UsersEndpointImpl extends AbstractRedmineEndpoint implements UsersE
 	public UserDto findCurrent(String apiKey) {
 		return this.mapper.userToUserDto(this.userService.findCurrent(apiKey));
 	}
+	
+	@Override
+	public UserDto findById(String apiKey, long id) {
+		return this.mapper.userToUserDto(this.userService.findById(apiKey, id));
+	}
 }

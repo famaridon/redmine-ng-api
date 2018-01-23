@@ -49,6 +49,20 @@ public class DefaultUserService extends AbstractRedmineService<User> implements 
 		return r;
 	}
 	
+	@Override
+	public User findById(String apiKey, long id) {
+		try {
+			User r = Request.Get(this.configurationService.buildUrl("/users/%s.json", id))
+				.addHeader(X_REDMINE_API_KEY, apiKey)
+				.execute()
+				.handleResponse(new UserResponseHandler(this.configurationService));
+			r = this.loadGravatar(apiKey, r);
+			return r;
+		} catch (IOException e) {
+			throw new IllegalStateException("Can't join Redmine server",e);
+		}
+	}
+	
 	public User loadGravatar(String apiKey, User user) {
 		try {
 			Document d = Request.Get(this.configurationService.buildUrl("/users/5.html"))

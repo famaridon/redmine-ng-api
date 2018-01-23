@@ -5,4 +5,5 @@ import com.famaridon.redminengapi.services.redmine.rest.client.beans.User;
 public interface UserService {
 	
 	User findCurrent(String apiKey);
+	User findById(String apiKey, long id);
 }
