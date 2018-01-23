@@ -3,9 +3,12 @@ package com.famaridon.redminengapi.services.redmine.impl;
 import com.famaridon.redminengapi.services.ConfigurationService;
 import com.famaridon.redminengapi.services.redmine.UserService;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.User;
+import com.famaridon.redminengapi.services.redmine.rest.client.handler.HtmlResponseHandler;
 import com.famaridon.redminengapi.services.redmine.rest.client.handler.UserResponseHandler;
 import org.apache.http.client.fluent.Request;
 import org.infinispan.Cache;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,12 +40,27 @@ public class DefaultUserService extends AbstractRedmineService<User> implements 
 					.addHeader(X_REDMINE_API_KEY, apiKey)
 					.execute()
 					.handleResponse(new UserResponseHandler(this.configurationService));
+				r = this.loadGravatar(apiKey, r);
 				this.userByApiKeyCache.put(apiKey, r);
 			} catch (IOException e) {
 				throw new IllegalStateException("Can't join Redmine server",e);
 			}
 		}
 		return r;
+	}
+	
+	public User loadGravatar(String apiKey, User user) {
+		try {
+			Document d = Request.Get(this.configurationService.buildUrl("/users/5.html"))
+				.addHeader(X_REDMINE_API_KEY, apiKey)
+				.execute()
+				.handleResponse(new HtmlResponseHandler(this.configurationService));
+			Element img = d.selectFirst("#main #content img.gravatar");
+			user.setGravatar(img.attr("src"));
+		} catch (IOException e) {
+			throw new IllegalStateException("Can't join Redmine server",e);
+		}
+		return user;
 	}
 
 }
