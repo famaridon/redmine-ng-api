@@ -9,17 +9,17 @@ import org.infinispan.Cache;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.Resource;
 import javax.ejb.Stateless;
-import javax.inject.Inject;
 import java.io.IOException;
 
 @Stateless
 public class DefaultUserService extends AbstractRedmineService<User> implements UserService {
 	
-	private static final Logger LOGGER = LoggerFactory.getLogger(DefaultUserService.class);
+	private static final Logger LOG = LoggerFactory.getLogger(DefaultUserService.class);
 	
-	@Inject
-	private Cache<String, User> cache;
+	@Resource(lookup="java:jboss/infinispan/cache/redmine-ng-api/userByApiKey")
+	private Cache<String, User> userByApiKeyCache;
 	
 	public DefaultUserService() {
 	}
@@ -30,14 +30,14 @@ public class DefaultUserService extends AbstractRedmineService<User> implements 
 	
 	@Override
 	public User findCurrent(String apiKey) {
-		User r = this.cache.get(apiKey);
+		User r = this.userByApiKeyCache.get(apiKey);
 		if(r == null) {
 			try {
 				r = Request.Get(this.configurationService.buildUrl("/users/current.json"))
 					.addHeader(X_REDMINE_API_KEY, apiKey)
 					.execute()
 					.handleResponse(new UserResponseHandler(this.configurationService));
-				this.cache.put(apiKey, r);
+				this.userByApiKeyCache.put(apiKey, r);
 			} catch (IOException e) {
 				throw new IllegalStateException("Can't join Redmine server",e);
 			}
