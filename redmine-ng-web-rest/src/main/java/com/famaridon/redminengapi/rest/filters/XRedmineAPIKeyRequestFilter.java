@@ -12,6 +12,7 @@ import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.container.PreMatching;
 import javax.ws.rs.ext.Provider;
+import java.io.IOException;
 
 @Provider
 @PreMatching
@@ -29,7 +30,12 @@ public class XRedmineAPIKeyRequestFilter implements ContainerRequestFilter {
 			throw new SecurityException(SecurityHeaders.X_REDMINE_API_KEY + " not found!");
 		}
 		
-		User user = this.userService.findCurrent(apiKey);
-		LOG.info("{} match user {}", SecurityHeaders.X_REDMINE_API_KEY,user.getLogin());
+		try {
+			User user = this.userService.findCurrent(apiKey);
+			LOG.debug("{} match user {}", SecurityHeaders.X_REDMINE_API_KEY,user.getLogin());
+		} catch (IOException e) {
+			throw new SecurityException("Can't validate " + SecurityHeaders.X_REDMINE_API_KEY, e);
+		}
+		
 	}
 }

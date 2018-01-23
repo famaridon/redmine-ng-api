@@ -32,40 +32,32 @@ public class DefaultUserService extends AbstractRedmineService<User> implements 
 	}
 	
 	@Override
-	public User findCurrent(String apiKey) {
+	public User findCurrent(String apiKey) throws IOException {
 		User r = this.userByApiKeyCache.get(apiKey);
 		if(r == null) {
-			try {
-				r = Request.Get(this.configurationService.buildUrl("/users/current.json"))
-					.addHeader(X_REDMINE_API_KEY, apiKey)
-					.execute()
-					.handleResponse(new UserResponseHandler(this.configurationService));
-				r = this.loadGravatar(apiKey, r);
-				this.userByApiKeyCache.put(apiKey, r);
-			} catch (IOException e) {
-				throw new IllegalStateException("Can't join Redmine server",e);
-			}
+			r = Request.Get(this.configurationService.buildUrl("/users/current.json"))
+				.addHeader(X_REDMINE_API_KEY, apiKey)
+				.execute()
+				.handleResponse(new UserResponseHandler(this.configurationService));
+			r = this.loadGravatar(apiKey, r);
+			this.userByApiKeyCache.put(apiKey, r);
 		}
 		return r;
 	}
 	
 	@Override
-	public User findById(String apiKey, long id) {
-		try {
-			User r = Request.Get(this.configurationService.buildUrl("/users/%s.json", id))
-				.addHeader(X_REDMINE_API_KEY, apiKey)
-				.execute()
-				.handleResponse(new UserResponseHandler(this.configurationService));
-			r = this.loadGravatar(apiKey, r);
-			return r;
-		} catch (IOException e) {
-			throw new IllegalStateException("Can't join Redmine server",e);
-		}
+	public User findById(String apiKey, long id) throws IOException {
+		User r = Request.Get(this.configurationService.buildUrl("/users/%s.json", id))
+			.addHeader(X_REDMINE_API_KEY, apiKey)
+			.execute()
+			.handleResponse(new UserResponseHandler(this.configurationService));
+		r = this.loadGravatar(apiKey, r);
+		return r;
 	}
 	
 	public User loadGravatar(String apiKey, User user) {
 		try {
-			Document d = Request.Get(this.configurationService.buildUrl("/users/5.html"))
+			Document d = Request.Get(this.configurationService.buildUrl("/users/%s.html",user.getId()))
 				.addHeader(X_REDMINE_API_KEY, apiKey)
 				.execute()
 				.handleResponse(new HtmlResponseHandler(this.configurationService));
