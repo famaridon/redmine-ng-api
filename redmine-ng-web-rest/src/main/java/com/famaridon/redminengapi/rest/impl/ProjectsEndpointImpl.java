@@ -7,6 +7,7 @@ import com.famaridon.redminengapi.rest.dto.PageDto;
 import com.famaridon.redminengapi.rest.dto.ProjectDto;
 import com.famaridon.redminengapi.rest.mapper.DtoMapper;
 import com.famaridon.redminengapi.services.redmine.MembershipService;
+import com.famaridon.redminengapi.services.redmine.Pager;
 import com.famaridon.redminengapi.services.redmine.ProjectService;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Membership;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Page;
@@ -34,16 +35,16 @@ public class ProjectsEndpointImpl extends AbstractRedmineEndpoint implements Pro
 		return p;
 	}
 	
-	public PageDto<ProjectDto> findAll(String apiKey) throws IOException {
-		Page<Project> projectPage = this.projectService.findAll(apiKey);
+	public PageDto<ProjectDto> findAll(String apiKey, Long offset, Long limit) throws IOException {
+		Page<Project> projectPage = this.projectService.findAll(apiKey, new Pager(offset, limit));
 		PageDto<ProjectDto> projectDtoPage = this.mapper.pageToPageDto(projectPage);
 		projectDtoPage.setElements(this.mapper.projectsToProjectDtos(projectPage.getElements()));
 		return projectDtoPage;
 	}
 	
 	@Override
-	public PageDto<MembershipDto> findMembershipsById(String apiKey, Long id) throws IOException {
-		Page<Membership> membershipPage = this.membershipService.findByProject(apiKey, id);
+	public PageDto<MembershipDto> findMembershipsById(String apiKey, Long id, Long offset, Long limit) throws IOException {
+		Page<Membership> membershipPage = this.membershipService.findByProject(apiKey, id, new Pager(offset, limit));
 		PageDto<MembershipDto> membershipDtoPage = this.mapper.pageToPageDto(membershipPage);
 		membershipDtoPage.setElements(this.mapper.membershipsToMembershipDtos(membershipPage.getElements()));
 		return membershipDtoPage;

@@ -8,5 +8,5 @@ import java.io.IOException;
 public interface ProjectService {
 	
 	Project findById(String apiKey, Long id) throws IOException;
-	Page<Project> findAll(String apiKey) throws IOException;
+	Page<Project> findAll(String apiKey, Pager pager) throws IOException;
 }

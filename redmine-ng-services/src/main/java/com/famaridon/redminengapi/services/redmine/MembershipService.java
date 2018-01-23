@@ -7,5 +7,5 @@ import java.io.IOException;
 
 public interface MembershipService {
 	
-	Page<Membership> findByProject(String apiKey, Long id) throws IOException;
+	Page<Membership> findByProject(String apiKey, Long id, Pager pager) throws IOException;
 }

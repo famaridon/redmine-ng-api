@@ -28,6 +28,6 @@ public class ProjectServiceITest {
 	
 	@Test
 	public void findAll() throws IOException {
-		this.projectService.findAll(this.testApiKey);
+		this.projectService.findAll(this.testApiKey, new Pager());
 	}
 }
