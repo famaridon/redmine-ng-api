@@ -3,8 +3,8 @@ package com.famaridon.redminengapi.services.redmine.impl;
 import com.famaridon.redminengapi.services.ConfigurationService;
 import com.famaridon.redminengapi.services.redmine.UserService;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.User;
+import com.famaridon.redminengapi.services.redmine.rest.client.handler.HolderResponseHandler;
 import com.famaridon.redminengapi.services.redmine.rest.client.handler.HtmlResponseHandler;
-import com.famaridon.redminengapi.services.redmine.rest.client.handler.UserResponseHandler;
 import org.apache.http.client.fluent.Request;
 import org.infinispan.Cache;
 import org.jsoup.nodes.Document;
@@ -38,7 +38,7 @@ public class DefaultUserService extends AbstractRedmineService<User> implements 
 			r = Request.Get(this.configurationService.buildUrl("/users/current.json"))
 				.addHeader(X_REDMINE_API_KEY, apiKey)
 				.execute()
-				.handleResponse(new UserResponseHandler(this.configurationService));
+				.handleResponse(new HolderResponseHandler<>(this.configurationService, User.class));
 			r = this.loadGravatar(apiKey, r);
 			this.userByApiKeyCache.put(apiKey, r);
 		}
@@ -50,7 +50,7 @@ public class DefaultUserService extends AbstractRedmineService<User> implements 
 		User r = Request.Get(this.configurationService.buildUrl("/users/%s.json", id))
 			.addHeader(X_REDMINE_API_KEY, apiKey)
 			.execute()
-			.handleResponse(new UserResponseHandler(this.configurationService));
+			.handleResponse(new HolderResponseHandler<>(this.configurationService, User.class));
 		r = this.loadGravatar(apiKey, r);
 		return r;
 	}

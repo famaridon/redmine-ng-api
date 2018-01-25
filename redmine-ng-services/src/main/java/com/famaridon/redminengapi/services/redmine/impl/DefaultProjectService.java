@@ -5,8 +5,8 @@ import com.famaridon.redminengapi.services.redmine.Pager;
 import com.famaridon.redminengapi.services.redmine.ProjectService;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Page;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Project;
+import com.famaridon.redminengapi.services.redmine.rest.client.handler.HolderResponseHandler;
 import com.famaridon.redminengapi.services.redmine.rest.client.handler.PageResponseHandler;
-import com.famaridon.redminengapi.services.redmine.rest.client.handler.ProjectResponseHandler;
 import org.apache.http.client.fluent.Request;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,7 +44,7 @@ public class DefaultProjectService extends AbstractRedmineService<Project> imple
 		Project p = Request.Get(this.configurationService.buildUrl("/projects/%s.json?include=trackers,issue_categories", id))
 			.addHeader(X_REDMINE_API_KEY, apiAccessKey)
 			.execute()
-			.handleResponse(new ProjectResponseHandler(this.configurationService));
+			.handleResponse(new HolderResponseHandler<>(this.configurationService, Project.class));
 		return p;
 
 	}
