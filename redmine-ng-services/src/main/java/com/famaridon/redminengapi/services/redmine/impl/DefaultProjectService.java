@@ -35,7 +35,7 @@ public class DefaultProjectService extends AbstractRedmineService<Project> imple
 		Page<Project> p = Request.Get(this.configurationService.buildUrl("/projects.json?%s", pager))
 			.addHeader(X_REDMINE_API_KEY, apiAccessKey)
 			.execute()
-			.handleResponse(new PageResponseHandler<>(this.configurationService, Project.class, "projects"));
+			.handleResponse(new PageResponseHandler<>(this.configurationService, Project.class));
 		return p;
 	}
 	

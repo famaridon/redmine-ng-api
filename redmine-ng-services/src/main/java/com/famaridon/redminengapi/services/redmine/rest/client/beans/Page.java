@@ -11,7 +11,6 @@ public class Page<T> {
 	private long totalCount;
 	private long offset;
 	private long limit;
-	
 	private List<T> elements = new ArrayList<>();
 	
 	public long getTotalCount() {
@@ -45,4 +44,21 @@ public class Page<T> {
 	public void setElements(List<T> elements) {
 		this.elements = elements;
 	}
+	
+	@JsonProperty("projects")
+	public void setProjects(List<T> projects) {
+		this.elements = projects;
+	}
+	
+	@JsonProperty("queries")
+	public void setQueries(List<T> queries) {
+		this.elements = queries;
+	}
+	
+	@JsonProperty("memberships")
+	public void setMemberships(List<T> memberships) {
+		this.elements = memberships;
+	}
+
+	
 }

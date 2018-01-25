@@ -34,7 +34,7 @@ public class DefaultMembershipService extends AbstractRedmineService<Membership>
 		Page<Membership> p = Request.Get(this.configurationService.buildUrl("/projects/%s/memberships.json?%s", id, pager))
 			.addHeader(X_REDMINE_API_KEY, apiAccessKey)
 			.execute()
-			.handleResponse(new PageResponseHandler<>(this.configurationService, Membership.class, "memberships"));
+			.handleResponse(new PageResponseHandler<>(this.configurationService, Membership.class));
 		return p;
 	}
 }
