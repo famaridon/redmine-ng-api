@@ -1,14 +1,18 @@
 package com.famaridon.redminengapi.rest.api;
 
+import com.famaridon.redminengapi.rest.dto.IssueDto;
 import com.famaridon.redminengapi.rest.dto.PageDto;
-import com.famaridon.redminengapi.rest.dto.ProjectDto;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
+import javax.ws.rs.HeaderParam;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+import java.io.IOException;
 
 @Path("/issues")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -16,13 +20,24 @@ import javax.ws.rs.core.MediaType;
 public interface IssuesEndpoint {
 	
 	@GET
-	public PageDto<ProjectDto> findAll();
+	public PageDto<IssueDto> findAll(@HeaderParam(SecurityHeaders.X_REDMINE_API_KEY) String apiKey) throws IOException;
 	
 	@GET
 	@Path("/{id}")
-	public ProjectDto findById(@PathParam("id") Long id);
+	public IssueDto findById(@HeaderParam(SecurityHeaders.X_REDMINE_API_KEY) String apiKey, @PathParam("id") Long id) throws IOException ;
 	
 	@GET
-	@Path("/{id}/status")
-	public ProjectDto findMembershipsById(@PathParam("id") Long id);
+	@Path("/query/{query}")
+	public PageDto<IssueDto> findByQuery(@HeaderParam(SecurityHeaders.X_REDMINE_API_KEY) String apiKey,
+		@PathParam("query") Long query,
+		@QueryParam(PagerParam.OFFSET) @DefaultValue("0") Long offset,
+		@QueryParam(PagerParam.LIMIT) @DefaultValue("25") Long limit) throws IOException;
+	
+	@GET
+	@Path("/query/{query}/project/{project}")
+	public PageDto<IssueDto> findByQueryAndProject(@HeaderParam(SecurityHeaders.X_REDMINE_API_KEY) String apiKey,
+		@PathParam("query") Long query,
+		@PathParam("project") Long project,
+		@QueryParam(PagerParam.OFFSET) @DefaultValue("0") Long offset,
+		@QueryParam(PagerParam.LIMIT) @DefaultValue("25") Long limit) throws IOException;
 }
