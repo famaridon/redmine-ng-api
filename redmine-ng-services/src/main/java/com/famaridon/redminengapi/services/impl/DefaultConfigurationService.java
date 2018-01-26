@@ -5,14 +5,19 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.configuration2.Configuration;
 import org.apache.commons.configuration2.builder.fluent.Configurations;
 import org.apache.commons.configuration2.ex.ConfigurationException;
+import org.infinispan.manager.CacheContainer;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import javax.ejb.Singleton;
 import java.net.URL;
 import java.util.List;
 
 @Singleton
 public class DefaultConfigurationService implements ConfigurationService {
+	
+	@Resource(lookup = "java:jboss/infinispan/container/redmine-ng-api")
+	private CacheContainer cacheContainer;
 	
 	private Configuration configuration;
 	private ObjectMapper objectMapper;
@@ -57,6 +62,11 @@ public class DefaultConfigurationService implements ConfigurationService {
 		return this.configuration.getString(key, def);
 	}
 	
+	@Override
+	public CacheContainer getCacheContainer() {
+		return this.cacheContainer;
+	}
+	
 	protected String getRedmineServer() {
 		return this.configuration.getString("redmine.server.url");
 	}
@@ -68,4 +78,6 @@ public class DefaultConfigurationService implements ConfigurationService {
 	public ObjectMapper getObjectMapper() {
 		return this.objectMapper;
 	}
+	
+	
 }
