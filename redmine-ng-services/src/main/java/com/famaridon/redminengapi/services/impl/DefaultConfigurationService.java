@@ -6,7 +6,11 @@ import org.apache.commons.configuration2.Configuration;
 import org.apache.commons.configuration2.JSONConfiguration;
 import org.apache.commons.configuration2.builder.fluent.Configurations;
 import org.apache.commons.configuration2.ex.ConfigurationException;
-import org.infinispan.manager.CacheContainer;
+import org.infinispan.Cache;
+import org.infinispan.configuration.cache.ConfigurationBuilder;
+import org.infinispan.eviction.EvictionStrategy;
+import org.infinispan.eviction.EvictionType;
+import org.infinispan.manager.EmbeddedCacheManager;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -18,7 +22,7 @@ import java.util.List;
 public class DefaultConfigurationService implements ConfigurationService {
 	
 	@Resource(lookup = "java:jboss/infinispan/container/redmine-ng-api")
-	private CacheContainer cacheContainer;
+	private EmbeddedCacheManager cacheContainer;
 	
 	private Configuration configuration;
 	private ObjectMapper objectMapper;
@@ -64,8 +68,13 @@ public class DefaultConfigurationService implements ConfigurationService {
 	}
 	
 	@Override
-	public CacheContainer getCacheContainer() {
-		return this.cacheContainer;
+	public <K, V> Cache<K, V> getCache(String name) {
+		Cache<K, V> cache = this.cacheContainer.getCache(name, false);
+		if(cache == null) {
+			this.cacheContainer.defineConfiguration(name, new ConfigurationBuilder().expiration().maxIdle(18000).eviction().type(EvictionType.COUNT).size(50).strategy(EvictionStrategy.LRU).build());
+			cache = this.cacheContainer.getCache(name, true);
+		}
+		return cache;
 	}
 	
 	protected String getRedmineServer() {

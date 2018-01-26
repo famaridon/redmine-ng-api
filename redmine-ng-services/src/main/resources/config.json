@@ -1,13 +1,15 @@
 {
   "redmine": {
     "server": {
-      "url": "https://projects.visiativ.com",
-      "cors": {
-        "allowedOrigins": [
-          "http://localhost:4200",
-          "http://localhost:3000"
-        ]
-      }
+      "url": "https://projects.visiativ.com"
+    }
+  },
+  "http": {
+    "cors": {
+      "allowedOrigins": [
+        "http://localhost:4200",
+        "http://localhost:3000"
+      ]
     }
   }
 }

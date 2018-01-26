@@ -26,7 +26,7 @@ public class CacheInterceptor {
 	public Object manageCache(InvocationContext ctx) throws Exception {
 		LOG.info("start {}", ctx.getMethod());
 		CacheName cacheName = ctx.getMethod().getAnnotation(CacheName.class);
-		Cache<String, Object> cache = this.configurationService.getCacheContainer().getCache(cacheName.value());
+		Cache<String, Object> cache = this.configurationService.getCache(cacheName.value());
 		
 		StringBuilder keyBuilder = new StringBuilder(ctx.getMethod().getName());
 		for (int i = 0; i < ctx.getMethod().getParameters().length; i++) {

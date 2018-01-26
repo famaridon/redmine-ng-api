@@ -26,7 +26,7 @@ public class CorsFilter extends org.jboss.resteasy.plugins.interceptors.CorsFilt
 	
 	@PostConstruct
 	private void init() {
-		this.allowedOrigins = new HashSet<>(this.configurationService.getList(String.class, "redmine.server.cors.allowedOrigins"));
+		this.allowedOrigins = new HashSet<>(this.configurationService.getList(String.class, "http.cors.allowedOrigins"));
 		this.corsMaxAge = (int)TimeUnit.SECONDS.convert(1, TimeUnit.HOURS);
 	}
 	
