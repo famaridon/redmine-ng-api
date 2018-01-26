@@ -1,4 +1,4 @@
-language: node_js
+language: java
 
 script: # the build step
    - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
