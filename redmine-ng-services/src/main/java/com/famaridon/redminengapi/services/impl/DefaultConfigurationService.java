@@ -3,6 +3,7 @@ package com.famaridon.redminengapi.services.impl;
 import com.famaridon.redminengapi.services.ConfigurationService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.configuration2.Configuration;
+import org.apache.commons.configuration2.JSONConfiguration;
 import org.apache.commons.configuration2.builder.fluent.Configurations;
 import org.apache.commons.configuration2.ex.ConfigurationException;
 import org.infinispan.manager.CacheContainer;
@@ -30,7 +31,7 @@ public class DefaultConfigurationService implements ConfigurationService {
 	protected final void init() {
 		Configurations configs = new Configurations();
 		try {
-			this.configuration = configs.properties(getConfigurationFile());
+			this.configuration = configs.fileBased(JSONConfiguration.class,getConfigurationFile());
 		} catch (ConfigurationException e) {
 			throw new IllegalArgumentException("Can't read configuration!");
 		}
@@ -39,7 +40,7 @@ public class DefaultConfigurationService implements ConfigurationService {
 	}
 	
 	protected URL getConfigurationFile() {
-		return DefaultConfigurationService.class.getResource("/config.properties");
+		return DefaultConfigurationService.class.getResource("/config.json");
 	}
 	
 	@Override
