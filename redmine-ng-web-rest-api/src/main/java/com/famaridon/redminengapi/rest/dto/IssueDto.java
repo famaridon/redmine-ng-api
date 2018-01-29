@@ -2,7 +2,6 @@ package com.famaridon.redminengapi.rest.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.xml.registry.infomodel.User;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,9 +12,9 @@ public class IssueDto extends AbstractDto {
 	private TrackerDto tracker;
 	private StatusDto status;
 	private PriorityDto priority;
-	private User author;
+	private UserDto author;
 	@JsonProperty("assigned_to")
-	private User assignedTo;
+	private UserDto assignedTo;
 	private CategoryDto category;
 	@JsonProperty("fixed_version")
 	private VersionDto fixedVersion;
@@ -67,19 +66,19 @@ public class IssueDto extends AbstractDto {
 		this.priority = priority;
 	}
 	
-	public User getAuthor() {
+	public UserDto getAuthor() {
 		return this.author;
 	}
 	
-	public void setAuthor(User author) {
+	public void setAuthor(UserDto author) {
 		this.author = author;
 	}
 	
-	public User getAssignedTo() {
+	public UserDto getAssignedTo() {
 		return this.assignedTo;
 	}
 	
-	public void setAssignedTo(User assignedTo) {
+	public void setAssignedTo(UserDto assignedTo) {
 		this.assignedTo = assignedTo;
 	}
 	

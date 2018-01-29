@@ -21,6 +21,8 @@ public class Issue extends AbstractRedmineBean {
 	private Issue parent;
 	private String subject;
 	private String description;
+	@JsonProperty("estimated_hours")
+	private Integer estimatedHours;
 	@JsonProperty("start_date")
 	private Date startDate;
 	@JsonProperty("due_date")
@@ -168,5 +170,13 @@ public class Issue extends AbstractRedmineBean {
 	
 	public void setUpdatedOn(Date updatedOn) {
 		this.updatedOn = updatedOn;
+	}
+	
+	public Integer getEstimatedHours() {
+		return this.estimatedHours;
+	}
+	
+	public void setEstimatedHours(Integer estimatedHours) {
+		this.estimatedHours = estimatedHours;
 	}
 }

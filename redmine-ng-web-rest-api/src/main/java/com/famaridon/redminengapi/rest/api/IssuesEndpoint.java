@@ -20,11 +20,14 @@ import java.io.IOException;
 public interface IssuesEndpoint {
 	
 	@GET
-	public PageDto<IssueDto> findAll(@HeaderParam(SecurityHeaders.X_REDMINE_API_KEY) String apiKey) throws IOException;
+	public PageDto<IssueDto> findAll(@HeaderParam(SecurityHeaders.X_REDMINE_API_KEY) String apiKey,
+		@QueryParam(PagerParam.OFFSET) @DefaultValue("0") Long offset,
+		@QueryParam(PagerParam.LIMIT) @DefaultValue("25") Long limit) throws IOException;
 	
 	@GET
 	@Path("/{id}")
-	public IssueDto findById(@HeaderParam(SecurityHeaders.X_REDMINE_API_KEY) String apiKey, @PathParam("id") Long id) throws IOException ;
+	public IssueDto findById(@HeaderParam(SecurityHeaders.X_REDMINE_API_KEY) String apiKey,
+		@PathParam("id") Long id) throws IOException ;
 	
 	@GET
 	@Path("/query/{query}")

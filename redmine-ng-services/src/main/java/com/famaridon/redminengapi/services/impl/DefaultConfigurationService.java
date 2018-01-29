@@ -1,6 +1,7 @@
 package com.famaridon.redminengapi.services.impl;
 
 import com.famaridon.redminengapi.services.ConfigurationService;
+import com.famaridon.redminengapi.services.redmine.rest.client.module.RedmineClientModule;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.configuration2.Configuration;
 import org.apache.commons.configuration2.JSONConfiguration;
@@ -41,6 +42,7 @@ public class DefaultConfigurationService implements ConfigurationService {
 		}
 		
 		this.objectMapper = new ObjectMapper();
+		this.objectMapper.registerModule(new RedmineClientModule());
 	}
 	
 	protected URL getConfigurationFile() {

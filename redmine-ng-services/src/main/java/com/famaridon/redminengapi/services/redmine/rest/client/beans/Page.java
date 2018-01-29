@@ -59,6 +59,10 @@ public class Page<T> {
 	public void setMemberships(List<T> memberships) {
 		this.elements = memberships;
 	}
-
+	
+	@JsonProperty("issues")
+	public void setIssues(List<T> issues) {
+		this.elements = issues;
+	}
 	
 }

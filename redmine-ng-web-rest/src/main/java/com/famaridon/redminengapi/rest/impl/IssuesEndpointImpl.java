@@ -6,7 +6,9 @@ import com.famaridon.redminengapi.rest.dto.IssueDto;
 import com.famaridon.redminengapi.rest.dto.PageDto;
 import com.famaridon.redminengapi.rest.mapper.DtoMapper;
 import com.famaridon.redminengapi.services.redmine.IssueService;
-import org.apache.commons.lang3.NotImplementedException;
+import com.famaridon.redminengapi.services.redmine.Pager;
+import com.famaridon.redminengapi.services.redmine.rest.client.beans.Issue;
+import com.famaridon.redminengapi.services.redmine.rest.client.beans.Page;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -23,22 +25,28 @@ public class IssuesEndpointImpl extends AbstractRedmineEndpoint implements Issue
 	private DtoMapper mapper;
 	
 	@Override
-	public PageDto<IssueDto> findAll(String apiKey) throws IOException {
-		throw new NotImplementedException("");
+	public IssueDto findById(String apiKey, Long id) throws IOException {
+		return this.mapper.issueToIssueDto(this.issueService.findById(apiKey, id));
 	}
 	
 	@Override
-	public IssueDto findById(String apiKey, Long id) throws IOException {
-		throw new NotImplementedException("");
+	public PageDto<IssueDto> findAll(String apiKey, Long offset, Long limit) throws IOException {
+		Page<Issue> page = this.issueService.findAll(apiKey, new Pager(offset, limit));
+		PageDto<IssueDto> pageDto = this.mapper.pageToPageDto(page);
+		pageDto.setElements(this.mapper.issuesToIssueDtos(page.getElements()));
+		return pageDto;
 	}
 	
 	@Override
 	public PageDto<IssueDto> findByQuery(String apiKey, Long query, Long offset, Long limit) throws IOException {
-		throw new NotImplementedException("");
+		return this.findByQueryAndProject(apiKey,query, null,offset,limit);
 	}
 	
 	@Override
 	public PageDto<IssueDto> findByQueryAndProject(String apiKey, Long query, Long project, Long offset, Long limit) throws IOException {
-		throw new NotImplementedException("");
+		Page<Issue> page = this.issueService.findByQueryAndProject(apiKey, query, project, new Pager(offset, limit));
+		PageDto<IssueDto> pageDto = this.mapper.pageToPageDto(page);
+		pageDto.setElements(this.mapper.issuesToIssueDtos(page.getElements()));
+		return pageDto;
 	}
 }
