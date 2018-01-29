@@ -21,11 +21,18 @@ public class CustomFieldDeserializer extends JsonDeserializer<CustomField> {
 		JsonNode isMultiple = node.get("multiple");
 		CustomField customField;
 		if(isMultiple != null && isMultiple.asBoolean()) {
-			customField = new ArrayCustomField();
+			ArrayCustomField arrayCf = new ArrayCustomField();
+			customField = arrayCf;
+			JsonNode array = node.get("value");
+			for (int i = 0; i < array.size(); i++) {
+				arrayCf.getValue().add(array.get(i).asText());
+			}
 		} else {
-			customField= new StringCustomField();
+			StringCustomField stringCf= new StringCustomField();
+			customField = stringCf;
+			stringCf.setValue(node.get("value").asText());
 		}
-		customField.setId(node.get("id").longValue());
+		customField.setId(node.get("id").asLong());
 		customField.setName(node.get("name").asText());
 		return customField;
 	}

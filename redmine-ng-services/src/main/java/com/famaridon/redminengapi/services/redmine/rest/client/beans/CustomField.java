@@ -2,8 +2,8 @@ package com.famaridon.redminengapi.services.redmine.rest.client.beans;
 
 public abstract class CustomField<T> extends AbstractRedmineBean {
 	
-	private T value;
-	private boolean multiple;
+	protected T value;
+	protected boolean multiple;
 	
 	public T getValue() {
 		return this.value;
