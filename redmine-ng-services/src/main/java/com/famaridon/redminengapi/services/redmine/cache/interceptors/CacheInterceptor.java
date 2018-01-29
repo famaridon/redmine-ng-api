@@ -24,7 +24,6 @@ public class CacheInterceptor {
 	
 	@AroundInvoke
 	public Object manageCache(InvocationContext ctx) throws Exception {
-		LOG.info("start {}", ctx.getMethod());
 		CacheName cacheName = ctx.getMethod().getAnnotation(CacheName.class);
 		Cache<String, Object> cache = this.configurationService.getCache(cacheName.value());
 		

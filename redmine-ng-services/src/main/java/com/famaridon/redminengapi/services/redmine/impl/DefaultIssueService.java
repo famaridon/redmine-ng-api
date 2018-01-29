@@ -3,6 +3,7 @@ package com.famaridon.redminengapi.services.redmine.impl;
 import com.famaridon.redminengapi.services.ConfigurationService;
 import com.famaridon.redminengapi.services.redmine.IssueService;
 import com.famaridon.redminengapi.services.redmine.Pager;
+import com.famaridon.redminengapi.services.redmine.QueryService;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Issue;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Page;
 import com.famaridon.redminengapi.services.redmine.rest.client.handler.HolderResponseHandler;
@@ -11,6 +12,7 @@ import org.apache.http.client.fluent.Request;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import java.io.IOException;
 
@@ -18,6 +20,9 @@ import java.io.IOException;
 public class DefaultIssueService extends AbstractRedmineService<Issue> implements IssueService {
 	
 	private static final Logger LOG = LoggerFactory.getLogger(DefaultIssueService.class);
+	
+	@EJB
+	private QueryService queryService;
 	
 	public DefaultIssueService() {
 	}
@@ -45,17 +50,17 @@ public class DefaultIssueService extends AbstractRedmineService<Issue> implement
 	}
 	
 	@Override
-	public Page<Issue> findByQuery(String apiAccessKey, Long query, Pager pager) throws IOException {
-		return this.findByQueryAndProject(apiAccessKey, query, null, pager);
+	public Page<Issue> findByQuery(String apiAccessKey, Long queryid, Pager pager) throws IOException {
+		return this.findByQueryAndProject(apiAccessKey, queryid, null, pager);
 	}
 	
 	@Override
 	public Page<Issue> findByQueryAndProject(String apiAccessKey, Long query, Long project, Pager pager) throws IOException {
 		String path;
-		if (project != null) {
-			path = this.configurationService.buildUrl("/issues.json?query_id=%s?%s", query, pager);
+		if (project == null) {
+			path = this.configurationService.buildUrl("/issues.json?query_id=%s&%s", query, pager);
 		} else {
-			path = this.configurationService.buildUrl("/issues.json?query_id=%s&project_id=%s?%s", query, project, pager);
+			path = this.configurationService.buildUrl("/issues.json?query_id=%s&project_id=%s&%s", query, project, pager);
 		}
 		Page<Issue> p = Request.Get(path)
 			.addHeader(X_REDMINE_API_KEY, apiAccessKey)

@@ -37,7 +37,7 @@ public interface IssuesEndpoint {
 		@QueryParam(PagerParam.LIMIT) @DefaultValue("25") Long limit) throws IOException;
 	
 	@GET
-	@Path("/query/{query}/project/{project}")
+	@Path("/project/{project}/query/{query}")
 	public PageDto<IssueDto> findByQueryAndProject(@HeaderParam(SecurityHeaders.X_REDMINE_API_KEY) String apiKey,
 		@PathParam("query") Long query,
 		@PathParam("project") Long project,

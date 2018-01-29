@@ -24,4 +24,9 @@ public class Holder<T> {
 		this.element = user;
 	}
 	
+	@JsonProperty("issue")
+	public void setIssue(T issue) {
+		this.element = issue;
+	}
+	
 }

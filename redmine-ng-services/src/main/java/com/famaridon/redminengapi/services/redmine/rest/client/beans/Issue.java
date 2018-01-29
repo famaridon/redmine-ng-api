@@ -23,6 +23,10 @@ public class Issue extends AbstractRedmineBean {
 	private String description;
 	@JsonProperty("estimated_hours")
 	private Integer estimatedHours;
+	@JsonProperty("spent_hours")
+	private Integer spentHours;
+	@JsonProperty("total_spent_hours")
+	private Integer totalSpentHours;
 	@JsonProperty("start_date")
 	private Date startDate;
 	@JsonProperty("due_date")
@@ -35,6 +39,8 @@ public class Issue extends AbstractRedmineBean {
 	private Date createdOn;
 	@JsonProperty("updated_on")
 	private Date updatedOn;
+	@JsonProperty("closed_on")
+	private Date closedOn;
 	
 	public Project getProject() {
 		return this.project;
@@ -178,5 +184,29 @@ public class Issue extends AbstractRedmineBean {
 	
 	public void setEstimatedHours(Integer estimatedHours) {
 		this.estimatedHours = estimatedHours;
+	}
+	
+	public Integer getSpentHours() {
+		return this.spentHours;
+	}
+	
+	public void setSpentHours(Integer spentHours) {
+		this.spentHours = spentHours;
+	}
+	
+	public Integer getTotalSpentHours() {
+		return this.totalSpentHours;
+	}
+	
+	public void setTotalSpentHours(Integer totalSpentHours) {
+		this.totalSpentHours = totalSpentHours;
+	}
+	
+	public Date getClosedOn() {
+		return this.closedOn;
+	}
+	
+	public void setClosedOn(Date closedOn) {
+		this.closedOn = closedOn;
 	}
 }
