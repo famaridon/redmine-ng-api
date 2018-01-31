@@ -1,8 +1,7 @@
 package com.famaridon.redminengapi.domain.repositories;
 
-import javax.enterprise.context.ApplicationScoped;
+import com.famaridon.redminengapi.domain.entities.TrackerEntity;
 
-@ApplicationScoped
-public class TrackerRepository {
-	
+public interface TrackerRepository extends Repository<TrackerEntity> {
+
 }

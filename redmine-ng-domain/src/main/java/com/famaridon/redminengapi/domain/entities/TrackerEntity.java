@@ -15,8 +15,12 @@ public class TrackerEntity extends AbstractEntity {
 		return this.statusList;
 	}
 	
-	public TrackerEntity setStatusList(List<StatusEntity> statusList) {
+	/**
+	 * set {@link TrackerEntity#statusList} property
+	 *
+	 * @param statusList set the statusList property
+	 **/
+	public void setStatusList(List<StatusEntity> statusList) {
 		this.statusList = statusList;
-		return this;
 	}
 }

@@ -1,8 +1,7 @@
 package com.famaridon.redminengapi.domain.repositories;
 
-import javax.enterprise.context.ApplicationScoped;
+import com.famaridon.redminengapi.domain.entities.StatusEntity;
 
-@ApplicationScoped
-public class StatusRepository {
-	
+public interface StatusRepository extends Repository<StatusEntity> {
+
 }
