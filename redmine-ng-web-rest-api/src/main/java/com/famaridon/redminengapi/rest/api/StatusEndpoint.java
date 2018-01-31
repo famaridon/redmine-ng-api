@@ -11,7 +11,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
@@ -21,16 +20,14 @@ import java.util.concurrent.TimeUnit;
 public interface StatusEndpoint {
 	
 	@GET
-	@CacheControl(maxAge = 1, maxAgeUnit = TimeUnit.HOURS)
-	public Response findAll(@HeaderParam(SecurityHeaders.X_REDMINE_API_KEY) String apiKey) throws IOException;
-	
-	@GET
 	@Path("/tracker/{tracker}/available")
+	@CacheControl(maxAge = 1, maxAgeUnit = TimeUnit.DAYS)
 	public PageDto<StatusDto> findAvailableByTracker(@HeaderParam(SecurityHeaders.X_REDMINE_API_KEY) String apiKey,
 		@PathParam("tracker") Long trackerId) throws IOException;
 	
 	@GET
 	@Path("/tracker/{tracker}/status/{status}/available")
+	@CacheControl(maxAge = 1, maxAgeUnit = TimeUnit.DAYS)
 	public PageDto<StatusDto> findAvailableByTrackerAndStatus(@HeaderParam(SecurityHeaders.X_REDMINE_API_KEY) String apiKey,
 		@PathParam("tracker") Long trackerId,
 		@PathParam("status") Long status) throws IOException;

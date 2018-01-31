@@ -11,7 +11,6 @@ import com.famaridon.redminengapi.services.redmine.rest.client.beans.Status;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.util.List;
 
@@ -23,11 +22,6 @@ public class StatusEndpointImpl extends AbstractRedmineEndpoint implements Statu
 	
 	@Inject
 	private DtoMapper mapper;
-	
-	@Override
-	public Response findAll(String apiKey) throws IOException {
-		return Response.ok(StatusEndpointImpl.class.getResourceAsStream("/status/status.json")).build();
-	}
 	
 	@Override
 	public PageDto<StatusDto> findAvailableByTracker(String apiKey, Long trackerId) throws IOException {
