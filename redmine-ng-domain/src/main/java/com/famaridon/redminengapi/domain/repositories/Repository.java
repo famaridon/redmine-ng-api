@@ -4,6 +4,8 @@ import com.famaridon.redminengapi.domain.entities.AbstractEntity;
 
 public interface Repository<T extends AbstractEntity> {
 	
+	public T save(T entity);
 	public T findById(Long id);
+	public Iterable<T> findAll();
 	
 }

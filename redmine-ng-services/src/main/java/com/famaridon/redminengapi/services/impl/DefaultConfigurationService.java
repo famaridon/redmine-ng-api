@@ -12,6 +12,8 @@ import org.infinispan.configuration.cache.ConfigurationBuilder;
 import org.infinispan.eviction.EvictionStrategy;
 import org.infinispan.eviction.EvictionType;
 import org.infinispan.manager.EmbeddedCacheManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -21,6 +23,7 @@ import java.util.List;
 
 @Singleton
 public class DefaultConfigurationService implements ConfigurationService {
+	private static final Logger LOG = LoggerFactory.getLogger(DefaultConfigurationService.class);
 	
 	@Resource(lookup = "java:jboss/infinispan/container/redmine-ng-api")
 	private EmbeddedCacheManager cacheContainer;
@@ -34,13 +37,16 @@ public class DefaultConfigurationService implements ConfigurationService {
 	}
 	
 	protected final void init() {
+		LOG.info("Init configuration.");
 		Configurations configs = new Configurations();
 		try {
+			LOG.info("Read configuration files.");
 			this.configuration = configs.fileBased(JSONConfiguration.class,getConfigurationFile());
 		} catch (ConfigurationException e) {
 			throw new IllegalArgumentException("Can't read configuration!");
 		}
 		
+		LOG.info("Setup client ObjectMapper.");
 		this.objectMapper = new ObjectMapper();
 		this.objectMapper.registerModule(new RedmineClientModule());
 	}

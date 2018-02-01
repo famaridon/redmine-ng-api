@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class TrackerEntity extends AbstractEntity {
+public class TrackerEntity extends AbstractExternalEntity {
 
 	@ManyToMany
 	private List<StatusEntity> statusList = new ArrayList<>();
