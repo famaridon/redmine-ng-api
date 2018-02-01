@@ -1,5 +1,7 @@
 package com.famaridon.redminengapi.domain.entities;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -10,8 +12,8 @@ public abstract class AbstractEntity {
 	
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Id
-	private Long id;
-	private String name;
+	protected Long id;
+	protected String name;
 	
 	public Long getId() {
 		return this.id;
@@ -29,5 +31,10 @@ public abstract class AbstractEntity {
 	public AbstractEntity setName(String name) {
 		this.name = name;
 		return this;
+	}
+	
+	@Override
+	public String toString() {
+		return new ToStringBuilder(this).append("id", id).append("name", name).toString();
 	}
 }

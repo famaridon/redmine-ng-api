@@ -6,7 +6,7 @@ import com.famaridon.redminengapi.domain.repositories.StatusRepository;
 import javax.ejb.Stateful;
 
 @Stateful
-public class DefaultStatusRepository extends AbstractRepository<StatusEntity> implements StatusRepository {
+public class DefaultStatusRepository extends AbstractExternalEntityRepository<StatusEntity> implements StatusRepository {
 	
 	@Override
 	protected Class<StatusEntity> getClazz() {

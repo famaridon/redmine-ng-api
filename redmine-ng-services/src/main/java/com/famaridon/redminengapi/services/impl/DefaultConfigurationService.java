@@ -7,6 +7,8 @@ import org.apache.commons.configuration2.Configuration;
 import org.apache.commons.configuration2.JSONConfiguration;
 import org.apache.commons.configuration2.builder.fluent.Configurations;
 import org.apache.commons.configuration2.ex.ConfigurationException;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.infinispan.Cache;
 import org.infinispan.configuration.cache.ConfigurationBuilder;
 import org.infinispan.eviction.EvictionStrategy;
@@ -18,9 +20,11 @@ import org.slf4j.LoggerFactory;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.ejb.Singleton;
+import javax.ejb.Startup;
 import java.net.URL;
 import java.util.List;
 
+@Startup
 @Singleton
 public class DefaultConfigurationService implements ConfigurationService {
 	private static final Logger LOG = LoggerFactory.getLogger(DefaultConfigurationService.class);
@@ -37,6 +41,7 @@ public class DefaultConfigurationService implements ConfigurationService {
 	}
 	
 	protected final void init() {
+		ToStringBuilder.setDefaultStyle(ToStringStyle.SHORT_PREFIX_STYLE);
 		LOG.info("Init configuration.");
 		Configurations configs = new Configurations();
 		try {
