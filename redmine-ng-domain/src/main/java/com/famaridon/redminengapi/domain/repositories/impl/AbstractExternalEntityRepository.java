@@ -11,12 +11,13 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 public abstract class AbstractExternalEntityRepository<T extends AbstractExternalEntity> extends AbstractRepository<T> implements Repository<T>, ExternalEntityRepository<T> {
 
 	@Override
 	@Transactional
-	public T findByExternalId(Long externalId) {
+	public Optional<T> findByExternalId(Long externalId) {
 		CriteriaBuilder cb = this.em.getCriteriaBuilder();
 		CriteriaQuery<T> q = cb.createQuery(this.getClazz());
 		Root<T> c = q.from(this.getClazz());
@@ -31,7 +32,7 @@ public abstract class AbstractExternalEntityRepository<T extends AbstractExterna
 			// nothing to do
 		}
 		
-		return result;
+		return Optional.ofNullable(result);
 		
 	}
 	

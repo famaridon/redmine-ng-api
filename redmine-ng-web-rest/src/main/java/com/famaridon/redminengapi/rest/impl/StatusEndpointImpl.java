@@ -12,7 +12,8 @@ import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import java.io.IOException;
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Set;
 
 @RequestScoped
 public class StatusEndpointImpl extends AbstractRedmineEndpoint implements StatusEndpoint {
@@ -32,13 +33,13 @@ public class StatusEndpointImpl extends AbstractRedmineEndpoint implements Statu
 	public PageDto<StatusDto> findAvailableByTrackerAndStatus(String apiKey, Long trackerId, Long status) throws IOException {
 		PageDto<StatusDto> pageDto = new PageDto<>();
 		
-		List<Status> statusList = this.statusService.findAvailbaleByTrackerAndStatus(apiKey,trackerId,status);
+		Set<Status> statusSet = this.statusService.findAvailbaleByTrackerAndStatus(apiKey,trackerId,status);
 		
-		pageDto.setLimit(statusList.size());
+		pageDto.setLimit(statusSet.size());
 		pageDto.setOffset(0);
-		pageDto.setTotalCount(statusList.size());
+		pageDto.setTotalCount(statusSet.size());
 		
-		pageDto.setElements(this.mapper.statusesToStatusDtos(statusList));
+		pageDto.setElements(this.mapper.statusesToStatusDtos(new ArrayList<>(statusSet)));
 		
 		return pageDto;
 	}

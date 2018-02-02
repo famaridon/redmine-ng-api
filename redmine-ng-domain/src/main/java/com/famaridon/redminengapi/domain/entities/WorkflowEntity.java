@@ -5,8 +5,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @NamedQueries({
 	@NamedQuery(name="WorkflowEntity.findByTrackerAndStatus", query = "select w from WorkflowEntity w where w.tracker = :tracker and w.status = :status"),
@@ -16,7 +16,7 @@ import java.util.List;
 public class WorkflowEntity extends AbstractEntity {
 
 	@ManyToMany
-	private List<StatusEntity> availableStatusList = new ArrayList<>();
+	private Set<StatusEntity> availableStatusList = new HashSet<>();
 	
 	@ManyToOne(optional = false)
 	private TrackerEntity tracker;
@@ -24,7 +24,7 @@ public class WorkflowEntity extends AbstractEntity {
 	@ManyToOne
 	private StatusEntity status;
 	
-	public List<StatusEntity> getAvailableStatusList() {
+	public Set<StatusEntity> getAvailableStatusList() {
 		return this.availableStatusList;
 	}
 	
@@ -33,7 +33,7 @@ public class WorkflowEntity extends AbstractEntity {
 	 *
 	 * @param availableStatusList set the availableStatusList property
 	 **/
-	public void setAvailableStatusList(List<StatusEntity> availableStatusList) {
+	public void setAvailableStatusList(Set<StatusEntity> availableStatusList) {
 		this.availableStatusList = availableStatusList;
 	}
 	

@@ -2,25 +2,25 @@ package com.famaridon.redminengapi.domain.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class TrackerEntity extends AbstractExternalEntity {
 
 	@ManyToMany
-	private List<StatusEntity> statusList = new ArrayList<>();
+	private Set<StatusEntity> statusSet = new HashSet<>();
 	
-	public List<StatusEntity> getStatusList() {
-		return this.statusList;
+	public Set<StatusEntity> getStatusSet() {
+		return this.statusSet;
 	}
 	
 	/**
-	 * set {@link TrackerEntity#statusList} property
+	 * set {@link TrackerEntity#statusSet} property
 	 *
-	 * @param statusList set the statusList property
+	 * @param statusSet set the statusSet property
 	 **/
-	public void setStatusList(List<StatusEntity> statusList) {
-		this.statusList = statusList;
+	public void setStatusSet(Set<StatusEntity> statusSet) {
+		this.statusSet = statusSet;
 	}
 }

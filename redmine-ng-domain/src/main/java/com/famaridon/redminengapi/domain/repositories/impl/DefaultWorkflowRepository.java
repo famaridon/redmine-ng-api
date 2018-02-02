@@ -6,22 +6,37 @@ import com.famaridon.redminengapi.domain.entities.WorkflowEntity;
 import com.famaridon.redminengapi.domain.repositories.WorkflowRepository;
 
 import javax.ejb.Stateful;
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
+import java.util.Optional;
 
 @Stateful
 public class DefaultWorkflowRepository extends AbstractRepository<WorkflowEntity> implements WorkflowRepository {
 	
-	public WorkflowEntity findByTrackerIdAndStatusId(Long trackerId,  Long statusId){
+	public Optional<WorkflowEntity> findByTrackerIdAndStatusId(Long trackerId,  Long statusId){
 		TypedQuery<WorkflowEntity> query = em.createNamedQuery("WorkflowEntity.findByTrackerIdAndStatusId", WorkflowEntity.class);
 		query.setParameter("tracker", trackerId);
 		query.setParameter("status", statusId);
-		return query.getSingleResult();
+		WorkflowEntity result = null;
+		try{
+			result = query.getSingleResult();
+		} catch (NoResultException e){
+			// nothing to do;
+		}
+		return Optional.ofNullable(result);
 	}
-	public WorkflowEntity findByTrackerAndStatus(TrackerEntity tracker,  StatusEntity status){
+	
+	public Optional<WorkflowEntity> findByTrackerAndStatus(TrackerEntity tracker,  StatusEntity status){
 		TypedQuery<WorkflowEntity> query = em.createNamedQuery("WorkflowEntity.findByTrackerAndStatus", WorkflowEntity.class);
 		query.setParameter("tracker", tracker);
 		query.setParameter("status", status);
-		return query.getSingleResult();
+		WorkflowEntity result = null;
+		try{
+			result = query.getSingleResult();
+		} catch (NoResultException e){
+			// nothing to do;
+		}
+		return Optional.ofNullable(result);
 	}
 	
 	@Override

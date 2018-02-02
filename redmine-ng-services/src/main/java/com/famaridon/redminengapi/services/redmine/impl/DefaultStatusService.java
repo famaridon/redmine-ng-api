@@ -1,6 +1,6 @@
 package com.famaridon.redminengapi.services.redmine.impl;
 
-import com.famaridon.redminengapi.domain.entities.WorkflowEntity;
+import com.famaridon.redminengapi.domain.entities.StatusEntity;
 import com.famaridon.redminengapi.domain.repositories.WorkflowRepository;
 import com.famaridon.redminengapi.services.ConfigurationService;
 import com.famaridon.redminengapi.services.redmine.StatusService;
@@ -13,7 +13,8 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import java.io.IOException;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Stateless
 public class DefaultStatusService extends AbstractRedmineService<Status> implements StatusService {
@@ -30,18 +31,24 @@ public class DefaultStatusService extends AbstractRedmineService<Status> impleme
 	}
 	
 	public DefaultStatusService(ConfigurationService configurationService) {
-	this.configurationService = configurationService;
+		this.configurationService = configurationService;
 	}
 	
 	@Override
-	public List<Status> findAvailbaleByTracker(String apiKey, Long tracker) throws IOException {
-		WorkflowEntity workflowEntity = workflowRepository.findByTrackerIdAndStatusId(tracker, null);
-		return this.entityMapper.statusEntitiesToStatus(workflowEntity.getAvailableStatusList());
+	public Set<Status> findAvailbaleByTracker(String apiKey, Long tracker) throws IOException {
+		Set<StatusEntity> result = new HashSet<>();
+		workflowRepository.findByTrackerIdAndStatusId(tracker, null).ifPresent(workflowEntity -> {
+			result.addAll(workflowEntity.getAvailableStatusList());
+		});
+		return this.entityMapper.statusEntitiesToStatus(result);
 	}
 	
 	@Override
-	public List<Status> findAvailbaleByTrackerAndStatus(String apiKey, Long tracker, Long status) throws IOException {
-		WorkflowEntity workflowEntity = workflowRepository.findByTrackerIdAndStatusId(tracker, status);
-		return this.entityMapper.statusEntitiesToStatus(workflowEntity.getAvailableStatusList());
+	public Set<Status> findAvailbaleByTrackerAndStatus(String apiKey, Long tracker, Long status) throws IOException {
+		Set<StatusEntity> result = new HashSet<>();
+		workflowRepository.findByTrackerIdAndStatusId(tracker, status).ifPresent(workflowEntity -> {
+			result.addAll(workflowEntity.getAvailableStatusList());
+		});
+		return this.entityMapper.statusEntitiesToStatus(result);
 	}
 }
