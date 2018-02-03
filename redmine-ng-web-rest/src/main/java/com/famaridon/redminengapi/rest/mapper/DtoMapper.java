@@ -4,6 +4,7 @@ import com.famaridon.redminengapi.rest.dto.CategoryDto;
 import com.famaridon.redminengapi.rest.dto.IssueDto;
 import com.famaridon.redminengapi.rest.dto.MembershipDto;
 import com.famaridon.redminengapi.rest.dto.PageDto;
+import com.famaridon.redminengapi.rest.dto.PriorityDto;
 import com.famaridon.redminengapi.rest.dto.ProjectDto;
 import com.famaridon.redminengapi.rest.dto.QueryDto;
 import com.famaridon.redminengapi.rest.dto.StatusDto;
@@ -13,6 +14,7 @@ import com.famaridon.redminengapi.services.redmine.rest.client.beans.Category;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Issue;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Membership;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Page;
+import com.famaridon.redminengapi.services.redmine.rest.client.beans.Priority;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Project;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Query;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Status;
@@ -47,16 +49,18 @@ public interface DtoMapper {
 	
 	StatusDto statusToStatusDto(Status status);
 	
-	List<UserDto> userssToUsersDtos(List<User> project);
+	List<UserDto> userssToUsersDtos(Iterable<User> project);
 	
-	List<ProjectDto> projectsToProjectDtos(List<Project> project);
+	List<ProjectDto> projectsToProjectDtos(Iterable<Project> project);
 	
-	List<MembershipDto> membershipsToMembershipDtos(List<Membership> memberships);
+	List<MembershipDto> membershipsToMembershipDtos(Iterable<Membership> memberships);
 	
-	List<QueryDto> queriesToQueryDtos(List<Query> queries);
+	List<QueryDto> queriesToQueryDtos(Iterable<Query> queries);
 	
-	List<IssueDto> issuesToIssueDtos(List<Issue> issues);
+	List<IssueDto> issuesToIssueDtos(Iterable<Issue> issues);
 	
-	List<StatusDto> statusesToStatusDtos(List<Status> statuses);
+	List<StatusDto> statusesToStatusDtos(Iterable<Status> statuses);
+	
+	List<PriorityDto> prioritiesToPriorityDtos(Iterable<Priority> priorities);
 	
 }
