@@ -1,8 +1,10 @@
 package com.famaridon.redminengapi.services.impl;
 
+import com.famaridon.redminengapi.domain.entities.PriorityEntity;
 import com.famaridon.redminengapi.domain.entities.StatusEntity;
 import com.famaridon.redminengapi.domain.entities.TrackerEntity;
 import com.famaridon.redminengapi.domain.entities.WorkflowEntity;
+import com.famaridon.redminengapi.domain.repositories.PriorityRepository;
 import com.famaridon.redminengapi.domain.repositories.StatusRepository;
 import com.famaridon.redminengapi.domain.repositories.TrackerRepository;
 import com.famaridon.redminengapi.domain.repositories.WorkflowRepository;
@@ -45,6 +47,9 @@ public class DefaultDataLoaderService {
 	@EJB
 	private WorkflowRepository workflowRepository;
 	
+	@EJB
+	private PriorityRepository priorityRepository;
+	
 	@PostConstruct
 	@Transactional(Transactional.TxType.REQUIRED)
 	protected void startup() {
@@ -52,10 +57,26 @@ public class DefaultDataLoaderService {
 			this.loadStatus();
 			this.loadTrakers();
 			this.loadWorkflows();
+			this.loadPriorities();
 		} catch (IOException e) {
 			throw new IllegalStateException("", e);
 		}
 		
+	}
+	
+	private void loadPriorities() throws IOException {
+		CSVParser csvParser = CSVParser.parse(DefaultDataLoaderService.class.getResource("/default/priorities.csv"), CHARSET, CSV_FORMAT);
+		for (CSVRecord record : csvParser) {
+			this.addPriority(Long.parseLong(record.get("externalId")), record.get("name"));
+		}
+	}
+	
+	private void addPriority(long externalId, String name) {
+		Optional<PriorityEntity> exist = this.priorityRepository.findByExternalId(externalId);
+		PriorityEntity entity = exist.orElseGet(PriorityEntity::new);
+		entity.setExternalId(externalId);
+		entity.setName(name);
+		this.priorityRepository.save(entity);
 	}
 	
 	private void loadWorkflows() throws IOException {

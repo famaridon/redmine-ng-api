@@ -29,9 +29,9 @@ public abstract class AbstractRepository<T extends AbstractEntity> implements Re
 		}
 		T result = this.em.merge(entity);
 		if (isCreation) {
-			LOG.info("Create entity : {} ", entity);
+			LOG.info("Create entity : {} ", result);
 		} else {
-			LOG.info("Update entity : {} ", entity);
+			LOG.info("Update entity : {} ", result);
 		}
 		return result;
 	}
