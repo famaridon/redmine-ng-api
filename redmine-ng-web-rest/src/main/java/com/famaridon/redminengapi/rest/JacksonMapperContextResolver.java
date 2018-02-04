@@ -16,6 +16,7 @@ public class JacksonMapperContextResolver implements ContextResolver<ObjectMappe
 		this.mapper = new ObjectMapper();
 		this.mapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
 		this.mapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
+		this.mapper.enable(SerializationFeature.INDENT_OUTPUT);
 	}
 	
 	@Override
