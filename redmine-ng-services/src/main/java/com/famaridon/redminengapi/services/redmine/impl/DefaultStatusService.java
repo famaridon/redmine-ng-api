@@ -1,6 +1,10 @@
 package com.famaridon.redminengapi.services.redmine.impl;
 
 import com.famaridon.redminengapi.domain.entities.StatusEntity;
+import com.famaridon.redminengapi.domain.entities.TrackerEntity;
+import com.famaridon.redminengapi.domain.entities.WorkflowEntity;
+import com.famaridon.redminengapi.domain.repositories.StatusRepository;
+import com.famaridon.redminengapi.domain.repositories.TrackerRepository;
 import com.famaridon.redminengapi.domain.repositories.WorkflowRepository;
 import com.famaridon.redminengapi.services.ConfigurationService;
 import com.famaridon.redminengapi.services.redmine.StatusService;
@@ -14,12 +18,19 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Stateless
 public class DefaultStatusService extends AbstractRedmineService<Status> implements StatusService {
 	
 	private static final Logger LOG = LoggerFactory.getLogger(DefaultStatusService.class);
+	
+	@EJB
+	private TrackerRepository trackerRepository;
+	
+	@EJB
+	private StatusRepository statusRepository;
 	
 	@EJB
 	private WorkflowRepository workflowRepository;
@@ -35,9 +46,12 @@ public class DefaultStatusService extends AbstractRedmineService<Status> impleme
 	}
 	
 	@Override
-	public Set<Status> findAvailbaleByTracker(String apiKey, Long tracker) throws IOException {
+	public Set<Status> findAvailbaleByTrackerForNew(String apiKey, Long tracker) throws IOException {
+		Optional<TrackerEntity> trackerEntity = this.trackerRepository.findByExternalId(tracker);
+		trackerEntity.orElseThrow(RuntimeException::new);
+		
 		Set<StatusEntity> result = new HashSet<>();
-		workflowRepository.findByTrackerIdAndStatusId(tracker, null).ifPresent(workflowEntity -> {
+		this.workflowRepository.findByTrackerAndStatus(trackerEntity.get(), Optional.empty()).ifPresent(workflowEntity -> {
 			result.addAll(workflowEntity.getAvailableStatusList());
 		});
 		return this.entityMapper.statusEntitiesToStatus(result);
@@ -45,9 +59,16 @@ public class DefaultStatusService extends AbstractRedmineService<Status> impleme
 	
 	@Override
 	public Set<Status> findAvailbaleByTrackerAndStatus(String apiKey, Long tracker, Long status) throws IOException {
+		Optional<TrackerEntity> trackerEntity = this.trackerRepository.findByExternalId(tracker);
+		trackerEntity.orElseThrow(RuntimeException::new);
+		
+		Optional<StatusEntity> statusEntity = this.statusRepository.findByExternalId(status);
+		statusEntity.orElseThrow(RuntimeException::new);
+		
 		Set<StatusEntity> result = new HashSet<>();
-		workflowRepository.findByTrackerIdAndStatusId(tracker, status).ifPresent(workflowEntity -> {
-			result.addAll(workflowEntity.getAvailableStatusList());
+		Optional<WorkflowEntity> workflowEntity = this.workflowRepository.findByTrackerAndStatus(trackerEntity.get(), statusEntity);
+		workflowEntity.ifPresent(we -> {
+			result.addAll(we.getAvailableStatusList());
 		});
 		return this.entityMapper.statusEntitiesToStatus(result);
 	}

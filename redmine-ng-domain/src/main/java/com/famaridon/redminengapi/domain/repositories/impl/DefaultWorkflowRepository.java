@@ -13,10 +13,18 @@ import java.util.Optional;
 @Stateful
 public class DefaultWorkflowRepository extends AbstractRepository<WorkflowEntity> implements WorkflowRepository {
 	
-	public Optional<WorkflowEntity> findByTrackerIdAndStatusId(Long trackerId,  Long statusId){
-		TypedQuery<WorkflowEntity> query = em.createNamedQuery("WorkflowEntity.findByTrackerIdAndStatusId", WorkflowEntity.class);
-		query.setParameter("tracker", trackerId);
-		query.setParameter("status", statusId);
+	public Optional<WorkflowEntity> findByTrackerAndStatus(TrackerEntity tracker,  Optional<StatusEntity> status){
+		if(status.isPresent()){
+		return this.findByTrackerAndStatus(tracker, status.get());
+		} else {
+		return this.findByTrackerForNew(tracker);
+		}
+	}
+	
+	private Optional<WorkflowEntity> findByTrackerAndStatus(TrackerEntity tracker,  StatusEntity status){
+		TypedQuery<WorkflowEntity> query = em.createNamedQuery("WorkflowEntity.findByTrackerAndStatus", WorkflowEntity.class);
+		query.setParameter("tracker", tracker);
+		query.setParameter("status", status);
 		WorkflowEntity result = null;
 		try{
 			result = query.getSingleResult();
@@ -26,10 +34,9 @@ public class DefaultWorkflowRepository extends AbstractRepository<WorkflowEntity
 		return Optional.ofNullable(result);
 	}
 	
-	public Optional<WorkflowEntity> findByTrackerAndStatus(TrackerEntity tracker,  StatusEntity status){
-		TypedQuery<WorkflowEntity> query = em.createNamedQuery("WorkflowEntity.findByTrackerAndStatus", WorkflowEntity.class);
+	private Optional<WorkflowEntity> findByTrackerForNew(TrackerEntity tracker){
+		TypedQuery<WorkflowEntity> query = em.createNamedQuery("WorkflowEntity.findByTrackerForNew", WorkflowEntity.class);
 		query.setParameter("tracker", tracker);
-		query.setParameter("status", status);
 		WorkflowEntity result = null;
 		try{
 			result = query.getSingleResult();

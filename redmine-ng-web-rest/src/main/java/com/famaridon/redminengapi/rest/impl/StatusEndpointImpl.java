@@ -12,7 +12,7 @@ import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Set;
 
 @RequestScoped
@@ -26,21 +26,22 @@ public class StatusEndpointImpl extends AbstractRedmineEndpoint implements Statu
 	
 	@Override
 	public PageDto<StatusDto> findAvailableByTracker(String apiKey, Long trackerId) throws IOException {
-		return this.findAvailableByTrackerAndStatus(apiKey, trackerId, null);
+		Set<Status> statusSet = this.statusService.findAvailbaleByTrackerForNew(apiKey,trackerId);
+		return this.mapToPage(statusSet);
 	}
 	
 	@Override
 	public PageDto<StatusDto> findAvailableByTrackerAndStatus(String apiKey, Long trackerId, Long status) throws IOException {
-		PageDto<StatusDto> pageDto = new PageDto<>();
-		
 		Set<Status> statusSet = this.statusService.findAvailbaleByTrackerAndStatus(apiKey,trackerId,status);
-		
-		pageDto.setLimit(statusSet.size());
+		return this.mapToPage(statusSet);
+	}
+	
+	private PageDto<StatusDto> mapToPage(Collection<Status> statuses){
+		PageDto<StatusDto> pageDto = new PageDto<>();
+		pageDto.setLimit(statuses.size());
 		pageDto.setOffset(0);
-		pageDto.setTotalCount(statusSet.size());
-		
-		pageDto.setElements(this.mapper.statusesToStatusDtos(new ArrayList<>(statusSet)));
-		
+		pageDto.setTotalCount(statuses.size());
+		pageDto.setElements(this.mapper.statusesToStatusDtos(statuses));
 		return pageDto;
 	}
 }

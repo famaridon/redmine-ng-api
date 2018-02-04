@@ -6,6 +6,6 @@ import java.io.IOException;
 import java.util.Set;
 
 public interface StatusService {
-	Set<Status> findAvailbaleByTracker(String apiKey, Long tracker) throws IOException;
+	Set<Status> findAvailbaleByTrackerForNew(String apiKey, Long tracker) throws IOException;
 	Set<Status> findAvailbaleByTrackerAndStatus(String apiKey, Long tracker, Long status) throws IOException;
 }

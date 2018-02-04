@@ -96,7 +96,7 @@ public class DefaultDataLoaderService {
 				}
 				
 				WorkflowEntity workflowEntity;
-				Optional<WorkflowEntity> exist = this.workflowRepository.findByTrackerAndStatus(trackerEntity, statusEntity);
+				Optional<WorkflowEntity> exist = this.workflowRepository.findByTrackerAndStatus(trackerEntity, Optional.ofNullable(statusEntity));
 				workflowEntity = exist.orElseGet(WorkflowEntity::new);
 				
 				workflowEntity.setName(statusEntity == null ? "Nouvelle demande" : statusEntity.getName());

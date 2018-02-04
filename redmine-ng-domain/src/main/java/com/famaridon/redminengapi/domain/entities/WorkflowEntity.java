@@ -9,8 +9,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 @NamedQueries({
-	@NamedQuery(name="WorkflowEntity.findByTrackerAndStatus", query = "select w from WorkflowEntity w where w.tracker = :tracker and w.status = :status"),
-	@NamedQuery(name="WorkflowEntity.findByTrackerIdAndStatusId", query = "select w from WorkflowEntity w where w.tracker.id = :tracker and ((:status is null and w.status is null) or w.status.id = :status )")
+	@NamedQuery(name="WorkflowEntity.findByTrackerForNew", query = "select w from WorkflowEntity w where w.tracker = :tracker and w.status is null"),
+	@NamedQuery(name="WorkflowEntity.findByTrackerAndStatus", query = "select w from WorkflowEntity w where w.tracker = :tracker and w.status = :status")
 })
 @Entity
 public class WorkflowEntity extends AbstractEntity {
