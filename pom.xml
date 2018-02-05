@@ -115,6 +115,26 @@
 				<version>4.12</version>
 				<scope>test</scope>
 			</dependency>
+			<dependency>
+				<groupId>org.jboss.arquillian</groupId>
+				<artifactId>arquillian-bom</artifactId>
+				<version>1.2.1.Final</version>
+				<scope>import</scope>
+				<type>pom</type>
+			</dependency>
+			<dependency>
+				<groupId>org.wildfly.arquillian</groupId>
+				<artifactId>wildfly-arquillian-container-managed</artifactId>
+				<version>2.1.0.Final</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.jboss.shrinkwrap.resolver</groupId>
+				<artifactId>shrinkwrap-resolver-bom</artifactId>
+				<version>3.1.2</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -170,6 +190,21 @@
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.jboss.arquillian.junit</groupId>
+			<artifactId>arquillian-junit-container</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.wildfly.arquillian</groupId>
+			<artifactId>wildfly-arquillian-container-managed</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.shrinkwrap.resolver</groupId>
+			<artifactId>shrinkwrap-resolver-impl-maven</artifactId>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -192,16 +227,9 @@
 					<artifactId>maven-surefire-plugin</artifactId>
 					<version>2.17</version>
 				</plugin>
-				<!-- The WildFly Maven Plugin deploys your war to a local WildFly container -->
-				<!-- To use, set the JBOSS_HOME environment variable and run:
-						 mvn package wildfly:deploy -->
-				<plugin>
-					<groupId>org.wildfly.plugins</groupId>
-					<artifactId>wildfly-maven-plugin</artifactId>
-					<version>1.0.2.Final</version>
-				</plugin>
 			</plugins>
 		</pluginManagement>
+
 		<plugins>
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
@@ -244,4 +272,17 @@
 		</plugins>
 	</build>
 
+<profiles>
+	<profile>
+		<id>with-test-env</id>
+		<activation>
+			<property>
+				<name>env.TEST_REDMINE_API_KEY</name>
+			</property>
+		</activation>
+		<properties>
+			<skipTests>false</skipTests>
+		</properties>
+	</profile>
+</profiles>
 </project>

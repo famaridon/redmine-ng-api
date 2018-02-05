@@ -6,7 +6,8 @@ http://jboss.org/schema/arquillian/arquillian_1_0.xsd">
 	<!-- Configuration to be used when the WildFly managed profile is active -->
 	<container qualifier="widlfly-managed" default="true">
 		<configuration>
-			<property name="jbossHome">../target/wildfly-11.0.0.Final</property>
+			<property name="jbossHome">${env.JBOSS_HOME}</property>
+			<property name="serverConfig">standalone.xml</property>
 		</configuration>
 	</container>
 </arquillian>
