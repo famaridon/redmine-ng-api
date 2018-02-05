@@ -11,7 +11,5 @@ public interface IssueService {
 	
 	Issue findById(String apiKey, Long id) throws IOException;
 	
-	Page<Issue> findByQuery(String apiKey, Long query, Pager pager) throws IOException;
-	
 	Page<Issue> findByQueryAndProject(String apiKey, Long query, Long project, Pager pager) throws IOException;
 }

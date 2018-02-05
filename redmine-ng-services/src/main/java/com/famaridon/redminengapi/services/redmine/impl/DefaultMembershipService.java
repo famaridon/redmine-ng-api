@@ -22,13 +22,6 @@ public class DefaultMembershipService extends AbstractRedmineService<Membership>
 	@EJB
 	private ConfigurationService configurationService;
 	
-	public DefaultMembershipService() {
-	}
-	
-	public DefaultMembershipService(ConfigurationService configurationService) {
-	this.configurationService = configurationService;
-	}
-	
 	@Override
 	public Page<Membership> findByProject(String apiAccessKey, Long id, Pager pager) throws IOException {
 		Page<Membership> p = Request.Get(this.configurationService.buildUrl("/projects/%s/memberships.json?%s", id, pager))

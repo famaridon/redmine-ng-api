@@ -21,14 +21,7 @@ public class DefaultQueryService extends AbstractRedmineService<Query> implement
 	
 	@EJB
 	private ConfigurationService configurationService;
-	
-	public DefaultQueryService() {
-	}
-	
-	public DefaultQueryService(ConfigurationService configurationService) {
-	this.configurationService = configurationService;
-	}
-	
+
 	@Override
 	public Page<Query> findAll(String apiAccessKey, Pager pager) throws IOException {
 		Page<Query> p = Request.Get(this.configurationService.buildUrl("/queries.json?%s", pager))

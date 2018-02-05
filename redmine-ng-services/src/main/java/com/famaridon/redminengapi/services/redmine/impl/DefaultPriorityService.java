@@ -2,7 +2,6 @@ package com.famaridon.redminengapi.services.redmine.impl;
 
 import com.famaridon.redminengapi.domain.entities.PriorityEntity;
 import com.famaridon.redminengapi.domain.repositories.PriorityRepository;
-import com.famaridon.redminengapi.services.ConfigurationService;
 import com.famaridon.redminengapi.services.redmine.PriorityService;
 import com.famaridon.redminengapi.services.redmine.mapper.EntityMapper;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Priority;
@@ -26,14 +25,7 @@ public class DefaultPriorityService extends AbstractRedmineService<Priority> imp
 	
 	@Inject
 	private EntityMapper entityMapper;
-	
-	public DefaultPriorityService() {
-	}
-	
-	public DefaultPriorityService(ConfigurationService configurationService) {
-		this.configurationService = configurationService;
-	}
-	
+
 	@Override
 	public Set<Priority> findAll(String apiKey) throws IOException {
 		Iterable<PriorityEntity> priorityEntities = this.priorityRepository.findAll();

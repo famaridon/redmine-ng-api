@@ -1,6 +1,5 @@
 package com.famaridon.redminengapi.services.redmine.impl;
 
-import com.famaridon.redminengapi.services.ConfigurationService;
 import com.famaridon.redminengapi.services.redmine.IssueService;
 import com.famaridon.redminengapi.services.redmine.Pager;
 import com.famaridon.redminengapi.services.redmine.QueryService;
@@ -24,13 +23,6 @@ public class DefaultIssueService extends AbstractRedmineService<Issue> implement
 	@EJB
 	private QueryService queryService;
 	
-	public DefaultIssueService() {
-	}
-	
-	public DefaultIssueService(ConfigurationService configurationService) {
-	this.configurationService = configurationService;
-	}
-	
 	@Override
 	public Page<Issue> findAll(String apiAccessKey, Pager pager) throws IOException {
 		Page<Issue> p = Request.Get(this.configurationService.buildUrl("/issues.json?%s", pager))
@@ -47,11 +39,6 @@ public class DefaultIssueService extends AbstractRedmineService<Issue> implement
 			.execute()
 			.handleResponse(new HolderResponseHandler<>(this.configurationService, Issue.class));
 		return p;
-	}
-	
-	@Override
-	public Page<Issue> findByQuery(String apiAccessKey, Long queryid, Pager pager) throws IOException {
-		return this.findByQueryAndProject(apiAccessKey, queryid, null, pager);
 	}
 	
 	@Override

@@ -8,18 +8,13 @@ import javax.ejb.EJB;
 import java.io.IOException;
 
 @RunWith(Arquillian.class)
-public class ProjectServiceITest extends AbstractServiceITest{
-
-	@EJB
-	ProjectService projectService;
+public class QueryServiceITest extends AbstractServiceITest {
 	
-	@Test
-	public void findById() throws IOException {
-		this.projectService.findById(this.apiKey, 372L);
-	}
+	@EJB
+	private QueryService queryService;
 	
 	@Test
 	public void findAll() throws IOException {
-		this.projectService.findAll(this.apiKey, new Pager());
+	this.queryService.findAll(this.apiKey, new Pager());
 	}
 }

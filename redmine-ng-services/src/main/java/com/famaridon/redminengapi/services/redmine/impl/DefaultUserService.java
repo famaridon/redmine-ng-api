@@ -1,6 +1,5 @@
 package com.famaridon.redminengapi.services.redmine.impl;
 
-import com.famaridon.redminengapi.services.ConfigurationService;
 import com.famaridon.redminengapi.services.redmine.UserService;
 import com.famaridon.redminengapi.services.redmine.cache.CacheKey;
 import com.famaridon.redminengapi.services.redmine.cache.CacheName;
@@ -21,14 +20,7 @@ import java.io.IOException;
 public class DefaultUserService extends AbstractRedmineService<User> implements UserService {
 	
 	private static final Logger LOG = LoggerFactory.getLogger(DefaultUserService.class);
-	
-	public DefaultUserService() {
-	}
-	
-	public DefaultUserService(ConfigurationService configurationService) {
-	this.configurationService = configurationService;
-	}
-	
+
 	@Override
 	@CachePut
 	@CacheName("userByApiKey")

@@ -23,13 +23,6 @@ public class DefaultProjectService extends AbstractRedmineService<Project> imple
 	@EJB
 	private ConfigurationService configurationService;
 	
-	public DefaultProjectService() {
-	}
-	
-	public DefaultProjectService(ConfigurationService configurationService) {
-	this.configurationService = configurationService;
-	}
-	
 	@Override
 	public Page<Project> findAll(String apiAccessKey, Pager pager) throws IOException {
 		Page<Project> p = Request.Get(this.configurationService.buildUrl("/projects.json?include=trackers,issue_categories&%s", pager))

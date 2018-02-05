@@ -6,7 +6,6 @@ import com.famaridon.redminengapi.domain.entities.WorkflowEntity;
 import com.famaridon.redminengapi.domain.repositories.StatusRepository;
 import com.famaridon.redminengapi.domain.repositories.TrackerRepository;
 import com.famaridon.redminengapi.domain.repositories.WorkflowRepository;
-import com.famaridon.redminengapi.services.ConfigurationService;
 import com.famaridon.redminengapi.services.redmine.StatusService;
 import com.famaridon.redminengapi.services.redmine.mapper.EntityMapper;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Status;
@@ -37,14 +36,7 @@ public class DefaultStatusService extends AbstractRedmineService<Status> impleme
 	
 	@Inject
 	private EntityMapper entityMapper;
-	
-	public DefaultStatusService() {
-	}
-	
-	public DefaultStatusService(ConfigurationService configurationService) {
-		this.configurationService = configurationService;
-	}
-	
+
 	@Override
 	public Set<Status> findAvailbaleByTrackerForNew(String apiKey, Long tracker) throws IOException {
 		Optional<TrackerEntity> trackerEntity = this.trackerRepository.findByExternalId(tracker);
