@@ -9,7 +9,7 @@ before_install:
   - sudo cp standalone.xml $JBOSS_HOME/standalone/configuration/standalone.xml
   - sudo chown -R $USER:$USER $JBOSS_HOME
 
-script: # the build step
+install: # the build step
    - mvn clean install -B -V
 
 #before_deploy:
