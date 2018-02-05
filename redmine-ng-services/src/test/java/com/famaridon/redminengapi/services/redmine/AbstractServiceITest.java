@@ -26,7 +26,7 @@ public abstract class AbstractServiceITest {
 		.importRuntimeAndTestDependencies()
 		.resolve().withTransitivity().asFile();
 		
-		return ShrinkWrap.create(WebArchive.class, "redmine-ng-api.war")
+		return ShrinkWrap.create(WebArchive.class)
 			.addPackages(true,"com.famaridon.redminengapi.services.redmine")
 			.addClass(ConfigurationService.class)
 			.addClass(DefaultConfigurationService.class)
