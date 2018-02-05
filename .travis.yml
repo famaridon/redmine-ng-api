@@ -3,9 +3,9 @@ jdk:
   - oraclejdk8
 
 before_install:
-  - wget http://download.jboss.org/wildfly/11.0.0.Final/wildfly-11.0.0.Final.zip
+  - wget --quiet http://download.jboss.org/wildfly/11.0.0.Final/wildfly-11.0.0.Final.zip
   - sudo unzip wildfly-11.0.0.Final.zip -d $JBOSS_HOME
-  - sudo cp standalone.xml $JBOSS_HOME/standalone/configuration
+  - sudo cp standalone.xml $JBOSS_HOME/standalone/configuration/standalone.xml
 
 script: # the build step
    - mvn clean install -Dmaven.javadoc.skip=true -B -V
