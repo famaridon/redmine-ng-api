@@ -7,6 +7,7 @@ before_install:
   - sudo unzip wildfly-11.0.0.Final.zip -d $JBOSS_HOME
   - sudo mv $JBOSS_HOME/wildfly-11.0.0.Final/* $JBOSS_HOME
   - sudo cp standalone.xml $JBOSS_HOME/standalone/configuration/standalone.xml
+  - sudo chown -R $USER:$USER $JBOSS_HOME
 
 script: # the build step
    - mvn clean install -Dmaven.javadoc.skip=true -B -V
