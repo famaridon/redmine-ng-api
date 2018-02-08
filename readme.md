@@ -1,3 +1,7 @@
+## Status
+[![Build Status](https://travis-ci.org/famaridon/redmine-ng-api.svg?branch=develop)](https://travis-ci.org/famaridon/redmine-ng-api)
+
+
 ## Configuration
 
 ### create data-source
