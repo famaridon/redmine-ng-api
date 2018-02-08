@@ -8,6 +8,7 @@ before_install:
   - sudo mv $JBOSS_HOME/wildfly-11.0.0.Final/* $JBOSS_HOME
   - sudo cp standalone.xml $JBOSS_HOME/standalone/configuration/standalone.xml
   - sudo chown -R $USER:$USER $JBOSS_HOME
+  - cat $JBOSS_HOME/standalone/configuration/standalone.xml
 
 install: # the build step
    - mvn clean install -B -V
