@@ -31,7 +31,7 @@ public abstract class AbstractServiceITest {
 			.addClass(ConfigurationService.class)
 			.addClass(DefaultConfigurationService.class)
 			.addAsLibraries(dependencies)
-			.setManifest( "META-INF/MANIFEST.MF")
+			.addAsManifestResource( "META-INF/MANIFEST.MF" )
 			.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml")
 			.addAsResource("config.json");
 
