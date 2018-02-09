@@ -5,7 +5,6 @@ jdk:
 cache:
   directories:
   - $HOME/.m2
-  - $JBOSS_HOME
 
 before_install:
   - wget --quiet --no-clobber -P $JBOSS_HOME http://download.jboss.org/wildfly/11.0.0.Final/wildfly-11.0.0.Final.zip
