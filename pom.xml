@@ -50,12 +50,6 @@
 				<version>${version.org.infinispan}</version>
 				<scope>provided</scope>
 			</dependency>
-			<dependency>
-				<groupId>org.infinispan</groupId>
-				<artifactId>infinispan-cdi-embedded</artifactId>
-				<version>${version.org.infinispan}</version>
-			</dependency>
-
 
 			<dependency>
 				<groupId>com.famaridon</groupId>
@@ -154,11 +148,6 @@
 		<dependency>
 			<groupId>org.infinispan</groupId>
 			<artifactId>infinispan-commons</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.infinispan</groupId>
-			<artifactId>infinispan-cdi-embedded</artifactId>
 		</dependency>
 
 		<dependency>
