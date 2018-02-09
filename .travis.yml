@@ -17,7 +17,7 @@ before_install:
 install: # the build step
    - mvn clean install -B -V
 
-script:
+script: true
 
 #before_deploy:
 #  - ssh-keyscan -p $DEPLOY_PORT $DEPLOY_HOST >> ~/.ssh/known_hosts
