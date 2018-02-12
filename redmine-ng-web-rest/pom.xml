@@ -24,5 +24,20 @@
 			<groupId>org.jboss.resteasy</groupId>
 			<artifactId>resteasy-jaxrs</artifactId>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.jboss.arquillian.extension/arquillian-rest-client-api -->
+		<dependency>
+			<groupId>org.jboss.arquillian.extension</groupId>
+			<artifactId>arquillian-rest-client-api</artifactId>
+			<version>1.0.0.Alpha4</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jboss.arquillian.extension</groupId>
+			<artifactId>arquillian-rest-client-impl-3x</artifactId>
+			<version>1.0.0.Alpha4</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 </project>
