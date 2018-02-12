@@ -38,11 +38,6 @@ public class IssuesEndpointImpl extends AbstractRedmineEndpoint implements Issue
 	}
 	
 	@Override
-	public PageDto<IssueDto> findByQuery(String apiKey, Long query, Long offset, Long limit) throws IOException {
-		return this.findByQueryAndProject(apiKey,query, null,offset,limit);
-	}
-	
-	@Override
 	public PageDto<IssueDto> findByQueryAndProject(String apiKey, Long query, Long project, Long offset, Long limit) throws IOException {
 		Page<Issue> page = this.issueService.findByQueryAndProject(apiKey, query, project, new Pager(offset, limit));
 		PageDto<IssueDto> pageDto = this.mapper.pageToPageDto(page);
