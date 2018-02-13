@@ -1,4 +1,4 @@
-package com.famaridon.redminengapi.services;
+package com.famaridon.redminengapi.services.configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.infinispan.Cache;

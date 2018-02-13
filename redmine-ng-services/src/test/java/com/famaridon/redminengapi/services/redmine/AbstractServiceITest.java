@@ -1,7 +1,7 @@
 package com.famaridon.redminengapi.services.redmine;
 
-import com.famaridon.redminengapi.services.ConfigurationService;
-import com.famaridon.redminengapi.services.impl.DefaultConfigurationService;
+import com.famaridon.redminengapi.services.configuration.ConfigurationService;
+import com.famaridon.redminengapi.services.configuration.impl.DefaultConfigurationService;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;

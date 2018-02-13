@@ -1,6 +1,6 @@
 package com.famaridon.redminengapi.rest.impl;
 
-import com.famaridon.redminengapi.services.ConfigurationService;
+import com.famaridon.redminengapi.services.configuration.ConfigurationService;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;

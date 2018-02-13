@@ -1,6 +1,6 @@
 package com.famaridon.redminengapi.services.redmine.impl;
 
-import com.famaridon.redminengapi.services.ConfigurationService;
+import com.famaridon.redminengapi.services.configuration.ConfigurationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

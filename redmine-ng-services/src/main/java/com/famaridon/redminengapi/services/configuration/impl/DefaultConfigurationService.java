@@ -1,6 +1,6 @@
-package com.famaridon.redminengapi.services.impl;
+package com.famaridon.redminengapi.services.configuration.impl;
 
-import com.famaridon.redminengapi.services.ConfigurationService;
+import com.famaridon.redminengapi.services.configuration.ConfigurationService;
 import com.famaridon.redminengapi.services.redmine.rest.client.module.RedmineClientModule;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.configuration2.Configuration;

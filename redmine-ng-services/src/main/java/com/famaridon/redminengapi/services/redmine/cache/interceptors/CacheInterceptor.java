@@ -1,6 +1,6 @@
 package com.famaridon.redminengapi.services.redmine.cache.interceptors;
 
-import com.famaridon.redminengapi.services.ConfigurationService;
+import com.famaridon.redminengapi.services.configuration.ConfigurationService;
 import com.famaridon.redminengapi.services.redmine.cache.CacheKey;
 import com.famaridon.redminengapi.services.redmine.cache.CacheName;
 import com.famaridon.redminengapi.services.redmine.cache.CachePut;

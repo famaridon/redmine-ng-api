@@ -1,4 +1,4 @@
-package com.famaridon.redminengapi.services.impl;
+package com.famaridon.redminengapi.services.configuration.impl;
 
 import com.famaridon.redminengapi.domain.entities.PriorityEntity;
 import com.famaridon.redminengapi.domain.entities.StatusEntity;
@@ -8,7 +8,7 @@ import com.famaridon.redminengapi.domain.repositories.PriorityRepository;
 import com.famaridon.redminengapi.domain.repositories.StatusRepository;
 import com.famaridon.redminengapi.domain.repositories.TrackerRepository;
 import com.famaridon.redminengapi.domain.repositories.WorkflowRepository;
-import com.famaridon.redminengapi.services.ConfigurationService;
+import com.famaridon.redminengapi.services.configuration.ConfigurationService;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
