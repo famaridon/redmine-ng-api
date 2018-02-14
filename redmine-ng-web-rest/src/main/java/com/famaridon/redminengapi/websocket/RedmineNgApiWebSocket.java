@@ -92,7 +92,9 @@ public class RedmineNgApiWebSocket
 	public void onUsersMessage(Message message)
 	{
 		try {
-			this.wsSession.getBasicRemote().sendText(message.getBody(UserStatusMessage.class).toString());
+			if(this.wsSession.isOpen()) {
+				this.wsSession.getBasicRemote().sendText(message.getBody(UserStatusMessage.class).toString());
+			}
 		}
 		catch (IOException | JMSException e) {
 			LOG.error("JMS error : ",e);
@@ -102,7 +104,9 @@ public class RedmineNgApiWebSocket
 	public void onIssuesMessage(Message message)
 	{
 		try {
-			this.wsSession.getBasicRemote().sendText((String)((ObjectMessage)message).getObject());
+			if(this.wsSession.isOpen()) {
+				this.wsSession.getBasicRemote().sendText((String)((ObjectMessage)message).getObject());
+			}
 		}
 		catch (IOException | JMSException e) {
 			LOG.error("JMS error : ",e);
@@ -113,6 +117,7 @@ public class RedmineNgApiWebSocket
 	public void onClose (CloseReason reason) throws JMSException
 	{
 		LOG.debug("User {} close WebSocket session {}",this.user.getLogin(), this.wsSession.getId());
+		this.connection.stop();
 		this.usersTopicProducer.send(this.jmsSession.createObjectMessage(new UserStatusMessage(this.user.getId(), UserStatus.DISCONNECTED)));
 		this.connection.close();
 	}
@@ -120,6 +125,7 @@ public class RedmineNgApiWebSocket
 	@OnError
 	public void onError(Session session, Throwable t) throws JMSException
 	{
+		LOG.debug("User {} error WebSocket session {}",this.user.getLogin(), this.wsSession.getId());
 	}
 	
 	
