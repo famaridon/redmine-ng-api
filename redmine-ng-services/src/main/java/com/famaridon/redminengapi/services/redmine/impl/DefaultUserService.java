@@ -1,9 +1,9 @@
 package com.famaridon.redminengapi.services.redmine.impl;
 
 import com.famaridon.redminengapi.services.redmine.UserService;
-import com.famaridon.redminengapi.services.redmine.cache.CacheKey;
-import com.famaridon.redminengapi.services.redmine.cache.CacheName;
-import com.famaridon.redminengapi.services.redmine.cache.CachePut;
+import com.famaridon.redminengapi.services.cache.CacheKey;
+import com.famaridon.redminengapi.services.cache.CacheName;
+import com.famaridon.redminengapi.services.cache.CachePut;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.User;
 import com.famaridon.redminengapi.services.redmine.rest.client.handler.HolderResponseHandler;
 import com.famaridon.redminengapi.services.redmine.rest.client.handler.HtmlResponseHandler;

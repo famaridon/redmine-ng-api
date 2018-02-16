@@ -1,4 +1,4 @@
-package com.famaridon.redminengapi.services.redmine.cache;
+package com.famaridon.redminengapi.services.cache;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

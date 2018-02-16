@@ -21,6 +21,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
+import javax.validation.constraints.NotNull;
 import java.net.URL;
 import java.util.List;
 
@@ -28,9 +29,6 @@ import java.util.List;
 @Singleton
 public class DefaultConfigurationService implements ConfigurationService {
 	private static final Logger LOG = LoggerFactory.getLogger(DefaultConfigurationService.class);
-	
-	@Resource(lookup = "java:jboss/infinispan/container/redmine-ng-api")
-	private EmbeddedCacheManager cacheContainer;
 	
 	private Configuration configuration;
 	private ObjectMapper objectMapper;
@@ -80,15 +78,7 @@ public class DefaultConfigurationService implements ConfigurationService {
 		return this.configuration.getString(key, def);
 	}
 	
-	@Override
-	public <K, V> Cache<K, V> getCache(String name) {
-		Cache<K, V> cache = this.cacheContainer.getCache(name, false);
-		if(cache == null) {
-			this.cacheContainer.defineConfiguration(name, new ConfigurationBuilder().expiration().maxIdle(18000).eviction().type(EvictionType.COUNT).size(50).strategy(EvictionStrategy.LRU).build());
-			cache = this.cacheContainer.getCache(name, true);
-		}
-		return cache;
-	}
+	
 	
 	protected String getRedmineServer() {
 		return this.configuration.getString("redmine.server.url");

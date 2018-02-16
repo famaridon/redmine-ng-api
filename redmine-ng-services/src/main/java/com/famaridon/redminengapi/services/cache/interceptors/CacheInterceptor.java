@@ -1,9 +1,9 @@
-package com.famaridon.redminengapi.services.redmine.cache.interceptors;
+package com.famaridon.redminengapi.services.cache.interceptors;
 
-import com.famaridon.redminengapi.services.configuration.ConfigurationService;
-import com.famaridon.redminengapi.services.redmine.cache.CacheKey;
-import com.famaridon.redminengapi.services.redmine.cache.CacheName;
-import com.famaridon.redminengapi.services.redmine.cache.CachePut;
+import com.famaridon.redminengapi.services.cache.CacheKey;
+import com.famaridon.redminengapi.services.cache.CacheName;
+import com.famaridon.redminengapi.services.cache.CachePut;
+import com.famaridon.redminengapi.services.cache.CacheService;
 import org.infinispan.Cache;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,12 +20,12 @@ public class CacheInterceptor {
 	private static final Logger LOG = LoggerFactory.getLogger(CacheInterceptor.class);
 	
 	@EJB
-	private ConfigurationService configurationService;
+	private CacheService cacheService;
 	
 	@AroundInvoke
 	public Object manageCache(InvocationContext ctx) throws Exception {
 		CacheName cacheName = ctx.getMethod().getAnnotation(CacheName.class);
-		Cache<String, Object> cache = this.configurationService.getCache(cacheName.value());
+		Cache<String, Object> cache = this.cacheService.getCache(cacheName.value());
 		
 		StringBuilder keyBuilder = new StringBuilder(ctx.getMethod().getName());
 		for (int i = 0; i < ctx.getMethod().getParameters().length; i++) {

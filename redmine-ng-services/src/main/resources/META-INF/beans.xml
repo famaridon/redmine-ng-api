@@ -6,6 +6,6 @@
                       http://xmlns.jcp.org/xml/ns/javaee/beans_1_1.xsd"
 	bean-discovery-mode="all">
 	<interceptors>
-		<class>com.famaridon.redminengapi.services.redmine.cache.interceptors.CacheInterceptor</class>
+		<class>com.famaridon.redminengapi.services.cache.interceptors.CacheInterceptor</class>
 	</interceptors>
 </beans>
