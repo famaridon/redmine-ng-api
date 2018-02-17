@@ -24,6 +24,6 @@ public class CacheControlResponseFilter implements ContainerResponseFilter {
 		cc.setNoStore(this.cacheControl.isNoStore());
 		cc.setNoTransform(this.cacheControl.isNoTransform());
 		cc.setProxyRevalidate(this.cacheControl.isProxyRevalidate());
-		res.getHeaders().add("Cache-Control", cc);
+		res.getHeaders().add("CacheConfiguration-Control", cc);
 	}
 }

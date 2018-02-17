@@ -1,19 +1,16 @@
 package com.famaridon.redminengapi.services.realtime.impl;
 
-import com.famaridon.redminengapi.services.cache.CacheService;
 import com.famaridon.redminengapi.services.realtime.UsersStatusService;
 import com.famaridon.redminengapi.services.realtime.beans.UserStatus;
 import com.famaridon.redminengapi.services.realtime.beans.UserStatusMessage;
 import org.infinispan.Cache;
-import org.infinispan.configuration.cache.Configuration;
-import org.infinispan.configuration.cache.ConfigurationBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.ActivationConfigProperty;
-import javax.ejb.EJB;
 import javax.ejb.MessageDriven;
+import javax.inject.Inject;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
@@ -31,24 +28,17 @@ public class UsersStatusServiceImpl implements MessageListener, UsersStatusServi
 	
 	private static final Logger LOG = LoggerFactory.getLogger(UsersStatusServiceImpl.class);
 	
-	private static final Configuration CACHE_CONFIGURATION = new ConfigurationBuilder().build();
-	
-	@EJB
-	private CacheService cacheService;
-	
+	@Inject
 	private Cache<Long, Long> sessionsCountByUserCache;
+	@Inject
 	private Cache<UserStatus, Set<Long>> usersByUsersStatusCache;
 	
 	@PostConstruct
 	private void init()
 	{
-		
-		this.usersByUsersStatusCache = this.cacheService.getCache("usersByUsersStatus", CACHE_CONFIGURATION);
 		for (UserStatus userStatus : UserStatus.values()) {
 			this.usersByUsersStatusCache.put(userStatus, new HashSet<>());
 		}
-		
-		this.sessionsCountByUserCache = this.cacheService.getCache("sessionsCountByUser", CACHE_CONFIGURATION);
 	}
 	
 	@Override

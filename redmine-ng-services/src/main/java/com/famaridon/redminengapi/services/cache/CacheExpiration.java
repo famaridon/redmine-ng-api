@@ -7,8 +7,10 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @InterceptorBinding
-@Target({ ElementType.METHOD, ElementType.TYPE, ElementType.FIELD})
+@Target({ ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface CacheName {
-	String value() default "";
+public @interface CacheExpiration
+{
+	long maxIdle();
+	long lifespan();
 }

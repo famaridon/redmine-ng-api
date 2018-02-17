@@ -7,8 +7,11 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @InterceptorBinding
-@Target({ ElementType.METHOD, ElementType.TYPE, ElementType.FIELD})
+@Target({ ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface CacheName {
-	String value() default "";
+public @interface CacheConfiguration
+{
+	CacheName name();
+	CacheEviction eviction();
+	CacheExpiration expiration();
 }
