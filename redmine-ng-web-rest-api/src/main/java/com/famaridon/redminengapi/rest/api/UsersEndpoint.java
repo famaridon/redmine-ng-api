@@ -1,6 +1,7 @@
 package com.famaridon.redminengapi.rest.api;
 
 import com.famaridon.redminengapi.rest.api.features.CacheControl;
+import com.famaridon.redminengapi.rest.dto.PageDto;
 import com.famaridon.redminengapi.rest.dto.UserDto;
 
 import javax.ws.rs.Consumes;
@@ -27,5 +28,9 @@ public interface UsersEndpoint {
 	@Path("/{id}")
 	@CacheControl(maxAge = 15, maxAgeUnit = TimeUnit.MINUTES)
 	public UserDto findById(@HeaderParam(SecurityHeaders.X_REDMINE_API_KEY) String apiKey, @PathParam("id") long id) throws IOException;
+	
+	@GET
+	@Path("/connected")
+	public PageDto<Long> findConnected(@HeaderParam(SecurityHeaders.X_REDMINE_API_KEY) String apiKey) throws IOException;
 
 }

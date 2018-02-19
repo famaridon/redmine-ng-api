@@ -21,7 +21,7 @@ import java.util.Set;
 	@ActivationConfigProperty(propertyName = "acknowledgeMode", propertyValue = "AUTO_ACKNOWLEDGE"),
 	@ActivationConfigProperty(propertyName = "connectionFactoryLookup", propertyValue = "java:/ConnectionFactory"),
 	@ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Topic"),
-	@ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "java:/jms/redmine-ng-api/topic/users")
+	@ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "java:/jms/redmine-ng-api/topic/realtime")
 })
 public class UsersStatusServiceImpl implements MessageListener, UsersStatusService
 {
@@ -77,13 +77,13 @@ public class UsersStatusServiceImpl implements MessageListener, UsersStatusServi
 		switch (userStatusMessage.getBody()){
 			case CONNECTED:
 				this.usersByUsersStatusCache.get(UserStatus.CONNECTED).add(userStatusMessage.getSender());
-				this.usersByUsersStatusCache.get(UserStatus.DISCONNECTED).add(userStatusMessage.getSender());
+				this.usersByUsersStatusCache.get(UserStatus.DISCONNECTED).remove(userStatusMessage.getSender());
 				break;
 			case DISCONNECTED:
 				Long sessionCount = this.getUserSessionCount(userStatusMessage.getSender());
 				if (sessionCount <= 0) {
 					this.usersByUsersStatusCache.get(UserStatus.DISCONNECTED).add(userStatusMessage.getSender());
-					this.usersByUsersStatusCache.get(UserStatus.CONNECTED).add(userStatusMessage.getSender());
+					this.usersByUsersStatusCache.get(UserStatus.CONNECTED).remove(userStatusMessage.getSender());
 				}
 				break;
 			default:
@@ -100,9 +100,4 @@ public class UsersStatusServiceImpl implements MessageListener, UsersStatusServi
 		return sessionCount;
 	}
 	
-	@Override
-	public Set<Long> getUserByUsersStatus(UserStatus userStatus)
-	{
-		return this.usersByUsersStatusCache.get(userStatus);
-	}
 }
