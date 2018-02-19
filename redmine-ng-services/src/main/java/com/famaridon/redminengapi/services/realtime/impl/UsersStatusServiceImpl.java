@@ -2,7 +2,9 @@ package com.famaridon.redminengapi.services.realtime.impl;
 
 import com.famaridon.redminengapi.services.realtime.UsersStatusService;
 import com.famaridon.redminengapi.services.realtime.beans.RealtimeMessage;
+import com.famaridon.redminengapi.services.realtime.beans.RealtimeMessageBuilder;
 import com.famaridon.redminengapi.services.realtime.beans.UserStatus;
+import com.famaridon.redminengapi.services.realtime.jms.NamedTopic;
 import org.infinispan.Cache;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,9 +13,13 @@ import javax.annotation.PostConstruct;
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.MessageDriven;
 import javax.inject.Inject;
+import javax.jms.Connection;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
+import javax.jms.MessageProducer;
+import javax.jms.Session;
+import javax.jms.Topic;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -33,11 +39,27 @@ public class UsersStatusServiceImpl implements MessageListener, UsersStatusServi
 	@Inject
 	private Cache<UserStatus, Set<Long>> usersByUsersStatusCache;
 	
+	@Inject
+	private Connection connection;
+	private Session session;
+	
+	@Inject @NamedTopic("realtime")
+	private Topic topic;
+	private MessageProducer messageProducer;
+	
 	@PostConstruct
 	private void init()
 	{
 		for (UserStatus userStatus : UserStatus.values()) {
 			this.usersByUsersStatusCache.put(userStatus, new HashSet<>());
+		}
+		
+		try {
+			this.session = this.connection.createSession();
+			this.messageProducer = this.session.createProducer(this.topic);
+		}
+		catch (JMSException e) {
+			throw new IllegalStateException(e);
 		}
 	}
 	
@@ -62,29 +84,44 @@ public class UsersStatusServiceImpl implements MessageListener, UsersStatusServi
 		Long sessionCount = this.getUserSessionCount(userStatusMessage.getSender());
 		if (userStatusMessage.getBody() == UserStatus.CONNECTED) {
 			sessionCount++;
+			this.sessionsCountByUserCache.put(userStatusMessage.getSender(), sessionCount);
 		}
 		else if (userStatusMessage.getBody() == UserStatus.DISCONNECTED) {
 			sessionCount--;
+			this.sessionsCountByUserCache.put(userStatusMessage.getSender(), sessionCount);
 		}
-		else if (userStatusMessage.getBody() == UserStatus.UNKNOW) {
-			LOG.info("User session in invalid state {}", userStatusMessage.getSender());
-		}
-		this.sessionsCountByUserCache.put(userStatusMessage.getSender(), sessionCount);
 	}
 	
-	private void updateUsersByUsersStatusCache(RealtimeMessage<UserStatus> userStatusMessage)
+	private void updateUsersByUsersStatusCache(RealtimeMessage<UserStatus> userStatusMessage) throws JMSException
 	{
+		Long sessionCount = this.getUserSessionCount(userStatusMessage.getSender());
 		switch (userStatusMessage.getBody()){
 			case CONNECTED:
-				this.usersByUsersStatusCache.get(UserStatus.CONNECTED).add(userStatusMessage.getSender());
-				this.usersByUsersStatusCache.get(UserStatus.DISCONNECTED).remove(userStatusMessage.getSender());
+				if (sessionCount == 1) {
+					this.usersByUsersStatusCache.get(UserStatus.CONNECTED).add(userStatusMessage.getSender());
+					this.usersByUsersStatusCache.get(UserStatus.DISCONNECTED).remove(userStatusMessage.getSender());
+					RealtimeMessage<UserStatus> joinMessage = new RealtimeMessageBuilder<UserStatus>()
+						.setSender(userStatusMessage.getSender())
+						.setChannel(UsersStatusService.CHANNEL)
+						.setBody(UserStatus.JOIN)
+						.createRealtimeMessage();
+					this.messageProducer.send(this.session.createObjectMessage(joinMessage));
+				}
 				break;
 			case DISCONNECTED:
-				Long sessionCount = this.getUserSessionCount(userStatusMessage.getSender());
 				if (sessionCount <= 0) {
 					this.usersByUsersStatusCache.get(UserStatus.DISCONNECTED).add(userStatusMessage.getSender());
 					this.usersByUsersStatusCache.get(UserStatus.CONNECTED).remove(userStatusMessage.getSender());
+					RealtimeMessage<UserStatus> joinMessage = new RealtimeMessageBuilder<UserStatus>()
+						.setSender(userStatusMessage.getSender())
+						.setChannel(UsersStatusService.CHANNEL)
+						.setBody(UserStatus.LEAVE)
+						.createRealtimeMessage();
+					this.messageProducer.send(this.session.createObjectMessage(joinMessage));
 				}
+				break;
+			case JOIN:
+			case LEAVE:
 				break;
 			default:
 				LOG.info("User session in invalid state {}", userStatusMessage.getSender());

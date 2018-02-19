@@ -43,11 +43,11 @@ public class RedmineNgApiWebSocket
 	@Inject
 	private DtoMapper mapper;
 	
-	@Inject @NamedTopic("realtime")
-	private Topic realtimeTopic;
-	
 	@Inject
 	private Connection connection;
+	
+	@Inject @NamedTopic("realtime")
+	private Topic realtimeTopic;
 	
 	@Inject
 	private UserService userService;
