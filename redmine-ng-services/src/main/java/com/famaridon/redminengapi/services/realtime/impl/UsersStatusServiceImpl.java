@@ -1,8 +1,8 @@
 package com.famaridon.redminengapi.services.realtime.impl;
 
 import com.famaridon.redminengapi.services.realtime.UsersStatusService;
+import com.famaridon.redminengapi.services.realtime.beans.RealtimeMessage;
 import com.famaridon.redminengapi.services.realtime.beans.UserStatus;
-import com.famaridon.redminengapi.services.realtime.beans.UserStatusMessage;
 import org.infinispan.Cache;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,46 +45,49 @@ public class UsersStatusServiceImpl implements MessageListener, UsersStatusServi
 	public void onMessage(Message message)
 	{
 		try {
-			UserStatusMessage userStatusMessage = message.getBody(UserStatusMessage.class);
-			this.updateSessionsCountByUserCache(userStatusMessage);
-			this.updateUsersByUsersStatusCache(userStatusMessage);
+			RealtimeMessage realtimeMessage = message.getBody(RealtimeMessage.class);
+			if(CHANNEL.equalsIgnoreCase(realtimeMessage.getChannel())) {
+				this.updateSessionsCountByUserCache(realtimeMessage);
+				this.updateUsersByUsersStatusCache(realtimeMessage);
+			}
+			
 		}
 		catch (JMSException e) {
 			LOG.error("JMS error", e);
 		}
 	}
 	
-	private void updateSessionsCountByUserCache(UserStatusMessage userStatusMessage)
+	private void updateSessionsCountByUserCache(RealtimeMessage<UserStatus> userStatusMessage)
 	{
-		Long sessionCount = this.getUserSessionCount(userStatusMessage.getUserId());
-		if (userStatusMessage.getUserStatus() == UserStatus.CONNECTED) {
+		Long sessionCount = this.getUserSessionCount(userStatusMessage.getSender());
+		if (userStatusMessage.getBody() == UserStatus.CONNECTED) {
 			sessionCount++;
 		}
-		else if (userStatusMessage.getUserStatus() == UserStatus.DISCONNECTED) {
+		else if (userStatusMessage.getBody() == UserStatus.DISCONNECTED) {
 			sessionCount--;
 		}
-		else if (userStatusMessage.getUserStatus() == UserStatus.UNKNOW) {
-			LOG.info("User session in invalid state {}", userStatusMessage.getUserId());
+		else if (userStatusMessage.getBody() == UserStatus.UNKNOW) {
+			LOG.info("User session in invalid state {}", userStatusMessage.getSender());
 		}
-		this.sessionsCountByUserCache.put(userStatusMessage.getUserId(), sessionCount);
+		this.sessionsCountByUserCache.put(userStatusMessage.getSender(), sessionCount);
 	}
 	
-	private void updateUsersByUsersStatusCache(UserStatusMessage userStatusMessage)
+	private void updateUsersByUsersStatusCache(RealtimeMessage<UserStatus> userStatusMessage)
 	{
-		switch (userStatusMessage.getUserStatus()){
+		switch (userStatusMessage.getBody()){
 			case CONNECTED:
-				this.usersByUsersStatusCache.get(UserStatus.CONNECTED).add(userStatusMessage.getUserId());
-				this.usersByUsersStatusCache.get(UserStatus.DISCONNECTED).add(userStatusMessage.getUserId());
+				this.usersByUsersStatusCache.get(UserStatus.CONNECTED).add(userStatusMessage.getSender());
+				this.usersByUsersStatusCache.get(UserStatus.DISCONNECTED).add(userStatusMessage.getSender());
 				break;
 			case DISCONNECTED:
-				Long sessionCount = this.getUserSessionCount(userStatusMessage.getUserId());
+				Long sessionCount = this.getUserSessionCount(userStatusMessage.getSender());
 				if (sessionCount <= 0) {
-					this.usersByUsersStatusCache.get(UserStatus.DISCONNECTED).add(userStatusMessage.getUserId());
-					this.usersByUsersStatusCache.get(UserStatus.CONNECTED).add(userStatusMessage.getUserId());
+					this.usersByUsersStatusCache.get(UserStatus.DISCONNECTED).add(userStatusMessage.getSender());
+					this.usersByUsersStatusCache.get(UserStatus.CONNECTED).add(userStatusMessage.getSender());
 				}
 				break;
 			default:
-				LOG.info("User session in invalid state {}", userStatusMessage.getUserId());
+				LOG.info("User session in invalid state {}", userStatusMessage.getSender());
 		}
 	}
 	

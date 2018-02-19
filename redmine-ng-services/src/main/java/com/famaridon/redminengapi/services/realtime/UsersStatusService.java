@@ -6,5 +6,7 @@ import java.util.Set;
 
 public interface UsersStatusService
 {
+	public static final String CHANNEL = "userStatusChannel";
+	
 	public Set<Long> getUserByUsersStatus(UserStatus userStatus);
 }

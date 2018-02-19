@@ -9,19 +9,13 @@ import org.apache.commons.configuration2.builder.fluent.Configurations;
 import org.apache.commons.configuration2.ex.ConfigurationException;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import org.infinispan.Cache;
-import org.infinispan.configuration.cache.ConfigurationBuilder;
-import org.infinispan.eviction.EvictionStrategy;
-import org.infinispan.eviction.EvictionType;
-import org.infinispan.manager.EmbeddedCacheManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
-import javax.validation.constraints.NotNull;
+import javax.enterprise.inject.Produces;
 import java.net.URL;
 import java.util.List;
 
@@ -88,6 +82,7 @@ public class DefaultConfigurationService implements ConfigurationService {
 		return this.getRedmineServer() + String.format(path, parameters);
 	}
 	
+	@Produces
 	public ObjectMapper getObjectMapper() {
 		return this.objectMapper;
 	}

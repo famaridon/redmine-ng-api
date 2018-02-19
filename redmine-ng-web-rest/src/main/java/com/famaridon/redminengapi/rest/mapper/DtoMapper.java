@@ -10,6 +10,7 @@ import com.famaridon.redminengapi.rest.dto.QueryDto;
 import com.famaridon.redminengapi.rest.dto.StatusDto;
 import com.famaridon.redminengapi.rest.dto.TrackerDto;
 import com.famaridon.redminengapi.rest.dto.UserDto;
+import com.famaridon.redminengapi.services.realtime.beans.RealtimeMessage;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Category;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Issue;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Membership;
@@ -20,6 +21,7 @@ import com.famaridon.redminengapi.services.redmine.rest.client.beans.Query;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Status;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Tracker;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.User;
+import com.famaridon.redminengapi.websocket.dto.RealtimeMessageDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
@@ -49,6 +51,8 @@ public interface DtoMapper {
 	
 	StatusDto statusToStatusDto(Status status);
 	
+	RealtimeMessageDto realtimeMessageTorealtimeMessageDto(RealtimeMessage realtimeMessage);
+	
 	List<UserDto> userssToUsersDtos(Iterable<User> project);
 	
 	List<ProjectDto> projectsToProjectDtos(Iterable<Project> project);
@@ -62,5 +66,6 @@ public interface DtoMapper {
 	List<StatusDto> statusesToStatusDtos(Iterable<Status> statuses);
 	
 	List<PriorityDto> prioritiesToPriorityDtos(Iterable<Priority> priorities);
+	
 	
 }

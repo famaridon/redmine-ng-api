@@ -15,22 +15,13 @@ public class MessagingSingleton
 	@Resource(lookup="java:/ConnectionFactory")
 	private ConnectionFactory factory;
 	
-	@Resource(lookup="java:/jms/redmine-ng-api/topic/users")
-	private Topic usersTopic;
+	@Resource(lookup="java:/jms/redmine-ng-api/topic/realtime")
+	private Topic realtimeTopic;
 	
-	@Resource(lookup="java:/jms/redmine-ng-api/topic/issues")
-	private Topic issuesTopic;
-	
-	@Produces @NamedTopic("users")
-	public Topic getUsersTopic()
-	{
-		return this.usersTopic;
-	}
-	
-	@Produces @NamedTopic("issues")
+	@Produces @NamedTopic("realtime")
 	public Topic getIssuesTopic()
 	{
-		return this.issuesTopic;
+		return this.realtimeTopic;
 	}
 	
 	@Produces
