@@ -8,6 +8,8 @@
     "cors": {
       "allowedOrigins": [
         "http://localhost:4200",
+        "http://vsoft0073:4200",
+        "http://vsoft0073:3200",
         "http://localhost:3000"
       ]
     }
