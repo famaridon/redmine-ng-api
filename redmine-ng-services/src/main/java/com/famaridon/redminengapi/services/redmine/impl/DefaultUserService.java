@@ -18,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.Set;
 
 @Stateless
@@ -69,7 +70,11 @@ public class DefaultUserService extends AbstractRedmineService<User> implements 
 	@Override
 	public Set<Long> getUserByUsersStatus(UserStatus userStatus)
 	{
-		return this.usersByUsersStatusCache.get(userStatus);
+		Set<Long> connectedUsers = this.usersByUsersStatusCache.get(userStatus);
+		if(connectedUsers == null){
+			connectedUsers = Collections.emptySet();
+		}
+		return connectedUsers;
 	}
 
 }

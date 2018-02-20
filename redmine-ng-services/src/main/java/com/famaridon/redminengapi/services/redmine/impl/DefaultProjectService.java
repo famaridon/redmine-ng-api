@@ -25,7 +25,7 @@ public class DefaultProjectService extends AbstractRedmineService<Project> imple
 	
 	@Override
 	public Page<Project> findAll(String apiAccessKey, Pager pager) throws IOException {
-		Page<Project> p = Request.Get(this.configurationService.buildUrl("/projects.json?include=trackers,issue_categories&%s", pager))
+		Page<Project> p = Request.Get(this.configurationService.buildUrl("/projects.json?include=issue_fixed_versions,trackers,issue_categories&%s", pager))
 			.addHeader(X_REDMINE_API_KEY, apiAccessKey)
 			.execute()
 			.handleResponse(new PageResponseHandler<>(this.configurationService, Project.class));

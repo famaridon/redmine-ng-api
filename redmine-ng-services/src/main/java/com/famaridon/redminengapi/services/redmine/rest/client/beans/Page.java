@@ -65,4 +65,9 @@ public class Page<T> {
 		this.elements = issues;
 	}
 	
+	@JsonProperty("versions")
+	public void setVersions(List<T> versions) {
+		this.elements = versions;
+	}
+	
 }
