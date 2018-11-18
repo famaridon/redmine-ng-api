@@ -18,29 +18,36 @@
     <properties>
         <!-- runtime versions -->
         <wildfly.version>14.0.1.Final</wildfly.version>
+        <javaee-api.version>8.0</javaee-api.version>
         <infinispan.version>8.2.8.Final</infinispan.version>
         <jackson.version>2.9.7</jackson.version>
-        <fluent-hc.version>4.5.4</fluent-hc.version>
+        <fluent-hc.version>4.5.6</fluent-hc.version>
         <jsoup.version>1.11.2</jsoup.version>
-        <commons-configuration2.version>2.2</commons-configuration2.version>
-        <commons-lang3.version>3.7</commons-lang3.version>
+        <commons-configuration2.version>2.4</commons-configuration2.version>
+        <commons-lang3.version>3.8.1</commons-lang3.version>
         <commons-beanutils.version>1.9.3</commons-beanutils.version>
-        <commons-csv>1.5</commons-csv>
+        <commons-csv.version>1.6</commons-csv.version>
         <org.mapstruct.version>1.2.0.Final</org.mapstruct.version>
         <slf4j-api.version>1.7.25</slf4j-api.version>
 
         <!-- test version -->
-        <junit.version>2.9.7</junit.version>
-        <arquillian.version>1.2.1.Final</arquillian.version>
+        <junit-jupiter.version>5.3.1</junit-jupiter.version>
+        <arquillian.version>1.4.1.Final</arquillian.version>
         <wildfly-arquillian-container.version>2.1.0.Final</wildfly-arquillian-container.version>
-        <shrinkwrap-resolver.version>3.1.2</shrinkwrap-resolver.version>
+        <shrinkwrap-resolver.version>3.1.3</shrinkwrap-resolver.version>
 
         <!-- maven plugins version -->
-        <maven-compiler-plugin.version>3.5.1</maven-compiler-plugin.version>
-        <maven-war-plugin.version>3.2.0</maven-war-plugin.version>
-        <maven-ejb-plugin.version>3.0.0</maven-ejb-plugin.version>
-        <maven-surefire-plugin.version>2.17</maven-surefire-plugin.version>
-        <wildfly-maven-plugin.version>1.2.1.Final</wildfly-maven-plugin.version>
+        <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
+        <maven-war-plugin.version>3.2.2</maven-war-plugin.version>
+        <maven-ejb-plugin.version>3.0.1</maven-ejb-plugin.version>
+        <maven-surefire-plugin.version>2.22.1</maven-surefire-plugin.version>
+        <maven-clean-plugin.version>3.1.0</maven-clean-plugin.version>
+        <maven-deploy-plugin.version>2.8.2</maven-deploy-plugin.version>
+        <maven-install-plugin.version>2.5.2</maven-install-plugin.version>
+        <maven-site-plugin.version>3.7.1</maven-site-plugin.version>
+        <maven-enforcer-plugin.version>3.0.0-M2</maven-enforcer-plugin.version>
+        <wildfly-maven-plugin.version>2.0.0.Final</wildfly-maven-plugin.version>
+        <versions-maven-plugin.version>2.7</versions-maven-plugin.version>
 
         <!-- java configuration -->
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -146,9 +153,9 @@
 
             <!-- test dependencies -->
             <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>${junit.version}</version>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-api</artifactId>
+                <version>${junit-jupiter.version}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
@@ -179,7 +186,7 @@
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
-            <version>7.0</version>
+            <version>${javaee-api.version}</version>
             <scope>provided</scope>
         </dependency>
 
@@ -215,11 +222,10 @@
         </dependency>
 
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.jboss.arquillian.junit</groupId>
             <artifactId>arquillian-junit-container</artifactId>
@@ -243,8 +249,33 @@
             <plugins>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-clean-plugin</artifactId>
+                    <version>${maven-clean-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <version>${maven-deploy-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-install-plugin</artifactId>
+                    <version>${maven-install-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>${maven-site-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-war-plugin</artifactId>
                     <version>${maven-war-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <version>${maven-enforcer-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -299,6 +330,42 @@
                         </compilerArg>
                     </compilerArgs>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>${versions-maven-plugin.version}</version>
+                <configuration>
+                    <rulesUri>file:///${project.basedir}/rules.xml</rulesUri>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>display-dependency-updates</goal>
+                            <goal>display-plugin-updates</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>enforce-maven</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireMavenVersion>
+                                    <version>3.3.1</version>
+                                </requireMavenVersion>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
