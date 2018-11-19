@@ -1,4 +1,4 @@
-package com.famaridon.redminengapi.services.cache;
+package com.famaridon.redminengapi.services.cache.annotation;
 
 import org.infinispan.eviction.EvictionStrategy;
 import org.infinispan.eviction.EvictionType;

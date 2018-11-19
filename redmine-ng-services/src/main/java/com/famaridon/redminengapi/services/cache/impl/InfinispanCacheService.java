@@ -1,8 +1,8 @@
 package com.famaridon.redminengapi.services.cache.impl;
 
-import com.famaridon.redminengapi.services.cache.CacheConfiguration;
-import com.famaridon.redminengapi.services.cache.CacheEviction;
-import com.famaridon.redminengapi.services.cache.CacheExpiration;
+import com.famaridon.redminengapi.services.cache.annotation.CacheConfiguration;
+import com.famaridon.redminengapi.services.cache.annotation.CacheEviction;
+import com.famaridon.redminengapi.services.cache.annotation.CacheExpiration;
 import com.famaridon.redminengapi.services.cache.CacheService;
 import org.infinispan.Cache;
 import org.infinispan.configuration.cache.Configuration;
@@ -19,11 +19,11 @@ import javax.enterprise.inject.spi.InjectionPoint;
 import javax.validation.constraints.NotNull;
 
 @Singleton
-public class DefaultCacheService implements CacheService
+public class InfinispanCacheService implements CacheService
 {
 	private static final Configuration DEFAULT_CACHE_CONFIGURATION = new ConfigurationBuilder().build();
 	
-	@Resource(lookup = "java:jboss/infinispan/container/redmine-ng-api")
+	@Resource(lookup = "infinispan/redmine-ng-api")
 	private EmbeddedCacheManager cacheContainer;
 	
 	@Override
@@ -33,13 +33,12 @@ public class DefaultCacheService implements CacheService
 	
 	@Override
 	public <K, V> Cache<K, V> getCache(String name, @NotNull org.infinispan.configuration.cache.Configuration configuration) {
-		Cache<K, V> cache = this.cacheContainer.getCache(name, false);
-		if(cache == null) {
+
+		if(this.cacheContainer.getCacheConfiguration(name) == null) {
 			this.cacheContainer.defineConfiguration(name, configuration);
-			cache = this.cacheContainer.getCache(name, true);
-			cache.start();
 		}
-		return cache;
+
+		return this.cacheContainer.getCache(name);
 	}
 	
 	@Override

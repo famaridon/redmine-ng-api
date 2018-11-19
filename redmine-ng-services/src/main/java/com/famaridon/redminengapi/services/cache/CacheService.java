@@ -1,5 +1,6 @@
 package com.famaridon.redminengapi.services.cache;
 
+import com.famaridon.redminengapi.services.cache.annotation.CacheConfiguration;
 import org.infinispan.Cache;
 
 import javax.enterprise.inject.Produces;

@@ -1,4 +1,4 @@
-package com.famaridon.redminengapi.services.cache;
+package com.famaridon.redminengapi.services.cache.annotation;
 
 import javax.interceptor.InterceptorBinding;
 import java.lang.annotation.ElementType;

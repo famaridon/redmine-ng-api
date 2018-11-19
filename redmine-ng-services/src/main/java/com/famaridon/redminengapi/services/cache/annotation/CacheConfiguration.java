@@ -1,4 +1,4 @@
-package com.famaridon.redminengapi.services.cache;
+package com.famaridon.redminengapi.services.cache.annotation;
 
 import javax.interceptor.InterceptorBinding;
 import java.lang.annotation.ElementType;
@@ -9,5 +9,9 @@ import java.lang.annotation.Target;
 @InterceptorBinding
 @Target({ ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface CachePut {
+public @interface CacheConfiguration
+{
+	CacheName name();
+	CacheEviction eviction();
+	CacheExpiration expiration();
 }

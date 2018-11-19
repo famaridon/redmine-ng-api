@@ -12,10 +12,20 @@
 
 	<artifactId>redmine-ng-services</artifactId>
 	<dependencies>
+
 		<dependency>
 			<groupId>com.famaridon</groupId>
 			<artifactId>redmine-ng-domain</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.infinispan</groupId>
+			<artifactId>infinispan-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.infinispan</groupId>
+			<artifactId>infinispan-commons</artifactId>
+		</dependency>
+
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>fluent-hc</artifactId>

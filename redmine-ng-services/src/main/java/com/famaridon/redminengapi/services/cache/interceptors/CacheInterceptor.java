@@ -1,8 +1,8 @@
 package com.famaridon.redminengapi.services.cache.interceptors;
 
-import com.famaridon.redminengapi.services.cache.CacheKey;
-import com.famaridon.redminengapi.services.cache.CacheName;
-import com.famaridon.redminengapi.services.cache.CachePut;
+import com.famaridon.redminengapi.services.cache.annotation.CacheKey;
+import com.famaridon.redminengapi.services.cache.annotation.CacheName;
+import com.famaridon.redminengapi.services.cache.annotation.CachePut;
 import com.famaridon.redminengapi.services.cache.CacheService;
 import org.infinispan.Cache;
 import org.slf4j.Logger;
