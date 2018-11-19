@@ -28,7 +28,6 @@ public abstract class AbstractServiceITest {
 		
 		return ShrinkWrap.create(WebArchive.class)
 			.addPackages(true,"com.famaridon.redminengapi.services.redmine")
-			.addPackages(true,"com.famaridon.redminengapi.services.realtime")
 			.addClass(ConfigurationService.class)
 			.addClass(DefaultConfigurationService.class)
 			.addAsLibraries(dependencies)

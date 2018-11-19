@@ -1,29 +1,7 @@
 package com.famaridon.redminengapi.rest.mapper;
 
-import com.famaridon.redminengapi.rest.dto.CategoryDto;
-import com.famaridon.redminengapi.rest.dto.IssueDto;
-import com.famaridon.redminengapi.rest.dto.MembershipDto;
-import com.famaridon.redminengapi.rest.dto.PageDto;
-import com.famaridon.redminengapi.rest.dto.PriorityDto;
-import com.famaridon.redminengapi.rest.dto.ProjectDto;
-import com.famaridon.redminengapi.rest.dto.QueryDto;
-import com.famaridon.redminengapi.rest.dto.StatusDto;
-import com.famaridon.redminengapi.rest.dto.TrackerDto;
-import com.famaridon.redminengapi.rest.dto.UserDto;
-import com.famaridon.redminengapi.rest.dto.VersionDto;
-import com.famaridon.redminengapi.services.realtime.beans.RealtimeMessage;
-import com.famaridon.redminengapi.services.redmine.rest.client.beans.Category;
-import com.famaridon.redminengapi.services.redmine.rest.client.beans.Issue;
-import com.famaridon.redminengapi.services.redmine.rest.client.beans.Membership;
-import com.famaridon.redminengapi.services.redmine.rest.client.beans.Page;
-import com.famaridon.redminengapi.services.redmine.rest.client.beans.Priority;
-import com.famaridon.redminengapi.services.redmine.rest.client.beans.Project;
-import com.famaridon.redminengapi.services.redmine.rest.client.beans.Query;
-import com.famaridon.redminengapi.services.redmine.rest.client.beans.Status;
-import com.famaridon.redminengapi.services.redmine.rest.client.beans.Tracker;
-import com.famaridon.redminengapi.services.redmine.rest.client.beans.User;
-import com.famaridon.redminengapi.services.redmine.rest.client.beans.Version;
-import com.famaridon.redminengapi.websocket.dto.RealtimeMessageDto;
+import com.famaridon.redminengapi.rest.dto.*;
+import com.famaridon.redminengapi.services.redmine.rest.client.beans.*;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
@@ -52,8 +30,6 @@ public interface DtoMapper {
 	IssueDto issueToIssueDto(Issue issue);
 	
 	StatusDto statusToStatusDto(Status status);
-	
-	RealtimeMessageDto realtimeMessageTorealtimeMessageDto(RealtimeMessage realtimeMessage);
 	
 	List<UserDto> userssToUsersDtos(Iterable<User> project);
 	

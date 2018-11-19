@@ -14,7 +14,7 @@ public class VersionsServiceITest extends AbstractServiceITest {
     private VersionsService versionsService;
 
     @Test
-    void testFindAll() throws IOException
+    public void testFindAll() throws IOException
     {
         this.versionsService.findAll(this.apiKey, 372L);
     }

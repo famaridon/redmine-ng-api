@@ -28,9 +28,5 @@ public interface UsersEndpoint {
 	@Path("/{id}")
 	@CacheControl(maxAge = 15, maxAgeUnit = TimeUnit.MINUTES)
 	public UserDto findById(@HeaderParam(SecurityHeaders.X_REDMINE_API_KEY) String apiKey, @PathParam("id") long id) throws IOException;
-	
-	@GET
-	@Path("/connected")
-	public PageDto<Long> findConnected(@HeaderParam(SecurityHeaders.X_REDMINE_API_KEY) String apiKey) throws IOException;
 
 }
