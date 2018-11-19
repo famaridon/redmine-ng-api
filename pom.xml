@@ -367,11 +367,6 @@
     <profiles>
         <profile>
             <id>with-test-env</id>
-            <activation>
-                <property>
-                    <name>env.TEST_REDMINE_API_KEY</name>
-                </property>
-            </activation>
             <properties>
                 <skipTests>false</skipTests>
             </properties>
