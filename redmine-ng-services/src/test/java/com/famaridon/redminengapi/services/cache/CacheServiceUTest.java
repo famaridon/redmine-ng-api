@@ -10,6 +10,7 @@ import com.famaridon.redminengapi.services.redmine.Pager;
 import com.famaridon.redminengapi.services.redmine.impl.AbstractRedmineService;
 import com.famaridon.redminengapi.services.redmine.impl.DefaultIssueService;
 import org.infinispan.Cache;
+import org.infinispan.configuration.cache.ConfigurationBuilder;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -58,6 +59,18 @@ public class CacheServiceUTest {
     @Test
     public void getDefaultCache() {
         Cache<String, String> cache = cacheService.getCache("default");
+        assertNotNull(cache);
+    }
+
+    @Test
+    public void getCustomCache() {
+        Cache<String, String> cache = cacheService.getCache("custom");
+        assertNotNull(cache);
+    }
+
+    @Test
+    public void getCustomCacheWithConfiguration() {
+        Cache<String, String> cache = cacheService.getCache("customCacheWithConfiguration", new ConfigurationBuilder().expiration().lifespan(100l).build());
         assertNotNull(cache);
     }
 

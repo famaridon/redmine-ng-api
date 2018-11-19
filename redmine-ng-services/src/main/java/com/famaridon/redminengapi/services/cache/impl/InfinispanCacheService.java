@@ -23,7 +23,7 @@ public class InfinispanCacheService implements CacheService
 {
 	private static final Configuration DEFAULT_CACHE_CONFIGURATION = new ConfigurationBuilder().build();
 	
-	@Resource(lookup = "infinispan/redmine-ng-api")
+	@Resource(lookup = "java:jboss/infinispan/container/redmine-ng-api")
 	private EmbeddedCacheManager cacheContainer;
 	
 	@Override
