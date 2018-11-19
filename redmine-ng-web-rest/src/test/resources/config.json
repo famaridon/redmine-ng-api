@@ -1,7 +1,7 @@
 {
   "redmine": {
     "server": {
-      "url": "${env:REDMINE_SERVER}"
+      "url": "${env:TEST_REDMINE_SERVER}"
     }
   },
   "http": {
