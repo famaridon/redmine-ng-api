@@ -22,5 +22,3 @@ buildNumber.properties
 # Exclude maven wrapper
 !/.mvn/wrapper/maven-wrapper.jar
 
-# exclude sample configuration
-test-configuration.sh
