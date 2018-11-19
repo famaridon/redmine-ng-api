@@ -20,9 +20,6 @@ public class DefaultIssueService extends AbstractRedmineService<Issue> implement
 	
 	private static final Logger LOG = LoggerFactory.getLogger(DefaultIssueService.class);
 	
-	@EJB
-	private QueryService queryService;
-	
 	@Override
 	public Page<Issue> findAll(String apiAccessKey, Pager pager) throws IOException {
 		Page<Issue> p = Request.Get(this.configurationService.buildUrl("/issues.json?%s", pager))

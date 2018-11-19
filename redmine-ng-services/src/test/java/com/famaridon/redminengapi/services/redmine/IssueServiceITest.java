@@ -1,6 +1,9 @@
 package com.famaridon.redminengapi.services.redmine;
 
+import com.famaridon.redminengapi.services.redmine.impl.DefaultIssueService;
+import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -8,10 +11,18 @@ import javax.ejb.EJB;
 import java.io.IOException;
 
 @RunWith(Arquillian.class)
-public class IssueServiceTest extends AbstractServiceITest {
+public class IssueServiceITest extends AbstractServiceITest {
 	
 	@EJB
 	protected IssueService issueService;
+
+	@Deployment
+	public static WebArchive createDeployment() {
+		return prepareDeployment()
+				.addClass(IssueServiceITest.class)
+				.addClass(IssueService.class)
+				.addClass(DefaultIssueService.class);
+	}
 	
 	@Test
 	public void findAll() throws IOException {

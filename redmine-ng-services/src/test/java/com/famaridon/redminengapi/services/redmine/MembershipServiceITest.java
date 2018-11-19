@@ -1,6 +1,6 @@
 package com.famaridon.redminengapi.services.redmine;
 
-import com.famaridon.redminengapi.services.redmine.impl.DefaultQueryService;
+import com.famaridon.redminengapi.services.redmine.impl.DefaultMembershipService;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
@@ -11,21 +11,21 @@ import javax.ejb.EJB;
 import java.io.IOException;
 
 @RunWith(Arquillian.class)
-public class QueryServiceITest extends AbstractServiceITest {
+public class MembershipServiceITest extends AbstractServiceITest {
 	
 	@EJB
-	private QueryService queryService;
+	protected MembershipService membershipService;
 
 	@Deployment
 	public static WebArchive createDeployment() {
 		return prepareDeployment()
-				.addClass(QueryServiceITest.class)
-				.addClass(QueryService.class)
-				.addClass(DefaultQueryService.class);
+				.addClass(MembershipServiceITest.class)
+				.addClass(MembershipService.class)
+				.addClass(DefaultMembershipService.class);
 	}
 
 	@Test
-	public void findAll() throws IOException {
-	this.queryService.findAll(this.apiKey, new Pager());
+	public void findByProject() throws IOException{
+	this.membershipService.findByProject(this.apiKey, 372L, new Pager());
 	}
 }

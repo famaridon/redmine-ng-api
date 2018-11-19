@@ -1,6 +1,9 @@
 package com.famaridon.redminengapi.services.redmine;
 
+import com.famaridon.redminengapi.services.redmine.impl.DefaultProjectService;
+import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -12,7 +15,15 @@ public class ProjectServiceITest extends AbstractServiceITest{
 
 	@EJB
 	ProjectService projectService;
-	
+
+	@Deployment
+	public static WebArchive createDeployment() {
+		return prepareDeployment()
+				.addClass(ProjectServiceITest.class)
+				.addClass(ProjectService.class)
+				.addClass(DefaultProjectService.class);
+	}
+
 	@Test
 	public void findById() throws IOException {
 		this.projectService.findById(this.apiKey, 372L);
