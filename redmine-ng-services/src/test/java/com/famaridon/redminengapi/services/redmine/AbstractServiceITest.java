@@ -34,7 +34,10 @@ public abstract class AbstractServiceITest {
                 .addClass(DefaultConfigurationService.class)
                 .addPackages(true, "com.famaridon.redminengapi.services.redmine.rest.client")
                 .addAsLibraries(dependencies)
-                .addAsManifestResource("META-INF/MANIFEST.MF")
+                // add custom MANIFEST.MF to load infinispan module
+                .addAsManifestResource(new File("src/test/resources/META-INF/MANIFEST.MF"))
+                // add web.xml to tell wildfly to start infinispan clustering
+                .addAsWebInfResource(new File("src/test/resources/WEB-INF/web.xml"))
                 .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml")
                 .addAsResource("config.json");
 
