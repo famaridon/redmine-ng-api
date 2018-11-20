@@ -17,6 +17,7 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
+import org.jboss.shrinkwrap.resolver.api.maven.strategy.RejectDependenciesStrategy;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -30,14 +31,9 @@ import static org.junit.Assert.*;
 public class CacheServiceUTest {
 
     public static WebArchive prepareDeployment() {
-        File[] dependencies = Maven.resolver()
-                .loadPomFromFile(new File("pom.xml"))
-                .importRuntimeAndTestDependencies()
-                .resolve().withTransitivity().asFile();
 
         return ShrinkWrap.create(WebArchive.class)
                 .addPackages(true, "com.famaridon.redminengapi.services.cache.annotation")
-                .addAsLibraries(dependencies)
                 // add custom MANIFEST.MF to load infinispan module
                 .addAsManifestResource(new File("src/test/resources/META-INF/MANIFEST.MF"))
                 // add web.xml to tell wildfly to start infinispan clustering
