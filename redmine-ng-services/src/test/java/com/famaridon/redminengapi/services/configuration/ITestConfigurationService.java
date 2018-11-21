@@ -32,7 +32,6 @@ public class ITestConfigurationService implements ConfigurationService {
     protected final void init() {
         this.configuration = new HashMap<>();
         this.configuration.put("redmine.server.url", System.getenv("TEST_REDMINE_SERVER"));
-        System.out.println("TEST_REDMINE_SERVER : " + System.getenv("TEST_REDMINE_SERVER"));
 
         this.objectMapper = new ObjectMapper();
         this.objectMapper.registerModule(new RedmineClientModule());    }
