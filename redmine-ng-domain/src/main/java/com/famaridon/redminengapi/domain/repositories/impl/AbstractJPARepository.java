@@ -11,9 +11,9 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-public abstract class AbstractRepository<T extends AbstractEntity> implements Repository<T> {
+public abstract class AbstractJPARepository<T extends AbstractEntity> implements Repository<T> {
 	
-	private static final Logger LOG = LoggerFactory.getLogger(AbstractRepository.class);
+	private static final Logger LOG = LoggerFactory.getLogger(AbstractJPARepository.class);
 	
 	@PersistenceContext(name = "redmine-domain")
 	protected EntityManager em;

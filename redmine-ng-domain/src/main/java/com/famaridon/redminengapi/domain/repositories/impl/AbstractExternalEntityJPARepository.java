@@ -13,7 +13,7 @@ import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 import java.util.Optional;
 
-public abstract class AbstractExternalEntityRepository<T extends AbstractExternalEntity> extends AbstractRepository<T> implements Repository<T>, ExternalEntityRepository<T> {
+public abstract class AbstractExternalEntityJPARepository<T extends AbstractExternalEntity> extends AbstractJPARepository<T> implements Repository<T>, ExternalEntityRepository<T> {
 
 	@Override
 	@Transactional

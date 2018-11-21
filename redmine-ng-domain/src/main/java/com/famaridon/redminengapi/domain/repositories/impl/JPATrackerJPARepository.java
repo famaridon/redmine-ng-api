@@ -6,7 +6,7 @@ import com.famaridon.redminengapi.domain.repositories.TrackerRepository;
 import javax.ejb.Stateful;
 
 @Stateful
-public class DefaultTrackerRepository extends AbstractExternalEntityRepository<TrackerEntity> implements TrackerRepository {
+public class JPATrackerJPARepository extends AbstractExternalEntityJPARepository<TrackerEntity> implements TrackerRepository {
 
 	@Override
 	protected Class<TrackerEntity> getClazz() {
