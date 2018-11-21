@@ -1,8 +1,10 @@
 package com.famaridon.redminengapi.services.redmine;
 
 import com.famaridon.redminengapi.services.configuration.ConfigurationService;
+import com.famaridon.redminengapi.services.configuration.ITestConfigurationService;
 import com.famaridon.redminengapi.services.configuration.impl.DefaultConfigurationService;
 import com.famaridon.redminengapi.services.redmine.impl.AbstractRedmineService;
+import junit.framework.Assert;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
@@ -19,19 +21,25 @@ public abstract class AbstractServiceITest {
     protected ConfigurationService configurationService;
 
     protected String apiKey;
+    public static final String[] REDMINE_CLIENT_DEPENDENCIES = new String[]{
+            "org.apache.commons:commons-lang3",
+            "org.apache.httpcomponents:fluent-hc",
+            "com.fasterxml.jackson.core:jackson-databind",
+            "org.jsoup:jsoup"
+    };
 
     public static WebArchive prepareDeployment() {
         File[] dependencies = Maven.resolver()
                 .loadPomFromFile(new File("pom.xml"))
-                .importRuntimeAndTestDependencies()
-                .resolve().withTransitivity().asFile();
+                .resolve(REDMINE_CLIENT_DEPENDENCIES)
+                .withTransitivity().asFile();
 
         return ShrinkWrap.create(WebArchive.class)
                 .addClass(AbstractServiceITest.class)
                 .addClass(Pager.class)
                 .addClass(AbstractRedmineService.class)
                 .addClass(ConfigurationService.class)
-                .addClass(DefaultConfigurationService.class)
+                .addClass(ITestConfigurationService.class)
                 .addPackages(true, "com.famaridon.redminengapi.services.redmine.rest.client")
                 .addAsLibraries(dependencies)
                 // add custom MANIFEST.MF to load infinispan module
@@ -44,8 +52,9 @@ public abstract class AbstractServiceITest {
     }
 
     @Before
-    public void setUp() throws Exception {
-        this.apiKey = this.configurationService.getString("test.apiKey");
+    public void setUp() {
+        this.apiKey = System.getenv("TEST_REDMINE_API_KEY");
+        Assert.assertNotNull(this.apiKey);
     }
 
 }
