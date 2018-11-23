@@ -8,7 +8,7 @@ import com.famaridon.redminengapi.domain.repositories.StatusRepository;
 import javax.ejb.Stateful;
 
 @Stateful
-public class JPAObjectiveJPARepository extends AbstractExternalEntityJPARepository<ObjectiveEntity> implements ObjectiveRepository {
+public class JPAObjectiveJPARepository extends AbstractJPARepository<ObjectiveEntity> implements ObjectiveRepository {
 	
 	@Override
 	protected Class<ObjectiveEntity> getClazz() {

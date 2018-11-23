@@ -20,6 +20,7 @@
         <wildfly.version>14.0.1.Final</wildfly.version>
         <javaee-api.version>8.0</javaee-api.version>
         <infinispan.version>9.3.1.Final</infinispan.version>
+        <hibernate-validator.version>6.0.13.Final</hibernate-validator.version>
         <fluent-hc.version>4.5.6</fluent-hc.version>
         <jsoup.version>1.11.2</jsoup.version>
         <commons-configuration2.version>2.4</commons-configuration2.version>
@@ -90,6 +91,12 @@
                 <groupId>org.infinispan</groupId>
                 <artifactId>infinispan-commons</artifactId>
                 <version>${infinispan.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-validator</artifactId>
+                <version>${hibernate-validator.version}</version>
                 <scope>provided</scope>
             </dependency>
 
