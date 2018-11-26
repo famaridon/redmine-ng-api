@@ -154,7 +154,7 @@
                     </security>
                 </datasource>
                 <datasource jndi-name="java:jboss/datasources/redmine-ng" pool-name="redmine-ng">
-                    <connection-url>jdbc:postgresql://localhost:5432/redminengapi</connection-url>
+                    <connection-url>jdbc:postgresql://database:5432/redminengapi</connection-url>
                     <driver>postgresql</driver>
                     <security>
                         <user-name>postgres</user-name>

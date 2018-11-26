@@ -2,8 +2,6 @@ version: '3'
 services:
   database:
     image: postgres:11
-    ports:
-      - "5432:5432"
     volumes:
       - ./volumes/postgresql/data:/var/lib/postgresql/data
     environment:
@@ -18,4 +16,4 @@ services:
       - 5000:5000
     volumes:
       - ./configuration:/opt/wildfly/configuration
-      - ./deployement:/opt/wildfly/deployment
+      - ./deployment:/opt/wildfly/deployment
