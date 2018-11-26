@@ -25,3 +25,5 @@ buildNumber.properties
 # exclude sample configuration
 test-configuration.sh
 
+docker/volumes
+docker/deployment/*.war
