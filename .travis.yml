@@ -7,21 +7,14 @@ services:
 
 cache:
   directories:
-  - $HOME/.m2
-
-before_install:
-  - wget --quiet --no-clobber -P $JBOSS_HOME http://download.jboss.org/wildfly/14.0.1.Final/wildfly-14.0.1.Final.zip
-  - sudo unzip -q $JBOSS_HOME/wildfly-14.0.1.Final.zip -d $JBOSS_HOME
-  - sudo mv -f $JBOSS_HOME/wildfly-14.0.1.Final/* $JBOSS_HOME
-  - sudo cp standalone.xml $JBOSS_HOME/standalone/configuration/standalone.xml
-  - sudo chown -R $USER:$USER $JBOSS_HOME
-  - cat "#! /bin/bash" > test-configuration.sh
+    - $HOME/.m2
 
 install: # the build step
-   - mvn clean install -B -V
+  - mvn clean install -B -V
 
 script:
-   - ./test.sh
+  - cat "#! /bin/bash" > test-configuration.sh
+  - ./test.sh
 
 notifications:
   email: # only receive email when the build status changes (someone broke the build!)
