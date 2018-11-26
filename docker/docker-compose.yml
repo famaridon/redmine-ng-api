@@ -17,3 +17,7 @@ services:
     volumes:
       - ./configuration:/opt/wildfly/configuration
       - ./deployment:/opt/wildfly/deployment
+    environment:
+      - TEST_REDMINE_API_KEY=${TEST_REDMINE_API_KEY}
+      - TEST_REDMINE_SERVER=${TEST_REDMINE_SERVER}
+

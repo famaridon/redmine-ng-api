@@ -1,6 +1,9 @@
 language: java
 jdk:
-  - oraclejdk8
+  - openjdk8
+services:
+  - docker
+
 
 cache:
   directories:
@@ -12,14 +15,15 @@ before_install:
   - sudo mv -f $JBOSS_HOME/wildfly-14.0.1.Final/* $JBOSS_HOME
   - sudo cp standalone.xml $JBOSS_HOME/standalone/configuration/standalone.xml
   - sudo chown -R $USER:$USER $JBOSS_HOME
+  - cat "#! /bin/bash" > test-configuration.sh
 
 install: # the build step
    - mvn clean install -B -V
 
 script:
-   - mvn -P with-test-env test
+   - ./test.sh
 
 notifications:
   email: # only receive email when the build status changes (someone broke the build!)
-    on_failure: change
+    on_failure: always
     on_success: change
