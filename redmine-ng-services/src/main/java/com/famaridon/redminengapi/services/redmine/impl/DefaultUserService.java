@@ -33,6 +33,7 @@ public class DefaultUserService extends AbstractRedmineService<User> implements 
 			.execute()
 			.handleResponse(new HolderResponseHandler<>(this.configurationService, User.class));
 		r = this.loadGravatar(apiKey, r);
+		r.setApiKey(apiKey);
 		return r;
 	}
 	

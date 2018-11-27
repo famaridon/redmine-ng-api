@@ -95,4 +95,6 @@ public class User extends AbstractRedmineBean {
 	public void setCustomFields(List<CustomField> customFields) {
 		this.customFields = customFields;
 	}
+
+
 }
