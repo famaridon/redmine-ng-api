@@ -13,7 +13,7 @@ install: # the build step
   - mvn clean install -B -V
 
 script:
-  - cat "#! /bin/bash" > test-configuration.sh
+  - touch test-configuration.sh
   - ./test.sh
 
 notifications:
