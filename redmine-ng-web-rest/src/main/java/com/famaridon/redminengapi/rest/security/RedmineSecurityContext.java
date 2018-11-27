@@ -4,15 +4,18 @@ import com.famaridon.redminengapi.services.redmine.rest.client.beans.User;
 
 import javax.ws.rs.core.SecurityContext;
 import java.security.Principal;
+import java.util.List;
 
 public class RedmineSecurityContext implements SecurityContext {
 
     private final Principal principal;
+    private final List<String> roles;
     private final boolean secure;
 
-    public RedmineSecurityContext(User user, boolean secure) {
+    public RedmineSecurityContext(User user, List<String> roles, boolean secure) {
         this.principal = new RedminePrincipal(user);
-    this.secure = secure;
+        this.secure = secure;
+        this.roles = roles;
     }
 
     @Override
@@ -22,7 +25,7 @@ public class RedmineSecurityContext implements SecurityContext {
 
     @Override
     public boolean isUserInRole(String s) {
-        return false;
+        return this.roles.contains(s);
     }
 
     @Override

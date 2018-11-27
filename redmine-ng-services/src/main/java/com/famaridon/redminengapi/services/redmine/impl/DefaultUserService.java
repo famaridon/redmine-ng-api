@@ -15,6 +15,9 @@ import org.slf4j.LoggerFactory;
 
 import javax.ejb.Stateless;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 @Stateless
 public class DefaultUserService extends AbstractRedmineService<User> implements UserService {
@@ -59,4 +62,8 @@ public class DefaultUserService extends AbstractRedmineService<User> implements 
 		return user;
 	}
 
+	@Override
+	public List<String> findRoles(String login) {
+		return this.configurationService.getList(String.class, "security.users."+login, Collections.emptyList());
+	}
 }
