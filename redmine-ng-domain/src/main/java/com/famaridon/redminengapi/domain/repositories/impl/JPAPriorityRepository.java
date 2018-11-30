@@ -6,7 +6,7 @@ import com.famaridon.redminengapi.domain.repositories.PriorityRepository;
 import javax.ejb.Stateful;
 
 @Stateful
-public class JPAPriorityJPARepository extends AbstractExternalEntityJPARepository<PriorityEntity> implements PriorityRepository {
+public class JPAPriorityRepository extends AbstractExternalEntityJPARepository<PriorityEntity> implements PriorityRepository {
 	
 	@Override
 	protected Class<PriorityEntity> getClazz() {

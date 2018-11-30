@@ -11,7 +11,7 @@ import javax.persistence.TypedQuery;
 import java.util.Optional;
 
 @Stateful
-public class JPAWorkflowJPARepository extends AbstractJPARepository<WorkflowEntity> implements WorkflowRepository {
+public class JPAWorkflowRepository extends AbstractJPARepository<WorkflowEntity> implements WorkflowRepository {
 	
 	public Optional<WorkflowEntity> findByTrackerAndStatus(TrackerEntity tracker,  Optional<StatusEntity> status){
 		if(status.isPresent()){
