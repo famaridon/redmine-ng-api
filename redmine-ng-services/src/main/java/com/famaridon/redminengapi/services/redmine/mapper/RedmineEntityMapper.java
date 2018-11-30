@@ -11,7 +11,7 @@ import org.mapstruct.Mappings;
 import java.util.Set;
 
 @Mapper
-public interface EntityMapper {
+public interface RedmineEntityMapper {
 	
 	
 	@Mappings({ @Mapping(target = "id", source = "externalId") })

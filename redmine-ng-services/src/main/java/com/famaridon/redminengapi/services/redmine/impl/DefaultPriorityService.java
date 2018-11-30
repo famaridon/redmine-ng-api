@@ -3,7 +3,7 @@ package com.famaridon.redminengapi.services.redmine.impl;
 import com.famaridon.redminengapi.domain.entities.PriorityEntity;
 import com.famaridon.redminengapi.domain.repositories.PriorityRepository;
 import com.famaridon.redminengapi.services.redmine.PriorityService;
-import com.famaridon.redminengapi.services.redmine.mapper.EntityMapper;
+import com.famaridon.redminengapi.services.redmine.mapper.RedmineEntityMapper;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Priority;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +24,7 @@ public class DefaultPriorityService extends AbstractRedmineService<Priority> imp
 	private PriorityRepository priorityRepository;
 	
 	@Inject
-	private EntityMapper entityMapper;
+	private RedmineEntityMapper entityMapper;
 
 	@Override
 	public Set<Priority> findAll(String apiKey) throws IOException {

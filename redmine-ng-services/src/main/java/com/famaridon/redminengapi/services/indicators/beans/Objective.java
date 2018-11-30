@@ -1,17 +1,8 @@
-package com.famaridon.redminengapi.domain.entities;
+package com.famaridon.redminengapi.services.indicators.beans;
 
-import org.hibernate.validator.constraints.Length;
+public class Objective extends AbstractIndicatorBean {
 
-import javax.persistence.Entity;
-import javax.persistence.Lob;
-
-@Entity
-public class ObjectiveEntity extends AbstractEntity {
-
-    @Length(min = 10, max = 512)
     private String summary;
-
-    @Lob
     private String description;
 
     public String getSummary() {

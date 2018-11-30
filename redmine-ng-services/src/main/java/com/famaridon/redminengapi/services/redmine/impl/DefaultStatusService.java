@@ -7,7 +7,7 @@ import com.famaridon.redminengapi.domain.repositories.StatusRepository;
 import com.famaridon.redminengapi.domain.repositories.TrackerRepository;
 import com.famaridon.redminengapi.domain.repositories.WorkflowRepository;
 import com.famaridon.redminengapi.services.redmine.StatusService;
-import com.famaridon.redminengapi.services.redmine.mapper.EntityMapper;
+import com.famaridon.redminengapi.services.redmine.mapper.RedmineEntityMapper;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Status;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,7 +35,7 @@ public class DefaultStatusService extends AbstractRedmineService<Status> impleme
 	private WorkflowRepository workflowRepository;
 	
 	@Inject
-	private EntityMapper entityMapper;
+	private RedmineEntityMapper entityMapper;
 
 	@Override
 	public Set<Status> findAvailbaleByTrackerForNew(String apiKey, Long tracker) throws IOException {
