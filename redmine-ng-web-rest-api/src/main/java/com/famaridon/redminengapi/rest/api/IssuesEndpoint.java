@@ -2,6 +2,7 @@ package com.famaridon.redminengapi.rest.api;
 
 import com.famaridon.redminengapi.rest.dto.IssueDto;
 import com.famaridon.redminengapi.rest.dto.PageDto;
+import com.famaridon.redminengapi.rest.dto.SimpleIndicatorDto;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DefaultValue;
@@ -36,4 +37,10 @@ public interface IssuesEndpoint {
 		@PathParam("project") Long project,
 		@QueryParam(PagerParam.OFFSET) @DefaultValue("0") Long offset,
 		@QueryParam(PagerParam.LIMIT) @DefaultValue("25") Long limit) throws IOException;
+	
+	@GET
+	@Path("/project/{project}/query/{query}/count")
+	public SimpleIndicatorDto findCountByQueryAndProject(@HeaderParam(SecurityHeaders.X_REDMINE_API_KEY) String apiKey,
+		@PathParam("query") Long query,
+		@PathParam("project") Long project) throws IOException;
 }
