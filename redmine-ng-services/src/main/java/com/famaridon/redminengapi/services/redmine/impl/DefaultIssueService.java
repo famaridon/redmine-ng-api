@@ -52,4 +52,11 @@ public class DefaultIssueService extends AbstractRedmineService<Issue> implement
 			.handleResponse(new PageResponseHandler<>(this.configurationService, Issue.class));
 		return p;
 	}
+	
+	@Override
+	public Long findCount(String apiAccessKey, Long query, Long project) throws IOException
+	{
+		Page<Issue> p = findByQueryAndProject(apiAccessKey, query, project, new Pager());
+		return p.getTotalCount();
+	}
 }
