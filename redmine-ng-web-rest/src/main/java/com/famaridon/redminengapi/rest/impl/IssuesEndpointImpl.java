@@ -4,6 +4,7 @@ import com.famaridon.redminengapi.rest.AbstractRedmineEndpoint;
 import com.famaridon.redminengapi.rest.api.IssuesEndpoint;
 import com.famaridon.redminengapi.rest.dto.IssueDto;
 import com.famaridon.redminengapi.rest.dto.PageDto;
+import com.famaridon.redminengapi.rest.dto.SimpleIndicatorDto;
 import com.famaridon.redminengapi.rest.mapper.DtoMapper;
 import com.famaridon.redminengapi.services.redmine.IssueService;
 import com.famaridon.redminengapi.services.redmine.Pager;
@@ -43,5 +44,14 @@ public class IssuesEndpointImpl extends AbstractRedmineEndpoint implements Issue
 		PageDto<IssueDto> pageDto = this.mapper.pageToPageDto(page);
 		pageDto.setElements(this.mapper.issuesToIssueDtos(page.getElements()));
 		return pageDto;
+	}
+	
+	@Override
+	public SimpleIndicatorDto findCountByQueryAndProject(String apiKey, Long query, Long project) throws IOException
+	{
+		SimpleIndicatorDto simpleIndicatorDto = new SimpleIndicatorDto();
+		simpleIndicatorDto.setName("Count for query : " + query + " and project : " + project);
+		simpleIndicatorDto.setValue(this.issueService.findCount(apiKey, query, project));
+		return simpleIndicatorDto;
 	}
 }

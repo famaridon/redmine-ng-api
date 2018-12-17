@@ -12,4 +12,6 @@ public interface IssueService {
 	Issue findById(String apiKey, Long id) throws IOException;
 	
 	Page<Issue> findByQueryAndProject(String apiKey, Long query, Long project, Pager pager) throws IOException;
+	
+	Long findCount(String apiKey, Long query, Long project) throws IOException;
 }

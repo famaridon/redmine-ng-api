@@ -39,4 +39,9 @@ public class IssueServiceITest extends AbstractServiceITest {
 	public void findByQueryAndProject() throws IOException {
 		this.issueService.findByQueryAndProject(this.apiKey, 906L, 372L, new Pager());
 	}
+	
+	@Test
+	public void findCount() throws IOException {
+		Long count = this.issueService.findCount(this.apiKey, 1762L, 1032L);
+	}
 }
