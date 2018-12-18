@@ -5,6 +5,9 @@
 # Sensitive or high-churn files:
 .idea/
 
+## windows build helper
+build.bat
+
 ## File-based project format:
 *.iws
 *.iml
@@ -27,3 +30,4 @@ test-configuration.sh
 
 docker/volumes
 docker/deployment/*.war
+docker/scripts/start.bat
