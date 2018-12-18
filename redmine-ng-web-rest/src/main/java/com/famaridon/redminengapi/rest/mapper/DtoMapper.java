@@ -1,6 +1,7 @@
 package com.famaridon.redminengapi.rest.mapper;
 
 import com.famaridon.redminengapi.rest.dto.*;
+import com.famaridon.redminengapi.services.indicators.beans.Iteration;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.*;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -46,6 +47,9 @@ public interface DtoMapper {
 	
 	List<PriorityDto> prioritiesToPriorityDtos(Iterable<Priority> priorities);
 	List<VersionDto> versionsToVersionDtos(Iterable<Version> versions);
+	
+	IterationDto iterationToIterationDto(Iteration iteration);
+	List<IterationDto> iterationsToIterationDtos(Iterable<Iteration> iterations);
 	
 	
 }

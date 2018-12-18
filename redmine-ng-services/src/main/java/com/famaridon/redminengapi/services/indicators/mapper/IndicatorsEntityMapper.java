@@ -1,8 +1,10 @@
 package com.famaridon.redminengapi.services.indicators.mapper;
 
+import com.famaridon.redminengapi.domain.entities.IterationEntity;
 import com.famaridon.redminengapi.domain.entities.ObjectiveEntity;
 import com.famaridon.redminengapi.domain.entities.PriorityEntity;
 import com.famaridon.redminengapi.domain.entities.StatusEntity;
+import com.famaridon.redminengapi.services.indicators.beans.Iteration;
 import com.famaridon.redminengapi.services.indicators.beans.Objective;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Priority;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Status;
@@ -18,4 +20,6 @@ public interface IndicatorsEntityMapper {
 
 	public Objective objectiveEntityToObjective(ObjectiveEntity objectiveEntity);
 	public List<Objective> objectiveEntitiesToObjectives(Iterable<ObjectiveEntity> objectiveEntities);
+	public Iteration iterationEntityToIteration(IterationEntity entity);
+	public List<Iteration> iterationEntitiesToIteration(Iterable<IterationEntity> entities);
 }

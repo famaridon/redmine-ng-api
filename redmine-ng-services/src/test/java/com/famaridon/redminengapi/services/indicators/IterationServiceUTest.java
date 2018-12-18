@@ -27,5 +27,6 @@ public class IterationServiceUTest extends AbstractIndicatorsServiceUTest {
 
     @Test
     public void findAll() {
+        iterationService.findAll();
     }
 }
