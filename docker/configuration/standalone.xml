@@ -154,10 +154,10 @@
                     </security>
                 </datasource>
                 <datasource jndi-name="java:jboss/datasources/redmine-ng" pool-name="redmine-ng">
-                    <connection-url>jdbc:postgresql://database:5432/redminengapi</connection-url>
-                    <driver>postgresql</driver>
+                    <connection-url>jdbc:mysql://database:3306/redminengapi</connection-url>
+                    <driver>mysql</driver>
                     <security>
-                        <user-name>postgres</user-name>
+                        <user-name>redmine-ng</user-name>
                         <password>secret</password>
                     </security>
                 </datasource>
@@ -170,6 +170,12 @@
                         <xa-datasource-class>org.postgresql.xa.PGXADataSource</xa-datasource-class>
                         <!-- for non-xa datasource -->
                         <driver-class>org.postgresql.Driver</driver-class>
+                    </driver>
+                    <driver name="mysql" module="com.mysql">
+                        <!-- for xa datasource -->
+                        <xa-datasource-class>com.mysql.jdbc.jdbc2.optional.MysqlXADataSource</xa-datasource-class>
+                        <!-- for non-xa datasource -->
+                        <driver-class>com.mysql.jdbc.Driver</driver-class>
                     </driver>
                 </drivers>
             </datasources>

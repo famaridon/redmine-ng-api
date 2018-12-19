@@ -1,13 +1,14 @@
 version: '3'
 services:
   database:
-    image: postgres:11
+    image: mysql:5.7
     volumes:
-      - ./volumes/postgresql/data:/var/lib/postgresql/data
+      - ./volumes/mysql/data:/var/lib/postgresql/data
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: secret
-      POSTGRES_DB: redminengapi
+      MYSQL_USER: redmine-ng
+      MYSQL_PASSWORD: secret
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: redminengapi
   api:
     build: .
     ports:
