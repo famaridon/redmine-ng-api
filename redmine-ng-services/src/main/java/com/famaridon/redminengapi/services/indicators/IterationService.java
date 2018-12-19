@@ -7,4 +7,7 @@ import java.util.List;
 public interface IterationService {
 	
 	List<Iteration> findAll();
+	
+	Iteration createIteration(Iteration iteration);
+	
 }

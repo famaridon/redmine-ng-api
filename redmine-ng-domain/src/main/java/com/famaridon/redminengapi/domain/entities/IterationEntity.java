@@ -8,7 +8,7 @@ public class IterationEntity extends AbstractEntity {
 
     protected Date start;
     protected Date end;
-
+    
     public Date getStart() {
         return start;
     }

@@ -29,7 +29,19 @@ public class IterationEndpointImpl extends AbstractRedmineEndpoint implements It
 		List<Iteration> iterations = iterationService.findAll();
 		PageDto<IterationDto> pageDto = new PageDto<>();
 		List<IterationDto> iterationDtos = mapper.iterationsToIterationDtos(iterations);
+		pageDto.setTotalCount(iterationDtos.size());
+		pageDto.setLimit(iterationDtos.size());
+		pageDto.setOffset(0);
 		pageDto.setElements(iterationDtos);
 		return pageDto;
 	}
+	
+	@Override
+	public IterationDto create(String apiKey, IterationDto iterationDto)
+	{
+		Iteration iteration = mapper.iterationDtoToIteration(iterationDto);
+		iteration = iterationService.createIteration(iteration);
+		return mapper.iterationToIterationDto(iteration);
+	}
+	
 }

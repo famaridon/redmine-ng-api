@@ -24,4 +24,12 @@ public class DefaultIterationService implements IterationService {
 		Iterable<IterationEntity> iterationEntities = iterationRepository.findAll();
 		return indicatorsEntityMapper.iterationEntitiesToIteration(iterationEntities);
 	}
+	
+	@Override
+	public Iteration createIteration(Iteration iteration)
+	{
+		IterationEntity iterationEntity = indicatorsEntityMapper.iterationToIterationEntity(iteration);
+		iterationEntity = iterationRepository.save(iterationEntity);
+		return indicatorsEntityMapper.iterationEntityToIteration(iterationEntity);
+	}
 }

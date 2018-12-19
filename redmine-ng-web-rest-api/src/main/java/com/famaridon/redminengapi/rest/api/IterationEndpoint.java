@@ -24,7 +24,7 @@ public interface IterationEndpoint
 	@POST
 	public IterationDto create(@HeaderParam(SecurityHeaders.X_REDMINE_API_KEY) String apiKey, IterationDto iterationDto) ;
 
-	@PUT
-	@Path("/{id}")
-	public IterationDto update(@HeaderParam(SecurityHeaders.X_REDMINE_API_KEY) String apiKey, IterationDto iterationDto) ;
+//	@PUT
+//	@Path("/{id}")
+//	public IterationDto update(@HeaderParam(SecurityHeaders.X_REDMINE_API_KEY) String apiKey, IterationDto iterationDto) ;
 }

@@ -51,5 +51,6 @@ public interface DtoMapper {
 	IterationDto iterationToIterationDto(Iteration iteration);
 	List<IterationDto> iterationsToIterationDtos(Iterable<Iteration> iterations);
 	
-	
+	Iteration iterationDtoToIteration(IterationDto iterationDto);
+	List<Iteration> iterationDtosToIterations(List<IterationDto> iterationDtos);
 }
