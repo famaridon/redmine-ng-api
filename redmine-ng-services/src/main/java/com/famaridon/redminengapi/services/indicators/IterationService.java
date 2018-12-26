@@ -8,6 +8,9 @@ public interface IterationService {
 	
 	List<Iteration> findAll();
 	
-	Iteration createIteration(Iteration iteration);
+	Iteration create(Iteration iteration);
 	
+	Iteration findById(Long id);
+	
+	void update(Iteration iteration);
 }

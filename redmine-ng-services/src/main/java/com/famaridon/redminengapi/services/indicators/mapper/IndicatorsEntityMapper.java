@@ -10,6 +10,7 @@ import com.famaridon.redminengapi.services.redmine.rest.client.beans.Priority;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Status;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import org.mapstruct.Mappings;
 import org.mapstruct.NullValueCheckStrategy;
 
@@ -24,5 +25,6 @@ public interface IndicatorsEntityMapper {
 	public Iteration iterationEntityToIteration(IterationEntity entity);
 	public List<Iteration> iterationEntitiesToIteration(Iterable<IterationEntity> entities);
 	public IterationEntity iterationToIterationEntity(Iteration iteration);
+	public void updateIterationEntityFromIteration(Iteration iteration, @MappingTarget IterationEntity iterationEntity);
 	public List<IterationEntity> iterationsToIterationEntities(List<Iteration> iterations);
 }

@@ -9,6 +9,7 @@ import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.io.IOException;
@@ -16,15 +17,20 @@ import java.io.IOException;
 @Path("/iteration")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public interface IterationEndpoint
-{
+public interface IterationEndpoint {
+	
 	@GET
 	public PageDto<IterationDto> findAll(@HeaderParam(SecurityHeaders.X_REDMINE_API_KEY) String apiKey) throws IOException;
-
+	
 	@POST
-	public IterationDto create(@HeaderParam(SecurityHeaders.X_REDMINE_API_KEY) String apiKey, IterationDto iterationDto) ;
-
-//	@PUT
-//	@Path("/{id}")
-//	public IterationDto update(@HeaderParam(SecurityHeaders.X_REDMINE_API_KEY) String apiKey, IterationDto iterationDto) ;
+	public IterationDto create(@HeaderParam(SecurityHeaders.X_REDMINE_API_KEY) String apiKey, IterationDto iterationDto);
+	
+	@GET
+	@Path("/{id}")
+	public IterationDto findById(@HeaderParam(SecurityHeaders.X_REDMINE_API_KEY) String apiKey, @PathParam("id") Long id);
+	
+	@PUT
+	@Path("/{id}")
+	public void update(@HeaderParam(SecurityHeaders.X_REDMINE_API_KEY) String apiKey, @PathParam("id") Long id,
+		IterationDto iterationDto);
 }

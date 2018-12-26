@@ -14,18 +14,16 @@ import java.io.IOException;
 import java.util.List;
 
 @RequestScoped
-public class IterationEndpointImpl extends AbstractRedmineEndpoint implements IterationEndpoint
-{
+public class IterationEndpointImpl extends AbstractRedmineEndpoint implements IterationEndpoint {
 	
 	@Inject
-	IterationService iterationService;
+	private IterationService iterationService;
 	
 	@Inject
 	private DtoMapper mapper;
 	
 	@Override
-	public PageDto<IterationDto> findAll(String apiKey) throws IOException
-	{
+	public PageDto<IterationDto> findAll(String apiKey) throws IOException {
 		List<Iteration> iterations = iterationService.findAll();
 		PageDto<IterationDto> pageDto = new PageDto<>();
 		List<IterationDto> iterationDtos = mapper.iterationsToIterationDtos(iterations);
@@ -37,11 +35,22 @@ public class IterationEndpointImpl extends AbstractRedmineEndpoint implements It
 	}
 	
 	@Override
-	public IterationDto create(String apiKey, IterationDto iterationDto)
-	{
+	public IterationDto create(String apiKey, IterationDto iterationDto) {
 		Iteration iteration = mapper.iterationDtoToIteration(iterationDto);
-		iteration = iterationService.createIteration(iteration);
+		iteration = iterationService.create(iteration);
 		return mapper.iterationToIterationDto(iteration);
+	}
+	
+	@Override
+	public IterationDto findById(String apiKey, Long id) {
+		return this.mapper.iterationToIterationDto(this.iterationService.findById(id));
+	}
+	
+	@Override
+	public void update(String apiKey, Long id, IterationDto iterationDto) {
+		Iteration iteration = mapper.iterationDtoToIteration(iterationDto);
+		iteration.setId(id);
+		this.iterationService.update(iteration);
 	}
 	
 }

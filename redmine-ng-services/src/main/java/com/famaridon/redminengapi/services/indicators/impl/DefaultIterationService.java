@@ -26,10 +26,23 @@ public class DefaultIterationService implements IterationService {
 	}
 	
 	@Override
-	public Iteration createIteration(Iteration iteration)
+	public Iteration create(Iteration iteration)
 	{
 		IterationEntity iterationEntity = indicatorsEntityMapper.iterationToIterationEntity(iteration);
 		iterationEntity = iterationRepository.save(iterationEntity);
 		return indicatorsEntityMapper.iterationEntityToIteration(iterationEntity);
+	}
+	
+	@Override
+	public Iteration findById(Long id) {
+		IterationEntity iterationEntity = this.iterationRepository.findById(id);
+		return this.indicatorsEntityMapper.iterationEntityToIteration(iterationEntity);
+	}
+	
+	@Override
+	public void update(Iteration iteration) {
+		IterationEntity entity = this.iterationRepository.findById(iteration.getId());
+		this.indicatorsEntityMapper.updateIterationEntityFromIteration(iteration,entity);
+		this.iterationRepository.save(entity);
 	}
 }

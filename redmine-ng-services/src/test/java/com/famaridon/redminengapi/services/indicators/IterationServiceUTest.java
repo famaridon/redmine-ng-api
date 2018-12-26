@@ -5,16 +5,12 @@ import com.famaridon.redminengapi.services.indicators.impl.DefaultIterationServi
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.AfterClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import javax.ejb.EJB;
 
-import java.util.Calendar;
 import java.util.Date;
-
-import static org.junit.Assert.*;
 
 @RunWith(Arquillian.class)
 public class IterationServiceUTest extends AbstractIndicatorsServiceUTest {
@@ -41,7 +37,7 @@ public class IterationServiceUTest extends AbstractIndicatorsServiceUTest {
         iteration.setName("Test");
         iteration.setStart(new Date(946684800l));
         iteration.setEnd(new Date(946684801l));
-        iteration = iterationService.createIteration(iteration);
+        iteration = iterationService.create(iteration);
     }
     
 }
