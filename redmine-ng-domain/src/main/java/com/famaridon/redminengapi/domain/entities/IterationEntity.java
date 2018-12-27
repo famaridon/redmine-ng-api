@@ -1,8 +1,10 @@
 package com.famaridon.redminengapi.domain.entities;
 
 import javax.persistence.Entity;
+import javax.persistence.NamedQuery;
 import java.util.Date;
 
+@NamedQuery(name = "getCurrentIteration", query = "select IterationEntity from IterationEntity where start < :now and :now < end")
 @Entity
 public class IterationEntity extends AbstractEntity {
 
