@@ -11,6 +11,7 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import javax.transaction.Transactional;
 
 public abstract class AbstractJPARepository<T extends AbstractEntity> implements Repository<T> {
 
@@ -23,6 +24,7 @@ public abstract class AbstractJPARepository<T extends AbstractEntity> implements
         return this.em.find(this.getClazz(), id);
     }
 
+    @Transactional(Transactional.TxType.MANDATORY)
     public T save(T entity) {
         boolean isCreation = false;
         if (entity.getId() == null) {
@@ -35,6 +37,11 @@ public abstract class AbstractJPARepository<T extends AbstractEntity> implements
             LOG.info("Update entity : {} ", result);
         }
         return result;
+    }
+    
+    @Transactional(Transactional.TxType.MANDATORY)
+    public void delete(T entity) {
+        this.em.remove(entity);
     }
 
     @Override
