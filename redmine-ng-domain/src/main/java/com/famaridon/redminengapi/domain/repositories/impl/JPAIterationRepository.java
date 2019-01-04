@@ -14,7 +14,7 @@ public class JPAIterationRepository extends AbstractJPARepository<IterationEntit
 		IterationRepository {
 	
 	@Override
-	public IterationEntity findCurrenIteration() {
+	public IterationEntity findCurrentIteration() {
 		TypedQuery<IterationEntity> query = this.em.createNamedQuery("getCurrentIteration", IterationEntity.class);
 		query.setParameter("now", new Date());
 		return query.getSingleResult();
