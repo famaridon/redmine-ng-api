@@ -10,8 +10,10 @@ import com.famaridon.redminengapi.services.indicators.beans.Iteration;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.ws.rs.NotFoundException;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @RequestScoped
 public class IterationEndpointImpl extends AbstractRedmineEndpoint implements IterationEndpoint {
@@ -23,7 +25,7 @@ public class IterationEndpointImpl extends AbstractRedmineEndpoint implements It
 	private DtoMapper mapper;
 	
 	@Override
-	public PageDto<IterationDto> findAll(String apiKey) throws IOException {
+	public PageDto<IterationDto> findAll() throws IOException {
 		List<Iteration> iterations = iterationService.findAll();
 		PageDto<IterationDto> pageDto = new PageDto<>();
 		List<IterationDto> iterationDtos = mapper.iterationsToIterationDtos(iterations);
@@ -35,19 +37,28 @@ public class IterationEndpointImpl extends AbstractRedmineEndpoint implements It
 	}
 	
 	@Override
-	public IterationDto create(String apiKey, IterationDto iterationDto) {
+	public IterationDto create(IterationDto iterationDto) {
 		Iteration iteration = mapper.iterationDtoToIteration(iterationDto);
 		iteration = iterationService.create(iteration);
 		return mapper.iterationToIterationDto(iteration);
 	}
 	
 	@Override
-	public IterationDto findById(String apiKey, Long id) {
+	public IterationDto findCurrent() {
+		Optional<Iteration> optionalIteration = this.iterationService.findCurrent();
+		if(!optionalIteration.isPresent()) {
+			throw new NotFoundException("No current iteration found");
+		}
+		return this.mapper.iterationToIterationDto(optionalIteration.get());
+	}
+	
+	@Override
+	public IterationDto findById(Long id) {
 		return this.mapper.iterationToIterationDto(this.iterationService.findById(id));
 	}
 	
 	@Override
-	public void update(String apiKey, Long id, IterationDto iterationDto) {
+	public void update( Long id, IterationDto iterationDto) {
 		Iteration iteration = mapper.iterationDtoToIteration(iterationDto);
 		iteration.setId(id);
 		this.iterationService.update(iteration);

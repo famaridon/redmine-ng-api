@@ -53,15 +53,17 @@ public class DefaultDataLoaderService {
 	@PostConstruct
 	@Transactional(Transactional.TxType.REQUIRED)
 	protected void startup() {
+		/*
 		try {
 			this.loadStatus();
 			this.loadTrakers();
 			this.loadWorkflows();
 			this.loadPriorities();
+			
 		} catch (IOException e) {
 			throw new IllegalStateException("", e);
 		}
-		
+		*/
 	}
 	
 	private void loadPriorities() throws IOException {

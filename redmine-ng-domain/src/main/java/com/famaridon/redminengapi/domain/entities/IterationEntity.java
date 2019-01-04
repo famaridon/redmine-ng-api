@@ -2,28 +2,29 @@ package com.famaridon.redminengapi.domain.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.NamedQuery;
+import java.time.LocalDate;
 import java.util.Date;
 
-@NamedQuery(name = "getCurrentIteration", query = "select IterationEntity from IterationEntity where start < :now and :now < end")
+@NamedQuery(name = "IterationEntity.getCurrentIteration", query = "select i from IterationEntity i where i.start < :now and :now < i.end")
 @Entity
 public class IterationEntity extends AbstractEntity {
 
-    protected Date start;
-    protected Date end;
+    protected LocalDate start;
+    protected LocalDate end;
     
-    public Date getStart() {
+    public LocalDate getStart() {
         return start;
     }
 
-    public void setStart(Date start) {
+    public void setStart(LocalDate start) {
         this.start = start;
     }
 
-    public Date getEnd() {
+    public LocalDate getEnd() {
         return end;
     }
 
-    public void setEnd(Date end) {
+    public void setEnd(LocalDate end) {
         this.end = end;
     }
 }

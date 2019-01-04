@@ -10,6 +10,7 @@ import org.junit.runner.RunWith;
 
 import javax.ejb.EJB;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @RunWith(Arquillian.class)
@@ -35,8 +36,8 @@ public class IterationServiceUTest extends AbstractIndicatorsServiceUTest {
     public void createIteration(){
         Iteration iteration = new Iteration();
         iteration.setName("Test");
-        iteration.setStart(new Date(946684800l));
-        iteration.setEnd(new Date(946684801l));
+        iteration.setStart( LocalDate.now());
+        iteration.setEnd(LocalDate.now());
         iteration = iterationService.create(iteration);
     }
     

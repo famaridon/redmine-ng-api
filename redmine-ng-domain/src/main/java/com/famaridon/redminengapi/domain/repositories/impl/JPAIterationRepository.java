@@ -7,6 +7,7 @@ import com.famaridon.redminengapi.domain.repositories.ObjectiveRepository;
 
 import javax.ejb.Stateful;
 import javax.persistence.TypedQuery;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Optional;
 
@@ -16,8 +17,8 @@ public class JPAIterationRepository extends AbstractJPARepository<IterationEntit
 	
 	@Override
 	public Optional<IterationEntity> findCurrentIteration() {
-		TypedQuery<IterationEntity> query = this.em.createNamedQuery("getCurrentIteration", IterationEntity.class);
-		query.setParameter("now", new Date());
+		TypedQuery<IterationEntity> query = this.em.createNamedQuery("IterationEntity.getCurrentIteration", IterationEntity.class);
+		query.setParameter("now", LocalDate.now());
 		return Optional.of(query.getSingleResult());
 	}
 	

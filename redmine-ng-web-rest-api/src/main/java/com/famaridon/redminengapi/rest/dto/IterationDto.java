@@ -2,29 +2,30 @@ package com.famaridon.redminengapi.rest.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class IterationDto extends AbstractDto
 {
-	private Date start;
-	private Date end;
+	private LocalDate start;
+	private LocalDate end;
 	
-	public Date getStart()
+	public LocalDate getStart()
 	{
 		return start;
 	}
 	
-	public void setStart(Date start)
+	public void setStart(LocalDate start)
 	{
 		this.start = start;
 	}
 	
-	public Date getEnd()
+	public LocalDate getEnd()
 	{
 		return end;
 	}
 	
-	public void setEnd(Date end)
+	public void setEnd(LocalDate end)
 	{
 		this.end = end;
 	}

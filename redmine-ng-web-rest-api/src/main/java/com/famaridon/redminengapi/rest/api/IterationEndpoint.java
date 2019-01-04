@@ -20,17 +20,20 @@ import java.io.IOException;
 public interface IterationEndpoint {
 	
 	@GET
-	public PageDto<IterationDto> findAll(@HeaderParam(SecurityHeaders.X_REDMINE_API_KEY) String apiKey) throws IOException;
+	public PageDto<IterationDto> findAll() throws IOException;
 	
 	@POST
-	public IterationDto create(@HeaderParam(SecurityHeaders.X_REDMINE_API_KEY) String apiKey, IterationDto iterationDto);
+	public IterationDto create(IterationDto iterationDto);
 	
 	@GET
-	@Path("/{id}")
-	public IterationDto findById(@HeaderParam(SecurityHeaders.X_REDMINE_API_KEY) String apiKey, @PathParam("id") Long id);
+	@Path("/current")
+	public IterationDto findCurrent();
+	
+	@GET
+	@Path("/{id : \\d+}")
+	public IterationDto findById(@PathParam("id") Long id);
 	
 	@PUT
 	@Path("/{id}")
-	public void update(@HeaderParam(SecurityHeaders.X_REDMINE_API_KEY) String apiKey, @PathParam("id") Long id,
-		IterationDto iterationDto);
+	public void update(@PathParam("id") Long id, IterationDto iterationDto);
 }
