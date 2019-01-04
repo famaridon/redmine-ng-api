@@ -9,6 +9,7 @@ import com.famaridon.redminengapi.services.indicators.mapper.IndicatorsEntityMap
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import java.util.List;
+import java.util.Optional;
 
 @Stateless
 public class DefaultIterationService implements IterationService {
@@ -44,5 +45,11 @@ public class DefaultIterationService implements IterationService {
 		IterationEntity entity = this.iterationRepository.findById(iteration.getId());
 		this.indicatorsEntityMapper.updateIterationEntityFromIteration(iteration,entity);
 		this.iterationRepository.save(entity);
+	}
+	
+	@Override
+	public Optional<Iteration> findCurrent() {
+		Optional<IterationEntity> entityOptional = this.iterationRepository.findCurrentIteration();
+		return entityOptional.map(iterationEntity -> this.indicatorsEntityMapper.iterationEntityToIteration(iterationEntity));
 	}
 }
