@@ -6,12 +6,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 public abstract class AbstractJPARepository<T extends AbstractEntity> implements Repository<T> {
 
@@ -59,6 +61,16 @@ public abstract class AbstractJPARepository<T extends AbstractEntity> implements
         query.setFirstResult(Math.toIntExact(offset));
         query.setMaxResults(Math.toIntExact(limit));
         return query.getResultList();
+    }
+    
+    protected final Optional<T> getOptionalSingleResult(TypedQuery<T> query) {
+        T result = null;
+        try {
+            result = query.getSingleResult();
+        } catch (NoResultException e) {
+            // nothing to do
+        }
+        return Optional.ofNullable(result);
     }
 
     protected abstract Class<T> getClazz();

@@ -25,14 +25,7 @@ public abstract class AbstractExternalEntityJPARepository<T extends AbstractExte
 		q.select(c).where(cb.equal(c.get("externalId"), p));
 		TypedQuery<T> query = this.em.createQuery(q);
 		query.setParameter(p, externalId);
-		T result = null;
-		try {
-			result = query.getSingleResult();
-		} catch (NoResultException e) {
-			// nothing to do
-		}
-		
-		return Optional.ofNullable(result);
+		return this.getOptionalSingleResult(query);
 		
 	}
 	

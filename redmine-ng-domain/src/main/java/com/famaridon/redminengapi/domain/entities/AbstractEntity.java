@@ -2,6 +2,7 @@ package com.famaridon.redminengapi.domain.entities;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,6 +14,8 @@ public abstract class AbstractEntity {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Id
 	protected Long id;
+	
+	@Column(unique = true)
 	protected String name;
 	
 	public Long getId() {

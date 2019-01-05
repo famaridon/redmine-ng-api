@@ -5,5 +5,6 @@ import com.famaridon.redminengapi.domain.entities.IterationEntity;
 import java.util.Optional;
 
 public interface IterationRepository extends Repository<IterationEntity> {
-	public Optional<IterationEntity> findCurrentIteration();
+	Optional<IterationEntity> findCurrentIteration();
+	Optional<IterationEntity> findByName(String name);
 }
