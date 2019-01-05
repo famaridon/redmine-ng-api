@@ -2,8 +2,10 @@ version: '3'
 services:
   database:
     image: mysql:5.7
+    ports:
+      - 3406:3306
     volumes:
-      - ./volumes/mysql/data:/var/lib/postgresql/data
+      - ./volumes/mysql/data:/var/lib/mysql
     environment:
       MYSQL_USER: redmine-ng
       MYSQL_PASSWORD: secret
