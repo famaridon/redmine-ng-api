@@ -34,9 +34,9 @@ public abstract class AbstractJPARepository<T extends AbstractEntity> implements
         }
         T result = this.em.merge(entity);
         if (isCreation) {
-            LOG.info("Create entity : {} ", result);
+            LOG.debug("Create entity : {} ", result);
         } else {
-            LOG.info("Update entity : {} ", result);
+            LOG.debug("Update entity : {} ", result);
         }
         return result;
     }

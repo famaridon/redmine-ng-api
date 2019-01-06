@@ -82,16 +82,18 @@ public class DefaultDataLoaderService {
 		DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MM-dd-uuuu");
 		
 		for (CSVRecord record : csvParser) {
+			Long number = Long.parseLong(record.get("number"));
 			String name = record.get("name");
 			LocalDate start = LocalDate.parse(record.get("start"), dateTimeFormatter);
 			LocalDate end = LocalDate.parse(record.get("end"), dateTimeFormatter);
-			this.addIteration(name, start, end);
+			this.addIteration(number, name, start, end);
 		}
 	}
 	
-	private void addIteration(String name, LocalDate start, LocalDate end) {
-		Optional<IterationEntity> exist = this.iterationRepository.findByName(name);
+	private void addIteration(Long number, String name, LocalDate start, LocalDate end) {
+		Optional<IterationEntity> exist = this.iterationRepository.findByNumber(number);
 		IterationEntity entity = exist.orElseGet(IterationEntity::new);
+		entity.setNumber(number);
 		entity.setName(name);
 		entity.setStart(start);
 		entity.setEnd(end);

@@ -23,9 +23,9 @@ public class JPAIterationRepository extends AbstractJPARepository<IterationEntit
 	}
 	
 	@Override
-	public Optional<IterationEntity> findByName(String name) {
-		TypedQuery<IterationEntity> query = this.em.createNamedQuery("IterationEntity.findByName", IterationEntity.class);
-		query.setParameter("name", name);
+	public Optional<IterationEntity> findByNumber(Long number) {
+		TypedQuery<IterationEntity> query = this.em.createNamedQuery("IterationEntity.findByNumber", IterationEntity.class);
+		query.setParameter("number", number);
 		return this.getOptionalSingleResult(query);
 	}
 	

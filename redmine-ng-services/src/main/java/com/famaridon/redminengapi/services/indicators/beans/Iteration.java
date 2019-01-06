@@ -6,6 +6,7 @@ public class Iteration extends AbstractIndicatorBean
 {
 	private LocalDate start;
 	private LocalDate end;
+	private Long number;
 	
 	public LocalDate getStart()
 	{
@@ -25,5 +26,13 @@ public class Iteration extends AbstractIndicatorBean
 	public void setEnd(LocalDate end)
 	{
 		this.end = end;
+	}
+	
+	public Long getNumber() {
+		return number;
+	}
+	
+	public void setNumber(Long number) {
+		this.number = number;
 	}
 }

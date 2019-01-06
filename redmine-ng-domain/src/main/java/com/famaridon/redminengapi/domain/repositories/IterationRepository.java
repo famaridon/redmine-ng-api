@@ -6,5 +6,5 @@ import java.util.Optional;
 
 public interface IterationRepository extends Repository<IterationEntity> {
 	Optional<IterationEntity> findCurrentIteration();
-	Optional<IterationEntity> findByName(String name);
+	Optional<IterationEntity> findByNumber(Long number);
 }

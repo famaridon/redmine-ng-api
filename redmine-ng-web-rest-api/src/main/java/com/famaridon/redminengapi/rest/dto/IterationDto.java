@@ -9,6 +9,7 @@ public class IterationDto extends AbstractDto
 {
 	private LocalDate start;
 	private LocalDate end;
+	private Long number;
 	
 	public LocalDate getStart()
 	{
@@ -28,5 +29,13 @@ public class IterationDto extends AbstractDto
 	public void setEnd(LocalDate end)
 	{
 		this.end = end;
+	}
+	
+	public Long getNumber() {
+		return number;
+	}
+	
+	public void setNumber(Long number) {
+		this.number = number;
 	}
 }
