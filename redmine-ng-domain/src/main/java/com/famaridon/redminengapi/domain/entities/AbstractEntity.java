@@ -1,6 +1,7 @@
 package com.famaridon.redminengapi.domain.entities;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -12,7 +13,9 @@ import javax.persistence.SequenceGenerator;
 @MappedSuperclass
 public abstract class AbstractEntity {
 	
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	// fix MySQL AutoIncrement https://vladmihalcea.com/why-should-not-use-the-auto-jpa-generationtype-with-mysql-and-hibernate/
+	@GeneratedValue( strategy= GenerationType.AUTO, generator="native" )
+	@GenericGenerator( name = "native", strategy = "native" )
 	@Id
 	protected Long id;
 	
