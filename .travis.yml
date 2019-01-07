@@ -1,18 +1,24 @@
+sudo: 'required'
 language: java
 jdk:
   - openjdk8
 services:
   - docker
 
-
 cache:
   directories:
     - $HOME/.m2
+
+before_install:
+  - ./.travis/main.sh
+
 
 install: # the build step
   - mvn clean install -B -V
 
 script:
+  - docker version
+  - docker-compose version
   - touch test-configuration.sh
   - ./test.sh
 
