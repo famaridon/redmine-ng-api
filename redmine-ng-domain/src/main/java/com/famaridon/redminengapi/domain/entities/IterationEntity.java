@@ -64,8 +64,7 @@ public class IterationEntity extends AbstractEntity {
     IterationEntity that = (IterationEntity) o;
 
     return new EqualsBuilder()
-        .append(id, that.id)
-        .append(name, that.name)
+        .appendSuper(super.equals(o))
         .append(start, that.start)
         .append(end, that.end)
         .append(number, that.number)
@@ -75,8 +74,7 @@ public class IterationEntity extends AbstractEntity {
   @Override
   public int hashCode() {
     return new HashCodeBuilder(17, 37)
-        .append(id)
-        .append(name)
+        .appendSuper(super.hashCode())
         .append(start)
         .append(end)
         .append(number)
