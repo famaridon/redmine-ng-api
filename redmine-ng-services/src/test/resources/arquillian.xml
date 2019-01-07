@@ -5,7 +5,7 @@ http://jboss.org/schema/arquillian/arquillian_1_0.xsd">
 
 	<container qualifier="widlfly-remote" default="true">
 		<configuration>
-			<property name="managementAddress">127.0.0.1</property>
+			<property name="managementAddress">localhost</property>
 			<property name="managementPort">9990</property>
 			<property name="username">sysadmin</property>
 			<property name="password">manager</property>

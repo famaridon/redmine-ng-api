@@ -28,8 +28,8 @@ setup_dependencies() {
   Setting up dependencies.
   "
 
-  sudo apt-get update -y
-  sudo apt-get install --only-upgrade docker-ce -y
+  sudo apt-get -qq update -y
+  sudo apt-get -qq install --only-upgrade docker-ce -y
 
   docker info
 
