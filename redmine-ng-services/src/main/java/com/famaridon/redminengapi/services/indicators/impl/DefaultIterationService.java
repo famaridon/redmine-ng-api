@@ -8,6 +8,7 @@ import com.famaridon.redminengapi.services.indicators.mapper.IndicatorsEntityMap
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.ws.rs.NotFoundException;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,16 +36,21 @@ public class DefaultIterationService implements IterationService {
 	}
 	
 	@Override
-	public Iteration findById(Long id) {
-		IterationEntity iterationEntity = this.iterationRepository.findById(id);
-		return this.indicatorsEntityMapper.iterationEntityToIteration(iterationEntity);
+	public Optional<Iteration> findById(Long id) {
+		Optional<IterationEntity> entityOptional = this.iterationRepository.findById(id);
+		return entityOptional.map(iterationEntity -> this.indicatorsEntityMapper.iterationEntityToIteration(iterationEntity));
 	}
 	
 	@Override
 	public void update(Iteration iteration) {
-		IterationEntity entity = this.iterationRepository.findById(iteration.getId());
-		this.indicatorsEntityMapper.updateIterationEntityFromIteration(iteration,entity);
-		this.iterationRepository.save(entity);
+		Optional<IterationEntity> entityOptional = this.iterationRepository.findById(iteration.getId());
+		if(entityOptional.isPresent()) {
+			IterationEntity entity = entityOptional.get();
+			this.indicatorsEntityMapper.updateIterationEntityFromIteration(iteration,entity);
+			this.iterationRepository.save(entity);
+		} else {
+			throw new NotFoundException();
+		}
 	}
 	
 	@Override

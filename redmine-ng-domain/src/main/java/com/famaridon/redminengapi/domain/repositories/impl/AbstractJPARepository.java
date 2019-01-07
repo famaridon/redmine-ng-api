@@ -22,8 +22,8 @@ public abstract class AbstractJPARepository<T extends AbstractEntity> implements
     @PersistenceContext(name = "redmine-domain")
     protected EntityManager em;
 
-    public T findById(Long id) {
-        return this.em.find(this.getClazz(), id);
+    public Optional<T> findById(Long id) {
+        return Optional.ofNullable(this.em.find(this.getClazz(), id));
     }
 
     @Transactional(Transactional.TxType.MANDATORY)

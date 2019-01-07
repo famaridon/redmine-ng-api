@@ -25,6 +25,7 @@ import javax.transaction.Transactional;
 import javax.transaction.UserTransaction;
 import java.io.File;
 import java.time.LocalDate;
+import java.util.Optional;
 
 import static org.junit.Assert.*;
 
@@ -68,8 +69,9 @@ public class IterationRepositoryITest extends AbstractJPARepositoryITest {
 		iterationEntity = this.iterationRepository.save(iterationEntity);
 		this.userTransaction.commit();
 		
-		IterationEntity read = this.iterationRepository.findById(iterationEntity.getId());
-		assertEquals(iterationEntity.getNumber(), read.getNumber());
+		Optional<IterationEntity> read = this.iterationRepository.findById(iterationEntity.getId());
+		assertTrue(read.isPresent());
+		assertEquals(iterationEntity.getNumber(), read.get().getNumber());
 	}
 	
 	@Test
@@ -90,8 +92,9 @@ public class IterationRepositoryITest extends AbstractJPARepositoryITest {
 		iterationEntity = this.iterationRepository.save(iterationEntity);
 		this.userTransaction.commit();
 		
-		IterationEntity read = this.iterationRepository.findById(iterationEntity.getId());
-		assertEquals("Updated name", read.getName());
+		Optional<IterationEntity> read = this.iterationRepository.findById(iterationEntity.getId());
+		assertTrue(read.isPresent());
+		assertEquals("Updated name", read.get().getName());
 	}
 	
 	@Test
@@ -109,12 +112,13 @@ public class IterationRepositoryITest extends AbstractJPARepositoryITest {
 		
 		
 		this.userTransaction.begin();
-		IterationEntity read = this.iterationRepository.findById(iterationEntity.getId());
-		this.iterationRepository.delete(read);
+		Optional<IterationEntity> read = this.iterationRepository.findById(iterationEntity.getId());
+		assertTrue(read.isPresent());
+		this.iterationRepository.delete(read.get());
 		this.userTransaction.commit();
 		
 		read = this.iterationRepository.findById(iterationEntity.getId());
-		assertNull(read);
+		assertFalse(read.isPresent());
 	}
 	
 }

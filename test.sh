@@ -3,7 +3,7 @@
 . test-configuration.sh
 
 cd docker
-docker-compose up -f docker-compose-test.yml -d
+docker-compose  -f docker-compose-test.yml up --detach --force-recreate
 
 cd ..
 mvn -P with-test-env test

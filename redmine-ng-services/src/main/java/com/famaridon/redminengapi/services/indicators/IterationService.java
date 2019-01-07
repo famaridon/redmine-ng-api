@@ -11,7 +11,7 @@ public interface IterationService {
 	
 	Iteration create(Iteration iteration);
 	
-	Iteration findById(Long id);
+	Optional<Iteration> findById(Long id);
 	
 	/**
 	 * find the current iteration.
