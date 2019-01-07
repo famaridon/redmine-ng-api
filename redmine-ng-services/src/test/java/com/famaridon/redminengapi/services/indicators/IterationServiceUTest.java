@@ -16,7 +16,7 @@ import java.util.Date;
 
 public class IterationServiceUTest extends AbstractIndicatorsServiceUTest {
 
-    @EJB
+//    @EJB
     protected IterationService iterationService;
 
     @Deployment(testable = false)
@@ -27,12 +27,12 @@ public class IterationServiceUTest extends AbstractIndicatorsServiceUTest {
                 .addClass(DefaultIterationService.class);
     }
 
-    @Test
+//    @Test
     public void findAll() {
         iterationService.findAll(new Pager());
     }
     
-    @Test
+//    @Test
     public void createIteration(){
         Iteration iteration = new Iteration();
         iteration.setName("Test");
