@@ -2,10 +2,6 @@ version: '3'
 services:
   database:
     image: mysql:5.7
-    ports:
-      - 3406:3306
-    volumes:
-      - ./volumes/mysql/data:/var/lib/mysql
     environment:
       MYSQL_USER: redmine-ng
       MYSQL_PASSWORD: secret
@@ -15,10 +11,11 @@ services:
     build: .
     ports:
       - 8080:8080
-      - 8443:8443
       - 9990:9990
-      - 5000:5000
     volumes:
       - ./configuration:/opt/wildfly/configuration
-      - ./deployment:/opt/wildfly/deployment
+    environment:
+      WAIT_HOSTS: database:3306
+      TEST_REDMINE_API_KEY: ${TEST_REDMINE_API_KEY}
+      TEST_REDMINE_SERVER: ${TEST_REDMINE_SERVER}
 

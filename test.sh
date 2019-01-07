@@ -3,7 +3,7 @@
 . test-configuration.sh
 
 cd docker
-docker-compose up -d
+docker-compose up -f docker-compose-test.yml -d
 
 cd ..
 mvn -P with-test-env test
