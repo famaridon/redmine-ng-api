@@ -17,8 +17,6 @@ install: # the build step
   - mvn clean install -B -V
 
 script:
-  - docker version
-  - docker-compose version
   - touch .travis/test-configuration.sh
   - ./.travis/test.sh
 
