@@ -19,5 +19,12 @@ public interface ObjectiveEndpoint {
 	@GET
 	@RolesAllowed({"admin"})
 	public PageDto<ObjectiveDto> findAll(@HeaderParam(SecurityHeaders.X_REDMINE_API_KEY) String apiKey) throws IOException;
+	
+	@POST
+	public ObjectiveDto create(ObjectiveDto iterationDto);
+	
+	@GET
+	@Path("/{id : \\d+}")
+	public ObjectiveDto findById(@PathParam("id") Long id);
 
 }
