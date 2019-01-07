@@ -25,100 +25,76 @@ import javax.transaction.Transactional;
 import javax.transaction.UserTransaction;
 import java.io.File;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalUnit;
 import java.util.Optional;
 
 import static org.junit.Assert.*;
 
 @RunWith(Arquillian.class)
-public class IterationRepositoryITest extends AbstractJPARepositoryITest {
+public class IterationRepositoryITest extends AbstractJPARepositoryITest<IterationRepository, IterationEntity> {
 	
 	@EJB
 	private IterationRepository iterationRepository;
 	
-	@Inject
-	private UserTransaction userTransaction;
-	
 	@Deployment
 	public static Archive<?> createDeployment() {
-		return prepare(JPAIterationRepository.class, IterationEntity.class);
+		return prepare(IterationRepository.class, JPAIterationRepository.class, IterationEntity.class);
 	}
 	
-	@Test
-	public void create()
-		throws SystemException, NotSupportedException, HeuristicRollbackException, HeuristicMixedException, RollbackException {
-		
+	@Override
+	protected IterationRepository getRepository() {
+		return this.iterationRepository;
+	}
+	
+	@Override
+	protected IterationEntity buildCreateEntity() {
 		IterationEntity iterationEntity = new IterationEntity();
-		iterationEntity.setName("Save test");
+		iterationEntity.setName("Create");
 		iterationEntity.setNumber(1L);
-		iterationEntity.setStart(LocalDate.now());
-		iterationEntity.setEnd(LocalDate.now());
-		this.userTransaction.begin();
-		iterationEntity = this.iterationRepository.save(iterationEntity);
-		this.userTransaction.commit();
-		assertNotNull(iterationEntity.getId());
+		iterationEntity.setStart(LocalDate.now().minus(10, ChronoUnit.DAYS));
+		iterationEntity.setEnd(LocalDate.now().plus(5, ChronoUnit.DAYS));
+		return iterationEntity;
 	}
 	
-	@Test
-	public void read() throws SystemException, NotSupportedException, HeuristicRollbackException, HeuristicMixedException, RollbackException {
+	@Override
+	protected IterationEntity buildReadEntity() {
 		IterationEntity iterationEntity = new IterationEntity();
-		iterationEntity.setName("Read test");
+		iterationEntity.setName("Read");
 		iterationEntity.setNumber(2L);
-		iterationEntity.setStart(LocalDate.now());
-		iterationEntity.setEnd(LocalDate.now());
-		this.userTransaction.begin();
-		iterationEntity = this.iterationRepository.save(iterationEntity);
-		this.userTransaction.commit();
-		
-		Optional<IterationEntity> read = this.iterationRepository.findById(iterationEntity.getId());
-		assertTrue(read.isPresent());
-		assertEquals(iterationEntity.getNumber(), read.get().getNumber());
+		iterationEntity.setStart(LocalDate.now().minus(10, ChronoUnit.DAYS));
+		iterationEntity.setEnd(LocalDate.now().plus(5, ChronoUnit.DAYS));
+		return iterationEntity;
 	}
-	
-	@Test
-	public void update()
-		throws SystemException, NotSupportedException, HeuristicRollbackException, HeuristicMixedException, RollbackException {
+
+	@Override
+	protected IterationEntity buildUpdateEntity() {
 		IterationEntity iterationEntity = new IterationEntity();
-		iterationEntity.setName("Update test");
+		iterationEntity.setName("To update");
 		iterationEntity.setNumber(3L);
-		iterationEntity.setStart(LocalDate.now());
-		iterationEntity.setEnd(LocalDate.now());
-		
-		this.userTransaction.begin();
-		iterationEntity = this.iterationRepository.save(iterationEntity);
-		this.userTransaction.commit();
-		
-		this.userTransaction.begin();
-		iterationEntity.setName("Updated name");
-		iterationEntity = this.iterationRepository.save(iterationEntity);
-		this.userTransaction.commit();
-		
-		Optional<IterationEntity> read = this.iterationRepository.findById(iterationEntity.getId());
-		assertTrue(read.isPresent());
-		assertEquals("Updated name", read.get().getName());
+		iterationEntity.setStart(LocalDate.now().minus(10, ChronoUnit.DAYS));
+		iterationEntity.setEnd(LocalDate.now().plus(5, ChronoUnit.DAYS));
+		return iterationEntity;
 	}
-	
-	@Test
-	public void delete()
-		throws SystemException, NotSupportedException, HeuristicRollbackException, HeuristicMixedException, RollbackException {
+
+	@Override
+	protected void modify(IterationEntity entity) {
+		entity.setName("Updated");
+	}
+
+	@Override
+	protected void checkModification(IterationEntity updated) {
+		assertEquals("Updated", updated.getName());
+		assertEquals(Long.valueOf(3L), updated.getNumber());
+	}
+
+	@Override
+	protected IterationEntity buildDeleteEntity() {
 		IterationEntity iterationEntity = new IterationEntity();
-		iterationEntity.setName("Update test");
+		iterationEntity.setName("Delete");
 		iterationEntity.setNumber(4L);
-		iterationEntity.setStart(LocalDate.now());
-		iterationEntity.setEnd(LocalDate.now());
-		
-		this.userTransaction.begin();
-		iterationEntity = this.iterationRepository.save(iterationEntity);
-		this.userTransaction.commit();
-		
-		
-		this.userTransaction.begin();
-		Optional<IterationEntity> read = this.iterationRepository.findById(iterationEntity.getId());
-		assertTrue(read.isPresent());
-		this.iterationRepository.delete(read.get());
-		this.userTransaction.commit();
-		
-		read = this.iterationRepository.findById(iterationEntity.getId());
-		assertFalse(read.isPresent());
+		iterationEntity.setStart(LocalDate.now().minus(10, ChronoUnit.DAYS));
+		iterationEntity.setEnd(LocalDate.now().plus(5, ChronoUnit.DAYS));
+		return iterationEntity;
 	}
-	
 }
