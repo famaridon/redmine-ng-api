@@ -19,8 +19,8 @@ install: # the build step
 script:
   - docker version
   - docker-compose version
-  - touch test-configuration.sh
-  - ./test.sh
+  - touch .travis/test-configuration.sh
+  - ./.travis/test.sh
 
 notifications:
   email: # only receive email when the build status changes (someone broke the build!)

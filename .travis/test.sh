@@ -1,6 +1,6 @@
 #! /bin/bash
 
-. test-configuration.sh
+. .travis/test-configuration.sh
 
 cd docker
 docker-compose -f docker-compose-test.yml up --detach --force-recreate
