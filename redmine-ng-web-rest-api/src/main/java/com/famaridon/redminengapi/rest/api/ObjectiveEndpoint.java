@@ -11,7 +11,7 @@ import javax.ws.rs.core.MediaType;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-@Path("/objectives")
+@Path("/objective")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public interface ObjectiveEndpoint {
