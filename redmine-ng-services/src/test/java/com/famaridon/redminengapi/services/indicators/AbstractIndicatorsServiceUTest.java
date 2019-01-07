@@ -1,18 +1,11 @@
 package com.famaridon.redminengapi.services.indicators;
 
-import com.famaridon.redminengapi.services.configuration.ConfigurationService;
-import com.famaridon.redminengapi.services.configuration.ITestConfigurationService;
-import com.famaridon.redminengapi.services.redmine.Pager;
-import com.famaridon.redminengapi.services.redmine.impl.AbstractRedmineService;
-import junit.framework.Assert;
+import com.famaridon.redminengapi.services.indicators.impl.AbstractCrudRepositoryService;
+import java.io.File;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
-import org.junit.Before;
-
-import javax.ejb.EJB;
-import java.io.File;
 
 public abstract class AbstractIndicatorsServiceUTest {
 
@@ -28,6 +21,8 @@ public abstract class AbstractIndicatorsServiceUTest {
 
         return ShrinkWrap.create(WebArchive.class)
                 .addClass(AbstractIndicatorsServiceUTest.class)
+                .addClass(CrudService.class)
+                .addClass(AbstractCrudRepositoryService.class)
                 .addAsLibraries(dependencies)
                 // add custom MANIFEST.MF to load infinispan module
                 .addAsManifestResource(new File("src/test/resources/META-INF/MANIFEST.MF"))

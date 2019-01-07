@@ -14,13 +14,12 @@ import javax.ejb.EJB;
 import java.time.LocalDate;
 import java.util.Date;
 
-@RunWith(Arquillian.class)
 public class IterationServiceUTest extends AbstractIndicatorsServiceUTest {
 
     @EJB
     protected IterationService iterationService;
 
-    @Deployment
+    @Deployment(testable = false)
     public static WebArchive createDeployment() {
         return prepareDeployment()
                 .addClass(IterationServiceUTest.class)
@@ -41,20 +40,5 @@ public class IterationServiceUTest extends AbstractIndicatorsServiceUTest {
         iteration.setEnd(LocalDate.now());
         iteration = iterationService.create(iteration);
     }
-    
-//    @Test
-//    public void create(){
-//
-//    }
-//
-//    @Test
-//    public void findById(){
-//
-//    }
-//
-//    @Test
-//    public void update(){
-//
-//    }
     
 }
