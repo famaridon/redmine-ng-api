@@ -17,7 +17,7 @@ install: # the build step
   - mvn clean install -B -V
 
 script:
-  - touch .travis/test-configuration.sh
+  - echo "export WAIT_DOCKER=30" > .travis/test-configuration.sh
   - ./.travis/test.sh
 
 notifications:

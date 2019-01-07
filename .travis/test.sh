@@ -7,7 +7,7 @@ docker-compose -f docker-compose-test.yml up --detach --force-recreate
 
 cd ..
 
-sleep 30
+sleep $WAIT_DOCKER
 
 mvn -P with-test-env test
 result=$?
