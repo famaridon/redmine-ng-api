@@ -2,7 +2,7 @@ package com.famaridon.redminengapi.services.indicators.beans;
 
 import java.time.LocalDate;
 
-public class Iteration extends AbstractIndicatorBean
+public class Iteration extends AbstractBean
 {
 	private LocalDate start;
 	private LocalDate end;

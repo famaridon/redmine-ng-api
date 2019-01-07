@@ -2,6 +2,7 @@ package com.famaridon.redminengapi.services.indicators;
 
 import com.famaridon.redminengapi.services.indicators.beans.Iteration;
 import com.famaridon.redminengapi.services.indicators.impl.DefaultIterationService;
+import com.famaridon.redminengapi.services.redmine.Pager;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
@@ -29,7 +30,7 @@ public class IterationServiceUTest extends AbstractIndicatorsServiceUTest {
 
     @Test
     public void findAll() {
-        iterationService.findAll();
+        iterationService.findAll(new Pager());
     }
     
     @Test

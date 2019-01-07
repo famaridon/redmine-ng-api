@@ -1,6 +1,6 @@
 package com.famaridon.redminengapi.services.indicators.beans;
 
-public class Objective extends AbstractIndicatorBean {
+public class Objective extends AbstractBean {
 
     private String summary;
     private String description;

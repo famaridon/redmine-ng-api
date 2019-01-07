@@ -6,7 +6,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.io.Serializable;
 
-public abstract class AbstractIndicatorBean implements Serializable {
+public abstract class AbstractBean implements Serializable {
 	
 	private long id;
 	private String name;
@@ -33,11 +33,11 @@ public abstract class AbstractIndicatorBean implements Serializable {
 			return true;
 		}
 		
-		if (!(o instanceof AbstractIndicatorBean)) {
+		if (!(o instanceof AbstractBean)) {
 			return false;
 		}
 		
-		AbstractIndicatorBean that = (AbstractIndicatorBean)o;
+		AbstractBean that = (AbstractBean)o;
 		
 		return new EqualsBuilder().append(this.id, that.id).append(this.name, that.name).isEquals();
 	}

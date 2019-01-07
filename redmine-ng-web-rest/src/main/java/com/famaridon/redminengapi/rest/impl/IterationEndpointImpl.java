@@ -8,6 +8,8 @@ import com.famaridon.redminengapi.rest.mapper.DtoMapper;
 import com.famaridon.redminengapi.services.indicators.IterationService;
 import com.famaridon.redminengapi.services.indicators.beans.Iteration;
 
+import com.famaridon.redminengapi.services.redmine.Pager;
+import com.famaridon.redminengapi.services.redmine.rest.client.beans.Page;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.NotFoundException;
@@ -25,14 +27,10 @@ public class IterationEndpointImpl extends AbstractRedmineEndpoint implements It
 	private DtoMapper mapper;
 	
 	@Override
-	public PageDto<IterationDto> findAll() throws IOException {
-		List<Iteration> iterations = iterationService.findAll();
-		PageDto<IterationDto> pageDto = new PageDto<>();
-		List<IterationDto> iterationDtos = mapper.iterationsToIterationDtos(iterations);
-		pageDto.setTotalCount(iterationDtos.size());
-		pageDto.setLimit(iterationDtos.size());
-		pageDto.setOffset(0);
-		pageDto.setElements(iterationDtos);
+	public PageDto<IterationDto> findAll(Long offset, Long limit) throws IOException {
+		Page<Iteration> iterations = iterationService.findAll(new Pager(offset, limit));
+		PageDto<IterationDto> pageDto = this.mapper.pageToPageDto(iterations);
+		pageDto.setElements(mapper.iterationsToIterationDtos(iterations.getElements()));
 		return pageDto;
 	}
 	
@@ -54,7 +52,11 @@ public class IterationEndpointImpl extends AbstractRedmineEndpoint implements It
 	
 	@Override
 	public IterationDto findById(Long id) {
-		return this.mapper.iterationToIterationDto(this.iterationService.findById(id));
+		Optional<Iteration> optionalIteration = this.iterationService.findById(id);
+		if(!optionalIteration.isPresent()) {
+			throw new NotFoundException("No iteration found for id " + id);
+		}
+		return this.mapper.iterationToIterationDto(optionalIteration.get());
 	}
 	
 	@Override

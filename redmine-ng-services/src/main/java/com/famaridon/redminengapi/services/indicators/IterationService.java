@@ -5,19 +5,12 @@ import com.famaridon.redminengapi.services.indicators.beans.Iteration;
 import java.util.List;
 import java.util.Optional;
 
-public interface IterationService {
-	
-	List<Iteration> findAll();
-	
-	Iteration create(Iteration iteration);
-	
-	Optional<Iteration> findById(Long id);
-	
+public interface IterationService extends CrudService<Iteration>{
+
 	/**
 	 * find the current iteration.
 	 * @return the found iteration
 	 */
 	Optional<Iteration> findCurrent();
-	
-	void update(Iteration iteration);
+
 }
