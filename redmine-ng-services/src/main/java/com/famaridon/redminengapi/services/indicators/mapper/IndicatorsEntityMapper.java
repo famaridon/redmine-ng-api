@@ -15,6 +15,9 @@ public interface IndicatorsEntityMapper {
 
 	public Objective objectiveEntityToObjective(ObjectiveEntity objectiveEntity);
 	public List<Objective> objectiveEntitiesToObjectives(Iterable<ObjectiveEntity> objectiveEntities);
+	public ObjectiveEntity objectiveToObjectiveEntity(Objective objective);
+	public List<ObjectiveEntity> objectiveToObjectiveEntities(Iterable<Objective> objectives);
+	public void updateObjectiveEntityFromObjective(Objective objective, @MappingTarget ObjectiveEntity objectiveEntity);
 	public Iteration iterationEntityToIteration(IterationEntity entity);
 	public List<Iteration> iterationEntitiesToIteration(Iterable<IterationEntity> entities);
 	public IterationEntity iterationToIterationEntity(Iteration iteration);
