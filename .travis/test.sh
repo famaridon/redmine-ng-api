@@ -14,6 +14,9 @@ done
 echo "wildfly launched"
 
 mvn -P with-test-env test
+result=$?
 
 cd docker
 docker-compose stop
+
+exit ${result}
