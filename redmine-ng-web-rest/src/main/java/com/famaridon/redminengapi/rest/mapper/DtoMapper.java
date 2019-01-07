@@ -2,6 +2,7 @@ package com.famaridon.redminengapi.rest.mapper;
 
 import com.famaridon.redminengapi.rest.dto.*;
 import com.famaridon.redminengapi.services.indicators.beans.Iteration;
+import com.famaridon.redminengapi.services.indicators.beans.Objective;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.*;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -53,4 +54,11 @@ public interface DtoMapper {
 	
 	Iteration iterationDtoToIteration(IterationDto iterationDto);
 	List<Iteration> iterationDtosToIterations(List<IterationDto> iterationDtos);
+	
+	ObjectiveDto objectiveToObjectiveDto(Objective objective);
+	List<ObjectiveDto> objectivesToObjectiveDtos(List<Objective> objectives);
+	
+	Objective objectiveDtoToObjective(ObjectiveDto objectiveDto);
+	List<Objective> objectiveDtoToObjective(List<ObjectiveDto> objectiveDtos);
+	
 }

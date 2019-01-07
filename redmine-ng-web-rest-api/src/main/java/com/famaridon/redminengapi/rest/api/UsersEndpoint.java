@@ -14,7 +14,7 @@ import javax.ws.rs.core.MediaType;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-@Path("/users")
+@Path("/user")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public interface UsersEndpoint {

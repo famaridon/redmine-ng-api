@@ -30,5 +30,35 @@ public class DefaultObjectiveService implements ObjectiveService {
         page.setLimit(objectives.size());
         return page;
     }
-
+    
+    @Override
+    public Objective create(Objective objective)
+    {
+        ObjectiveEntity objectiveEntity = indicatorsEntityMapper.objectiveToObjectiveEntity(objective);
+        objectiveEntity = objectiveRepository.save(objectiveEntity);
+        return indicatorsEntityMapper.objectiveEntityToObjective(objectiveEntity);
+    }
+    
+    @Override
+    public Objective findById(Long id)
+    {
+        ObjectiveEntity objectiveEntity = objectiveRepository.findById(id);
+        return indicatorsEntityMapper.objectiveEntityToObjective(objectiveEntity);
+    }
+    
+    @Override
+    public void update(Objective objective)
+    {
+        ObjectiveEntity objectiveEntity = this.objectiveRepository.findById(objective.getId());
+        this.indicatorsEntityMapper.updateObjectiveEntityFromObjective(objective,objectiveEntity);
+        this.objectiveRepository.save(objectiveEntity);
+    }
+    
+    @Override
+    public void delete(Objective objective)
+    {
+        ObjectiveEntity objectiveEntity = objectiveRepository.findById(objective.getId());
+        objectiveRepository.delete(objectiveEntity);
+    }
+    
 }
