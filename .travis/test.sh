@@ -7,14 +7,7 @@ docker-compose -f docker-compose-test.yml up --detach --force-recreate
 
 cd ..
 
-echo "Waiting wildfly to launch on 8080..."
-while ! nc -z localhost 8080; do
-  sleep 1 # wait for 1 second before check again
-done
-while ! nc -z localhost 9990; do
-  sleep 1 # wait for 1 second before check again
-done
-echo "wildfly launched"
+sleep 30
 
 mvn -P with-test-env test
 result=$?
