@@ -9,7 +9,7 @@ cd ..
 
 sleep $WAIT_DOCKER
 
-mvn -P with-test-env test
+mvn -P with-test-env test jacoco:report coveralls:report
 result=$?
 
 cd docker
