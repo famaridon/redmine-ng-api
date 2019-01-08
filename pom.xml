@@ -402,6 +402,13 @@
                     <plugin>
                         <groupId>org.jacoco</groupId>
                         <artifactId>jacoco-maven-plugin</artifactId>
+                        <configuration>
+                            <excludes>
+                                <exclude>com/famaridon/redminengapi/domain/entities/*</exclude>
+                                <exclude>com/famaridon/redminengapi/services/indicators/beans/*</exclude>
+                                <exclude>com/famaridon/redminengapi/services/redmine/rest/client/beans*</exclude>
+                            </excludes>
+                        </configuration>
                         <executions>
                             <execution>
                                 <goals>

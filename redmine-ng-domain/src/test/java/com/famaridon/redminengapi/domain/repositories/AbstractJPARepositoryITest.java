@@ -1,10 +1,8 @@
 package com.famaridon.redminengapi.domain.repositories;
 
 import com.famaridon.redminengapi.domain.entities.AbstractEntity;
-import com.famaridon.redminengapi.domain.entities.IterationEntity;
 import com.famaridon.redminengapi.domain.repositories.impl.AbstractJPARepository;
-import com.famaridon.redminengapi.domain.repositories.impl.JPAIterationRepository;
-import org.jboss.arquillian.container.test.api.Deployment;
+import java.util.concurrent.atomic.AtomicLong;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -14,17 +12,14 @@ import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.transaction.HeuristicMixedException;
 import javax.transaction.HeuristicRollbackException;
 import javax.transaction.NotSupportedException;
 import javax.transaction.RollbackException;
 import javax.transaction.SystemException;
-import javax.transaction.Transactional;
 import javax.transaction.UserTransaction;
 import java.io.File;
-import java.time.LocalDate;
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
@@ -136,5 +131,14 @@ public abstract class AbstractJPARepositoryITest<R extends Repository<E>, E exte
 	}
 
 	protected abstract E buildDeleteEntity();
+
+	@Test
+	public void findAll() {
+
+		Iterable<E> all = this.getRepository().findAll();
+		AtomicLong count = new AtomicLong();
+		all.forEach(e -> count.getAndIncrement());
+		assertTrue(count.get() > 0);
+	}
 
 }

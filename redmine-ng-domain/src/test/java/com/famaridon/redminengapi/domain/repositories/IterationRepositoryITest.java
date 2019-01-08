@@ -52,8 +52,7 @@ public class IterationRepositoryITest extends AbstractJPARepositoryITest<Iterati
 		IterationEntity iterationEntity = new IterationEntity();
 		iterationEntity.setName("Create");
 		iterationEntity.setNumber(1L);
-		iterationEntity.setStart(LocalDate.now().minus(10, ChronoUnit.DAYS));
-		iterationEntity.setEnd(LocalDate.now().plus(5, ChronoUnit.DAYS));
+		this.setOutdated(iterationEntity);
 		return iterationEntity;
 	}
 	
@@ -62,8 +61,7 @@ public class IterationRepositoryITest extends AbstractJPARepositoryITest<Iterati
 		IterationEntity iterationEntity = new IterationEntity();
 		iterationEntity.setName("Read");
 		iterationEntity.setNumber(2L);
-		iterationEntity.setStart(LocalDate.now().minus(10, ChronoUnit.DAYS));
-		iterationEntity.setEnd(LocalDate.now().plus(5, ChronoUnit.DAYS));
+		this.setOutdated(iterationEntity);
 		return iterationEntity;
 	}
 
@@ -72,8 +70,7 @@ public class IterationRepositoryITest extends AbstractJPARepositoryITest<Iterati
 		IterationEntity iterationEntity = new IterationEntity();
 		iterationEntity.setName("To update");
 		iterationEntity.setNumber(3L);
-		iterationEntity.setStart(LocalDate.now().minus(10, ChronoUnit.DAYS));
-		iterationEntity.setEnd(LocalDate.now().plus(5, ChronoUnit.DAYS));
+		this.setOutdated(iterationEntity);
 		return iterationEntity;
 	}
 
@@ -93,8 +90,46 @@ public class IterationRepositoryITest extends AbstractJPARepositoryITest<Iterati
 		IterationEntity iterationEntity = new IterationEntity();
 		iterationEntity.setName("Delete");
 		iterationEntity.setNumber(4L);
+		this.setOutdated(iterationEntity);
+		return iterationEntity;
+	}
+
+	protected void setOutdated(IterationEntity iterationEntity) {
+		iterationEntity.setStart(LocalDate.now().minus(15, ChronoUnit.DAYS));
+		iterationEntity.setEnd(LocalDate.now().minus(10, ChronoUnit.DAYS));
+	}
+	@Test
+	public void findCurrent()
+			throws HeuristicRollbackException, HeuristicMixedException, NotSupportedException, RollbackException, SystemException {
+		IterationEntity iterationEntity = new IterationEntity();
+		iterationEntity.setName("findCurrent");
+		iterationEntity.setNumber(5L);
 		iterationEntity.setStart(LocalDate.now().minus(10, ChronoUnit.DAYS));
 		iterationEntity.setEnd(LocalDate.now().plus(5, ChronoUnit.DAYS));
-		return iterationEntity;
+
+		this.userTransaction.begin();
+		IterationEntity saved = this.iterationRepository.save(iterationEntity);
+		this.userTransaction.commit();
+
+		Optional<IterationEntity> optionalEntity = this.iterationRepository.findCurrentIteration();
+		assertTrue(optionalEntity.isPresent());
+		assertEquals(saved, optionalEntity.get());
+	}
+
+	@Test
+	public void findByNumber()
+			throws HeuristicRollbackException, HeuristicMixedException, NotSupportedException, RollbackException, SystemException {
+		IterationEntity iterationEntity = new IterationEntity();
+		iterationEntity.setName("findByNumber");
+		iterationEntity.setNumber(6L);
+		this.setOutdated(iterationEntity);
+
+		this.userTransaction.begin();
+		IterationEntity saved = this.iterationRepository.save(iterationEntity);
+		this.userTransaction.commit();
+
+		Optional<IterationEntity> optionalEntity = this.iterationRepository.findByNumber(6L);
+		assertTrue(optionalEntity.isPresent());
+		assertEquals(saved, optionalEntity.get());
 	}
 }
