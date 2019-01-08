@@ -13,12 +13,12 @@ public class PageResponseHandler<T> extends AbstractRedmineResponseHandler<Page<
 	
 	public PageResponseHandler(ConfigurationService configurationService, Class<T> elementType) {
 		super(configurationService);
-		parametricType = this.configurationService.getObjectMapper().getTypeFactory().constructParametricType(Page.class, elementType);
+		parametricType = this.objectMapper.getTypeFactory().constructParametricType(Page.class, elementType);
 	}
 	
 	@Override
 	protected Page parse(HttpEntity entity) throws IOException {
-		Page<T> page = this.configurationService.getObjectMapper().readValue(entity.getContent(),parametricType);
+		Page<T> page = this.objectMapper.readValue(entity.getContent(),parametricType);
 		return page;
 	}
 }

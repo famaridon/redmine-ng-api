@@ -1,6 +1,8 @@
 package com.famaridon.redminengapi.services.redmine.rest.client.handler;
 
 import com.famaridon.redminengapi.services.configuration.ConfigurationService;
+import com.famaridon.redminengapi.services.redmine.rest.client.module.RedmineClientModule;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;
@@ -12,11 +14,12 @@ import org.apache.http.entity.ContentType;
 import java.io.IOException;
 
 public abstract class AbstractRedmineResponseHandler<T> implements ResponseHandler<T> {
-	
-	protected final ConfigurationService configurationService;
+
+	protected final ObjectMapper objectMapper;
 	
 	protected AbstractRedmineResponseHandler(ConfigurationService configurationService) {
-		this.configurationService = configurationService;
+		this.objectMapper = new ObjectMapper();
+		this.objectMapper.registerModule(new RedmineClientModule());
 	}
 	
 	@Override

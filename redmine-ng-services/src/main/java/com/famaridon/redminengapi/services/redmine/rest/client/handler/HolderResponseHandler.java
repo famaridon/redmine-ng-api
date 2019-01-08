@@ -13,12 +13,12 @@ public class HolderResponseHandler<T> extends AbstractRedmineResponseHandler<T> 
 	
 	public HolderResponseHandler(ConfigurationService configurationService, Class<T> elementType) {
 		super(configurationService);
-		parametricType = this.configurationService.getObjectMapper().getTypeFactory().constructParametricType(Holder.class, elementType);
+		parametricType = this.objectMapper.getTypeFactory().constructParametricType(Holder.class, elementType);
 	}
 	
 	@Override
 	protected T parse(HttpEntity entity) throws IOException {
-		Holder<T> holder = this.configurationService.getObjectMapper().readValue(entity.getContent(), this.parametricType);
+		Holder<T> holder = this.objectMapper.readValue(entity.getContent(), this.parametricType);
 		return holder.getElement();
 	}
 }

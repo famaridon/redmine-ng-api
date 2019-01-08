@@ -1,11 +1,9 @@
 package com.famaridon.redminengapi.services.redmine;
 
 import com.famaridon.redminengapi.services.configuration.ConfigurationService;
-import com.famaridon.redminengapi.services.configuration.ITestConfigurationService;
-import com.famaridon.redminengapi.services.configuration.impl.DefaultConfigurationService;
+import com.famaridon.redminengapi.services.configuration.MockConfigurationService;
 import com.famaridon.redminengapi.services.redmine.impl.AbstractRedmineService;
 import junit.framework.Assert;
-import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
@@ -39,7 +37,7 @@ public abstract class AbstractServiceITest {
                 .addClass(Pager.class)
                 .addClass(AbstractRedmineService.class)
                 .addClass(ConfigurationService.class)
-                .addClass(ITestConfigurationService.class)
+                .addClass(MockConfigurationService.class)
                 .addPackages(true, "com.famaridon.redminengapi.services.redmine.rest.client")
                 .addAsLibraries(dependencies)
                 // add custom MANIFEST.MF to load infinispan module

@@ -407,6 +407,8 @@
                                 <exclude>com/famaridon/redminengapi/domain/entities/*</exclude>
                                 <exclude>com/famaridon/redminengapi/services/indicators/beans/*</exclude>
                                 <exclude>com/famaridon/redminengapi/services/redmine/rest/client/beans*</exclude>
+                                <exclude>**/*MapperImpl*</exclude>
+                                <exclude>**/redmine-ng-web-rest/**/*</exclude> <!-- I don't know how to test it -->
                             </excludes>
                         </configuration>
                         <executions>

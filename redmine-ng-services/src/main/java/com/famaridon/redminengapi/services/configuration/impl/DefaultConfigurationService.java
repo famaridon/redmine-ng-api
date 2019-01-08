@@ -1,8 +1,6 @@
 package com.famaridon.redminengapi.services.configuration.impl;
 
 import com.famaridon.redminengapi.services.configuration.ConfigurationService;
-import com.famaridon.redminengapi.services.redmine.rest.client.module.RedmineClientModule;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.configuration2.Configuration;
 import org.apache.commons.configuration2.JSONConfiguration;
 import org.apache.commons.configuration2.builder.fluent.Configurations;
@@ -15,7 +13,6 @@ import org.slf4j.LoggerFactory;
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
-import javax.enterprise.inject.Produces;
 import java.net.URL;
 import java.util.List;
 
@@ -25,10 +22,9 @@ public class DefaultConfigurationService implements ConfigurationService {
 	private static final Logger LOG = LoggerFactory.getLogger(DefaultConfigurationService.class);
 	
 	private Configuration configuration;
-	private ObjectMapper objectMapper;
 	
 	@PostConstruct
-	protected void startup() {
+	public void startup() {
 		init();
 	}
 	
@@ -42,10 +38,7 @@ public class DefaultConfigurationService implements ConfigurationService {
 		} catch (ConfigurationException e) {
 			throw new IllegalArgumentException("Can't read configuration!");
 		}
-		
-		LOG.info("Setup client ObjectMapper.");
-		this.objectMapper = new ObjectMapper();
-		this.objectMapper.registerModule(new RedmineClientModule());
+
 	}
 	
 	protected URL getConfigurationFile() {
@@ -81,11 +74,5 @@ public class DefaultConfigurationService implements ConfigurationService {
 	public String buildUrl(String path, Object... parameters) {
 		return this.getRedmineServer() + String.format(path, parameters);
 	}
-	
-	@Produces
-	public ObjectMapper getObjectMapper() {
-		return this.objectMapper;
-	}
-	
 	
 }
