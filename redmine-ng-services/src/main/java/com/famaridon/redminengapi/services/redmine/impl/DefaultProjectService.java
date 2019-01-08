@@ -28,7 +28,7 @@ public class DefaultProjectService extends AbstractRedmineService<Project> imple
 		Page<Project> p = Request.Get(this.configurationService.buildUrl("/projects.json?include=issue_fixed_versions,trackers,issue_categories&%s", pager))
 			.addHeader(X_REDMINE_API_KEY, apiAccessKey)
 			.execute()
-			.handleResponse(new PageResponseHandler<>(this.configurationService, Project.class));
+			.handleResponse(new PageResponseHandler<>(Project.class));
 		return p;
 	}
 	
@@ -37,7 +37,7 @@ public class DefaultProjectService extends AbstractRedmineService<Project> imple
 		Project p = Request.Get(this.configurationService.buildUrl("/projects/%s.json?include=trackers,issue_categories", id))
 			.addHeader(X_REDMINE_API_KEY, apiAccessKey)
 			.execute()
-			.handleResponse(new HolderResponseHandler<>(this.configurationService, Project.class));
+			.handleResponse(new HolderResponseHandler<>(Project.class));
 		return p;
 
 	}

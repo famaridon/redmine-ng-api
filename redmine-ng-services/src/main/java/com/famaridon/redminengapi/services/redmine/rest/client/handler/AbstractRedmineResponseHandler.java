@@ -17,7 +17,7 @@ public abstract class AbstractRedmineResponseHandler<T> implements ResponseHandl
 
 	protected final ObjectMapper objectMapper;
 	
-	protected AbstractRedmineResponseHandler(ConfigurationService configurationService) {
+	protected AbstractRedmineResponseHandler() {
 		this.objectMapper = new ObjectMapper();
 		this.objectMapper.registerModule(new RedmineClientModule());
 	}

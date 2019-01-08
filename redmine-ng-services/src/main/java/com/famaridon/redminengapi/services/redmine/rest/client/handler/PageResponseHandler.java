@@ -11,8 +11,8 @@ public class PageResponseHandler<T> extends AbstractRedmineResponseHandler<Page<
 	
 	private final JavaType parametricType;
 	
-	public PageResponseHandler(ConfigurationService configurationService, Class<T> elementType) {
-		super(configurationService);
+	public PageResponseHandler(Class<T> elementType) {
+		super();
 		parametricType = this.objectMapper.getTypeFactory().constructParametricType(Page.class, elementType);
 	}
 	

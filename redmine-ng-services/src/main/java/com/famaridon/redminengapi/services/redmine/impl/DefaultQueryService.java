@@ -27,7 +27,7 @@ public class DefaultQueryService extends AbstractRedmineService<Query> implement
 		Page<Query> p = Request.Get(this.configurationService.buildUrl("/queries.json?%s", pager))
 			.addHeader(X_REDMINE_API_KEY, apiAccessKey)
 			.execute()
-			.handleResponse(new PageResponseHandler<>(this.configurationService, Query.class));
+			.handleResponse(new PageResponseHandler<>( Query.class));
 		return p;
 	}
 	

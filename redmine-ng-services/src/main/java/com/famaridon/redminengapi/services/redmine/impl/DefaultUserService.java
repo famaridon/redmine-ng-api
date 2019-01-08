@@ -31,7 +31,7 @@ public class DefaultUserService extends AbstractRedmineService<User> implements 
 		User r = Request.Get(this.configurationService.buildUrl("/users/current.json"))
 			.addHeader(X_REDMINE_API_KEY, apiKey)
 			.execute()
-			.handleResponse(new HolderResponseHandler<>(this.configurationService, User.class));
+			.handleResponse(new HolderResponseHandler<>( User.class));
 		r = this.loadGravatar(apiKey, r);
 		r.setApiKey(apiKey);
 		return r;
@@ -44,7 +44,7 @@ public class DefaultUserService extends AbstractRedmineService<User> implements 
 		User r = Request.Get(this.configurationService.buildUrl("/users/%s.json", id))
 			.addHeader(X_REDMINE_API_KEY, apiKey)
 			.execute()
-			.handleResponse(new HolderResponseHandler<>(this.configurationService, User.class));
+			.handleResponse(new HolderResponseHandler<>(User.class));
 		r = this.loadGravatar(apiKey, r);
 		return r;
 	}

@@ -11,8 +11,8 @@ public class HolderResponseHandler<T> extends AbstractRedmineResponseHandler<T> 
 	
 	private final JavaType parametricType;
 	
-	public HolderResponseHandler(ConfigurationService configurationService, Class<T> elementType) {
-		super(configurationService);
+	public HolderResponseHandler(Class<T> elementType) {
+		super();
 		parametricType = this.objectMapper.getTypeFactory().constructParametricType(Holder.class, elementType);
 	}
 	

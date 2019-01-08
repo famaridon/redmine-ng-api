@@ -23,7 +23,7 @@ public class DefaultVersionsService extends AbstractRedmineService<Version> impl
 		Page<Version> r = Request.Get(this.configurationService.buildUrl("/projects/%s/versions.json", project))
 			.addHeader(X_REDMINE_API_KEY, apiKey)
 			.execute()
-			.handleResponse(new PageResponseHandler<>(this.configurationService, Version.class));
+			.handleResponse(new PageResponseHandler<>(Version.class));
 		return r;
 	}
 }

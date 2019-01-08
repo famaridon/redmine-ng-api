@@ -25,7 +25,7 @@ public class DefaultIssueService extends AbstractRedmineService<Issue> implement
 		Page<Issue> p = Request.Get(this.configurationService.buildUrl("/issues.json?%s", pager))
 			.addHeader(X_REDMINE_API_KEY, apiAccessKey)
 			.execute()
-			.handleResponse(new PageResponseHandler<>(this.configurationService, Issue.class));
+			.handleResponse(new PageResponseHandler<>(Issue.class));
 		return p;
 	}
 	
@@ -34,7 +34,7 @@ public class DefaultIssueService extends AbstractRedmineService<Issue> implement
 		Issue p = Request.Get(this.configurationService.buildUrl("/issues/%s.json", id))
 			.addHeader(X_REDMINE_API_KEY, apiAccessKey)
 			.execute()
-			.handleResponse(new HolderResponseHandler<>(this.configurationService, Issue.class));
+			.handleResponse(new HolderResponseHandler<>( Issue.class));
 		return p;
 	}
 	
@@ -49,7 +49,7 @@ public class DefaultIssueService extends AbstractRedmineService<Issue> implement
 		Page<Issue> p = Request.Get(path)
 			.addHeader(X_REDMINE_API_KEY, apiAccessKey)
 			.execute()
-			.handleResponse(new PageResponseHandler<>(this.configurationService, Issue.class));
+			.handleResponse(new PageResponseHandler<>(Issue.class));
 		return p;
 	}
 	
