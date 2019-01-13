@@ -5,6 +5,7 @@ import com.famaridon.redminengapi.rest.api.IterationEndpoint;
 import com.famaridon.redminengapi.rest.dto.IterationDto;
 import com.famaridon.redminengapi.rest.dto.PageDto;
 import com.famaridon.redminengapi.rest.mapper.DtoMapper;
+import com.famaridon.redminengapi.services.exceptions.ObjectNotFoundException;
 import com.famaridon.redminengapi.services.indicators.IterationService;
 import com.famaridon.redminengapi.services.indicators.beans.Iteration;
 
@@ -63,7 +64,11 @@ public class IterationEndpointImpl extends AbstractRedmineEndpoint implements It
 	public void update( Long id, IterationDto iterationDto) {
 		Iteration iteration = mapper.iterationDtoToIteration(iterationDto);
 		iteration.setId(id);
-		this.iterationService.update(iteration);
+		try {
+			this.iterationService.update(iteration);
+		} catch (ObjectNotFoundException e) {
+			throw new NotFoundException(e);
+		}
 	}
 	
 }
