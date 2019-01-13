@@ -9,6 +9,7 @@ import static org.mockito.Mockito.when;
 
 import com.famaridon.redminengapi.domain.entities.AbstractEntity;
 import com.famaridon.redminengapi.domain.repositories.Repository;
+import com.famaridon.redminengapi.services.exceptions.ObjectNotFoundException;
 import com.famaridon.redminengapi.services.indicators.CrudService;
 import com.famaridon.redminengapi.services.indicators.beans.AbstractBean;
 import com.famaridon.redminengapi.services.redmine.Pager;
@@ -60,7 +61,7 @@ public abstract class AbstractCrudServiceUTest<S extends CrudService<B>, B exten
   }
 
   @Test
-  public void  update(){
+  public void  update() throws ObjectNotFoundException {
     B bean = this.buildBean();
     bean.setId(0L);
     bean.setName("update");
@@ -73,18 +74,28 @@ public abstract class AbstractCrudServiceUTest<S extends CrudService<B>, B exten
 
   @Test
   public void  updateNotFound(){
-    fail();
+    B bean = this.buildBean();
+    bean.setId(0L);
+    bean.setName("update");
+
+    when(getRepository().findById(0L)).thenReturn(Optional.empty());
+    try {
+      this.getService().update(bean);
+      fail();
+    } catch (ObjectNotFoundException e) {
+      // normal case
+    }
   }
 
   @Test
-  public void  deleteById() {
+  public void  deleteById() throws ObjectNotFoundException {
     when(getRepository().findById(0L)).thenReturn(Optional.of(this.buildEntity()));
     this.getService().deleteById(0L);
     verify(this.getRepository()).delete(any());
   }
 
   @Test
-  public void delete() {
+  public void delete() throws ObjectNotFoundException {
     B bean = this.buildBean();
     bean.setId(0L);
     bean.setName("delete");
@@ -95,7 +106,17 @@ public abstract class AbstractCrudServiceUTest<S extends CrudService<B>, B exten
 
   @Test
   public void deleteNotFound() {
-    fail();
+    B bean = this.buildBean();
+    bean.setId(0L);
+    bean.setName("update");
+
+    when(getRepository().findById(0L)).thenReturn(Optional.empty());
+    try {
+      this.getService().update(bean);
+      fail();
+    } catch (ObjectNotFoundException e) {
+      // normal case
+    }
   }
 
   protected abstract E buildEntity();

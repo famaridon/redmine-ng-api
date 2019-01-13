@@ -5,6 +5,7 @@ import com.famaridon.redminengapi.domain.entities.IterationEntity;
 import com.famaridon.redminengapi.domain.entities.ObjectiveEntity;
 import com.famaridon.redminengapi.domain.repositories.IterationRepository;
 import com.famaridon.redminengapi.domain.repositories.Repository;
+import com.famaridon.redminengapi.services.exceptions.ObjectNotFoundException;
 import com.famaridon.redminengapi.services.indicators.CrudService;
 import com.famaridon.redminengapi.services.indicators.IterationService;
 import com.famaridon.redminengapi.services.indicators.beans.AbstractBean;
@@ -63,30 +64,30 @@ public abstract class AbstractCrudRepositoryService<R extends Repository<E>, E e
   }
 
   @Override
-  public void update(B bean) {
+  public void update(B bean) throws ObjectNotFoundException {
     Optional<E> optionalEntity = this.getRepository().findById(bean.getId());
     if(optionalEntity.isPresent()) {
       E entity = optionalEntity.get();
       this.merge(bean, entity);
       this.getRepository().save(entity);
     } else {
-      throw new NotFoundException();
+      throw new ObjectNotFoundException("Can't update non existing object.");
     }
   }
 
   @Override
-  public void deleteById(Long id) {
+  public void deleteById(Long id) throws ObjectNotFoundException {
     Optional<E> optionalEntity = this.getRepository().findById(id);
     if(optionalEntity.isPresent()) {
       E entity = optionalEntity.get();
       this.getRepository().delete(entity);
     } else {
-      throw new NotFoundException();
+      throw new ObjectNotFoundException("Can't delete non existing object.");
     }
   }
 
   @Override
-  public void delete(B bean) {
+  public void delete(B bean) throws ObjectNotFoundException {
     this.deleteById(bean.getId());
   }
 }

@@ -1,5 +1,6 @@
 package com.famaridon.redminengapi.services.indicators;
 
+import com.famaridon.redminengapi.services.exceptions.ObjectNotFoundException;
 import com.famaridon.redminengapi.services.indicators.beans.AbstractBean;
 import com.famaridon.redminengapi.services.indicators.beans.Iteration;
 import com.famaridon.redminengapi.services.redmine.Pager;
@@ -14,9 +15,9 @@ public interface CrudService<B extends AbstractBean> {
 	Page<B> findAll(Pager pager);
 	Optional<B> findById(Long id);
 
-	void update(B bean);
+	void update(B bean) throws ObjectNotFoundException;
 
-	void deleteById(Long id);
-	void delete(B bean);
+	void deleteById(Long id) throws ObjectNotFoundException;
+	void delete(B bean) throws ObjectNotFoundException;
 
 }
