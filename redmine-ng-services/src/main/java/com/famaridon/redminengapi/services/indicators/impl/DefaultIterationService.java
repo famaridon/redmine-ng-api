@@ -9,6 +9,7 @@ import com.famaridon.redminengapi.services.indicators.beans.Iteration;
 import com.famaridon.redminengapi.services.indicators.beans.Objective;
 import com.famaridon.redminengapi.services.indicators.mapper.IndicatorsEntityMapper;
 
+import com.famaridon.redminengapi.services.indicators.mapper.IndicatorsEntityMapperImpl;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.NotFoundException;
@@ -24,6 +25,14 @@ public class DefaultIterationService extends
   private IndicatorsEntityMapper indicatorsEntityMapper;
   @Inject
   protected IterationRepository iterationRepository;
+
+  public DefaultIterationService() {
+  }
+
+  public DefaultIterationService(IterationRepository iterationRepository) {
+    this.iterationRepository = iterationRepository;
+    this.indicatorsEntityMapper = new IndicatorsEntityMapperImpl();
+  }
 
   @Override
   protected IterationRepository getRepository() {

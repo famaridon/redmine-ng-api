@@ -5,6 +5,7 @@ import com.famaridon.redminengapi.domain.repositories.ObjectiveRepository;
 import com.famaridon.redminengapi.services.indicators.ObjectiveService;
 import com.famaridon.redminengapi.services.indicators.beans.Objective;
 import com.famaridon.redminengapi.services.indicators.mapper.IndicatorsEntityMapper;
+import com.famaridon.redminengapi.services.indicators.mapper.IndicatorsEntityMapperImpl;
 import com.famaridon.redminengapi.services.redmine.Pager;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Page;
 
@@ -21,6 +22,14 @@ public class DefaultObjectiveService extends
   private IndicatorsEntityMapper indicatorsEntityMapper;
   @Inject
   private ObjectiveRepository objectiveRepository;
+
+  public DefaultObjectiveService() {
+  }
+
+  public DefaultObjectiveService(ObjectiveRepository objectiveRepository) {
+    this.objectiveRepository = objectiveRepository;
+    this.indicatorsEntityMapper = new IndicatorsEntityMapperImpl();
+  }
 
   @Override
   protected ObjectiveRepository getRepository() {

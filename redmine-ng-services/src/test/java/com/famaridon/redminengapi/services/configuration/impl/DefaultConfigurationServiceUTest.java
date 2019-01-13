@@ -3,9 +3,6 @@ package com.famaridon.redminengapi.services.configuration.impl;
 import static org.junit.Assert.*;
 
 import com.famaridon.redminengapi.services.configuration.ConfigurationService;
-import com.famaridon.redminengapi.services.indicators.AbstractIndicatorsServiceUTest;
-import com.famaridon.redminengapi.services.indicators.CrudService;
-import com.famaridon.redminengapi.services.indicators.impl.AbstractCrudRepositoryService;
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
@@ -16,7 +13,6 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
