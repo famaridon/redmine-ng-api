@@ -19,25 +19,10 @@ import java.io.IOException;
 @Path("/iteration")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public interface IterationEndpoint {
-
-  @GET
-  public PageDto<IterationDto> findAll(
-      @QueryParam(PagerParam.OFFSET) @DefaultValue("0") Long offset,
-      @QueryParam(PagerParam.LIMIT) @DefaultValue("25") Long limit) throws IOException;
-
-  @POST
-  public IterationDto create(IterationDto iterationDto);
+public interface IterationEndpoint extends CrudEndpoint<IterationDto>{
 
   @GET
   @Path("/current")
   public IterationDto findCurrent();
 
-  @GET
-  @Path("/{id : \\d+}")
-  public IterationDto findById(@PathParam("id") Long id);
-
-  @PUT
-  @Path("/{id}")
-  public void update(@PathParam("id") Long id, IterationDto iterationDto);
 }

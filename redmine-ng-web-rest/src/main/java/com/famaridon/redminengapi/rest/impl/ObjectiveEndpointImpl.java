@@ -23,38 +23,24 @@ import java.io.IOException;
 import javax.ws.rs.NotFoundException;
 
 @RequestScoped
-public class ObjectiveEndpointImpl extends AbstractRedmineEndpoint implements ObjectiveEndpoint {
-
-	@Inject
-	private DtoMapper mapper;
+public class ObjectiveEndpointImpl extends AbstractCrudEndpoint<ObjectiveDto, ObjectiveService, Objective> implements ObjectiveEndpoint {
 	
 	@Inject
 	private ObjectiveService objectiveService;
 
 
 	@Override
-	public PageDto<ObjectiveDto> findAll(String apiKey) {
-		return this.mapper.pageToPageDto(this.objectiveService.findAll(new Pager()));
+	protected ObjectiveService getService() {
+		return this.objectiveService;
 	}
-	
+
 	@Override
-	public ObjectiveDto create(ObjectiveDto objectiveDto)
-	{
-		Objective objective = this.mapper.objectiveDtoToObjective(objectiveDto);
-		objective = this.objectiveService.create(objective);
-		return this.mapper.objectiveToObjectiveDto(objective);
+	protected Objective dtoToBean(ObjectiveDto dto) {
+		return this.mapper.objectiveDtoToObjective(dto);
 	}
-	
+
 	@Override
-	public ObjectiveDto findById(Long id)
-	{
-		Optional<Objective> optionalObjective = this.objectiveService.findById(id);
-		if(!optionalObjective.isPresent()) {
-			throw new NotFoundException("No Objective found for id " + id);
-		}
-		return this.mapper.objectiveToObjectiveDto(optionalObjective.get());
+	protected ObjectiveDto beanToDto(Objective bean) {
+		return this.mapper.objectiveToObjectiveDto(bean);
 	}
-	
-	
-	
 }
