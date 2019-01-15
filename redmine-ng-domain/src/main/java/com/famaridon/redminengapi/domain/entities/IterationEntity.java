@@ -14,7 +14,7 @@ import java.util.Date;
 import java.util.Objects;
 
 @NamedQueries({
-    @NamedQuery(name = "IterationEntity.findCurrentIteration", query = "select i from IterationEntity i where i.start < :now and :now < i.end"),
+    @NamedQuery(name = "IterationEntity.findCurrentIteration", query = "select i from IterationEntity i where i.start < :now and :now <= i.end"),
     @NamedQuery(name = "IterationEntity.findByNumber", query = "select i from IterationEntity i where i.number = :number")})
 
 @Entity
