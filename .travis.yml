@@ -5,6 +5,12 @@ jdk:
 services:
   - docker
 
+addons:
+  sonarcloud:
+    organization: "famaridon-github" # the key of the org you chose at step #3
+    token:
+      secure: ${SONAR_TOKEN} # encrypted value of your token
+
 cache:
   directories:
     - $HOME/.m2
@@ -14,7 +20,7 @@ before_install:
 
 
 install: # the build step
-  - mvn clean install -B -V
+  - mvn clean install -B -V sonar:sonar
 
 script:
   - echo "export WAIT_DOCKER=30" > .travis/test-configuration.sh

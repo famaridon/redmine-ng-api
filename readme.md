@@ -1,5 +1,6 @@
 ## Status
 [![Build Status](https://travis-ci.org/famaridon/redmine-ng-api.svg?branch=develop)](https://travis-ci.org/famaridon/redmine-ng-api)
+[![Coverage Status](https://coveralls.io/repos/github/famaridon/redmine-ng-api/badge.svg?branch=develop)](https://coveralls.io/github/famaridon/redmine-ng-api?branch=develop)
 
 
 ## Configuration
