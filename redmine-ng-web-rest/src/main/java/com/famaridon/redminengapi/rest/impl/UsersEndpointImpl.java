@@ -4,25 +4,32 @@ import com.famaridon.redminengapi.rest.AbstractRedmineEndpoint;
 import com.famaridon.redminengapi.rest.api.UsersEndpoint;
 import com.famaridon.redminengapi.rest.dto.UserDto;
 import com.famaridon.redminengapi.rest.mapper.DtoMapper;
+import com.famaridon.redminengapi.rest.security.RedmineSecurityContext;
+import com.famaridon.redminengapi.services.configuration.ConfigurationService;
 import com.famaridon.redminengapi.services.redmine.UserService;
 
+import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import java.io.IOException;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.SecurityContext;
 
 @RequestScoped
 public class UsersEndpointImpl extends AbstractRedmineEndpoint implements UsersEndpoint {
 	
 	@EJB
 	private UserService userService;
-	
+
 	@Inject
 	private DtoMapper mapper;
 	
 	@Override
 	public UserDto findCurrent(String apiKey) throws IOException {
-		return this.mapper.userToUserDto(this.userService.findCurrent(apiKey));
+		UserDto userDto = this.mapper.userToUserDto(this.userService.findCurrent(apiKey));
+		userDto.setRoles(this.userService.findRoles(userDto.getLogin()));
+		return userDto;
 	}
 	
 	@Override

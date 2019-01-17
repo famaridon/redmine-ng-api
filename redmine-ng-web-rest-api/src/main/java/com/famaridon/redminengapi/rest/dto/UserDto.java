@@ -1,7 +1,11 @@
 package com.famaridon.redminengapi.rest.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class UserDto extends AbstractDto {
 	
@@ -16,7 +20,8 @@ public class UserDto extends AbstractDto {
 	private Date lastLoginOn;
 	@JsonProperty("api_key")
 	private String apiKey;
-	
+	private List<String> roles = new ArrayList<>();
+
 	public String getLogin() {
 		return this.login;
 	}
@@ -79,5 +84,13 @@ public class UserDto extends AbstractDto {
 	
 	public void setApiKey(String apiKey) {
 		this.apiKey = apiKey;
+	}
+
+	public List<String> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<String> roles) {
+		this.roles = roles;
 	}
 }

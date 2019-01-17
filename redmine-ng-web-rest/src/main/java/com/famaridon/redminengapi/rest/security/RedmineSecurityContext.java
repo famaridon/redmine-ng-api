@@ -2,6 +2,7 @@ package com.famaridon.redminengapi.rest.security;
 
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.User;
 
+import java.util.Collections;
 import javax.ws.rs.core.SecurityContext;
 import java.security.Principal;
 import java.util.List;
@@ -15,7 +16,7 @@ public class RedmineSecurityContext implements SecurityContext {
     public RedmineSecurityContext(User user, List<String> roles, boolean secure) {
         this.principal = new RedminePrincipal(user);
         this.secure = secure;
-        this.roles = roles;
+        this.roles = Collections.unmodifiableList(roles);
     }
 
     @Override
@@ -36,5 +37,9 @@ public class RedmineSecurityContext implements SecurityContext {
     @Override
     public String getAuthenticationScheme() {
         return "X_REDMINE_API_KEY";
+    }
+
+    public List<String> getRoles() {
+        return this.roles;
     }
 }
