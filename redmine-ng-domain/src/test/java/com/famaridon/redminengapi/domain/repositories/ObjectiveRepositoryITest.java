@@ -23,7 +23,8 @@ public class ObjectiveRepositoryITest extends
 
   @Deployment
   public static Archive<?> createDeployment() {
-    return prepare(ObjectiveRepository.class, JPAObjectiveRepository.class, ObjectiveEntity.class);
+    return prepare(ObjectiveRepository.class, JPAObjectiveRepository.class, ObjectiveEntity.class)
+        .addClass(IterationEntity.class);
   }
 
   @Override

@@ -37,7 +37,7 @@ public abstract class AbstractJPARepositoryITest<R extends Repository<E>, E exte
 		"org.apache.commons:commons-lang3"
 	};
 	
-	protected static Archive<?> prepare(Class<? extends Repository> repositoryInterface,
+	protected static WebArchive prepare(Class<? extends Repository> repositoryInterface,
 		Class<? extends AbstractJPARepository> repositoryClass, Class<? extends AbstractEntity> entityClass) {
 		
 		File[] dependencies = Maven.resolver()
