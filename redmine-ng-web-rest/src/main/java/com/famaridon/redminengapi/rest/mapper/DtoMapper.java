@@ -10,7 +10,7 @@ import org.mapstruct.Mappings;
 
 import java.util.List;
 
-@Mapper
+@Mapper(uses = RefMapper.class)
 public interface DtoMapper {
 
   @Mappings(@Mapping(target = "elements", ignore = true))

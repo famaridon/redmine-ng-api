@@ -4,6 +4,7 @@ public class Objective extends AbstractBean {
 
     private String summary;
     private String description;
+    private Iteration iteration;
 
     public String getSummary() {
         return summary;
@@ -19,5 +20,13 @@ public class Objective extends AbstractBean {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Iteration getIteration() {
+        return iteration;
+    }
+
+    public void setIteration(Iteration iteration) {
+        this.iteration = iteration;
     }
 }

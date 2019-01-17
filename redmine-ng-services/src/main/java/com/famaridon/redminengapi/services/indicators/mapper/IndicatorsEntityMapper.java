@@ -10,7 +10,7 @@ import org.mapstruct.NullValueCheckStrategy;
 
 import java.util.List;
 
-@Mapper( nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS )
+@Mapper( nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
 public interface IndicatorsEntityMapper {
 
 	public Objective objectiveEntityToObjective(ObjectiveEntity objectiveEntity);

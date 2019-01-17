@@ -1,5 +1,6 @@
 package com.famaridon.redminengapi.domain.entities;
 
+import javax.persistence.ManyToOne;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -17,6 +18,9 @@ public class ObjectiveEntity extends AbstractEntity {
   @Lob
   private String description;
 
+  @ManyToOne
+  private IterationEntity iteration;
+
   public String getSummary() {
     return summary;
   }
@@ -31,6 +35,14 @@ public class ObjectiveEntity extends AbstractEntity {
 
   public void setDescription(String description) {
     this.description = description;
+  }
+
+  public IterationEntity getIteration() {
+    return iteration;
+  }
+
+  public void setIteration(IterationEntity iteration) {
+    this.iteration = iteration;
   }
 
   @Override
