@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
+import static org.junit.Assert.*;
 
 @RunWith(JUnit4.class)
 public class IterationServiceUTest extends
@@ -56,5 +57,14 @@ public class IterationServiceUTest extends
     iteration.setStart(now);
     iteration.setEnd(now);
     return iteration;
+  }
+
+  @Override
+  protected void validate(IterationEntity entity, Iteration bean) {
+    assertEquals(entity.getId(), bean.getId());
+    assertEquals(entity.getName(), bean.getName());
+    assertEquals(entity.getNumber(), bean.getNumber());
+    assertEquals(entity.getStart(), bean.getStart());
+    assertEquals(entity.getEnd(), bean.getEnd());
   }
 }

@@ -13,11 +13,7 @@ import com.famaridon.redminengapi.services.exceptions.ObjectNotFoundException;
 import com.famaridon.redminengapi.services.indicators.CrudService;
 import com.famaridon.redminengapi.services.indicators.beans.AbstractBean;
 import com.famaridon.redminengapi.services.redmine.Pager;
-import com.famaridon.redminengapi.services.redmine.rest.client.beans.Page;
 import java.util.Optional;
-import org.apache.commons.beanutils.DynaBean;
-import org.apache.commons.beanutils.DynaProperty;
-import org.apache.commons.beanutils.WrapDynaBean;
 import org.junit.Test;
 
 public abstract class AbstractCrudServiceUTest<S extends CrudService<B>, B extends AbstractBean, R extends Repository<E>, E extends AbstractEntity> {
@@ -50,7 +46,7 @@ public abstract class AbstractCrudServiceUTest<S extends CrudService<B>, B exten
     assertTrue(optional.isPresent());
     B bean = optional.get();
     assertNotNull(bean);
-    assertTrue(this.reflectiveCompare(entity, bean));
+    this.validate(entity, bean);
   }
 
   @Test
@@ -123,17 +119,6 @@ public abstract class AbstractCrudServiceUTest<S extends CrudService<B>, B exten
   protected abstract B buildBean();
 
 
-  protected boolean reflectiveCompare(E entity, B bean) {
-    DynaBean dynaEntity = new WrapDynaBean(entity);
-    DynaBean dynaBean = new WrapDynaBean(bean);
-    boolean equals = false;
-    for (DynaProperty entityProperty : dynaEntity.getDynaClass().getDynaProperties()) {
-      if(dynaBean.getDynaClass().getDynaProperty(entityProperty.getName()) != null) {
-        equals |= dynaBean.get(entityProperty.getName()).equals(dynaEntity.get(entityProperty.getName())) ;
-      }
-    }
-
-    return equals;
-  }
+  protected abstract void validate(E entity, B bean) ;
 
 }

@@ -1,5 +1,6 @@
 package com.famaridon.redminengapi.services.indicators.impl;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 
 import com.famaridon.redminengapi.domain.entities.IterationEntity;
@@ -56,5 +57,14 @@ public class ObjectiveServiceUTest extends
     objective.setDescription("A very nice description");
     objective.setSummary("A short summary");
     return objective;
+  }
+
+  @Override
+  protected void validate(ObjectiveEntity entity, Objective bean) {
+    assertEquals(entity.getId(), bean.getId());
+    assertEquals(entity.getName(), bean.getName());
+    assertEquals(entity.getDescription(), bean.getDescription());
+    assertEquals(entity.getSummary(), bean.getSummary());
+    assertEquals(entity.getIteration().getId(), bean.getIteration().getId());
   }
 }
