@@ -18,9 +18,8 @@ before_install:
   - ./.travis/main.sh
 
 script:
-  - mvn clean install -B -V sonar:sonar
   - echo "export WAIT_DOCKER=30" > .travis/test-configuration.sh
-  - ./.travis/test.sh
+  - ./.travis/build.sh
 
 notifications:
   email: # only receive email when the build status changes (someone broke the build!)
