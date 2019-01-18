@@ -1,6 +1,7 @@
 package com.famaridon.redminengapi.services.indicators.impl;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
 
 import com.famaridon.redminengapi.domain.entities.IterationEntity;
@@ -46,6 +47,9 @@ public class ObjectiveServiceUTest extends
     objectiveEntity.setName("entity");
     objectiveEntity.setDescription("A very nice description");
     objectiveEntity.setSummary("A short summary");
+    objectiveEntity.setIteration(new IterationEntity());
+    objectiveEntity.getIteration().setId(1L);
+    objectiveEntity.getIteration().setName("iteration name");
     return objectiveEntity;
   }
 
@@ -65,6 +69,8 @@ public class ObjectiveServiceUTest extends
     assertEquals(entity.getName(), bean.getName());
     assertEquals(entity.getDescription(), bean.getDescription());
     assertEquals(entity.getSummary(), bean.getSummary());
+    assertNotNull(entity.getIteration());
+    assertNotNull(bean.getIteration());
     assertEquals(entity.getIteration().getId(), bean.getIteration().getId());
   }
 }
