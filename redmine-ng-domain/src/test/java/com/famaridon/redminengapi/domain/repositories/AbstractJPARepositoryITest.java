@@ -3,6 +3,8 @@ package com.famaridon.redminengapi.domain.repositories;
 import com.famaridon.redminengapi.domain.entities.AbstractEntity;
 import com.famaridon.redminengapi.domain.repositories.impl.AbstractJPARepository;
 import java.util.concurrent.atomic.AtomicLong;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -32,6 +34,9 @@ public abstract class AbstractJPARepositoryITest<R extends Repository<E>, E exte
 	
 	@Inject
 	protected UserTransaction userTransaction;
+
+	@PersistenceContext(name = "redmine-domain")
+	protected EntityManager em;
 	
 	public static final String[] REDMINE_CLIENT_DEPENDENCIES = new String[]{
 		"org.apache.commons:commons-lang3"

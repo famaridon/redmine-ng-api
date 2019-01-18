@@ -41,7 +41,11 @@ public abstract class AbstractCrudRepositoryService<R extends Repository<E>, E e
 
   @Override
   public Page<B> findAll(Pager pager) {
-    Iterable<E> entities=  this.getRepository().findAll(pager.getOffset(), pager.getLimit());
+    Iterable<E> entities = this.getRepository().findAll(pager.getOffset(), pager.getLimit());
+    return this.toPage(entities, pager);
+  }
+
+  protected final Page<B> toPage(Iterable<E> entities, Pager pager) {
     List<B> beans = this.map(entities);
     Page<B> page = new Page<>();
     page.setElements(beans);
@@ -66,7 +70,7 @@ public abstract class AbstractCrudRepositoryService<R extends Repository<E>, E e
   @Override
   public void update(B bean) throws ObjectNotFoundException {
     Optional<E> optionalEntity = this.getRepository().findById(bean.getId());
-    if(optionalEntity.isPresent()) {
+    if (optionalEntity.isPresent()) {
       E entity = optionalEntity.get();
       this.merge(bean, entity);
       this.getRepository().save(entity);
@@ -78,7 +82,7 @@ public abstract class AbstractCrudRepositoryService<R extends Repository<E>, E e
   @Override
   public void deleteById(Long id) throws ObjectNotFoundException {
     Optional<E> optionalEntity = this.getRepository().findById(id);
-    if(optionalEntity.isPresent()) {
+    if (optionalEntity.isPresent()) {
       E entity = optionalEntity.get();
       this.getRepository().delete(entity);
     } else {

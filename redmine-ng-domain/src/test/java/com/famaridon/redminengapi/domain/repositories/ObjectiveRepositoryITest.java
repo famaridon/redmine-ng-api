@@ -9,9 +9,16 @@ import com.famaridon.redminengapi.domain.repositories.impl.JPAObjectiveRepositor
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import javax.ejb.EJB;
+import javax.transaction.HeuristicMixedException;
+import javax.transaction.HeuristicRollbackException;
+import javax.transaction.NotSupportedException;
+import javax.transaction.RollbackException;
+import javax.transaction.SystemException;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
+import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
@@ -27,6 +34,35 @@ public class ObjectiveRepositoryITest extends
         .addClass(IterationEntity.class);
   }
 
+  @Before
+  public void setup()
+      throws SystemException, NotSupportedException, HeuristicRollbackException, HeuristicMixedException, RollbackException {
+    this.userTransaction.begin();
+    this.em.persist(this.buildParentIteration());
+    this.userTransaction.commit();
+  }
+
+  @Test
+  public void findAllByIteration()
+      throws SystemException, NotSupportedException, HeuristicRollbackException, HeuristicMixedException, RollbackException {
+    ObjectiveEntity objective1 = this.buildCreateEntity();
+    ObjectiveEntity objective2 = this.buildCreateEntity();
+    objective1.setName("findAllByIteration 1");
+    objective2.setName("findAllByIteration 2");
+    this.userTransaction.begin();
+    this.getRepository().save(objective1);
+    this.getRepository().save(objective2);
+    this.userTransaction.commit();
+
+    Iterable<ObjectiveEntity> objectiveEntities = this.objectiveRepository.findAllByIteration(this.buildParentIteration(), 0L , 25L);
+    int count = 0;
+    for (ObjectiveEntity objectiveEntity : objectiveEntities) {
+      count++;
+    }
+
+    assertEquals(2, count);
+  }
+
   @Override
   protected ObjectiveRepository getRepository() {
     return this.objectiveRepository;
@@ -38,7 +74,18 @@ public class ObjectiveRepositoryITest extends
     objectiveEntity.setName("Create Objective");
     objectiveEntity.setSummary("Create Objective summary");
     objectiveEntity.setDescription("Create Objective description");
+    objectiveEntity.setIteration(this.buildParentIteration());
     return objectiveEntity;
+  }
+
+  protected IterationEntity buildParentIteration() {
+    IterationEntity iterationEntity = new IterationEntity();
+    iterationEntity.setId(1L);
+    iterationEntity.setName("Parent iteration");
+    iterationEntity.setNumber(1L);
+    iterationEntity.setStart(LocalDate.now());
+    iterationEntity.setEnd(LocalDate.now());
+    return iterationEntity;
   }
 
   @Override
@@ -47,6 +94,7 @@ public class ObjectiveRepositoryITest extends
     objectiveEntity.setName("Read Objective");
     objectiveEntity.setSummary("Read Objective summary");
     objectiveEntity.setDescription("Read Objective description");
+    objectiveEntity.setIteration(this.buildParentIteration());
     return objectiveEntity;
   }
 
@@ -56,6 +104,7 @@ public class ObjectiveRepositoryITest extends
     objectiveEntity.setName("Update Objective");
     objectiveEntity.setSummary("Update Objective summary");
     objectiveEntity.setDescription("Update Objective description");
+    objectiveEntity.setIteration(this.buildParentIteration());
     return objectiveEntity;
   }
 
@@ -79,6 +128,7 @@ public class ObjectiveRepositoryITest extends
     objectiveEntity.setName("Delete Objective");
     objectiveEntity.setSummary("Delete Objective summary");
     objectiveEntity.setDescription("Delete Objective description");
+    objectiveEntity.setIteration(this.buildParentIteration());
     return objectiveEntity;
   }
 
