@@ -1,19 +1,24 @@
 package com.famaridon.redminengapi.rest.api;
 
-import com.famaridon.redminengapi.rest.api.features.CacheControl;
 import com.famaridon.redminengapi.rest.dto.ObjectiveDto;
 import com.famaridon.redminengapi.rest.dto.PageDto;
-import com.famaridon.redminengapi.rest.dto.UserDto;
-
-import javax.annotation.security.RolesAllowed;
-import javax.ws.rs.*;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DefaultValue;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
-import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
 @Path("/objective")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public interface ObjectiveEndpoint extends CrudEndpoint<ObjectiveDto> {
+
+  @GET
+  @Path("/{id}")
+  PageDto<ObjectiveDto> findAllByIterationId(Long iterationId,
+      @QueryParam(PagerParam.OFFSET) @DefaultValue("0") Long offset,
+      @QueryParam(PagerParam.LIMIT) @DefaultValue("25") Long limit) ;
 
 }
