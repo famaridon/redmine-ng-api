@@ -17,6 +17,7 @@ import javax.transaction.SystemException;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -31,6 +32,14 @@ public class ObjectiveRepositoryITest extends
   public static Archive<?> createDeployment() {
     return prepare(ObjectiveRepository.class, JPAObjectiveRepository.class, ObjectiveEntity.class)
         .addClass(IterationEntity.class);
+  }
+
+  @Before
+  public void setup()
+      throws SystemException, NotSupportedException, HeuristicRollbackException, HeuristicMixedException, RollbackException {
+    this.userTransaction.begin();
+    this.em.persist(this.buildParentIteration());
+    this.userTransaction.commit();
   }
 
   @Test
