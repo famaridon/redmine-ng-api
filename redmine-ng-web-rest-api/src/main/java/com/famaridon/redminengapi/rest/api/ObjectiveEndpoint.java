@@ -16,7 +16,7 @@ import javax.ws.rs.core.MediaType;
 public interface ObjectiveEndpoint extends CrudEndpoint<ObjectiveDto> {
 
   @GET
-  @Path("/{id}")
+  @Path("/iteration/{id}")
   PageDto<ObjectiveDto> findAllByIterationId(Long iterationId,
       @QueryParam(PagerParam.OFFSET) @DefaultValue("0") Long offset,
       @QueryParam(PagerParam.LIMIT) @DefaultValue("25") Long limit) ;
