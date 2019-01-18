@@ -8,7 +8,7 @@
 # setup.
 #
 # The script is also handy for debugging - SSH into
-# the machine and then call `./.travis/main.sh` to
+# the machine and then call `./.travis/setup.sh` to
 # have all dependencies set.
 
 set -o errexit

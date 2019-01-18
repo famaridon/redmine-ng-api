@@ -15,7 +15,7 @@ cache:
     - $HOME/.m2
 
 before_install:
-  - ./.travis/main.sh
+  - ./.travis/setup.sh
 
 script:
   - echo "export WAIT_DOCKER=30" > .travis/test-configuration.sh
