@@ -28,7 +28,7 @@ notifications:
 deploy:
   provider: releases
   api_key: '$GITHUB_API_KEY'
-  file: '/redmine-ng-web/target/redmine-ng-api.war'
+  file: './redmine-ng-web/target/redmine-ng-api.war'
   skip_cleanup: true
   on:
     branch : master
