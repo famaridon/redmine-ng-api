@@ -19,9 +19,17 @@ before_install:
 
 script:
   - echo "export WAIT_DOCKER=30" > .travis/test-configuration.sh
-  - ./.travis/build.sh
 
 notifications:
   email: # only receive email when the build status changes (someone broke the build!)
     on_failure: always
     on_success: change
+
+deploy:
+  provider: releases
+  api_key: '$GITHUB_API_KEY'
+  file: './redmine-ng-web/target/redmine-ng-api.war'
+  skip_cleanup: true
+  on:
+    branch : master
+    tags: true
