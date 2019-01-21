@@ -56,7 +56,7 @@ public abstract class AbstractCrudEndpoint<DTO extends AbstractDto, S extends Cr
 		bean = this.getService().create(bean);
 		UriBuilder uriBuilder = uriInfo.getAbsolutePathBuilder();
 		uriBuilder.path(Long.toString(bean.getId()));
-		return Response.created(uriBuilder.build()).build();
+		return Response.created(uriBuilder.build()).entity(this.beanToDto(bean)).build();
 	}
 	
 	@Override
@@ -69,7 +69,7 @@ public abstract class AbstractCrudEndpoint<DTO extends AbstractDto, S extends Cr
 	}
 	
 	@Override
-	public void update( Long id, DTO iterationDto) {
+	public Response update( Long id, DTO iterationDto) {
 		B bean = this.dtoToBean(iterationDto);
 		bean.setId(id);
 		try {
@@ -77,6 +77,7 @@ public abstract class AbstractCrudEndpoint<DTO extends AbstractDto, S extends Cr
 		} catch (ObjectNotFoundException e) {
 			throw new NotFoundException(e);
 		}
+		return Response.ok(bean).build();
 	}
 
 	@Override
