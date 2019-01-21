@@ -71,7 +71,6 @@ public class ObjectiveServiceUTest extends
     objectiveEntity.setId(0L);
     objectiveEntity.setName("entity");
     objectiveEntity.setDescription("A very nice description");
-    objectiveEntity.setSummary("A short summary");
     objectiveEntity.setIteration(this.buildParentIterationEntity());
     return objectiveEntity;
   }
@@ -89,7 +88,6 @@ public class ObjectiveServiceUTest extends
     objective.setId(0L);
     objective.setName("bean");
     objective.setDescription("A very nice description");
-    objective.setSummary("A short summary");
     return objective;
   }
 
@@ -98,7 +96,6 @@ public class ObjectiveServiceUTest extends
     assertEquals(entity.getId(), bean.getId());
     assertEquals(entity.getName(), bean.getName());
     assertEquals(entity.getDescription(), bean.getDescription());
-    assertEquals(entity.getSummary(), bean.getSummary());
     assertNotNull(entity.getIteration());
     assertNotNull(bean.getIteration());
     assertEquals(entity.getIteration().getId(), bean.getIteration().getId());

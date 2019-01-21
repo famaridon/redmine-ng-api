@@ -72,7 +72,6 @@ public class ObjectiveRepositoryITest extends
   protected ObjectiveEntity buildCreateEntity() {
     ObjectiveEntity objectiveEntity = new ObjectiveEntity();
     objectiveEntity.setName("Create Objective");
-    objectiveEntity.setSummary("Create Objective summary");
     objectiveEntity.setDescription("Create Objective description");
     objectiveEntity.setIteration(this.buildParentIteration());
     return objectiveEntity;
@@ -92,7 +91,6 @@ public class ObjectiveRepositoryITest extends
   protected ObjectiveEntity buildReadEntity() {
     ObjectiveEntity objectiveEntity = new ObjectiveEntity();
     objectiveEntity.setName("Read Objective");
-    objectiveEntity.setSummary("Read Objective summary");
     objectiveEntity.setDescription("Read Objective description");
     objectiveEntity.setIteration(this.buildParentIteration());
     return objectiveEntity;
@@ -102,7 +100,6 @@ public class ObjectiveRepositoryITest extends
   protected ObjectiveEntity buildUpdateEntity() {
     ObjectiveEntity objectiveEntity = new ObjectiveEntity();
     objectiveEntity.setName("Update Objective");
-    objectiveEntity.setSummary("Update Objective summary");
     objectiveEntity.setDescription("Update Objective description");
     objectiveEntity.setIteration(this.buildParentIteration());
     return objectiveEntity;
@@ -111,14 +108,12 @@ public class ObjectiveRepositoryITest extends
   @Override
   protected void modify(ObjectiveEntity entity) {
     entity.setName("Updated Objective");
-    entity.setSummary("Updated Objective summary");
     entity.setDescription("Updated Objective description");
   }
 
   @Override
   protected void checkModification(ObjectiveEntity updated) {
     assertEquals(updated.getName(), "Updated Objective");
-    assertEquals(updated.getSummary(), "Updated Objective summary");
     assertEquals(updated.getDescription(), "Updated Objective description");
   }
 
@@ -126,7 +121,6 @@ public class ObjectiveRepositoryITest extends
   protected ObjectiveEntity buildDeleteEntity() {
     ObjectiveEntity objectiveEntity = new ObjectiveEntity();
     objectiveEntity.setName("Delete Objective");
-    objectiveEntity.setSummary("Delete Objective summary");
     objectiveEntity.setDescription("Delete Objective description");
     objectiveEntity.setIteration(this.buildParentIteration());
     return objectiveEntity;
