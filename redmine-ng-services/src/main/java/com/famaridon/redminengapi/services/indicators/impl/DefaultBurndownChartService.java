@@ -28,8 +28,6 @@ public class DefaultBurndownChartService extends
   private IndicatorsEntityMapper indicatorsEntityMapper;
   @Inject
   private BurndownChartRepository burndownChartRepository;
-  @Inject
-  private IterationRepository iterationRepository;
 
   public DefaultBurndownChartService() {
   }
@@ -47,16 +45,16 @@ public class DefaultBurndownChartService extends
 
   @Override
   protected BurndownChart map(BurndownChartEntity entity) {
-    return null;
+    return this.indicatorsEntityMapper.burndownChartEntityToBurndownChart(entity);
   }
 
   @Override
   protected BurndownChartEntity map(BurndownChart bean) {
-    return null;
+    return this.indicatorsEntityMapper.burndownChartToBurndownChartEntity(bean);
   }
 
   @Override
   protected void merge(BurndownChart bean, BurndownChartEntity entity) {
-
+    this.indicatorsEntityMapper.updateBurndownChartEntityFromBurndownChart(bean, entity);
   }
 }
