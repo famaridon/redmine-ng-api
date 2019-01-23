@@ -29,4 +29,12 @@ public class BurndownChartEntity extends AbstractEntity {
     this.iteration = iteration;
   }
 
+  public List<ChartTimedValueEntity> getValues() {
+    return values;
+  }
+
+  public void setValues(
+      List<ChartTimedValueEntity> values) {
+    this.values = values;
+  }
 }
