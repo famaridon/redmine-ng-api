@@ -15,10 +15,10 @@ import java.io.IOException;
 
 public class HtmlResponseHandler implements ResponseHandler<Document> {
 	
-	protected final ConfigurationService configurationService;
+	protected final String baseUri;
 	
-	public HtmlResponseHandler(ConfigurationService configurationService) {
-		this.configurationService = configurationService;
+	public HtmlResponseHandler(String baseUri) {
+		this.baseUri = baseUri;
 	}
 	
 	@Override
@@ -37,7 +37,7 @@ public class HtmlResponseHandler implements ResponseHandler<Document> {
 			throw new ClientProtocolException("Unexpected content type:" + contentType);
 		}
 		
-		return Jsoup.parse(entity.getContent(),contentType.getCharset().name(), configurationService.buildUrl(""));
+		return Jsoup.parse(entity.getContent(),contentType.getCharset().name(), this.baseUri);
 		
 	}
 }

@@ -57,7 +57,7 @@ public class MockConfigurationService implements ConfigurationService {
     return this.configuration.get("redmine.server.url");
   }
 
-  public String buildUrl(String path, Object... parameters) {
+  public String getBaseUri(String path, Object... parameters) {
     return this.getRedmineServer() + String.format(path, parameters);
   }
 

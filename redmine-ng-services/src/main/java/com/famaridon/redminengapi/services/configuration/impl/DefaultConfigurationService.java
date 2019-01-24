@@ -65,14 +65,4 @@ public class DefaultConfigurationService implements ConfigurationService {
 		return this.configuration.getString(key, def);
 	}
 	
-	
-	
-	protected String getRedmineServer() {
-		return this.configuration.getString("redmine.server.url");
-	}
-	
-	public String buildUrl(String path, Object... parameters) {
-		return this.getRedmineServer() + String.format(path, parameters);
-	}
-	
 }

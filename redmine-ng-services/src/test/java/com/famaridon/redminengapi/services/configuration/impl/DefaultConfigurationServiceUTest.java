@@ -70,16 +70,4 @@ public class DefaultConfigurationServiceUTest {
     assertArrayEquals(new String[]{"A", "B", "C"}, values.toArray());
   }
 
-  @Test
-  public void buildUrl() {
-    String url = this.configurationService.buildUrl("/api/v1/echo");
-    assertEquals("https://projects.visiativ.com/api/v1/echo", url);
-  }
-
-  @Test
-  public void buildUrlWithParameter() {
-    String url = this.configurationService.buildUrl("/api/v1/echo?message=%1s","very nice message");
-    assertEquals("https://projects.visiativ.com/api/v1/echo?message=very nice message", url);
-  }
-
 }

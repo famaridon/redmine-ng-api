@@ -1,6 +1,8 @@
 package com.famaridon.redminengapi.services.redmine;
 
-public class Pager {
+import org.apache.http.client.utils.URIBuilder;
+
+public class Pager implements QueryParamSerializable {
 	private final Long offset;
 	private final Long limit;
 	
@@ -20,9 +22,10 @@ public class Pager {
 	public Long getLimit() {
 		return this.limit;
 	}
-	
+
 	@Override
-	public String toString() {
-		return "offset="+this.offset+"&limit="+ this.limit;
+	public void serialize(URIBuilder uriBuilder) {
+		uriBuilder.addParameter("offset", Long.toString(this.offset));
+		uriBuilder.addParameter("limit", Long.toString(this.limit));
 	}
 }
