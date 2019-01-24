@@ -38,7 +38,7 @@ public class ObjectiveRepositoryITest extends
   public void setup()
       throws SystemException, NotSupportedException, HeuristicRollbackException, HeuristicMixedException, RollbackException {
     this.userTransaction.begin();
-    this.em.persist(this.buildParentIteration());
+    this.em.merge(this.buildParentIteration());
     this.userTransaction.commit();
   }
 

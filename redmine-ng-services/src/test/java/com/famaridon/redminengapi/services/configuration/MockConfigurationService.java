@@ -53,12 +53,4 @@ public class MockConfigurationService implements ConfigurationService {
     throw new NotImplementedException("Mock not implemented");
   }
 
-  protected String getRedmineServer() {
-    return this.configuration.get("redmine.server.url");
-  }
-
-  public String getBaseUri(String path, Object... parameters) {
-    return this.getRedmineServer() + String.format(path, parameters);
-  }
-
 }
