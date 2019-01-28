@@ -44,6 +44,16 @@ public class MockConfigurationService implements ConfigurationService {
   }
 
   @Override
+  public Long getLong(String key) {
+    throw new NotImplementedException("");
+  }
+
+  @Override
+  public Long getLong(String key, Long def) {
+    throw new NotImplementedException("");
+  }
+
+  @Override
   public <T> List<T> getList(Class<T> type, String key) {
     throw new NotImplementedException("Mock not implemented");
   }

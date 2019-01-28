@@ -36,4 +36,16 @@ public class FilterFactory {
     return new StringFilter("status_id", statusType.filterValue);
   }
 
+  public Filter createTrackerFilter(Long trackerId) {
+    return new LongFilter("tracker_id", trackerId);
+  }
+
+  public Filter createCustomFieldFilter(Long fieldId, Long value) {
+    return new LongFilter("cf_" + fieldId, value);
+  }
+
+  public Filter createCustomFieldFilter(Long fieldId, String value) {
+    return new StringFilter("cf_" + fieldId, value);
+  }
+
 }

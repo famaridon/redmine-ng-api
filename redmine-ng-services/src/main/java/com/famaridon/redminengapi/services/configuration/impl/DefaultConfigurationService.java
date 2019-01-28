@@ -19,50 +19,62 @@ import java.util.List;
 @Startup
 @Singleton
 public class DefaultConfigurationService implements ConfigurationService {
-	private static final Logger LOG = LoggerFactory.getLogger(DefaultConfigurationService.class);
-	
-	private Configuration configuration;
-	
-	@PostConstruct
-	public void startup() {
-		init();
-	}
-	
-	protected final void init() {
-		ToStringBuilder.setDefaultStyle(ToStringStyle.SHORT_PREFIX_STYLE);
-		LOG.info("Init configuration.");
-		Configurations configs = new Configurations();
-		try {
-			LOG.info("Read configuration files.");
-			this.configuration = configs.fileBased(JSONConfiguration.class,getConfigurationFile());
-		} catch (ConfigurationException e) {
-			throw new IllegalArgumentException("Can't read configuration!");
-		}
 
-	}
-	
-	protected URL getConfigurationFile() {
-		return DefaultConfigurationService.class.getResource("/config.json");
-	}
-	
-	@Override
-	public String getString(String key) {
-		return this.configuration.getString(key);
-	}
-	
-	@Override
-	public <T> List<T> getList(Class<T> type, String key) {
-		return this.configuration.getList(type, key);
-	}
-	
-	@Override
-	public <T> List<T> getList(Class<T> type, String key, List<T> defaultValues) {
-		return this.configuration.getList(type, key, defaultValues);
-	}
-	
-	@Override
-	public String getString(String key, String def) {
-		return this.configuration.getString(key, def);
-	}
-	
+  private static final Logger LOG = LoggerFactory.getLogger(DefaultConfigurationService.class);
+
+  private Configuration configuration;
+
+  @PostConstruct
+  public void startup() {
+    init();
+  }
+
+  protected final void init() {
+    ToStringBuilder.setDefaultStyle(ToStringStyle.SHORT_PREFIX_STYLE);
+    LOG.info("Init configuration.");
+    Configurations configs = new Configurations();
+    try {
+      LOG.info("Read configuration files.");
+      this.configuration = configs.fileBased(JSONConfiguration.class, getConfigurationFile());
+    } catch (ConfigurationException e) {
+      throw new IllegalArgumentException("Can't read configuration!");
+    }
+
+  }
+
+  protected URL getConfigurationFile() {
+    return DefaultConfigurationService.class.getResource("/config.json");
+  }
+
+  @Override
+  public String getString(String key) {
+    return this.configuration.getString(key);
+  }
+
+  @Override
+  public String getString(String key, String def) {
+    return this.configuration.getString(key, def);
+  }
+
+  @Override
+  public Long getLong(String key) {
+    return this.configuration.getLong(key);
+  }
+
+  @Override
+  public Long getLong(String key, Long def) {
+    return this.configuration.getLong(key, def);
+  }
+
+  @Override
+  public <T> List<T> getList(Class<T> type, String key) {
+    return this.configuration.getList(type, key);
+  }
+
+  @Override
+  public <T> List<T> getList(Class<T> type, String key, List<T> defaultValues) {
+    return this.configuration.getList(type, key, defaultValues);
+  }
+
+
 }

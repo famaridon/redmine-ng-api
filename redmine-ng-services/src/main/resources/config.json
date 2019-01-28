@@ -2,6 +2,19 @@
   "redmine": {
     "server": {
       "url": "https://projects.visiativ.com"
+    },
+    "projects": {
+      "process": {
+        "readonlyApiKey": "",
+        "project": 1032,
+        "custom-fields": {
+          "iteration": 35,
+          "development-cost": 28
+        },
+        "burndown": {
+          "valid-trackers": [36, 37]
+        }
+      }
     }
   },
   "http": {
