@@ -56,7 +56,7 @@ public class BurndownChartScheduler {
   }
 
   @Lock(LockType.WRITE)
-  @Schedule(minute = "*", hour = "*")
+  @Schedule(hour = "*")
   @Transactional(TxType.REQUIRED)
   private void scheduled() {
 
