@@ -34,6 +34,8 @@ ENV LAUNCH_JBOSS_IN_BACKGROUND true
 
 USER jboss
 
+WORKDIR $JBOSS_HOME
+
 COPY scripts/* $JBOSS_HOME/
 
 # configure

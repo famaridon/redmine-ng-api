@@ -31,6 +31,7 @@ test-configuration.sh
 docker/volumes
 docker/deployment/*.war
 docker/scripts/start.bat
+docker/configuration/config-dev.json
 
 ## windows build helper
 /build.bat

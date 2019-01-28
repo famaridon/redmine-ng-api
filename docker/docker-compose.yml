@@ -18,6 +18,8 @@ services:
       - 8443:8443
       - 9990:9990
       - 5000:5000
+    environment:
+      REDMINE_NG_API_PROFILE: "dev"
     volumes:
       - ./configuration:/opt/wildfly/configuration
       - ./deployment:/opt/wildfly/deployment
