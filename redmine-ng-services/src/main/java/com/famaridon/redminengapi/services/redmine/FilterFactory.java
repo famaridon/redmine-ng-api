@@ -5,6 +5,8 @@ import com.famaridon.redminengapi.services.redmine.filter.StringFilter;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Project;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Query;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Status;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class FilterFactory {
 
@@ -38,6 +40,10 @@ public class FilterFactory {
 
   public Filter createTrackerFilter(Long trackerId) {
     return new LongFilter("tracker_id", trackerId);
+  }
+
+  public Filter createTrackerFilter(List<Long> trackersId) {
+    return new StringFilter("tracker_id", trackersId.stream().map(Object::toString).collect(Collectors.joining("|")) );
   }
 
   public Filter createCustomFieldFilter(Long fieldId, Long value) {

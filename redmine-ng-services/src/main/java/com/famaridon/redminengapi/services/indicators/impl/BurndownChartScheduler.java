@@ -6,15 +6,11 @@ import com.famaridon.redminengapi.domain.entities.IterationEntity;
 import com.famaridon.redminengapi.domain.repositories.BurndownChartRepository;
 import com.famaridon.redminengapi.domain.repositories.IterationRepository;
 import com.famaridon.redminengapi.services.configuration.ConfigurationService;
-import com.famaridon.redminengapi.services.indicators.BurndownChartService;
-import com.famaridon.redminengapi.services.indicators.beans.BurndownChart;
-import com.famaridon.redminengapi.services.indicators.mapper.IndicatorsEntityMapper;
-import com.famaridon.redminengapi.services.indicators.mapper.IndicatorsEntityMapperImpl;
 import com.famaridon.redminengapi.services.redmine.Filter;
 import com.famaridon.redminengapi.services.redmine.FilterFactory;
 import com.famaridon.redminengapi.services.redmine.IssueService;
 import com.famaridon.redminengapi.services.redmine.Pager;
-import com.famaridon.redminengapi.services.redmine.QueryService;
+import com.famaridon.redminengapi.services.redmine.StatusType;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.CustomField;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Issue;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Page;
@@ -24,15 +20,14 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import javax.annotation.PostConstruct;
 import javax.ejb.Lock;
 import javax.ejb.LockType;
 import javax.ejb.Schedule;
 import javax.ejb.Singleton;
-import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.transaction.Transactional.TxType;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -60,7 +55,7 @@ public class BurndownChartScheduler {
   }
 
   @Lock(LockType.WRITE)
-  @Schedule(second = "*", persistent = false)
+  @Schedule(minute = "*", hour = "*")
   @Transactional(TxType.REQUIRED)
   private void scheduled() {
 
@@ -85,14 +80,16 @@ public class BurndownChartScheduler {
         ChartTimedValueEntity firtsPoint = new ChartTimedValueEntity();
         firtsPoint.setDate(iterationEntityOptional.get().getStart().atStartOfDay());
         firtsPoint
-            .setValue(this.countAllOpenPoints(iterationEntityOptional.get(), this::sumAllPoints));
+            .setValue(this.countAllOpenPoints(iterationEntityOptional.get(), StatusType.ALL,
+                this::sumAllPoints));
         burndownChartEntity.getValues().add(firtsPoint);
       }
 
       ChartTimedValueEntity firtsPointWithProgress = new ChartTimedValueEntity();
       firtsPointWithProgress.setDate(LocalDateTime.now());
       firtsPointWithProgress.setValue(
-          this.countAllOpenPoints(iterationEntityOptional.get(), this::sumAllPointsWithProgress));
+          this.countAllOpenPoints(iterationEntityOptional.get(), StatusType.OPEN,
+              this::sumAllPointsWithProgress));
       burndownChartEntity.getValues().add(firtsPointWithProgress);
 
       this.burndownChartRepository.save(burndownChartEntity);
@@ -103,9 +100,10 @@ public class BurndownChartScheduler {
 
   private BigDecimal sumAllPointsWithProgress(BigDecimal count, Issue issue) {
     Long developmentCostField = this.configurationService
-        .getLong("projects.process.custom-fields.development-cost");
+        .getLong("redmine.projects.process.custom-fields.development-cost");
     Optional<CustomField> customField = issue.findCustomFields(developmentCostField);
-    if (customField.isPresent()) {
+    if (customField.isPresent() && StringUtils.isNotBlank(
+        (CharSequence) customField.get().getValue())) {
       BigDecimal dueRatio = BigDecimal.ONE
           .subtract(new BigDecimal(issue.getDoneRatio()).divide(new BigDecimal(100)));
       return count.add(dueRatio.multiply(new BigDecimal((String) customField.get().getValue())));
@@ -115,32 +113,32 @@ public class BurndownChartScheduler {
 
   private BigDecimal sumAllPoints(BigDecimal count, Issue issue) {
     Long developmentCostField = this.configurationService
-        .getLong("projects.process.custom-fields.development-cost");
+        .getLong("redmine.projects.process.custom-fields.development-cost");
     Optional<CustomField> customField = issue.findCustomFields(developmentCostField);
-    if (customField.isPresent()) {
+    if (customField.isPresent() && StringUtils.isNotBlank(
+        (CharSequence) customField.get().getValue())) {
       return count.add(new BigDecimal((String) customField.get().getValue()));
     }
     return count;
   }
 
-  public BigDecimal countAllOpenPoints(IterationEntity iterationEntity, IssueOperator issueOperator)
+  public BigDecimal countAllOpenPoints(IterationEntity iterationEntity, StatusType statusType,
+      IssueOperator issueOperator)
       throws IOException {
-    String apiKey = this.configurationService.getString("projects.process.readonlyApiKey");
-    Long projectId = this.configurationService.getLong("projects.process.project");
+    String apiKey = this.configurationService.getString("redmine.projects.process.readonlyApiKey");
+    Long projectId = this.configurationService.getLong("redmine.projects.process.project");
     Long iterationField = this.configurationService
-        .getLong("projects.process.custom-fields.iteration");
+        .getLong("redmine.projects.process.custom-fields.iteration");
 
     List<Long> validTrackerIds = this.configurationService
-        .getList(Long.class, "projects.process.burndown.valid-trackers");
+        .getList(Long.class, "redmine.projects.process.burndown.valid-trackers");
 
     List<Filter> filters = new ArrayList<>();
+    filters.add(this.filterFactory.createStatusFilter(statusType));
     filters.add(this.filterFactory.createProjectFilter(projectId));
-    filters.add(
-        this.filterFactory.createCustomFieldFilter(iterationField, iterationEntity.getNumber()));
+    filters.add(this.filterFactory.createCustomFieldFilter(iterationField, iterationEntity.getNumber()));
+    filters.add(this.filterFactory.createTrackerFilter(validTrackerIds));
 
-    validTrackerIds.forEach(trackerId -> {
-      filters.add(this.filterFactory.createTrackerFilter(trackerId));
-    });
 
     BigDecimal count = BigDecimal.ZERO;
 
