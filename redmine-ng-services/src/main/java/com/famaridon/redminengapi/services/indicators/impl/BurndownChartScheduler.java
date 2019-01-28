@@ -32,6 +32,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * TODO : this is a draft class to start collecting data.
  * this class is moovapps process team specific
  */
 @Singleton
