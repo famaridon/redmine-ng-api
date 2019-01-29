@@ -3,6 +3,7 @@ package com.famaridon.redminengapi.services.indicators.impl;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -46,12 +47,12 @@ public class ObjectiveServiceUTest extends
     List<ObjectiveEntity> objectiveEntities = new ArrayList<>();
     objectiveEntities.add(this.buildEntity());
     objectiveEntities.add(this.buildEntity());
-    when(this.mockedObjectiveRepository.findAllByIteration(any(), 0L,25L)).thenReturn(objectiveEntities);
-    when(this.mockedIterationRepository.findById(1L)).thenReturn(Optional.of(this.buildParentIterationEntity()));
+    when(this.mockedObjectiveRepository.findAllByIteration(any(), eq(0L),eq(25L))).thenReturn(objectiveEntities);
+    when(this.mockedIterationRepository.findById(eq(1L))).thenReturn(Optional.of(this.buildParentIterationEntity()));
 
     this.objectiveService.findAllByIterationId(1L, new Pager());
 
-    verify(this.mockedObjectiveRepository).findAllByIteration(any(),0L, 25L);
+    verify(this.mockedObjectiveRepository).findAllByIteration(any(),eq(0L), eq(25L));
     verify(this.mockedIterationRepository).findById(any());
   }
 
