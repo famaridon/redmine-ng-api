@@ -22,5 +22,6 @@ services:
       REDMINE_NG_API_PROFILE: "dev"
     volumes:
       - ./configuration:/opt/wildfly/configuration
-      - ./deployment:/opt/wildfly/deployment
+      - ./staging:/opt/wildfly/staging
+      - ./deployments:/opt/wildfly/standalone/deployments
 

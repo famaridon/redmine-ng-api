@@ -2,7 +2,7 @@
 
 cp -f $JBOSS_HOME/configuration/config*.json $JBOSS_HOME
 cp -f $JBOSS_HOME/configuration/standalone.xml $JBOSS_HOME/standalone/configuration/standalone.xml
-cp -f $JBOSS_HOME/deployment/* $JBOSS_HOME/standalone/deployments/
+cp -f $JBOSS_HOME/staging/* $JBOSS_HOME/standalone/deployments/
 
 
 $JBOSS_HOME/wait
