@@ -54,20 +54,21 @@ public class DefaultConfigurationService implements ConfigurationService {
       CombinedConfiguration combinedConfiguration = new CombinedConfiguration();
       combinedConfiguration.setNodeCombiner(new OverrideCombiner());
 
-      combinedConfiguration.addConfiguration(this.getDefaultConfiguration());
-      combinedConfiguration.addConfiguration(this.getConfiguration(null));
       if (StringUtils.isNotBlank(profile)) {
         combinedConfiguration.addConfiguration(this.getConfiguration(profile));
       }
+      combinedConfiguration.addConfiguration(this.getConfiguration(null));
+      combinedConfiguration.addConfiguration(this.getDefaultConfiguration());
+
 
       this.configuration = combinedConfiguration;
-    } catch (ConfigurationException | MalformedURLException e) {
+    } catch (ConfigurationException e) {
       throw new IllegalArgumentException("Can't read configuration!", e);
     }
 
   }
 
-  protected final Configuration getConfiguration(String profile) throws ConfigurationException, MalformedURLException {
+  protected final Configuration getConfiguration(String profile) throws ConfigurationException {
     Path configurationFile;
     if (StringUtils.isEmpty(profile)) {
       configurationFile = Paths.get(".","config.json");

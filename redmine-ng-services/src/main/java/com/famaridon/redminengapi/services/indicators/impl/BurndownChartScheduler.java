@@ -56,7 +56,7 @@ public class BurndownChartScheduler {
   }
 
   @Lock(LockType.WRITE)
-  @Schedule(hour = "*")
+  @Schedule(minute = "*", hour = "*")
   @Transactional(TxType.REQUIRED)
   private void scheduled() {
 
@@ -126,10 +126,10 @@ public class BurndownChartScheduler {
   public BigDecimal countAllOpenPoints(IterationEntity iterationEntity, StatusType statusType,
       IssueOperator issueOperator)
       throws IOException {
-    String apiKey = this.configurationService.getString("redmine.projects.process.readonlyApiKey");
+    String apiKey = this.configurationService.getString("redmine.readonlyApiKey");
     Long projectId = this.configurationService.getLong("redmine.projects.process.project");
     Long iterationField = this.configurationService
-        .getLong("redmine.projects.process.custom-fields.iteration");
+        .getLong("redmine.custom-fields.iteration");
 
     List<Long> validTrackerIds = this.configurationService
         .getList(Long.class, "redmine.projects.process.burndown.valid-trackers");
