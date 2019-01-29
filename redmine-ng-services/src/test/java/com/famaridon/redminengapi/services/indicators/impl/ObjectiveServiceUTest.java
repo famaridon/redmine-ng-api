@@ -39,7 +39,7 @@ public class ObjectiveServiceUTest extends
   public void initialize() {
     this.mockedObjectiveRepository = mock(ObjectiveRepository.class);
     this.mockedIterationRepository = mock(IterationRepository.class);
-    this.objectiveService = new DefaultObjectiveService(this.mockedObjectiveRepository);
+    this.objectiveService = new DefaultObjectiveService(this.mockedObjectiveRepository, this.mockedIterationRepository);
   }
 
   @Test
@@ -47,12 +47,12 @@ public class ObjectiveServiceUTest extends
     List<ObjectiveEntity> objectiveEntities = new ArrayList<>();
     objectiveEntities.add(this.buildEntity());
     objectiveEntities.add(this.buildEntity());
-    when(this.mockedObjectiveRepository.findAllByIteration(any(), eq(0L),eq(25L))).thenReturn(objectiveEntities);
+    when(this.mockedObjectiveRepository.findAllByIteration(any(), eq(0L), eq(25L))).thenReturn(objectiveEntities);
     when(this.mockedIterationRepository.findById(eq(1L))).thenReturn(Optional.of(this.buildParentIterationEntity()));
 
     this.objectiveService.findAllByIterationId(1L, new Pager());
 
-    verify(this.mockedObjectiveRepository).findAllByIteration(any(),eq(0L), eq(25L));
+    verify(this.mockedObjectiveRepository).findAllByIteration(any(), eq(0L), eq(25L));
     verify(this.mockedIterationRepository).findById(any());
   }
 

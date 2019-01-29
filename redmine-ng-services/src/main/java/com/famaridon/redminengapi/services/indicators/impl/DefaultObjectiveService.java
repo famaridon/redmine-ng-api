@@ -33,8 +33,9 @@ public class DefaultObjectiveService extends
   public DefaultObjectiveService() {
   }
 
-  public DefaultObjectiveService(ObjectiveRepository objectiveRepository) {
+  public DefaultObjectiveService(ObjectiveRepository objectiveRepository, IterationRepository iterationRepository) {
     this.objectiveRepository = objectiveRepository;
+    this.iterationRepository = iterationRepository;
     this.indicatorsEntityMapper = new IndicatorsEntityMapperImpl();
   }
 
