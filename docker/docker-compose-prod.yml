@@ -16,7 +16,6 @@ services:
     volumes:
       - ./api/configuration:/opt/wildfly/configuration
       - ./api/staging:/opt/wildfly/staging
-      - ./api/deployments:/opt/wildfly/standalone/deployments
   front:
     image: nginx:1.15-alpine
     volumes:
