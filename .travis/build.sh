@@ -16,4 +16,8 @@ result=$?
 cd docker
 docker-compose stop
 
+if $result; then
+    tar -czvf target/docker-compose.tar.gz docker/*
+fi
+
 exit ${result}
