@@ -3,6 +3,7 @@ package com.famaridon.redminengapi.services.indicators.impl;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -38,7 +39,7 @@ public class ObjectiveServiceUTest extends
   public void initialize() {
     this.mockedObjectiveRepository = mock(ObjectiveRepository.class);
     this.mockedIterationRepository = mock(IterationRepository.class);
-    this.objectiveService = new DefaultObjectiveService(this.mockedObjectiveRepository);
+    this.objectiveService = new DefaultObjectiveService(this.mockedObjectiveRepository, this.mockedIterationRepository);
   }
 
   @Test
@@ -46,12 +47,12 @@ public class ObjectiveServiceUTest extends
     List<ObjectiveEntity> objectiveEntities = new ArrayList<>();
     objectiveEntities.add(this.buildEntity());
     objectiveEntities.add(this.buildEntity());
-    when(this.mockedObjectiveRepository.findAllByIteration(any(), 0L,25L)).thenReturn(objectiveEntities);
-    when(this.mockedIterationRepository.findById(1L)).thenReturn(Optional.of(this.buildParentIterationEntity()));
+    when(this.mockedObjectiveRepository.findAllByIteration(any(), eq(0L), eq(25L))).thenReturn(objectiveEntities);
+    when(this.mockedIterationRepository.findById(eq(1L))).thenReturn(Optional.of(this.buildParentIterationEntity()));
 
     this.objectiveService.findAllByIterationId(1L, new Pager());
 
-    verify(this.mockedObjectiveRepository).findAllByIteration(any(),0L, 25L);
+    verify(this.mockedObjectiveRepository).findAllByIteration(any(), eq(0L), eq(25L));
     verify(this.mockedIterationRepository).findById(any());
   }
 
@@ -71,7 +72,6 @@ public class ObjectiveServiceUTest extends
     objectiveEntity.setId(0L);
     objectiveEntity.setName("entity");
     objectiveEntity.setDescription("A very nice description");
-    objectiveEntity.setSummary("A short summary");
     objectiveEntity.setIteration(this.buildParentIterationEntity());
     return objectiveEntity;
   }
@@ -89,7 +89,6 @@ public class ObjectiveServiceUTest extends
     objective.setId(0L);
     objective.setName("bean");
     objective.setDescription("A very nice description");
-    objective.setSummary("A short summary");
     return objective;
   }
 
@@ -98,7 +97,6 @@ public class ObjectiveServiceUTest extends
     assertEquals(entity.getId(), bean.getId());
     assertEquals(entity.getName(), bean.getName());
     assertEquals(entity.getDescription(), bean.getDescription());
-    assertEquals(entity.getSummary(), bean.getSummary());
     assertNotNull(entity.getIteration());
     assertNotNull(bean.getIteration());
     assertEquals(entity.getIteration().getId(), bean.getIteration().getId());

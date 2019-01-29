@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 public class Issue extends AbstractRedmineBean {
 	
@@ -156,6 +157,10 @@ public class Issue extends AbstractRedmineBean {
 	
 	public List<CustomField> getCustomFields() {
 		return this.customFields;
+	}
+
+	public Optional<CustomField> findCustomFields(Long fieldId) {
+		return this.customFields.stream().filter(cf -> cf.getId()== fieldId).findFirst();
 	}
 	
 	public void setCustomFields(List<CustomField> customFields) {

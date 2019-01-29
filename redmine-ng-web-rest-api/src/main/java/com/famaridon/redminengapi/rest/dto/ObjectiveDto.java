@@ -5,19 +5,8 @@ import com.famaridon.redminengapi.rest.refs.IterationRef;
 
 public class ObjectiveDto extends AbstractDto {
 
-    private String summary;
     private String description;
     private IterationRef iteration;
-
-    public String getSummary()
-    {
-        return summary;
-    }
-    
-    public void setSummary(String summary)
-    {
-        this.summary = summary;
-    }
     
     public String getDescription()
     {

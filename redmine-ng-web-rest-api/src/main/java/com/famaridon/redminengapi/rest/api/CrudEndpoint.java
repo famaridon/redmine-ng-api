@@ -33,7 +33,7 @@ public interface CrudEndpoint<DTO extends AbstractDto> {
 
   @PUT
   @Path("/{id}")
-  public void update(@PathParam("id") Long id, DTO dto);
+  public Response update(@PathParam("id") Long id, DTO dto);
 
   @DELETE
   @Path("/{id}")

@@ -69,5 +69,9 @@ public class Page<T> {
 	public void setVersions(List<T> versions) {
 		this.elements = versions;
 	}
-	
+
+	public boolean hasNextPage() {
+		return this.offset + this.elements.size() < this.totalCount;
+	}
+
 }

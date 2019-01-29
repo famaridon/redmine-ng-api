@@ -44,6 +44,16 @@ public class MockConfigurationService implements ConfigurationService {
   }
 
   @Override
+  public Long getLong(String key) {
+    throw new NotImplementedException("");
+  }
+
+  @Override
+  public Long getLong(String key, Long def) {
+    throw new NotImplementedException("");
+  }
+
+  @Override
   public <T> List<T> getList(Class<T> type, String key) {
     throw new NotImplementedException("Mock not implemented");
   }
@@ -51,14 +61,6 @@ public class MockConfigurationService implements ConfigurationService {
   @Override
   public <T> List<T> getList(Class<T> type, String key, List<T> defaultValues) {
     throw new NotImplementedException("Mock not implemented");
-  }
-
-  protected String getRedmineServer() {
-    return this.configuration.get("redmine.server.url");
-  }
-
-  public String buildUrl(String path, Object... parameters) {
-    return this.getRedmineServer() + String.format(path, parameters);
   }
 
 }

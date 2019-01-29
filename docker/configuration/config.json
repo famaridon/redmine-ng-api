@@ -1,0 +1,25 @@
+{
+  "redmine": {
+    "server": {
+      "url": "https://projects.visiativ.com"
+    },
+    "custom-fields": {
+      "iteration": 35,
+      "development-cost": 28
+    },
+    "projects": {
+      "process": {
+        "project": 378,
+
+        "burndown": {
+          "valid-trackers": [36, 37]
+        }
+      }
+    }
+  },
+  "http": {
+    "cors": {
+      "allowedOrigins": []
+    }
+  }
+}

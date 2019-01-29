@@ -53,7 +53,9 @@ public class ObjectiveEndpointImpl extends AbstractCrudEndpoint<ObjectiveDto, Ob
 
 	@Override
 	protected ObjectiveDto beanToDto(Objective bean) {
-		return this.mapper.objectiveToObjectiveDto(bean);
+		ObjectiveDto dto = this.mapper.objectiveToObjectiveDto(bean);
+
+		return dto;
 	}
 
 

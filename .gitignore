@@ -29,7 +29,10 @@ buildNumber.properties
 test-configuration.sh
 
 docker/volumes
-docker/deployment/*.war
+docker/deployments/*.war
+docker/staging/*.war
+docker/configuration/config-*.json
+
 docker/scripts/start.bat
 
 ## windows build helper

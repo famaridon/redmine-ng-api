@@ -7,6 +7,7 @@ import com.famaridon.redminengapi.services.redmine.rest.client.beans.Membership;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Page;
 import com.famaridon.redminengapi.services.redmine.rest.client.handler.PageResponseHandler;
 import org.apache.http.client.fluent.Request;
+import org.apache.http.client.utils.URIBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,14 +21,14 @@ public class DefaultMembershipService extends AbstractRedmineService<Membership>
 
   private static final Logger LOGGER = LoggerFactory.getLogger(DefaultMembershipService.class);
 
-  @EJB
-  private ConfigurationService configurationService;
-
   @Override
   public Page<Membership> findByProject(String apiAccessKey, Long id, Pager pager)
       throws IOException {
+
+    URIBuilder uriBuilder = this.getUriBuilder(String.format("/projects/%s/memberships.json", id));
+    pager.serialize(uriBuilder);
     Page<Membership> p = Request
-        .Get(this.configurationService.buildUrl("/projects/%s/memberships.json?%s", id, pager))
+        .Get(this.toUri(uriBuilder))
         .addHeader(X_REDMINE_API_KEY, apiAccessKey)
         .execute()
         .handleResponse(new PageResponseHandler<>(Membership.class));

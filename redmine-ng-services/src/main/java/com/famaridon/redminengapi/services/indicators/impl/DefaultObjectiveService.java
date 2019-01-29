@@ -33,8 +33,9 @@ public class DefaultObjectiveService extends
   public DefaultObjectiveService() {
   }
 
-  public DefaultObjectiveService(ObjectiveRepository objectiveRepository) {
+  public DefaultObjectiveService(ObjectiveRepository objectiveRepository, IterationRepository iterationRepository) {
     this.objectiveRepository = objectiveRepository;
+    this.iterationRepository = iterationRepository;
     this.indicatorsEntityMapper = new IndicatorsEntityMapperImpl();
   }
 
@@ -46,7 +47,7 @@ public class DefaultObjectiveService extends
       throw new ObjectNotFoundException("No iteration found for id " + iterationId);
     }
     Iterable<ObjectiveEntity> objectiveEntities = this.objectiveRepository
-        .findAllByIteration(iterationEntity.get(), pager.getOffset(), pager.getOffset());
+        .findAllByIteration(iterationEntity.get(), pager.getOffset(), pager.getLimit());
     return this.toPage(objectiveEntities, pager);
   }
 

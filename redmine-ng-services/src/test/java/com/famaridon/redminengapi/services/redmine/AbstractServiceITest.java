@@ -2,6 +2,7 @@ package com.famaridon.redminengapi.services.redmine;
 
 import com.famaridon.redminengapi.services.configuration.ConfigurationService;
 import com.famaridon.redminengapi.services.configuration.MockConfigurationService;
+import com.famaridon.redminengapi.services.redmine.filter.AbstractFilter;
 import com.famaridon.redminengapi.services.redmine.impl.AbstractRedmineService;
 import junit.framework.Assert;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -35,9 +36,13 @@ public abstract class AbstractServiceITest {
         return ShrinkWrap.create(WebArchive.class)
                 .addClass(AbstractServiceITest.class)
                 .addClass(Pager.class)
+                .addClass(FilterFactory.class)
+                .addClass(Filter.class)
+                .addClass(QueryParamSerializable.class)
                 .addClass(AbstractRedmineService.class)
                 .addClass(ConfigurationService.class)
                 .addClass(MockConfigurationService.class)
+                .addPackages(true, AbstractFilter.class.getPackage())
                 .addPackages(true, "com.famaridon.redminengapi.services.redmine.rest.client")
                 .addAsLibraries(dependencies)
                 // add custom MANIFEST.MF to load infinispan module

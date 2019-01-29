@@ -19,16 +19,19 @@ before_install:
 
 script:
   - echo "export WAIT_DOCKER=30" > .travis/test-configuration.sh
+  - ./.travis/build.sh
 
 notifications:
-  email: # only receive email when the build status changes (someone broke the build!)
+  email:
     on_failure: always
     on_success: change
 
 deploy:
   provider: releases
   api_key: '$GITHUB_API_KEY'
-  file: './redmine-ng-web/target/redmine-ng-api.war'
+  file:
+    - './redmine-ng-web/target/redmine-ng-api.war'
+    - './target/docker-compose.tar.gz'
   skip_cleanup: true
   on:
     branch : master
