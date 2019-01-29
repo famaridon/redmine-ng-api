@@ -2,8 +2,6 @@ version: '3'
 services:
   database:
     image: mysql:5.7
-    ports:
-      - 3406:3306
     volumes:
       - ./database/data:/var/lib/mysql
     environment:
@@ -13,15 +11,20 @@ services:
       MYSQL_DATABASE: redminengapi
   api:
     build: ./api
-    ports:
-      - 8080:8080
-      - 8443:8443
-      - 9990:9990
-      - 5000:5000
     environment:
-      REDMINE_NG_API_PROFILE: "dev"
+      REDMINE_NG_API_PROFILE: "prod"
     volumes:
       - ./api/configuration:/opt/wildfly/configuration
       - ./api/staging:/opt/wildfly/staging
       - ./api/deployments:/opt/wildfly/standalone/deployments
-
+  front:
+    image: nginx:1.15-alpine
+    volumes:
+      - ./front/www:/opt/www
+      - ./front/nginx/conf.d:/etc/nginx/conf.d/
+  proxy:
+    image: nginx:1.15-alpine
+    ports:
+      - 80:80
+    volumes:
+      - ./proxy/nginx/conf.d:/etc/nginx/conf.d/

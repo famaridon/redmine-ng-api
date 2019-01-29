@@ -36,7 +36,7 @@ USER jboss
 
 WORKDIR $JBOSS_HOME
 
-COPY scripts/* $JBOSS_HOME/
+COPY scripts $JBOSS_HOME/
 
 # configure
 RUN ${JBOSS_HOME}/bin/add-user.sh sysadmin manager \
