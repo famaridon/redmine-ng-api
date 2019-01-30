@@ -10,12 +10,14 @@ import com.famaridon.redminengapi.services.exceptions.ObjectNotFoundException;
 import com.famaridon.redminengapi.services.indicators.BurndownChartService;
 import com.famaridon.redminengapi.services.indicators.ObjectiveService;
 import com.famaridon.redminengapi.services.indicators.beans.BurndownChart;
+import com.famaridon.redminengapi.services.indicators.beans.Iteration;
 import com.famaridon.redminengapi.services.indicators.beans.Objective;
 import com.famaridon.redminengapi.services.indicators.mapper.IndicatorsEntityMapper;
 import com.famaridon.redminengapi.services.indicators.mapper.IndicatorsEntityMapperImpl;
 import com.famaridon.redminengapi.services.redmine.Pager;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Page;
 import java.util.Optional;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -26,8 +28,10 @@ public class DefaultBurndownChartService extends
 
   @Inject
   private IndicatorsEntityMapper indicatorsEntityMapper;
-  @Inject
+  @EJB
   private BurndownChartRepository burndownChartRepository;
+  @EJB
+  private IterationRepository iterationRepository;
 
   public DefaultBurndownChartService() {
   }
@@ -37,6 +41,21 @@ public class DefaultBurndownChartService extends
     this.indicatorsEntityMapper = new IndicatorsEntityMapperImpl();
   }
 
+  @Override
+  public Optional<BurndownChart> findByIteration(Long iterationId) throws ObjectNotFoundException {
+    Optional<IterationEntity> iterationEntityOptional = this.iterationRepository.findById(iterationId);
+    if (!iterationEntityOptional.isPresent()) {
+      throw new ObjectNotFoundException("No iteration found for id " + iterationId);
+    }
+    Optional<BurndownChartEntity> burndownChartEntityOptional = this.burndownChartRepository
+        .findByIteration(iterationEntityOptional.get());
+
+    if (!burndownChartEntityOptional.isPresent()) {
+      return Optional.empty();
+    }
+
+    return Optional.of(this.indicatorsEntityMapper.burndownChartEntityToBurndownChart(burndownChartEntityOptional.get()));
+  }
 
   @Override
   protected BurndownChartRepository getRepository() {
