@@ -1,6 +1,8 @@
 package com.famaridon.redminengapi.rest.mapper;
 
 import com.famaridon.redminengapi.rest.dto.*;
+import com.famaridon.redminengapi.services.indicators.beans.BurndownChart;
+import com.famaridon.redminengapi.services.indicators.beans.ChartTimedValue;
 import com.famaridon.redminengapi.services.indicators.beans.Iteration;
 import com.famaridon.redminengapi.services.indicators.beans.Objective;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.*;
@@ -68,5 +70,11 @@ public interface DtoMapper {
   Objective objectiveDtoToObjective(ObjectiveDto objectiveDto);
 
   List<Objective> objectiveDtoToObjective(List<ObjectiveDto> objectiveDtos);
+
+  ChartTimedValue chartTimedValueDtoToChartTimedValue(ChartTimedValueDto chartTimedValueDto);
+  ChartTimedValueDto chartTimedValueToChartTimedValueDto(ChartTimedValue chartTimedValue);
+
+  BurndownChart burndownChartDtoToBurndownChart(BurndownChartDto burndownChartDto);
+  BurndownChartDto burndownChartToBurndownChartDto(BurndownChart burndownChart);
 
 }

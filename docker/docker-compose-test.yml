@@ -8,12 +8,12 @@ services:
       MYSQL_ROOT_PASSWORD: secret
       MYSQL_DATABASE: redminengapi
   api:
-    build: .
+    build: ./api
     ports:
       - 8080:8080
       - 9990:9990
     volumes:
-      - ./configuration:/opt/wildfly/configuration
+      - ./api/configuration:/opt/wildfly/configuration
     environment:
       WAIT_HOSTS: database:3306
       TEST_REDMINE_API_KEY: ${TEST_REDMINE_API_KEY}
