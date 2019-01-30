@@ -16,7 +16,11 @@ public interface ChartEndpoint {
 
 	@GET
 	@Path("/burndown/{iterationId}")
-	public BurndownChartDto findByIteration(@PathParam("iterationId") Long iterationId) throws IOException;
+	public BurndownChartDto findBurndownByIteration(@PathParam("iterationId") Long iterationId) throws IOException;
+
+	@GET
+	@Path("/burndown/{iterationId}/ideal")
+	public BurndownChartDto buildIdealBurndown(@PathParam("iterationId") Long iterationId);
 
 
 }

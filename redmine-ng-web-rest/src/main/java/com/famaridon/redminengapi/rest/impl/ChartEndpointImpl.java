@@ -8,6 +8,7 @@ import com.famaridon.redminengapi.services.exceptions.ObjectNotFoundException;
 import com.famaridon.redminengapi.services.indicators.BurndownChartService;
 import com.famaridon.redminengapi.services.indicators.IterationService;
 import com.famaridon.redminengapi.services.indicators.beans.BurndownChart;
+import com.famaridon.redminengapi.services.indicators.beans.Iteration;
 import java.io.IOException;
 import java.util.Optional;
 import javax.ejb.EJB;
@@ -29,7 +30,7 @@ public class ChartEndpointImpl extends AbstractRedmineEndpoint implements ChartE
 
 
 	@Override
-	public BurndownChartDto findByIteration(Long iterationId) {
+	public BurndownChartDto findBurndownByIteration(Long iterationId) {
 
 		try {
 			Optional<BurndownChart> burndownChart = this.burndownChartService.findByIteration(iterationId);
@@ -41,4 +42,13 @@ public class ChartEndpointImpl extends AbstractRedmineEndpoint implements ChartE
 			throw new NotFoundException(e.getMessage(), e);
 		}
 	}
+
+  @Override
+  public BurndownChartDto buildIdealBurndown(Long iterationId) {
+    try {
+      return this.mapper.burndownChartToBurndownChartDto(this.burndownChartService.buildIdealIteration(iterationId));
+    } catch (ObjectNotFoundException | IOException e) {
+      throw new NotFoundException(e.getMessage(), e);
+    }
+  }
 }
