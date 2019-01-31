@@ -11,6 +11,7 @@
         <module>redmine-ng-web-rest</module>
         <module>redmine-ng-web-rest-api</module>
         <module>redmine-ng-services</module>
+        <module>redmine-ng-services-api</module>
         <module>redmine-ng-domain</module>
     </modules>
     <packaging>pom</packaging>
@@ -120,6 +121,11 @@
             <dependency>
                 <groupId>com.famaridon</groupId>
                 <artifactId>redmine-ng-services</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.famaridon</groupId>
+                <artifactId>redmine-ng-services-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
