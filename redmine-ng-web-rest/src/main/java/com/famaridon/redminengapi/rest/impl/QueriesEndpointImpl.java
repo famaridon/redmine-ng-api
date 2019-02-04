@@ -18,7 +18,7 @@ import java.io.IOException;
 @RequestScoped
 public class QueriesEndpointImpl extends AbstractRedmineEndpoint implements QueriesEndpoint {
 	
-	@EJB
+	@Inject
 	private QueryService queryService;
 	
 	@Inject

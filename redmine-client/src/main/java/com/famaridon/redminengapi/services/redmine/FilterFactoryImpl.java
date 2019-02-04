@@ -5,10 +5,14 @@ import com.famaridon.redminengapi.services.redmine.filter.StringFilter;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Project;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Query;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Status;
+
+import javax.inject.Named;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class FilterFactory {
+@Named
+public class FilterFactoryImpl implements FilterFactory
+{
 
   public Filter createProjectFilter(Project project) {
     return this.createProjectFilter(project.getId());

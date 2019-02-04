@@ -19,7 +19,7 @@ import java.io.IOException;
 @RequestScoped
 public class IssuesEndpointImpl extends AbstractRedmineEndpoint implements IssuesEndpoint {
 
-	@EJB
+	@Inject
 	private IssueService issueService;
 
 	@Inject

@@ -19,7 +19,7 @@ import javax.ws.rs.core.SecurityContext;
 @RequestScoped
 public class UsersEndpointImpl extends AbstractRedmineEndpoint implements UsersEndpoint {
 	
-	@EJB
+	@Inject
 	private UserService userService;
 
 	@Inject

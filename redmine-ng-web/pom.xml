@@ -15,6 +15,14 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.famaridon</groupId>
+			<artifactId>redmine-ng-domain</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.famaridon</groupId>
+			<artifactId>redmine-client</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.famaridon</groupId>
 			<artifactId>redmine-ng-services</artifactId>
 		</dependency>
 		<dependency>

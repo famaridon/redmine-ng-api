@@ -1,7 +1,6 @@
 package com.famaridon.redminengapi.services.redmine;
 
 import com.famaridon.redminengapi.services.configuration.ConfigurationService;
-import com.famaridon.redminengapi.services.configuration.MockConfigurationService;
 import com.famaridon.redminengapi.services.redmine.filter.AbstractFilter;
 import com.famaridon.redminengapi.services.redmine.impl.AbstractRedmineService;
 import junit.framework.Assert;
@@ -36,12 +35,12 @@ public abstract class AbstractServiceITest {
         return ShrinkWrap.create(WebArchive.class)
                 .addClass(AbstractServiceITest.class)
                 .addClass(Pager.class)
-                .addClass(FilterFactory.class)
+                .addClass(FilterFactoryImpl.class)
                 .addClass(Filter.class)
                 .addClass(QueryParamSerializable.class)
                 .addClass(AbstractRedmineService.class)
                 .addClass(ConfigurationService.class)
-                .addClass(MockConfigurationService.class)
+                .addClass(RedmineClientConfiguration.class)
                 .addPackages(true, AbstractFilter.class.getPackage())
                 .addPackages(true, "com.famaridon.redminengapi.services.redmine.rest.client")
                 .addAsLibraries(dependencies)

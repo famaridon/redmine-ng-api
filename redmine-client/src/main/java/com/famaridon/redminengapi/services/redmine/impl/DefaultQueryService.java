@@ -10,10 +10,10 @@ import org.apache.http.client.utils.URIBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.ejb.Stateless;
+import javax.enterprise.inject.Default;
 import java.io.IOException;
 
-@Stateless
+@Default
 public class DefaultQueryService extends AbstractRedmineService<Query> implements QueryService {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(DefaultQueryService.class);

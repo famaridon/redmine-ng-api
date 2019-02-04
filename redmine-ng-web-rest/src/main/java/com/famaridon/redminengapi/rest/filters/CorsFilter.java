@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import javax.annotation.PostConstruct;
 import javax.annotation.Priority;
 import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.PreMatching;
 import javax.ws.rs.ext.Provider;
@@ -21,7 +22,7 @@ public class CorsFilter extends org.jboss.resteasy.plugins.interceptors.CorsFilt
 	
 	private static final Logger LOG = LoggerFactory.getLogger(CorsFilter.class);
 	
-	@EJB
+	@Inject
 	ConfigurationService configurationService;
 	
 	@PostConstruct

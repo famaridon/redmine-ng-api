@@ -1,6 +1,5 @@
 package com.famaridon.redminengapi.services.redmine.impl;
 
-import com.famaridon.redminengapi.services.configuration.ConfigurationService;
 import com.famaridon.redminengapi.services.redmine.Pager;
 import com.famaridon.redminengapi.services.redmine.ProjectService;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Page;
@@ -12,11 +11,10 @@ import org.apache.http.client.utils.URIBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.ejb.EJB;
-import javax.ejb.Stateless;
+import javax.enterprise.inject.Default;
 import java.io.IOException;
 
-@Stateless
+@Default
 public class DefaultProjectService extends AbstractRedmineService<Project> implements
     ProjectService {
 

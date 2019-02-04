@@ -15,9 +15,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.ejb.Stateless;
+import javax.enterprise.inject.Default;
 import java.io.IOException;
 
-@Stateless
+@Default
 public class DefaultIssueService extends AbstractRedmineService<Issue> implements IssueService {
 
   private static final Logger LOG = LoggerFactory.getLogger(DefaultIssueService.class);

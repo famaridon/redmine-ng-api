@@ -8,6 +8,8 @@
     <version>0.0.3-SNAPSHOT</version>
     <modules>
         <module>redmine-ng-web</module>
+        <module>redmine-client</module>
+        <module>redmine-client-api</module>
         <module>redmine-ng-web-rest</module>
         <module>redmine-ng-web-rest-api</module>
         <module>redmine-ng-services</module>
@@ -54,7 +56,8 @@
         <versions-maven-plugin.version>2.7</versions-maven-plugin.version>
 
         <!-- java configuration -->
-        <maven.compiler.release>11</maven.compiler.release>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- build configuration -->
@@ -107,6 +110,16 @@
                 <version>${org.mapstruct.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>com.famaridon</groupId>
+                <artifactId>redmine-client-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.famaridon</groupId>
+                <artifactId>redmine-client</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.famaridon</groupId>
                 <artifactId>redmine-ng-web-rest-api</artifactId>
@@ -373,7 +386,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${maven-compiler-plugin.version}</version>
                 <configuration>
-                    <release>${maven.compiler.release}</release>
+                    <target>${maven.compiler.target}</target>
+                    <source>${maven.compiler.source}</source>
                     <annotationProcessorPaths>
                         <path>
                             <groupId>org.mapstruct</groupId>

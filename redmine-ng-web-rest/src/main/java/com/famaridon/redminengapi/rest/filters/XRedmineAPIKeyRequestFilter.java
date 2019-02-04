@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.annotation.Priority;
 import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.container.PreMatching;
@@ -24,7 +25,7 @@ public class XRedmineAPIKeyRequestFilter implements ContainerRequestFilter {
 
     private static final Logger LOG = LoggerFactory.getLogger(XRedmineAPIKeyRequestFilter.class);
 
-    @EJB
+    @Inject
     UserService userService;
 
     @Override

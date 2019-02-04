@@ -1,18 +1,10 @@
 package com.famaridon.redminengapi.services.configuration;
 
-import com.famaridon.redminengapi.services.redmine.rest.client.module.RedmineClientModule;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.commons.configuration2.JSONConfiguration;
-import org.apache.commons.configuration2.builder.fluent.Configurations;
-import org.apache.commons.configuration2.ex.ConfigurationException;
 import org.apache.commons.lang3.NotImplementedException;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
-import javax.enterprise.inject.Produces;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

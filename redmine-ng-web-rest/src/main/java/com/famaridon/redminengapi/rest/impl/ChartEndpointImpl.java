@@ -19,10 +19,10 @@ import javax.ws.rs.NotFoundException;
 @RequestScoped
 public class ChartEndpointImpl extends AbstractRedmineEndpoint implements ChartEndpoint {
 
-	@EJB
+	@Inject
 	private IterationService iterationService;
 
-	@EJB
+	@Inject
 	private BurndownChartService burndownChartService;
 
 	@Inject

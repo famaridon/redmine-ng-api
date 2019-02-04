@@ -1,14 +1,6 @@
 package com.famaridon.redminengapi.services.cache;
 
 import com.famaridon.redminengapi.services.cache.impl.InfinispanCacheService;
-import com.famaridon.redminengapi.services.configuration.ConfigurationService;
-import com.famaridon.redminengapi.services.configuration.impl.DefaultConfigurationService;
-import com.famaridon.redminengapi.services.redmine.AbstractServiceITest;
-import com.famaridon.redminengapi.services.redmine.IssueService;
-import com.famaridon.redminengapi.services.redmine.IssueServiceITest;
-import com.famaridon.redminengapi.services.redmine.Pager;
-import com.famaridon.redminengapi.services.redmine.impl.AbstractRedmineService;
-import com.famaridon.redminengapi.services.redmine.impl.DefaultIssueService;
 import org.infinispan.Cache;
 import org.infinispan.configuration.cache.ConfigurationBuilder;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -16,16 +8,13 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.jboss.shrinkwrap.resolver.api.maven.Maven;
-import org.jboss.shrinkwrap.resolver.api.maven.strategy.RejectDependenciesStrategy;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import javax.ejb.EJB;
 import java.io.File;
-import java.net.URL;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
 @RunWith(Arquillian.class)
 public class CacheServiceUTest {

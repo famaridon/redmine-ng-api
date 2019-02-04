@@ -1,0 +1,13 @@
+{
+  "string": "A string",
+  "string-list": [
+    "A",
+    "B",
+    "C"
+  ],
+  "redmine": {
+    "server": {
+      "url": "https://projects.visiativ.com"
+    }
+  }
+}

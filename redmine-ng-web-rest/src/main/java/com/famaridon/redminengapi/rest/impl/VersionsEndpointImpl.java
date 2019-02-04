@@ -18,7 +18,7 @@ import java.io.IOException;
 public class VersionsEndpointImpl extends AbstractRedmineEndpoint implements VersionsEndpoint
 {
 	
-	@EJB
+	@Inject
 	private VersionsService versionsService;
 	
 	@Inject

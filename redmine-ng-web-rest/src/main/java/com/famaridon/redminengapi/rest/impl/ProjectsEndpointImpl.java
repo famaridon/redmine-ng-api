@@ -21,10 +21,10 @@ import java.io.IOException;
 @RequestScoped
 public class ProjectsEndpointImpl extends AbstractRedmineEndpoint implements ProjectsEndpoint {
 	
-	@EJB
+	@Inject
 	private ProjectService projectService;
 	
-	@EJB
+	@Inject
 	private MembershipService membershipService;
 	
 	@Inject

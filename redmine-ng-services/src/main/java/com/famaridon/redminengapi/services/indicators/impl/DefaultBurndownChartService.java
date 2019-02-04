@@ -49,15 +49,13 @@ public class DefaultBurndownChartService extends
   private IterationRepository iterationRepository;
   @Inject
   private IssueService issueService;
-
+  @Inject
   private FilterFactory filterFactory;
 
   public DefaultBurndownChartService() {
-    this.filterFactory = new FilterFactory();
   }
 
   public DefaultBurndownChartService(BurndownChartRepository burndownChartRepository) {
-    this();
     this.burndownChartRepository = burndownChartRepository;
     this.indicatorsEntityMapper = new IndicatorsEntityMapperImpl();
   }
