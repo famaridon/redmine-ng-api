@@ -1,8 +1,8 @@
 package com.famaridon.redminengapi.rest.refs;
 
 public abstract class AbstractRef {
-	public Long id;
-	public String name;
+	private Long id;
+	private String name;
 	
 	public Long getId()
 	{
