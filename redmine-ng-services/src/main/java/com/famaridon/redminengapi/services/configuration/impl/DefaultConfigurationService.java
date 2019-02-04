@@ -73,6 +73,10 @@ public class DefaultConfigurationService implements ConfigurationService {
     if (StringUtils.isEmpty(profile)) {
       configurationFile = Paths.get(".","config.json");
     } else {
+      // Restrict the profile to letters and digits only
+      if (!profile.matches("[a-zA-Z0-9]++")) {
+        throw new IllegalArgumentException("profile must only contane letter and digits");
+      }
       configurationFile = Paths.get(".","config-" + profile + ".json");
     }
     LOG.info("Add optional {} configuration files.", configurationFile);
