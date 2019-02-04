@@ -17,7 +17,8 @@ import java.io.File;
 import static org.junit.Assert.assertNotNull;
 
 @RunWith(Arquillian.class)
-public class CacheServiceUTest {
+public class CacheServiceUTest
+{
 
     public static WebArchive prepareDeployment() {
 

@@ -15,6 +15,10 @@
 
 		<dependency>
 			<groupId>com.famaridon</groupId>
+			<artifactId>redmine-ng-cache-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.famaridon</groupId>
 			<artifactId>redmine-client-api</artifactId>
 		</dependency>
 		<dependency>

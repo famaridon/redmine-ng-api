@@ -1,5 +1,8 @@
 package com.famaridon.redminengapi.services.redmine.impl;
 
+import com.famaridon.redminengapi.services.cache.annotation.CacheKey;
+import com.famaridon.redminengapi.services.cache.annotation.CacheName;
+import com.famaridon.redminengapi.services.cache.annotation.CachePut;
 import com.famaridon.redminengapi.services.redmine.UserService;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.User;
 import com.famaridon.redminengapi.services.redmine.rest.client.handler.HolderResponseHandler;
@@ -13,7 +16,6 @@ import org.slf4j.LoggerFactory;
 
 import javax.enterprise.inject.Default;
 import java.io.IOException;
-import java.util.Collections;
 import java.util.List;
 
 @Default
@@ -22,10 +24,9 @@ public class DefaultUserService extends AbstractRedmineService<User> implements 
   private static final Logger LOG = LoggerFactory.getLogger(DefaultUserService.class);
 
   @Override
-//  @CachePut
-//  @CacheName("userByApiKey")
-//  public User findCurrent(@CacheKey String apiKey) throws IOException {
-  public User findCurrent(String apiKey) throws IOException {
+  @CachePut
+  @CacheName("userByApiKey")
+  public User findCurrent(@CacheKey String apiKey) throws IOException {
     URIBuilder uriBuilder = this.getUriBuilder("/users/current.json");
     User r = Request.Get(this.toUri(uriBuilder))
         .addHeader(X_REDMINE_API_KEY, apiKey)
@@ -37,10 +38,9 @@ public class DefaultUserService extends AbstractRedmineService<User> implements 
   }
 
   @Override
-//  @CachePut
-//  @CacheName("userById")
-//  public User findById(String apiKey, @CacheKey long id) throws IOException {
-  public User findById(String apiKey, long id) throws IOException {
+  @CachePut
+  @CacheName("userById")
+  public User findById(String apiKey, @CacheKey long id) throws IOException {
     URIBuilder uriBuilder = this.getUriBuilder("/users/" + id + ".json");
     User r = Request.Get(this.toUri(uriBuilder))
         .addHeader(X_REDMINE_API_KEY, apiKey)

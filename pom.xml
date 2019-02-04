@@ -10,6 +10,8 @@
         <module>redmine-ng-web</module>
         <module>redmine-client</module>
         <module>redmine-client-api</module>
+        <module>redmine-ng-cache</module>
+        <module>redmine-ng-cache-api</module>
         <module>redmine-ng-web-rest</module>
         <module>redmine-ng-web-rest-api</module>
         <module>redmine-ng-services</module>
@@ -118,6 +120,16 @@
             <dependency>
                 <groupId>com.famaridon</groupId>
                 <artifactId>redmine-client</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.famaridon</groupId>
+                <artifactId>redmine-ng-cache</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.famaridon</groupId>
+                <artifactId>redmine-ng-cache-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
