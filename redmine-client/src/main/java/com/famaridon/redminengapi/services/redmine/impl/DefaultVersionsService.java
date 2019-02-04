@@ -10,9 +10,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.ejb.Stateless;
+import javax.enterprise.inject.Default;
+import javax.inject.Named;
 import java.io.IOException;
 
-@Stateless
+@Named
+@Default
 public class DefaultVersionsService extends AbstractRedmineService<Version> implements
     VersionsService {
 

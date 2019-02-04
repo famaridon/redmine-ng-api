@@ -8,12 +8,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import javax.ejb.EJB;
+import javax.inject.Inject;
 import java.io.IOException;
 
 @RunWith(Arquillian.class)
 public class UserServiceITest extends AbstractServiceITest {
 	
-	@EJB
+	@Inject
 	private UserService userService;
 
 	@Deployment

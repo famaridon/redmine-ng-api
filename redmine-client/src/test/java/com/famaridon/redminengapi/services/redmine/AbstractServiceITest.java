@@ -1,8 +1,7 @@
 package com.famaridon.redminengapi.services.redmine;
 
-import com.famaridon.redminengapi.services.configuration.ConfigurationService;
-import com.famaridon.redminengapi.services.redmine.filter.AbstractFilter;
 import com.famaridon.redminengapi.services.redmine.impl.AbstractRedmineService;
+import com.famaridon.redminengapi.services.redmine.mock.MockRedmineClientConfiguration;
 import junit.framework.Assert;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
@@ -10,13 +9,10 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.Before;
 
-import javax.ejb.EJB;
 import java.io.File;
 
 public abstract class AbstractServiceITest {
-
-    @EJB
-    protected ConfigurationService configurationService;
+    
 
     protected String apiKey;
     public static final String[] REDMINE_CLIENT_DEPENDENCIES = new String[]{
@@ -35,21 +31,14 @@ public abstract class AbstractServiceITest {
         return ShrinkWrap.create(WebArchive.class)
                 .addClass(AbstractServiceITest.class)
                 .addClass(Pager.class)
-                .addClass(FilterFactoryImpl.class)
                 .addClass(Filter.class)
                 .addClass(QueryParamSerializable.class)
                 .addClass(AbstractRedmineService.class)
-                .addClass(ConfigurationService.class)
                 .addClass(RedmineClientConfiguration.class)
-                .addPackages(true, AbstractFilter.class.getPackage())
+                .addClass(MockRedmineClientConfiguration.class)
                 .addPackages(true, "com.famaridon.redminengapi.services.redmine.rest.client")
                 .addAsLibraries(dependencies)
-                // add custom MANIFEST.MF to load infinispan module
-                .addAsManifestResource(new File("src/test/resources/META-INF/MANIFEST.MF"))
-                // add web.xml to tell wildfly to start infinispan clustering
-                .addAsWebInfResource(new File("src/test/resources/WEB-INF/web.xml"))
-                .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml")
-                .addAsResource("config.json");
+                .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 
     }
 

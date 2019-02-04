@@ -1,7 +1,6 @@
 package com.famaridon.redminengapi.services.redmine.impl;
 
 
-import com.famaridon.redminengapi.services.redmine.FilterFactoryImpl;
 import com.famaridon.redminengapi.services.redmine.RedmineClientConfiguration;
 import org.apache.http.client.utils.URIBuilder;
 import org.slf4j.Logger;
@@ -18,7 +17,6 @@ public abstract class AbstractRedmineService<T> {
 
   @Inject
   protected RedmineClientConfiguration redmineClientConfiguration;
-  protected final FilterFactoryImpl filterFactory = new FilterFactoryImpl();
 
   public AbstractRedmineService() {
   }

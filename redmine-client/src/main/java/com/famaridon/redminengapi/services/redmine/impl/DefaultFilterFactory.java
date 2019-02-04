@@ -1,19 +1,28 @@
-package com.famaridon.redminengapi.services.redmine;
+package com.famaridon.redminengapi.services.redmine.impl;
 
+import com.famaridon.redminengapi.services.redmine.Filter;
+import com.famaridon.redminengapi.services.redmine.FilterFactory;
+import com.famaridon.redminengapi.services.redmine.StatusType;
 import com.famaridon.redminengapi.services.redmine.filter.LongFilter;
 import com.famaridon.redminengapi.services.redmine.filter.StringFilter;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Project;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Query;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Status;
 
+import javax.enterprise.inject.Default;
 import javax.inject.Named;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Named
-public class FilterFactoryImpl implements FilterFactory
+@Default
+public class DefaultFilterFactory implements FilterFactory
 {
-
+  
+  public DefaultFilterFactory()
+  {
+  }
+  
   public Filter createProjectFilter(Project project) {
     return this.createProjectFilter(project.getId());
   }

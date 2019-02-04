@@ -12,8 +12,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.enterprise.inject.Default;
+import javax.inject.Named;
 import java.io.IOException;
 
+@Named
 @Default
 public class DefaultProjectService extends AbstractRedmineService<Project> implements
     ProjectService {

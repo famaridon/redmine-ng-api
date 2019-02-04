@@ -15,9 +15,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.enterprise.inject.Default;
+import javax.inject.Named;
 import java.io.IOException;
 import java.util.List;
 
+@Named
 @Default
 public class DefaultUserService extends AbstractRedmineService<User> implements UserService {
 

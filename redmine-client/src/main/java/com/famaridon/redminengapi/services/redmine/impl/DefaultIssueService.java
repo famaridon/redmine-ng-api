@@ -1,6 +1,7 @@
 package com.famaridon.redminengapi.services.redmine.impl;
 
 import com.famaridon.redminengapi.services.redmine.Filter;
+import com.famaridon.redminengapi.services.redmine.FilterFactory;
 import com.famaridon.redminengapi.services.redmine.IssueService;
 import com.famaridon.redminengapi.services.redmine.Pager;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Issue;
@@ -16,12 +17,19 @@ import org.slf4j.LoggerFactory;
 
 import javax.ejb.Stateless;
 import javax.enterprise.inject.Default;
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.inject.Singleton;
 import java.io.IOException;
 
+@Named
 @Default
 public class DefaultIssueService extends AbstractRedmineService<Issue> implements IssueService {
 
   private static final Logger LOG = LoggerFactory.getLogger(DefaultIssueService.class);
+  
+  @Inject
+  protected FilterFactory filterFactory;
 
   protected URIBuilder getIssuesEndpointUriBuilder() {
     return this.getUriBuilder("/issues.json");
