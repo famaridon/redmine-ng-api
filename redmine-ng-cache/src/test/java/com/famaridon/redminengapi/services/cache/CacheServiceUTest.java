@@ -12,6 +12,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import javax.ejb.EJB;
+import javax.inject.Inject;
 import java.io.File;
 
 import static org.junit.Assert.assertNotNull;
@@ -28,10 +29,10 @@ public class CacheServiceUTest
                 .addAsManifestResource(new File("src/test/resources/META-INF/MANIFEST.MF"))
                 // add web.xml to tell wildfly to start infinispan clustering
                 .addAsWebInfResource(new File("src/test/resources/WEB-INF/web.xml"))
-                .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+                .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
     }
 
-    @EJB
+    @Inject
     protected CacheService cacheService;
 
     @Deployment

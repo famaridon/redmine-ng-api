@@ -12,13 +12,17 @@ import org.infinispan.configuration.cache.ExpirationConfigurationBuilder;
 import org.infinispan.manager.EmbeddedCacheManager;
 
 import javax.annotation.Resource;
+import javax.enterprise.inject.Default;
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.Annotated;
 import javax.enterprise.inject.spi.InjectionPoint;
+import javax.inject.Named;
 import javax.inject.Singleton;
 import javax.validation.constraints.NotNull;
 
 @Singleton
+@Named
+@Default
 public class InfinispanCacheService implements CacheService
 {
 	
