@@ -1,8 +1,8 @@
 package com.famaridon.redminengapi.rest.dto;
 
 public abstract class AbstractDto {
-	public Long id;
-	public String name;
+	private Long id;
+	private String name;
 	
 	public Long getId()
 	{
