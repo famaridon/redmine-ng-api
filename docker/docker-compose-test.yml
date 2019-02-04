@@ -12,6 +12,7 @@ services:
     ports:
       - 8080:8080
       - 9990:9990
+      - 5000:5000
     volumes:
       - ./api/configuration:/opt/wildfly/configuration
     environment:
