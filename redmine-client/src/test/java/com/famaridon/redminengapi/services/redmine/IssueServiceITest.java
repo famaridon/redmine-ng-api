@@ -28,6 +28,7 @@ public class IssueServiceITest extends AbstractServiceITest {
 				.addClass(DefaultIssueService.class)
 				.addClass(FilterFactory.class)
 				.addClass(DefaultFilterFactory.class)
+				.addClass(StatusType.class)
 				.addPackage(AbstractFilter.class.getPackage());
 				
 	}

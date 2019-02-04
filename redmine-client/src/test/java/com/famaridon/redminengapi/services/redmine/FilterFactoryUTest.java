@@ -28,16 +28,16 @@ public class FilterFactoryUTest {
 			.addClass(DefaultFilterFactory.class)
 			.addClass(QueryParamSerializable.class)
 			.addClass(Filter.class)
+			.addClass(StatusType.class)
 			.addPackage(AbstractFilter.class.getPackage())
 			.addPackages(true, AbstractRedmineBean.class.getPackage())
 			.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 		
-		System.out.println(webArchive.toString(true));
 		return webArchive;
 	}
 
 	@Test
-	public void findAll() throws IOException {
+	public void createStatusFilter() {
 		this.filterFactory.createStatusFilter(10l);
 	}
 }
