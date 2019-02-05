@@ -51,7 +51,7 @@ public class DefaultConfigurationService implements ConfigurationService {
 
       String profile = System.getenv(REDMINE_NG_API_PROFILE);
       // Restrict the profile to letters and digits only
-      if (!profile.matches("^[a-zA-Z0-9]*$")) {
+      if (profile!= null && !profile.matches("^[a-zA-Z0-9]*$")) {
         throw new IllegalArgumentException("profile must only contains letters and digits");
       }
 
