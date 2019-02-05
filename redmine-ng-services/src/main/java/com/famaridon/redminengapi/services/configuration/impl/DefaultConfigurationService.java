@@ -50,6 +50,10 @@ public class DefaultConfigurationService implements ConfigurationService {
     try {
 
       String profile = System.getenv(REDMINE_NG_API_PROFILE);
+      // Restrict the profile to letters and digits only
+      if (!profile.matches("^[a-zA-Z0-9]*$")) {
+        throw new IllegalArgumentException("profile must only contains letters and digits");
+      }
 
       CombinedConfiguration combinedConfiguration = new CombinedConfiguration();
       combinedConfiguration.setNodeCombiner(new OverrideCombiner());
@@ -73,12 +77,7 @@ public class DefaultConfigurationService implements ConfigurationService {
     if (StringUtils.isEmpty(profile)) {
       configurationFile = Paths.get(".","config.json");
     } else {
-      String profiledConfiguration = "config-" + profile + ".json";
-      // Restrict the profile to letters and digits only
-      if (!profiledConfiguration.matches("^(config-)[a-zA-Z0-9]*(\\.json)$")) {
-        throw new IllegalArgumentException("profile must only contains letters and digits");
-      }
-      configurationFile = Paths.get(".",profiledConfiguration);
+      configurationFile = Paths.get(".","config-" + profile + ".json");
     }
     LOG.info("Add optional {} configuration files.", configurationFile);
     FileBasedBuilderParameters params = new Parameters()
