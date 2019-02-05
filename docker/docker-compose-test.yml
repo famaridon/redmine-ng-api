@@ -13,10 +13,12 @@ services:
       - 8080:8080
       - 9990:9990
       - 5000:5000
+      - 6300:6300
     volumes:
       - ./api/configuration:/opt/wildfly/configuration
     environment:
       WAIT_HOSTS: database:3306
+      JACOCO: "true"
       TEST_REDMINE_API_KEY: ${TEST_REDMINE_API_KEY}
       TEST_REDMINE_SERVER: ${TEST_REDMINE_SERVER}
 
