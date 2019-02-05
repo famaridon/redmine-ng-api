@@ -10,7 +10,7 @@ cd ..
 
 sleep $WAIT_DOCKER
 
-mvn -P with-test-env clean jacoco:report install sonar:sonar -B --fail-at-end
+mvn -Pwith-test-env clean install sonar:sonar -B --fail-at-end
 result=$?
 
 cd docker
