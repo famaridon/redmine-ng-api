@@ -1,6 +1,11 @@
 package com.famaridon.redminengapi.rest.api;
 
-public interface PagerParam {
-	String OFFSET = "offset";
-	String LIMIT = "limit";
+public class PagerParam {
+
+  public static final String OFFSET = "offset";
+  public static final String LIMIT = "limit";
+
+  private PagerParam() {
+    // this class is a constants holder
+  }
 }
