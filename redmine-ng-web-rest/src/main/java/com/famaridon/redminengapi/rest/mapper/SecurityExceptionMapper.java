@@ -10,8 +10,6 @@ import javax.ws.rs.ext.Provider;
 @Provider
 public class SecurityExceptionMapper implements ExceptionMapper<SecurityException> {
 	
-	private static final Logger LOG = LoggerFactory.getLogger(SecurityExceptionMapper.class);
-
 	@Override
 	public Response toResponse(SecurityException e) {
 		return Response.status(Response.Status.UNAUTHORIZED).build();
