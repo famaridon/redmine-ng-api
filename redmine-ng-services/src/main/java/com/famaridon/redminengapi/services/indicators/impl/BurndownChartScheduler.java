@@ -42,10 +42,6 @@ public class BurndownChartScheduler {
   private IterationRepository iterationRepository;
 
 
-
-  public BurndownChartScheduler() {
-  }
-
   @Lock(LockType.WRITE)
   @Schedule(hour = "*")
   @Transactional(TxType.REQUIRED)
