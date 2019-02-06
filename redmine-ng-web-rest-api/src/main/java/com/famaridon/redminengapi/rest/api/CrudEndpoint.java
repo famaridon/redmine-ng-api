@@ -13,23 +13,23 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
-public interface CrudEndpoint<DTO extends AbstractDto> {
+public interface CrudEndpoint<D extends AbstractDto> {
 
   @GET
-  PageDto<DTO> findAll(
+  PageDto<D> findAll(
       @QueryParam(PagerParam.OFFSET) @DefaultValue("0") Long offset,
       @QueryParam(PagerParam.LIMIT) @DefaultValue("25") Long limit) throws IOException;
 
   @POST
-  Response create(DTO dto);
+  Response create(D d);
 
   @GET
   @Path("/{id : \\d+}")
-  DTO findById(@PathParam("id") Long id);
+  D findById(@PathParam("id") Long id);
 
   @PUT
   @Path("/{id}")
-  Response update(@PathParam("id") Long id, DTO dto);
+  Response update(@PathParam("id") Long id, D dto);
 
   @DELETE
   @Path("/{id}")
