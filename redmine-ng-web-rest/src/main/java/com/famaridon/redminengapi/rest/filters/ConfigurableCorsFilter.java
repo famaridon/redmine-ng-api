@@ -6,7 +6,6 @@ import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Priority;
-import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.PreMatching;
@@ -18,9 +17,9 @@ import java.util.concurrent.TimeUnit;
 @Provider
 @PreMatching
 @Priority(0) // CORS must be the really first of all
-public class CorsFilter extends org.jboss.resteasy.plugins.interceptors.CorsFilter {
+public class ConfigurableCorsFilter extends org.jboss.resteasy.plugins.interceptors.CorsFilter {
 	
-	private static final Logger LOG = LoggerFactory.getLogger(CorsFilter.class);
+	private static final Logger LOG = LoggerFactory.getLogger(ConfigurableCorsFilter.class);
 	
 	@Inject
 	ConfigurationService configurationService;
