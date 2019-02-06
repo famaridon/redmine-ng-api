@@ -19,8 +19,8 @@ public class Page<T> {
 		return this.totalCount;
 	}
 	
-	public void setTotalCount(long total_count) {
-		this.totalCount = total_count;
+	public void setTotalCount(long totalCount) {
+		this.totalCount = totalCount;
 	}
 	
 	public long getOffset() {
