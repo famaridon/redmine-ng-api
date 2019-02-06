@@ -6,7 +6,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.io.Serializable;
 
-public abstract class AbstractRedmineBean implements Serializable {
+public abstract class AbstractRedmineBean {
 	
 	private long id;
 	private String name;

@@ -1,6 +1,8 @@
 package com.famaridon.redminengapi.services.redmine.rest.client.beans;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import java.util.Date;
 
@@ -84,5 +86,30 @@ public class Version extends AbstractRedmineBean {
 	public void setUpdatedOn(Date updatedOn)
 	{
 		this.updatedOn = updatedOn;
+	}
+	
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o) {
+			return true;
+		}
+		
+		if (!(o instanceof Version)) {
+			return false;
+		}
+		
+		Version version = (Version)o;
+		
+		return new EqualsBuilder().appendSuper(super.equals(o)).append(project, version.project).append(description, version.description)
+			.append(status, version.status).append(dueDate, version.dueDate).append(sharing, version.sharing).append(createdOn, version.createdOn)
+			.append(updatedOn, version.updatedOn).isEquals();
+	}
+	
+	@Override
+	public int hashCode()
+	{
+		return new HashCodeBuilder(17, 37).appendSuper(super.hashCode()).append(project).append(description).append(status).append(dueDate)
+			.append(sharing).append(createdOn).append(updatedOn).toHashCode();
 	}
 }

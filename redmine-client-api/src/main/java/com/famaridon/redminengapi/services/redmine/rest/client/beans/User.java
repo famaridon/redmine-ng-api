@@ -2,6 +2,8 @@ package com.famaridon.redminengapi.services.redmine.rest.client.beans;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -95,6 +97,29 @@ public class User extends AbstractRedmineBean {
 	public void setCustomFields(List<CustomField> customFields) {
 		this.customFields = customFields;
 	}
-
-
+	
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o) {
+			return true;
+		}
+		
+		if (!(o instanceof User)) {
+			return false;
+		}
+		
+		User user = (User)o;
+		
+		return new EqualsBuilder().appendSuper(super.equals(o)).append(login, user.login).append(gravatar, user.gravatar)
+			.append(firstname, user.firstname).append(lastname, user.lastname).append(mail, user.mail).append(createdOn, user.createdOn)
+			.append(lastLoginOn, user.lastLoginOn).append(apiKey, user.apiKey).append(customFields, user.customFields).isEquals();
+	}
+	
+	@Override
+	public int hashCode()
+	{
+		return new HashCodeBuilder(17, 37).appendSuper(super.hashCode()).append(login).append(gravatar).append(firstname).append(lastname)
+			.append(mail).append(createdOn).append(lastLoginOn).append(apiKey).append(customFields).toHashCode();
+	}
 }

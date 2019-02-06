@@ -1,6 +1,8 @@
 package com.famaridon.redminengapi.services.redmine.rest.client.beans;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,5 +75,27 @@ public class Page<T> {
 	public boolean hasNextPage() {
 		return this.offset + this.elements.size() < this.totalCount;
 	}
-
+	
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o) {
+			return true;
+		}
+		
+		if (!(o instanceof Page)) {
+			return false;
+		}
+		
+		Page<?> page = (Page<?>)o;
+		
+		return new EqualsBuilder().append(totalCount, page.totalCount).append(offset, page.offset).append(limit, page.limit)
+			.append(elements, page.elements).isEquals();
+	}
+	
+	@Override
+	public int hashCode()
+	{
+		return new HashCodeBuilder(17, 37).append(totalCount).append(offset).append(limit).append(elements).toHashCode();
+	}
 }

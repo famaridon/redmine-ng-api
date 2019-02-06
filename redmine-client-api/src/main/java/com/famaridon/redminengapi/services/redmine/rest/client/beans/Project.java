@@ -2,6 +2,8 @@ package com.famaridon.redminengapi.services.redmine.rest.client.beans;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -93,5 +95,31 @@ public class Project extends AbstractRedmineBean {
 	
 	public void setIssueCategories(List<Category> issueCategories) {
 		this.issueCategories = issueCategories;
+	}
+	
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o) {
+			return true;
+		}
+		
+		if (!(o instanceof Project)) {
+			return false;
+		}
+		
+		Project project = (Project)o;
+		
+		return new EqualsBuilder().appendSuper(super.equals(o)).append(status, project.status).append(identifier, project.identifier)
+			.append(description, project.description).append(homepage, project.homepage).append(createdOn, project.createdOn)
+			.append(updatedOn, project.updatedOn).append(parent, project.parent).append(trackers, project.trackers)
+			.append(issueCategories, project.issueCategories).isEquals();
+	}
+	
+	@Override
+	public int hashCode()
+	{
+		return new HashCodeBuilder(17, 37).appendSuper(super.hashCode()).append(identifier).append(description).append(homepage).append(status)
+			.append(createdOn).append(updatedOn).append(parent).append(trackers).append(issueCategories).toHashCode();
 	}
 }

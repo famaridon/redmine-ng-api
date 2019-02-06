@@ -1,6 +1,8 @@
 package com.famaridon.redminengapi.services.redmine.rest.client.beans;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -213,5 +215,36 @@ public class Issue extends AbstractRedmineBean {
 	
 	public void setClosedOn(Date closedOn) {
 		this.closedOn = closedOn;
+	}
+	
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o) {
+			return true;
+		}
+		
+		if (!(o instanceof Issue)) {
+			return false;
+		}
+		
+		Issue issue = (Issue)o;
+		
+		return new EqualsBuilder().appendSuper(super.equals(o)).append(doneRatio, issue.doneRatio).append(project, issue.project)
+			.append(tracker, issue.tracker).append(status, issue.status).append(priority, issue.priority).append(author, issue.author)
+			.append(assignedTo, issue.assignedTo).append(category, issue.category).append(fixedVersion, issue.fixedVersion)
+			.append(parent, issue.parent).append(subject, issue.subject).append(description, issue.description)
+			.append(estimatedHours, issue.estimatedHours).append(spentHours, issue.spentHours).append(totalSpentHours, issue.totalSpentHours)
+			.append(startDate, issue.startDate).append(dueDate, issue.dueDate).append(customFields, issue.customFields)
+			.append(createdOn, issue.createdOn).append(updatedOn, issue.updatedOn).append(closedOn, issue.closedOn).isEquals();
+	}
+	
+	@Override
+	public int hashCode()
+	{
+		return new HashCodeBuilder(17, 37).appendSuper(super.hashCode()).append(project).append(tracker).append(status).append(priority)
+			.append(author).append(assignedTo).append(category).append(fixedVersion).append(parent).append(subject).append(description)
+			.append(estimatedHours).append(spentHours).append(totalSpentHours).append(startDate).append(dueDate).append(doneRatio)
+			.append(customFields).append(createdOn).append(updatedOn).append(closedOn).toHashCode();
 	}
 }
