@@ -38,7 +38,7 @@ import org.mapstruct.Mappings;
 @Mapper(uses = RefMapper.class)
 public interface DtoMapper {
 
-  @Mappings(@Mapping(target = "elements", ignore = true))
+  @Mapping(target = "elements", ignore = true)
   PageDto pageToPageDto(Page page);
 
 
