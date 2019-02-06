@@ -1,22 +1,15 @@
 package com.famaridon.redminengapi.domain.entities;
 
+import java.time.LocalDate;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.NamedQuery;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import java.time.LocalDate;
-import java.util.Date;
-import java.util.Objects;
-
-@NamedQueries({
-    @NamedQuery(name = "IterationEntity.findCurrentIteration", query = "select i from IterationEntity i where i.start < :now and :now <= i.end"),
-    @NamedQuery(name = "IterationEntity.findByNumber", query = "select i from IterationEntity i where i.number = :number")})
-
+@NamedQuery(name = "IterationEntity.findCurrentIteration", query = "select i from IterationEntity i where i.start < :now and :now <= i.end")
+@NamedQuery(name = "IterationEntity.findByNumber", query = "select i from IterationEntity i where i.number = :number")
 @Entity
 public class IterationEntity extends AbstractEntity {
 

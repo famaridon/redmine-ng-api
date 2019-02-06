@@ -20,22 +20,22 @@ import javax.ws.rs.core.Response;
 public interface CrudEndpoint<DTO extends AbstractDto> {
 
   @GET
-  public PageDto<DTO> findAll(
+  PageDto<DTO> findAll(
       @QueryParam(PagerParam.OFFSET) @DefaultValue("0") Long offset,
       @QueryParam(PagerParam.LIMIT) @DefaultValue("25") Long limit) throws IOException;
 
   @POST
-  public Response create(DTO dto);
+  Response create(DTO dto);
 
   @GET
   @Path("/{id : \\d+}")
-  public DTO findById(@PathParam("id") Long id);
+  DTO findById(@PathParam("id") Long id);
 
   @PUT
   @Path("/{id}")
-  public Response update(@PathParam("id") Long id, DTO dto);
+  Response update(@PathParam("id") Long id, DTO dto);
 
   @DELETE
   @Path("/{id}")
-  public void deleteById(@PathParam("id") Long id);
+  void deleteById(@PathParam("id") Long id);
 }

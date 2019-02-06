@@ -21,26 +21,26 @@ import java.io.IOException;
 public interface IssuesEndpoint {
 	
 	@GET
-	public PageDto<IssueDto> findAll(@HeaderParam(SecurityHeaders.X_REDMINE_API_KEY) String apiKey,
-		@QueryParam(PagerParam.OFFSET) @DefaultValue("0") Long offset,
-		@QueryParam(PagerParam.LIMIT) @DefaultValue("25") Long limit) throws IOException;
+  PageDto<IssueDto> findAll(@HeaderParam(SecurityHeaders.X_REDMINE_API_KEY) String apiKey,
+      @QueryParam(PagerParam.OFFSET) @DefaultValue("0") Long offset,
+      @QueryParam(PagerParam.LIMIT) @DefaultValue("25") Long limit) throws IOException;
 	
 	@GET
 	@Path("/{id}")
-	public IssueDto findById(@HeaderParam(SecurityHeaders.X_REDMINE_API_KEY) String apiKey,
-		@PathParam("id") Long id) throws IOException ;
+  IssueDto findById(@HeaderParam(SecurityHeaders.X_REDMINE_API_KEY) String apiKey,
+      @PathParam("id") Long id) throws IOException ;
 	
 	@GET
 	@Path("/project/{project}/query/{query}")
-	public PageDto<IssueDto> findByQueryAndProject(@HeaderParam(SecurityHeaders.X_REDMINE_API_KEY) String apiKey,
-		@PathParam("query") Long query,
-		@PathParam("project") Long project,
-		@QueryParam(PagerParam.OFFSET) @DefaultValue("0") Long offset,
-		@QueryParam(PagerParam.LIMIT) @DefaultValue("25") Long limit) throws IOException;
+  PageDto<IssueDto> findByQueryAndProject(@HeaderParam(SecurityHeaders.X_REDMINE_API_KEY) String apiKey,
+      @PathParam("query") Long query,
+      @PathParam("project") Long project,
+      @QueryParam(PagerParam.OFFSET) @DefaultValue("0") Long offset,
+      @QueryParam(PagerParam.LIMIT) @DefaultValue("25") Long limit) throws IOException;
 	
 	@GET
 	@Path("/project/{project}/query/{query}/count")
-	public SimpleIndicatorDto findCountByQueryAndProject(@HeaderParam(SecurityHeaders.X_REDMINE_API_KEY) String apiKey,
-		@PathParam("query") Long query,
-		@PathParam("project") Long project) throws IOException;
+  SimpleIndicatorDto findCountByQueryAndProject(@HeaderParam(SecurityHeaders.X_REDMINE_API_KEY) String apiKey,
+      @PathParam("query") Long query,
+      @PathParam("project") Long project) throws IOException;
 }

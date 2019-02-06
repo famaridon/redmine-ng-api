@@ -23,6 +23,6 @@ public interface IterationEndpoint extends CrudEndpoint<IterationDto>{
 
   @GET
   @Path("/current")
-  public IterationDto findCurrent();
+  IterationDto findCurrent();
 
 }

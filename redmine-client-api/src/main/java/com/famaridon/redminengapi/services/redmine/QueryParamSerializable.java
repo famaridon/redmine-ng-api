@@ -4,6 +4,6 @@ import org.apache.http.client.utils.URIBuilder;
 
 public interface QueryParamSerializable {
 
-  public void serialize(URIBuilder uriBuilder);
+  void serialize(URIBuilder uriBuilder);
 
 }

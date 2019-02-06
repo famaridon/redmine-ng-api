@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface BurndownChartRepository extends Repository<BurndownChartEntity> {
 
-  public Optional<BurndownChartEntity> findByIteration(IterationEntity iterationEntity);
-  public Optional<BurndownChartEntity> findCurrent();
+  Optional<BurndownChartEntity> findByIteration(IterationEntity iterationEntity);
+  Optional<BurndownChartEntity> findCurrent();
 
 }

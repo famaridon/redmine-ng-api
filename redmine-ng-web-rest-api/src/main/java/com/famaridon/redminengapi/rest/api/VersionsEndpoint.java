@@ -23,7 +23,7 @@ public interface VersionsEndpoint
 	@GET
 	@Path("/project/{project_id}")
 	@CacheControl(maxAge = 30, maxAgeUnit = TimeUnit.MINUTES, isPrivate = true)
-	public PageDto<VersionDto> findByProject(@HeaderParam(SecurityHeaders.X_REDMINE_API_KEY) String apiKey, @PathParam("project_id") Long projectId) throws IOException;
+  PageDto<VersionDto> findByProject(@HeaderParam(SecurityHeaders.X_REDMINE_API_KEY) String apiKey, @PathParam("project_id") Long projectId) throws IOException;
 
 
 }

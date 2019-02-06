@@ -22,11 +22,11 @@ public interface UsersEndpoint {
 	@GET
 	@Path("/current")
 	@CacheControl(maxAge = 30, maxAgeUnit = TimeUnit.MINUTES, isPrivate = true)
-	public UserDto findCurrent(@HeaderParam(SecurityHeaders.X_REDMINE_API_KEY) String apiKey) throws IOException;
+  UserDto findCurrent(@HeaderParam(SecurityHeaders.X_REDMINE_API_KEY) String apiKey) throws IOException;
 	
 	@GET
 	@Path("/{id}")
 	@CacheControl(maxAge = 15, maxAgeUnit = TimeUnit.MINUTES)
-	public UserDto findById(@HeaderParam(SecurityHeaders.X_REDMINE_API_KEY) String apiKey, @PathParam("id") long id) throws IOException;
+  UserDto findById(@HeaderParam(SecurityHeaders.X_REDMINE_API_KEY) String apiKey, @PathParam("id") long id) throws IOException;
 
 }

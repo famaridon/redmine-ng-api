@@ -19,8 +19,8 @@ import java.io.IOException;
 public interface QueriesEndpoint {
 	
 	@GET
-	public PageDto<QueryDto> findAll(@HeaderParam(SecurityHeaders.X_REDMINE_API_KEY) String apiKey,
-		@QueryParam(PagerParam.OFFSET) @DefaultValue("0") Long offset,
-		@QueryParam(PagerParam.LIMIT) @DefaultValue("25") Long limit) throws IOException;
+  PageDto<QueryDto> findAll(@HeaderParam(SecurityHeaders.X_REDMINE_API_KEY) String apiKey,
+      @QueryParam(PagerParam.OFFSET) @DefaultValue("0") Long offset,
+      @QueryParam(PagerParam.LIMIT) @DefaultValue("25") Long limit) throws IOException;
 
 }

@@ -8,16 +8,16 @@ import java.util.List;
 
 public interface FilterFactory
 {
-  public Filter createProjectFilter(Project project);
-  public Filter createProjectFilter(Long projectId);
-  public Filter createQueryFilter(Query query);
-  public Filter createQueryFilter(Long queryId);
-  public Filter createStatusFilter(Status status);
-  public Filter createStatusFilter(Long statusId);
-  public Filter createStatusFilter(StatusType statusType);
-  public Filter createTrackerFilter(Long trackerId);
-  public Filter createTrackerFilter(List<Long> trackersId) ;
-  public Filter createCustomFieldFilter(Long fieldId, Long value);
-  public Filter createCustomFieldFilter(Long fieldId, String value);
+  Filter createProjectFilter(Project project);
+  Filter createProjectFilter(Long projectId);
+  Filter createQueryFilter(Query query);
+  Filter createQueryFilter(Long queryId);
+  Filter createStatusFilter(Status status);
+  Filter createStatusFilter(Long statusId);
+  Filter createStatusFilter(StatusType statusType);
+  Filter createTrackerFilter(Long trackerId);
+  Filter createTrackerFilter(List<Long> trackersId) ;
+  Filter createCustomFieldFilter(Long fieldId, Long value);
+  Filter createCustomFieldFilter(Long fieldId, String value);
 
 }

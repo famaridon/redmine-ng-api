@@ -5,7 +5,7 @@ import com.famaridon.redminengapi.domain.entities.ObjectiveEntity;
 
 public interface ObjectiveRepository extends Repository<ObjectiveEntity> {
 
-  public Iterable<ObjectiveEntity> findAllByIteration(IterationEntity iterationEntity, Long offset,
+  Iterable<ObjectiveEntity> findAllByIteration(IterationEntity iterationEntity, Long offset,
       Long limit);
 
 }

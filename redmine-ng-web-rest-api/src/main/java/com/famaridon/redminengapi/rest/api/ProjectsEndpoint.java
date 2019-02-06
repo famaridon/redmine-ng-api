@@ -22,16 +22,16 @@ public interface ProjectsEndpoint {
 	
 	@GET
 	@Path("/{id}")
-	public ProjectDto findById(@HeaderParam(SecurityHeaders.X_REDMINE_API_KEY) String apiKey, @PathParam("id") Long id) throws IOException;
+  ProjectDto findById(@HeaderParam(SecurityHeaders.X_REDMINE_API_KEY) String apiKey, @PathParam("id") Long id) throws IOException;
 	
 	@GET
-	public PageDto<ProjectDto> findAll(@HeaderParam(SecurityHeaders.X_REDMINE_API_KEY) String apiKey,
-		@QueryParam(PagerParam.OFFSET) @DefaultValue("0") Long offset,
-		@QueryParam(PagerParam.LIMIT) @DefaultValue("25") Long limit) throws IOException;
+  PageDto<ProjectDto> findAll(@HeaderParam(SecurityHeaders.X_REDMINE_API_KEY) String apiKey,
+      @QueryParam(PagerParam.OFFSET) @DefaultValue("0") Long offset,
+      @QueryParam(PagerParam.LIMIT) @DefaultValue("25") Long limit) throws IOException;
 	
 	@GET
 	@Path("/{id}/memberships")
-	public PageDto<MembershipDto> findMembershipsById(@HeaderParam(SecurityHeaders.X_REDMINE_API_KEY) String apiKey, @PathParam("id") Long id,
-		@QueryParam(PagerParam.OFFSET) @DefaultValue("0") Long offset,
-		@QueryParam(PagerParam.LIMIT) @DefaultValue("25") Long limit) throws IOException;
+  PageDto<MembershipDto> findMembershipsById(@HeaderParam(SecurityHeaders.X_REDMINE_API_KEY) String apiKey, @PathParam("id") Long id,
+      @QueryParam(PagerParam.OFFSET) @DefaultValue("0") Long offset,
+      @QueryParam(PagerParam.LIMIT) @DefaultValue("25") Long limit) throws IOException;
 }
