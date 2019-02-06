@@ -1,7 +1,14 @@
 package com.famaridon.redminengapi.services.redmine;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
 import com.famaridon.redminengapi.services.redmine.impl.DefaultUserService;
+import com.famaridon.redminengapi.services.redmine.rest.client.beans.User;
 import java.io.IOException;
+import java.util.List;
 import javax.inject.Inject;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -25,11 +32,26 @@ public class UserServiceITest extends AbstractServiceITest {
 
   @Test
   public void findCurrent() throws IOException {
-    this.userService.findCurrent(this.apiKey);
+    User user = this.userService.findCurrent(this.apiKey);
+    assertNotNull(user);
+    assertNotNull(user.getId());
+    assertNotNull(user.getLogin());
+    assertNotNull(user.getGravatar());
+    assertNotNull(user.getApiKey());
   }
 
   @Test
   public void findById() throws IOException {
-    this.userService.findById(this.apiKey, 5L);
+    User user = this.userService.findById(this.apiKey, 5L);
+    assertEquals(5L, user.getId());
+    assertNotNull(user.getLogin());
+    assertNotNull(user.getGravatar());
+    assertNull(user.getApiKey());
+  }
+
+  @Test
+  public void findRoles() throws IOException {
+    List<String> roles = this.userService.findRoles("mockedUser");
+    assertTrue(roles.contains("mock"));
   }
 }

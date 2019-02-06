@@ -1,6 +1,7 @@
 package com.famaridon.redminengapi.services.redmine.mock;
 
 import com.famaridon.redminengapi.services.redmine.RedmineClientConfiguration;
+import java.util.ArrayList;
 import java.util.List;
 import javax.enterprise.inject.Default;
 
@@ -14,6 +15,8 @@ public class MockRedmineClientConfiguration implements RedmineClientConfiguratio
 
   @Override
   public List<String> getUserRoles(String login) {
-    return null;
+    List<String> roles = new ArrayList<>();
+    roles.add("mock");
+    return roles;
   }
 }
