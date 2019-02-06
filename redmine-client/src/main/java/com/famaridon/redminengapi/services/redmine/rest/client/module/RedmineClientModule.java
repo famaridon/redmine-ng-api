@@ -5,15 +5,15 @@ import com.famaridon.redminengapi.services.redmine.rest.client.deserializer.Cust
 import com.fasterxml.jackson.databind.module.SimpleModule;
 
 public class RedmineClientModule extends SimpleModule {
-	
-	public RedmineClientModule() {
-		super();
-		this.addDeserializer(CustomField.class, new CustomFieldDeserializer());
-	}
-	
-	@Override
-	public String getModuleName() {
-		return "redmine-client";
-	}
-	
+
+  public RedmineClientModule() {
+    super();
+    this.addDeserializer(CustomField.class, new CustomFieldDeserializer());
+  }
+
+  @Override
+  public String getModuleName() {
+    return "redmine-client";
+  }
+
 }

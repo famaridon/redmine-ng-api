@@ -20,6 +20,6 @@ public interface ObjectiveEndpoint extends CrudEndpoint<ObjectiveDto> {
   @Path("/iteration/{id}")
   PageDto<ObjectiveDto> findAllByIterationId(@PathParam("id") Long iterationId,
       @QueryParam(PagerParam.OFFSET) @DefaultValue("0") Long offset,
-      @QueryParam(PagerParam.LIMIT) @DefaultValue("25") Long limit) ;
+      @QueryParam(PagerParam.LIMIT) @DefaultValue("25") Long limit);
 
 }

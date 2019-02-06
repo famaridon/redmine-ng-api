@@ -1,6 +1,7 @@
 package com.famaridon.redminengapi.services.configuration.impl;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 
 import com.famaridon.redminengapi.services.configuration.ConfigurationService;
 import java.io.File;
@@ -19,15 +20,14 @@ import org.junit.runner.RunWith;
 @RunWith(Arquillian.class)
 public class DefaultConfigurationServiceUTest {
 
-  @EJB
-  protected ConfigurationService configurationService;
-
   public static final String[] REDMINE_CLIENT_DEPENDENCIES = new String[]{
       "org.apache.commons:commons-lang3",
       "org.apache.commons:commons-configuration2",
       "commons-beanutils:commons-beanutils",
       "org.slf4j:slf4j-api"
   };
+  @EJB
+  protected ConfigurationService configurationService;
 
   @Deployment
   public static WebArchive deployment() {

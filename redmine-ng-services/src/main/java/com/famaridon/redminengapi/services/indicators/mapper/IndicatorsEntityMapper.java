@@ -12,25 +12,31 @@ import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValueCheckStrategy;
 
-import java.util.List;
-
-@Mapper( nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
+@Mapper(nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
 public interface IndicatorsEntityMapper {
 
-	Objective objectiveEntityToObjective(ObjectiveEntity objectiveEntity);
-	ObjectiveEntity objectiveToObjectiveEntity(Objective objective);
-	void updateObjectiveEntityFromObjective(Objective objective, @MappingTarget ObjectiveEntity objectiveEntity);
+  Objective objectiveEntityToObjective(ObjectiveEntity objectiveEntity);
 
-	Iteration iterationEntityToIteration(IterationEntity entity);
-	IterationEntity iterationToIterationEntity(Iteration iteration);
-	void updateIterationEntityFromIteration(Iteration iteration, @MappingTarget IterationEntity iterationEntity);
+  ObjectiveEntity objectiveToObjectiveEntity(Objective objective);
 
-	BurndownChart burndownChartEntityToBurndownChart(BurndownChartEntity burndownChartEntity);
-	BurndownChartEntity burndownChartToBurndownChartEntity(BurndownChart burndownChart);
-	void updateBurndownChartEntityFromBurndownChart(BurndownChart burndownChart, @MappingTarget BurndownChartEntity burndownChartEntity);
+  void updateObjectiveEntityFromObjective(Objective objective, @MappingTarget ObjectiveEntity objectiveEntity);
 
-	ChartTimedValue chartTimedValueEntityToChartTimedValue(ChartTimedValueEntity chartTimedValueEntity);
-	ChartTimedValueEntity chartTimedValueToChartTimedValueEntity(ChartTimedValue chartTimedValue);
-	void updateChartTimedValueEntityFromChartTimedValue(ChartTimedValue chartTimedValue,
+  Iteration iterationEntityToIteration(IterationEntity entity);
+
+  IterationEntity iterationToIterationEntity(Iteration iteration);
+
+  void updateIterationEntityFromIteration(Iteration iteration, @MappingTarget IterationEntity iterationEntity);
+
+  BurndownChart burndownChartEntityToBurndownChart(BurndownChartEntity burndownChartEntity);
+
+  BurndownChartEntity burndownChartToBurndownChartEntity(BurndownChart burndownChart);
+
+  void updateBurndownChartEntityFromBurndownChart(BurndownChart burndownChart, @MappingTarget BurndownChartEntity burndownChartEntity);
+
+  ChartTimedValue chartTimedValueEntityToChartTimedValue(ChartTimedValueEntity chartTimedValueEntity);
+
+  ChartTimedValueEntity chartTimedValueToChartTimedValueEntity(ChartTimedValue chartTimedValue);
+
+  void updateChartTimedValueEntityFromChartTimedValue(ChartTimedValue chartTimedValue,
       @MappingTarget ChartTimedValueEntity chartTimedValueEntity);
 }

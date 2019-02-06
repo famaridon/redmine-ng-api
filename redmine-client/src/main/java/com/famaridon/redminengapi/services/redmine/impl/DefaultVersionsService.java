@@ -22,10 +22,9 @@ public class DefaultVersionsService extends AbstractRedmineService<Version> impl
         .execute()
         .handleResponse(this.createPageResponseHandler());
   }
-  
+
   @Override
-  protected Class<Version> getBeanType()
-  {
+  protected Class<Version> getBeanType() {
     return Version.class;
   }
 }

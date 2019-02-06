@@ -18,7 +18,7 @@ import org.apache.http.client.utils.URIBuilder;
 @Named
 @Default
 public class DefaultIssueService extends AbstractRedmineService<Issue> implements IssueService {
-  
+
   @Inject
   protected FilterFactory filterFactory;
 
@@ -76,10 +76,9 @@ public class DefaultIssueService extends AbstractRedmineService<Issue> implement
     Page<Issue> p = findByQueryAndProject(apiAccessKey, query, project, new Pager());
     return p.getTotalCount();
   }
-  
+
   @Override
-  protected Class<Issue> getBeanType()
-  {
+  protected Class<Issue> getBeanType() {
     return Issue.class;
   }
 }

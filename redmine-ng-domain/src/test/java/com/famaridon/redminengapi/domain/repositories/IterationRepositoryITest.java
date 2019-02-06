@@ -1,135 +1,125 @@
 package com.famaridon.redminengapi.domain.repositories;
 
-import com.famaridon.redminengapi.domain.entities.AbstractEntity;
-import com.famaridon.redminengapi.domain.entities.IterationEntity;
-import com.famaridon.redminengapi.domain.repositories.impl.AbstractJPARepository;
-import com.famaridon.redminengapi.domain.repositories.impl.JPAIterationRepository;
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.Archive;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
+import com.famaridon.redminengapi.domain.entities.IterationEntity;
+import com.famaridon.redminengapi.domain.repositories.impl.JPAIterationRepository;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.Optional;
 import javax.ejb.EJB;
-import javax.inject.Inject;
 import javax.transaction.HeuristicMixedException;
 import javax.transaction.HeuristicRollbackException;
 import javax.transaction.NotSupportedException;
 import javax.transaction.RollbackException;
 import javax.transaction.SystemException;
-import javax.transaction.Transactional;
-import javax.transaction.UserTransaction;
-import java.io.File;
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalUnit;
-import java.util.Optional;
-
-import static org.junit.Assert.*;
+import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.shrinkwrap.api.Archive;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
 public class IterationRepositoryITest extends AbstractJPARepositoryITest<IterationRepository, IterationEntity> {
-	
-	@EJB
-	private IterationRepository iterationRepository;
-	
-	@Deployment
-	public static Archive<?> createDeployment() {
-		return prepare(IterationRepository.class, JPAIterationRepository.class, IterationEntity.class);
-	}
-	
-	@Override
-	protected IterationRepository getRepository() {
-		return this.iterationRepository;
-	}
-	
-	@Override
-	protected IterationEntity buildCreateEntity() {
-		IterationEntity iterationEntity = new IterationEntity();
-		iterationEntity.setName("Create");
-		iterationEntity.setNumber(1L);
-		this.setOutdated(iterationEntity);
-		return iterationEntity;
-	}
-	
-	@Override
-	protected IterationEntity buildReadEntity() {
-		IterationEntity iterationEntity = new IterationEntity();
-		iterationEntity.setName("Read");
-		iterationEntity.setNumber(2L);
-		this.setOutdated(iterationEntity);
-		return iterationEntity;
-	}
 
-	@Override
-	protected IterationEntity buildUpdateEntity() {
-		IterationEntity iterationEntity = new IterationEntity();
-		iterationEntity.setName("To update");
-		iterationEntity.setNumber(3L);
-		this.setOutdated(iterationEntity);
-		return iterationEntity;
-	}
+  @EJB
+  private IterationRepository iterationRepository;
 
-	@Override
-	protected void modify(IterationEntity entity) {
-		entity.setName("Updated");
-	}
+  @Deployment
+  public static Archive<?> createDeployment() {
+    return prepare(IterationRepository.class, JPAIterationRepository.class, IterationEntity.class);
+  }
 
-	@Override
-	protected void checkModification(IterationEntity updated) {
-		assertEquals("Updated", updated.getName());
-		assertEquals(Long.valueOf(3L), updated.getNumber());
-	}
+  @Override
+  protected IterationRepository getRepository() {
+    return this.iterationRepository;
+  }
 
-	@Override
-	protected IterationEntity buildDeleteEntity() {
-		IterationEntity iterationEntity = new IterationEntity();
-		iterationEntity.setName("Delete");
-		iterationEntity.setNumber(4L);
-		this.setOutdated(iterationEntity);
-		return iterationEntity;
-	}
+  @Override
+  protected IterationEntity buildCreateEntity() {
+    IterationEntity iterationEntity = new IterationEntity();
+    iterationEntity.setName("Create");
+    iterationEntity.setNumber(1L);
+    this.setOutdated(iterationEntity);
+    return iterationEntity;
+  }
 
-	protected void setOutdated(IterationEntity iterationEntity) {
-		iterationEntity.setStart(LocalDate.now().minus(15, ChronoUnit.DAYS));
-		iterationEntity.setEnd(LocalDate.now().minus(10, ChronoUnit.DAYS));
-	}
-	@Test
-	public void findCurrent()
-			throws HeuristicRollbackException, HeuristicMixedException, NotSupportedException, RollbackException, SystemException {
-		IterationEntity iterationEntity = new IterationEntity();
-		iterationEntity.setName("findCurrent");
-		iterationEntity.setNumber(5L);
-		iterationEntity.setStart(LocalDate.now().minus(10, ChronoUnit.DAYS));
-		iterationEntity.setEnd(LocalDate.now().plus(5, ChronoUnit.DAYS));
+  @Override
+  protected IterationEntity buildReadEntity() {
+    IterationEntity iterationEntity = new IterationEntity();
+    iterationEntity.setName("Read");
+    iterationEntity.setNumber(2L);
+    this.setOutdated(iterationEntity);
+    return iterationEntity;
+  }
 
-		this.userTransaction.begin();
-		IterationEntity saved = this.iterationRepository.save(iterationEntity);
-		this.userTransaction.commit();
+  @Override
+  protected IterationEntity buildUpdateEntity() {
+    IterationEntity iterationEntity = new IterationEntity();
+    iterationEntity.setName("To update");
+    iterationEntity.setNumber(3L);
+    this.setOutdated(iterationEntity);
+    return iterationEntity;
+  }
 
-		Optional<IterationEntity> optionalEntity = this.iterationRepository.findCurrentIteration();
-		assertTrue(optionalEntity.isPresent());
-		assertEquals(saved, optionalEntity.get());
-	}
+  @Override
+  protected void modify(IterationEntity entity) {
+    entity.setName("Updated");
+  }
 
-	@Test
-	public void findByNumber()
-			throws HeuristicRollbackException, HeuristicMixedException, NotSupportedException, RollbackException, SystemException {
-		IterationEntity iterationEntity = new IterationEntity();
-		iterationEntity.setName("findByNumber");
-		iterationEntity.setNumber(6L);
-		this.setOutdated(iterationEntity);
+  @Override
+  protected void checkModification(IterationEntity updated) {
+    assertEquals("Updated", updated.getName());
+    assertEquals(Long.valueOf(3L), updated.getNumber());
+  }
 
-		this.userTransaction.begin();
-		IterationEntity saved = this.iterationRepository.save(iterationEntity);
-		this.userTransaction.commit();
+  @Override
+  protected IterationEntity buildDeleteEntity() {
+    IterationEntity iterationEntity = new IterationEntity();
+    iterationEntity.setName("Delete");
+    iterationEntity.setNumber(4L);
+    this.setOutdated(iterationEntity);
+    return iterationEntity;
+  }
 
-		Optional<IterationEntity> optionalEntity = this.iterationRepository.findByNumber(6L);
-		assertTrue(optionalEntity.isPresent());
-		assertEquals(saved, optionalEntity.get());
-	}
+  protected void setOutdated(IterationEntity iterationEntity) {
+    iterationEntity.setStart(LocalDate.now().minus(15, ChronoUnit.DAYS));
+    iterationEntity.setEnd(LocalDate.now().minus(10, ChronoUnit.DAYS));
+  }
+
+  @Test
+  public void findCurrent()
+      throws HeuristicRollbackException, HeuristicMixedException, NotSupportedException, RollbackException, SystemException {
+    IterationEntity iterationEntity = new IterationEntity();
+    iterationEntity.setName("findCurrent");
+    iterationEntity.setNumber(5L);
+    iterationEntity.setStart(LocalDate.now().minus(10, ChronoUnit.DAYS));
+    iterationEntity.setEnd(LocalDate.now().plus(5, ChronoUnit.DAYS));
+
+    this.userTransaction.begin();
+    IterationEntity saved = this.iterationRepository.save(iterationEntity);
+    this.userTransaction.commit();
+
+    Optional<IterationEntity> optionalEntity = this.iterationRepository.findCurrentIteration();
+    assertTrue(optionalEntity.isPresent());
+    assertEquals(saved, optionalEntity.get());
+  }
+
+  @Test
+  public void findByNumber()
+      throws HeuristicRollbackException, HeuristicMixedException, NotSupportedException, RollbackException, SystemException {
+    IterationEntity iterationEntity = new IterationEntity();
+    iterationEntity.setName("findByNumber");
+    iterationEntity.setNumber(6L);
+    this.setOutdated(iterationEntity);
+
+    this.userTransaction.begin();
+    IterationEntity saved = this.iterationRepository.save(iterationEntity);
+    this.userTransaction.commit();
+
+    Optional<IterationEntity> optionalEntity = this.iterationRepository.findByNumber(6L);
+    assertTrue(optionalEntity.isPresent());
+    assertEquals(saved, optionalEntity.get());
+  }
 }

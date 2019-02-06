@@ -13,7 +13,7 @@ import org.apache.http.client.utils.URIBuilder;
 @Named
 @Default
 public class DefaultProjectService extends AbstractRedmineService<Project> implements ProjectService {
-  
+
   protected URIBuilder getProjectsEndpointUriBuilder() {
     return this.getUriBuilder("/projects.json");
   }
@@ -39,10 +39,9 @@ public class DefaultProjectService extends AbstractRedmineService<Project> imple
         .handleResponse(this.createHolderResponseHandler());
 
   }
-  
+
   @Override
-  protected Class<Project> getBeanType()
-  {
+  protected Class<Project> getBeanType() {
     return Project.class;
   }
 }

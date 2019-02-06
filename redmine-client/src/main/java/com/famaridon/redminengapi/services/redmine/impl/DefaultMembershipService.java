@@ -13,7 +13,7 @@ import org.apache.http.client.utils.URIBuilder;
 @Named
 @Default
 public class DefaultMembershipService extends AbstractRedmineService<Membership> implements MembershipService {
-  
+
   @Override
   public Page<Membership> findByProject(String apiAccessKey, Long id, Pager pager)
       throws IOException {
@@ -26,10 +26,9 @@ public class DefaultMembershipService extends AbstractRedmineService<Membership>
         .execute()
         .handleResponse(this.createPageResponseHandler());
   }
-  
+
   @Override
-  protected Class<Membership> getBeanType()
-  {
+  protected Class<Membership> getBeanType() {
     return Membership.class;
   }
 }

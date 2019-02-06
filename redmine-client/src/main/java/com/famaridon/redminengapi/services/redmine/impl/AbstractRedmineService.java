@@ -4,11 +4,10 @@ package com.famaridon.redminengapi.services.redmine.impl;
 import com.famaridon.redminengapi.services.redmine.RedmineClientConfiguration;
 import com.famaridon.redminengapi.services.redmine.rest.client.handler.HolderResponseHandler;
 import com.famaridon.redminengapi.services.redmine.rest.client.handler.PageResponseHandler;
-import org.apache.http.client.utils.URIBuilder;
-
-import javax.inject.Inject;
 import java.net.URI;
 import java.net.URISyntaxException;
+import javax.inject.Inject;
+import org.apache.http.client.utils.URIBuilder;
 
 public abstract class AbstractRedmineService<B> {
 
@@ -29,9 +28,10 @@ public abstract class AbstractRedmineService<B> {
     try {
       return new URIBuilder(this.getRedmineServer() + path);
     } catch (URISyntaxException e) {
-      throw new IllegalStateException("Invalid redmine server configuration!" , e);
+      throw new IllegalStateException("Invalid redmine server configuration!", e);
     }
   }
+
   protected URI toUri(URIBuilder uriBuilder) {
     try {
       return uriBuilder.build();
@@ -39,15 +39,15 @@ public abstract class AbstractRedmineService<B> {
       throw new IllegalStateException(e);
     }
   }
-  
+
   protected PageResponseHandler<B> createPageResponseHandler() {
     return new PageResponseHandler<>(this.getBeanType());
   }
-  
+
   protected HolderResponseHandler<B> createHolderResponseHandler() {
     return new HolderResponseHandler<>(this.getBeanType());
   }
-  
+
   protected abstract Class<B> getBeanType();
 
 }

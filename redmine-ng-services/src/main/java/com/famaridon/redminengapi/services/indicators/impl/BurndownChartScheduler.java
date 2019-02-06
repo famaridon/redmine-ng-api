@@ -24,8 +24,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * TODO : this is a draft class to start collecting data.
- * this class is moovapps process team specific
+ * TODO : this is a draft class to start collecting data. this class is moovapps process team specific
  */
 @Singleton
 public class BurndownChartScheduler {
@@ -71,7 +70,7 @@ public class BurndownChartScheduler {
         ChartTimedValueEntity firtsPoint = new ChartTimedValueEntity();
         firtsPoint.setDate(iterationEntityOptional.get().getStart().atStartOfDay());
         firtsPoint.setValue(this.internalBurndownChartService.agregateIssues(iterationEntityOptional.get(), StatusType.ALL,
-                sumPointsOperator, BigDecimal.ZERO));
+            sumPointsOperator, BigDecimal.ZERO));
         burndownChartEntity.getValues().add(firtsPoint);
       }
 

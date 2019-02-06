@@ -66,10 +66,9 @@ public class DefaultUserService extends AbstractRedmineService<User> implements 
     return this.redmineClientConfiguration
         .getUserRoles(login);
   }
-  
+
   @Override
-  protected Class<User> getBeanType()
-  {
+  protected Class<User> getBeanType() {
     return User.class;
   }
 }

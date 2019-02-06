@@ -12,30 +12,30 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 public class HtmlResponseHandler implements ResponseHandler<Document> {
-	
-	protected final String baseUri;
-	
-	public HtmlResponseHandler(String baseUri) {
-		this.baseUri = baseUri;
-	}
-	
-	@Override
-	public Document handleResponse(HttpResponse response) throws IOException {
-		StatusLine statusLine = response.getStatusLine();
-		HttpEntity entity = response.getEntity();
-		if (statusLine.getStatusCode() >= 300) {
-			throw new HttpResponseException(statusLine.getStatusCode(), statusLine.getReasonPhrase());
-		}
-		if (entity == null) {
-			throw new ClientProtocolException("Response contains no content");
-		}
-		
-		ContentType contentType = ContentType.getOrDefault(entity);
-		if (!contentType.getMimeType().equals(ContentType.TEXT_HTML.getMimeType())) {
-			throw new ClientProtocolException("Unexpected content type:" + contentType);
-		}
-		
-		return Jsoup.parse(entity.getContent(),contentType.getCharset().name(), this.baseUri);
-		
-	}
+
+  protected final String baseUri;
+
+  public HtmlResponseHandler(String baseUri) {
+    this.baseUri = baseUri;
+  }
+
+  @Override
+  public Document handleResponse(HttpResponse response) throws IOException {
+    StatusLine statusLine = response.getStatusLine();
+    HttpEntity entity = response.getEntity();
+    if (statusLine.getStatusCode() >= 300) {
+      throw new HttpResponseException(statusLine.getStatusCode(), statusLine.getReasonPhrase());
+    }
+    if (entity == null) {
+      throw new ClientProtocolException("Response contains no content");
+    }
+
+    ContentType contentType = ContentType.getOrDefault(entity);
+    if (!contentType.getMimeType().equals(ContentType.TEXT_HTML.getMimeType())) {
+      throw new ClientProtocolException("Unexpected content type:" + contentType);
+    }
+
+    return Jsoup.parse(entity.getContent(), contentType.getCharset().name(), this.baseUri);
+
+  }
 }

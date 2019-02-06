@@ -4,10 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import com.famaridon.redminengapi.domain.entities.IterationEntity;
 import com.famaridon.redminengapi.domain.entities.ObjectiveEntity;
-import com.famaridon.redminengapi.domain.repositories.impl.JPAIterationRepository;
 import com.famaridon.redminengapi.domain.repositories.impl.JPAObjectiveRepository;
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import javax.ejb.EJB;
 import javax.transaction.HeuristicMixedException;
 import javax.transaction.HeuristicRollbackException;
@@ -54,7 +52,7 @@ public class ObjectiveRepositoryITest extends
     this.getRepository().save(objective2);
     this.userTransaction.commit();
 
-    Iterable<ObjectiveEntity> objectiveEntities = this.objectiveRepository.findAllByIteration(this.buildParentIteration(), 0L , 25L);
+    Iterable<ObjectiveEntity> objectiveEntities = this.objectiveRepository.findAllByIteration(this.buildParentIteration(), 0L, 25L);
     int count = 0;
     for (ObjectiveEntity objectiveEntity : objectiveEntities) {
       count++;
@@ -113,7 +111,7 @@ public class ObjectiveRepositoryITest extends
 
   @Override
   protected void checkModification(ObjectiveEntity updated) {
-    assertEquals("Updated Objective", updated.getName() );
+    assertEquals("Updated Objective", updated.getName());
     assertEquals("Updated Objective description", updated.getDescription());
   }
 

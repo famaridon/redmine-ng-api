@@ -11,32 +11,32 @@ import javax.ws.rs.NotFoundException;
 
 @RequestScoped
 public class IterationEndpointImpl extends AbstractCrudEndpoint<IterationDto, IterationService, Iteration> implements IterationEndpoint {
-	
-	@Inject
-	private IterationService iterationService;
+
+  @Inject
+  private IterationService iterationService;
 
 
-	@Override
-	protected IterationService getService() {
-		return this.iterationService;
-	}
+  @Override
+  protected IterationService getService() {
+    return this.iterationService;
+  }
 
-	@Override
-	protected Iteration dtoToBean(IterationDto dto) {
-		return this.mapper.iterationDtoToIteration(dto);
-	}
+  @Override
+  protected Iteration dtoToBean(IterationDto dto) {
+    return this.mapper.iterationDtoToIteration(dto);
+  }
 
-	@Override
-	protected IterationDto beanToDto(Iteration bean) {
-		return this.mapper.iterationToIterationDto(bean);
-	}
+  @Override
+  protected IterationDto beanToDto(Iteration bean) {
+    return this.mapper.iterationToIterationDto(bean);
+  }
 
-	@Override
-	public IterationDto findCurrent() {
-		Optional<Iteration> optionalIteration = this.iterationService.findCurrent();
-		if(!optionalIteration.isPresent()) {
-			throw new NotFoundException("No current iteration found");
-		}
-		return this.mapper.iterationToIterationDto(optionalIteration.get());
-	}
+  @Override
+  public IterationDto findCurrent() {
+    Optional<Iteration> optionalIteration = this.iterationService.findCurrent();
+    if (!optionalIteration.isPresent()) {
+      throw new NotFoundException("No current iteration found");
+    }
+    return this.mapper.iterationToIterationDto(optionalIteration.get());
+  }
 }

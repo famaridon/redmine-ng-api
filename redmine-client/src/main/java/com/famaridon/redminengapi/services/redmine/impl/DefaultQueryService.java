@@ -27,10 +27,9 @@ public class DefaultQueryService extends AbstractRedmineService<Query> implement
         .execute()
         .handleResponse(this.createPageResponseHandler());
   }
-  
+
   @Override
-  protected Class<Query> getBeanType()
-  {
+  protected Class<Query> getBeanType() {
     return Query.class;
   }
 }

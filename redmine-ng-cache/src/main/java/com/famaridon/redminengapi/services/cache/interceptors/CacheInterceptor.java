@@ -12,33 +12,31 @@ import org.infinispan.Cache;
 
 @Interceptor
 @CachePut
-public class CacheInterceptor
-{
+public class CacheInterceptor {
 
-	@Inject
-	private CacheService cacheService;
-	
-	@AroundInvoke
-	public Object manageCache(InvocationContext ctx) throws Exception
-	{
-		CacheName cacheName = ctx.getMethod().getAnnotation(CacheName.class);
-		Cache<String, Object> cache = this.cacheService.getCache(cacheName.value());
-		
-		StringBuilder keyBuilder = new StringBuilder(ctx.getMethod().getName());
-		for (int i = 0; i < ctx.getMethod().getParameters().length; i++) {
-			CacheKey cacheKey = ctx.getMethod().getParameters()[i].getAnnotation(CacheKey.class);
-			if (cacheKey != null) {
-				keyBuilder.append('-').append(ctx.getParameters()[i]);
-			}
-		}
-		
-		Object result = cache.get(keyBuilder.toString());
-		if (result == null) {
-			result = ctx.proceed();
-			cache.put(keyBuilder.toString(), result);
-		}
-		
-		return result;
-	}
-	
+  @Inject
+  private CacheService cacheService;
+
+  @AroundInvoke
+  public Object manageCache(InvocationContext ctx) throws Exception {
+    CacheName cacheName = ctx.getMethod().getAnnotation(CacheName.class);
+    Cache<String, Object> cache = this.cacheService.getCache(cacheName.value());
+
+    StringBuilder keyBuilder = new StringBuilder(ctx.getMethod().getName());
+    for (int i = 0; i < ctx.getMethod().getParameters().length; i++) {
+      CacheKey cacheKey = ctx.getMethod().getParameters()[i].getAnnotation(CacheKey.class);
+      if (cacheKey != null) {
+        keyBuilder.append('-').append(ctx.getParameters()[i]);
+      }
+    }
+
+    Object result = cache.get(keyBuilder.toString());
+    if (result == null) {
+      result = ctx.proceed();
+      cache.put(keyBuilder.toString(), result);
+    }
+
+    return result;
+  }
+
 }

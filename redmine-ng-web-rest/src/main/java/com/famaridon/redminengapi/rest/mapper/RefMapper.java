@@ -9,6 +9,7 @@ import org.mapstruct.ReportingPolicy;
 public interface RefMapper {
 
   IterationRef asIterationRef(Iteration iteration);
+
   Iteration asIteration(IterationRef iterationRef);
 
 }

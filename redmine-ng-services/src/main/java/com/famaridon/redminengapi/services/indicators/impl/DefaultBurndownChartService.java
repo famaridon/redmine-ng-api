@@ -95,23 +95,24 @@ public class DefaultBurndownChartService extends
     LocalDate endDate = iterationEntityOptional.get().getEnd();
     long iterationDays = startDate.until(endDate, ChronoUnit.DAYS);
     BigDecimal iterationWorkindays = BigDecimal.ZERO;
-    for(int i=0; i < iterationDays; i++){
+    for (int i = 0; i < iterationDays; i++) {
       LocalDate loopDate = startDate.plus(i, ChronoUnit.DAYS);
-      if(this.isWorkingDayOfWeek(loopDate.getDayOfWeek())){
+      if (this.isWorkingDayOfWeek(loopDate.getDayOfWeek())) {
         iterationWorkindays = iterationWorkindays.add(BigDecimal.ONE);
       }
     }
 
-    BigDecimal startPoint = this.agregateIssues(iterationEntityOptional.get(),StatusType.ALL,sumPointsOperator, BigDecimal.ZERO);
+    BigDecimal startPoint = this.agregateIssues(iterationEntityOptional.get(), StatusType.ALL, sumPointsOperator, BigDecimal.ZERO);
     // we must have a = (Yb-Ya) / (Xb - Xa)
-    BigDecimal a = startPoint.subtract(BigDecimal.ZERO).divide(iterationWorkindays.subtract(BigDecimal.ZERO), MathContext.DECIMAL32).multiply(BigDecimal.valueOf(-1)) ;
+    BigDecimal a = startPoint.subtract(BigDecimal.ZERO).divide(iterationWorkindays.subtract(BigDecimal.ZERO), MathContext.DECIMAL32)
+        .multiply(BigDecimal.valueOf(-1));
     BigDecimal x = BigDecimal.ZERO;
-    for(int i=0; i <= iterationDays; i++){
+    for (int i = 0; i <= iterationDays; i++) {
       LocalDate loopDate = startDate.plus(i, ChronoUnit.DAYS);
       ChartTimedValue point = new ChartTimedValue();
       point.setDate(loopDate.atStartOfDay());
-      if(i != 0 && !this.isWorkingDayOfWeek(loopDate.getDayOfWeek())){
-        point.setValue(ideal.getValues().get(ideal.getValues().size()-1).getValue());
+      if (i != 0 && !this.isWorkingDayOfWeek(loopDate.getDayOfWeek())) {
+        point.setValue(ideal.getValues().get(ideal.getValues().size() - 1).getValue());
       } else {
         point.setValue(a.multiply(x).add(startPoint));
         x = x.add(BigDecimal.ONE);
