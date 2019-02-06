@@ -63,7 +63,6 @@ public class BurndownChartScheduler {
       if (burndownChartEntityOptional.isPresent()) {
         burndownChartEntity = burndownChartEntityOptional.get();
       } else {
-        // TODO : create BurndownChartEntity
         burndownChartEntity = new BurndownChartEntity();
         burndownChartEntity.setIteration(iterationEntityOptional.get());
 
