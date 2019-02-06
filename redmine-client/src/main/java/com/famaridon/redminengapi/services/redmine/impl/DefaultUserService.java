@@ -5,19 +5,15 @@ import com.famaridon.redminengapi.services.cache.annotation.CacheName;
 import com.famaridon.redminengapi.services.cache.annotation.CachePut;
 import com.famaridon.redminengapi.services.redmine.UserService;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.User;
-import com.famaridon.redminengapi.services.redmine.rest.client.handler.HolderResponseHandler;
 import com.famaridon.redminengapi.services.redmine.rest.client.handler.HtmlResponseHandler;
+import java.io.IOException;
+import java.util.List;
+import javax.enterprise.inject.Default;
+import javax.inject.Named;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.client.utils.URIBuilder;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javax.enterprise.inject.Default;
-import javax.inject.Named;
-import java.io.IOException;
-import java.util.List;
 
 @Named
 @Default

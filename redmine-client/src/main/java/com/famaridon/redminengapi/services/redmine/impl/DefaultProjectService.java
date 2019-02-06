@@ -4,16 +4,11 @@ import com.famaridon.redminengapi.services.redmine.Pager;
 import com.famaridon.redminengapi.services.redmine.ProjectService;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Page;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Project;
-import com.famaridon.redminengapi.services.redmine.rest.client.handler.HolderResponseHandler;
-import com.famaridon.redminengapi.services.redmine.rest.client.handler.PageResponseHandler;
-import org.apache.http.client.fluent.Request;
-import org.apache.http.client.utils.URIBuilder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import java.io.IOException;
 import javax.enterprise.inject.Default;
 import javax.inject.Named;
-import java.io.IOException;
+import org.apache.http.client.fluent.Request;
+import org.apache.http.client.utils.URIBuilder;
 
 @Named
 @Default
