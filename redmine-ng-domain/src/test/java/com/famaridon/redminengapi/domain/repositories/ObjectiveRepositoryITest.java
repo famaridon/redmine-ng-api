@@ -113,8 +113,8 @@ public class ObjectiveRepositoryITest extends
 
   @Override
   protected void checkModification(ObjectiveEntity updated) {
-    assertEquals(updated.getName(), "Updated Objective");
-    assertEquals(updated.getDescription(), "Updated Objective description");
+    assertEquals("Updated Objective", updated.getName() );
+    assertEquals("Updated Objective description", updated.getDescription());
   }
 
   @Override
