@@ -18,9 +18,7 @@ import java.util.concurrent.TimeUnit;
 @PreMatching
 @Priority(0) // CORS must be the really first of all
 public class ConfigurableCorsFilter extends org.jboss.resteasy.plugins.interceptors.CorsFilter {
-	
-	private static final Logger LOG = LoggerFactory.getLogger(ConfigurableCorsFilter.class);
-	
+
 	@Inject
 	ConfigurationService configurationService;
 	
