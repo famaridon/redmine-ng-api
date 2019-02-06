@@ -18,9 +18,7 @@ import javax.interceptor.InvocationContext;
 @CachePut
 public class CacheInterceptor
 {
-	
-	private static final Logger LOG = LoggerFactory.getLogger(CacheInterceptor.class);
-	
+
 	@Inject
 	private CacheService cacheService;
 	
