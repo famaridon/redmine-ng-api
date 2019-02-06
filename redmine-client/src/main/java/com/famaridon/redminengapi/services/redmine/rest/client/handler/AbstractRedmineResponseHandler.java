@@ -1,6 +1,5 @@
 package com.famaridon.redminengapi.services.redmine.rest.client.handler;
 
-import com.famaridon.redminengapi.services.configuration.ConfigurationService;
 import com.famaridon.redminengapi.services.redmine.rest.client.module.RedmineClientModule;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.HttpEntity;
