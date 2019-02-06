@@ -2,6 +2,7 @@ package com.famaridon.redminengapi.services.configuration.impl;
 
 import com.famaridon.redminengapi.services.configuration.ConfigurationService;
 
+import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -79,13 +80,14 @@ public class DefaultConfigurationService implements ConfigurationService
 	protected final void loadBaseConfiguration(CombinedConfiguration combinedConfiguration, String fileName) throws ConfigurationException
 	{
 		
-		Path configurationFile = Paths.get( fileName);
-		if(!Files.exists(configurationFile)){
-			LOG.warn("Missing configuration file {} .", configurationFile.toAbsolutePath().toString());
+		Path configurationPath = Paths.get( fileName);
+		File configurationFile = configurationPath.toAbsolutePath().toFile();
+		if(!configurationFile.exists()){
+			LOG.warn("Missing configuration file {} .", configurationFile);
 			return;
 		}
-		if(Files.isDirectory(configurationFile)){
-			LOG.warn("Configuration file is a directory {} .", configurationFile.toAbsolutePath().toString());
+		if(configurationFile.exists()){
+			LOG.warn("Configuration file is a directory {} .", configurationFile);
 			return;
 		}
 		LOG.info("Add configuration file {} .", fileName);
@@ -93,7 +95,7 @@ public class DefaultConfigurationService implements ConfigurationService
 			.fileBased()
 			.setThrowExceptionOnMissing(false)
 			.setEncoding("UTF-8")
-			.setFileName(configurationFile.toAbsolutePath().toString())
+			.setFileName(configurationFile.getPath())
 			.setLocationStrategy(new AbsoluteNameLocationStrategy());
 		FileBasedConfigurationBuilder<JSONConfiguration> jsonConfigurationBuilder = new FileBasedConfigurationBuilder<>( JSONConfiguration.class );
 		combinedConfiguration.addConfiguration(jsonConfigurationBuilder.configure(params).getConfiguration());
