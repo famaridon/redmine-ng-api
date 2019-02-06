@@ -1,13 +1,11 @@
 package com.famaridon.redminengapi.rest.filters;
 
 import com.famaridon.redminengapi.services.configuration.ConfigurationService;
-import java.io.IOException;
 import java.util.HashSet;
 import java.util.concurrent.TimeUnit;
 import javax.annotation.PostConstruct;
 import javax.annotation.Priority;
 import javax.inject.Inject;
-import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.PreMatching;
 import javax.ws.rs.ext.Provider;
 
@@ -26,8 +24,4 @@ public class ConfigurableCorsFilter extends org.jboss.resteasy.plugins.intercept
     this.allowCredentials = false;
   }
 
-  @Override
-  public void filter(ContainerRequestContext requestContext) throws IOException {
-    super.filter(requestContext);
-  }
 }
