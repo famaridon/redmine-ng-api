@@ -2,6 +2,7 @@ package com.famaridon.redminengapi.services.configuration.impl;
 
 import com.famaridon.redminengapi.services.configuration.ConfigurationService;
 
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -12,8 +13,11 @@ import org.apache.commons.configuration2.builder.FileBasedConfigurationBuilder;
 import org.apache.commons.configuration2.builder.fluent.FileBasedBuilderParameters;
 import org.apache.commons.configuration2.builder.fluent.Parameters;
 import org.apache.commons.configuration2.ex.ConfigurationException;
+import org.apache.commons.configuration2.io.AbsoluteNameLocationStrategy;
 import org.apache.commons.configuration2.io.BasePathLocationStrategy;
+import org.apache.commons.configuration2.io.FileSystemLocationStrategy;
 import org.apache.commons.configuration2.io.HomeDirectoryLocationStrategy;
+import org.apache.commons.configuration2.io.ProvidedURLLocationStrategy;
 import org.apache.commons.configuration2.tree.OverrideCombiner;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -74,13 +78,23 @@ public class DefaultConfigurationService implements ConfigurationService
 	
 	protected final void loadBaseConfiguration(CombinedConfiguration combinedConfiguration, String fileName) throws ConfigurationException
 	{
-		LOG.info("Add configuration files {} .", fileName);
+		
+		Path configurationFile = Paths.get( fileName);
+		if(!Files.exists(configurationFile)){
+			LOG.warn("Missing configuration file {} .", configurationFile.toAbsolutePath().toString());
+			return;
+		}
+		if(Files.isDirectory(configurationFile)){
+			LOG.warn("Configuration file is a directory {} .", configurationFile.toAbsolutePath().toString());
+			return;
+		}
+		LOG.info("Add configuration file {} .", fileName);
 		FileBasedBuilderParameters params = new Parameters()
 			.fileBased()
 			.setThrowExceptionOnMissing(false)
 			.setEncoding("UTF-8")
-			.setFileName(fileName)
-			.setLocationStrategy(new BasePathLocationStrategy());
+			.setFileName(configurationFile.toAbsolutePath().toString())
+			.setLocationStrategy(new AbsoluteNameLocationStrategy());
 		FileBasedConfigurationBuilder<JSONConfiguration> jsonConfigurationBuilder = new FileBasedConfigurationBuilder<>( JSONConfiguration.class );
 		combinedConfiguration.addConfiguration(jsonConfigurationBuilder.configure(params).getConfiguration());
 	}
