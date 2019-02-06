@@ -17,9 +17,7 @@ import java.io.IOException;
 @Named
 @Default
 public class DefaultMembershipService extends AbstractRedmineService<Membership> implements MembershipService {
-
-  private static final Logger LOGGER = LoggerFactory.getLogger(DefaultMembershipService.class);
-
+  
   @Override
   public Page<Membership> findByProject(String apiAccessKey, Long id, Pager pager)
       throws IOException {
@@ -30,7 +28,13 @@ public class DefaultMembershipService extends AbstractRedmineService<Membership>
         .Get(this.toUri(uriBuilder))
         .addHeader(X_REDMINE_API_KEY, apiAccessKey)
         .execute()
-        .handleResponse(new PageResponseHandler<>(Membership.class));
+        .handleResponse(this.createPageResponseHandler());
     return p;
+  }
+  
+  @Override
+  protected Class<Membership> getBeanType()
+  {
+    return Membership.class;
   }
 }

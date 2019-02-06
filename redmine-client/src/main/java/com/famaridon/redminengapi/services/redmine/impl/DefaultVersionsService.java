@@ -16,10 +16,7 @@ import java.io.IOException;
 
 @Named
 @Default
-public class DefaultVersionsService extends AbstractRedmineService<Version> implements
-    VersionsService {
-
-  private static final Logger LOG = LoggerFactory.getLogger(DefaultVersionsService.class);
+public class DefaultVersionsService extends AbstractRedmineService<Version> implements VersionsService {
 
   @Override
   public Page<Version> findAll(String apiKey, Long project) throws IOException {
@@ -28,7 +25,13 @@ public class DefaultVersionsService extends AbstractRedmineService<Version> impl
         .Get(this.toUri(uriBuilder))
         .addHeader(X_REDMINE_API_KEY, apiKey)
         .execute()
-        .handleResponse(new PageResponseHandler<>(Version.class));
+        .handleResponse(this.createPageResponseHandler());
     return r;
+  }
+  
+  @Override
+  protected Class<Version> getBeanType()
+  {
+    return Version.class;
   }
 }

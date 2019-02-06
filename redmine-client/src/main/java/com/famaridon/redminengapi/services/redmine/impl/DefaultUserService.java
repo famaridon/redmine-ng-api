@@ -23,8 +23,6 @@ import java.util.List;
 @Default
 public class DefaultUserService extends AbstractRedmineService<User> implements UserService {
 
-  private static final Logger LOG = LoggerFactory.getLogger(DefaultUserService.class);
-
   @Override
   @CachePut
   @CacheName("userByApiKey")
@@ -33,7 +31,7 @@ public class DefaultUserService extends AbstractRedmineService<User> implements 
     User r = Request.Get(this.toUri(uriBuilder))
         .addHeader(X_REDMINE_API_KEY, apiKey)
         .execute()
-        .handleResponse(new HolderResponseHandler<>(User.class));
+        .handleResponse(this.createHolderResponseHandler());
     r = this.loadGravatar(apiKey, r);
     r.setApiKey(apiKey);
     return r;
@@ -47,7 +45,7 @@ public class DefaultUserService extends AbstractRedmineService<User> implements 
     User r = Request.Get(this.toUri(uriBuilder))
         .addHeader(X_REDMINE_API_KEY, apiKey)
         .execute()
-        .handleResponse(new HolderResponseHandler<>(User.class));
+        .handleResponse(this.createHolderResponseHandler());
     r = this.loadGravatar(apiKey, r);
     return r;
   }
@@ -71,5 +69,11 @@ public class DefaultUserService extends AbstractRedmineService<User> implements 
   public List<String> findRoles(String login) {
     return this.redmineClientConfiguration
         .getUserRoles(login);
+  }
+  
+  @Override
+  protected Class<User> getBeanType()
+  {
+    return User.class;
   }
 }

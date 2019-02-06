@@ -17,11 +17,8 @@ import java.io.IOException;
 
 @Named
 @Default
-public class DefaultProjectService extends AbstractRedmineService<Project> implements
-    ProjectService {
-
-  private static final Logger LOGGER = LoggerFactory.getLogger(DefaultProjectService.class);
-
+public class DefaultProjectService extends AbstractRedmineService<Project> implements ProjectService {
+  
   protected URIBuilder getProjectsEndpointUriBuilder() {
     return this.getUriBuilder("/projects.json");
   }
@@ -34,7 +31,7 @@ public class DefaultProjectService extends AbstractRedmineService<Project> imple
     Page<Project> p = Request.Get(this.toUri(uriBuilder))
         .addHeader(X_REDMINE_API_KEY, apiAccessKey)
         .execute()
-        .handleResponse(new PageResponseHandler<>(Project.class));
+        .handleResponse(this.createPageResponseHandler());
     return p;
   }
 
@@ -45,9 +42,14 @@ public class DefaultProjectService extends AbstractRedmineService<Project> imple
     Project p = Request.Get(this.toUri(uriBuilder))
         .addHeader(X_REDMINE_API_KEY, apiAccessKey)
         .execute()
-        .handleResponse(new HolderResponseHandler<>(Project.class));
+        .handleResponse(this.createHolderResponseHandler());
     return p;
 
   }
-
+  
+  @Override
+  protected Class<Project> getBeanType()
+  {
+    return Project.class;
+  }
 }

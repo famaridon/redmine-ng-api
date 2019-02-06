@@ -25,8 +25,6 @@ import java.io.IOException;
 @Named
 @Default
 public class DefaultIssueService extends AbstractRedmineService<Issue> implements IssueService {
-
-  private static final Logger LOG = LoggerFactory.getLogger(DefaultIssueService.class);
   
   @Inject
   protected FilterFactory filterFactory;
@@ -42,7 +40,7 @@ public class DefaultIssueService extends AbstractRedmineService<Issue> implement
     Page<Issue> p = Request.Get(this.toUri(uriBuilder))
         .addHeader(X_REDMINE_API_KEY, apiAccessKey)
         .execute()
-        .handleResponse(new PageResponseHandler<>(Issue.class));
+        .handleResponse(this.createPageResponseHandler());
     return p;
   }
 
@@ -52,7 +50,7 @@ public class DefaultIssueService extends AbstractRedmineService<Issue> implement
     Issue p = Request.Get(this.toUri(uriBuilder))
         .addHeader(X_REDMINE_API_KEY, apiAccessKey)
         .execute()
-        .handleResponse(new HolderResponseHandler<>(Issue.class));
+        .handleResponse(this.createHolderResponseHandler());
     return p;
   }
 
@@ -78,7 +76,7 @@ public class DefaultIssueService extends AbstractRedmineService<Issue> implement
     Page<Issue> p = Request.Get(this.toUri(uriBuilder))
         .addHeader(X_REDMINE_API_KEY, apiAccessKey)
         .execute()
-        .handleResponse(new PageResponseHandler<>(Issue.class));
+        .handleResponse(this.createPageResponseHandler());
     return p;
   }
 
@@ -86,5 +84,11 @@ public class DefaultIssueService extends AbstractRedmineService<Issue> implement
   public Long findCount(String apiAccessKey, Long query, Long project) throws IOException {
     Page<Issue> p = findByQueryAndProject(apiAccessKey, query, project, new Pager());
     return p.getTotalCount();
+  }
+  
+  @Override
+  protected Class<Issue> getBeanType()
+  {
+    return Issue.class;
   }
 }

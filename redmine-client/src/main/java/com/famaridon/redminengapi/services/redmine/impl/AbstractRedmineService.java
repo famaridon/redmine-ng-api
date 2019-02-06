@@ -2,6 +2,8 @@ package com.famaridon.redminengapi.services.redmine.impl;
 
 
 import com.famaridon.redminengapi.services.redmine.RedmineClientConfiguration;
+import com.famaridon.redminengapi.services.redmine.rest.client.handler.HolderResponseHandler;
+import com.famaridon.redminengapi.services.redmine.rest.client.handler.PageResponseHandler;
 import org.apache.http.client.utils.URIBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,9 +12,8 @@ import javax.inject.Inject;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-public abstract class AbstractRedmineService<T> {
+public abstract class AbstractRedmineService<B> {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(AbstractRedmineService.class);
   public static final String X_REDMINE_API_KEY = "X-Redmine-API-Key";
 
   @Inject
@@ -40,5 +41,15 @@ public abstract class AbstractRedmineService<T> {
       throw new IllegalStateException(e);
     }
   }
+  
+  protected PageResponseHandler<B> createPageResponseHandler() {
+    return new PageResponseHandler<>(this.getBeanType());
+  }
+  
+  protected HolderResponseHandler<B> createHolderResponseHandler() {
+    return new HolderResponseHandler<>(this.getBeanType());
+  }
+  
+  protected abstract Class<B> getBeanType();
 
 }

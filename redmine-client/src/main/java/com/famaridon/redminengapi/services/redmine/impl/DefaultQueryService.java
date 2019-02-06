@@ -18,8 +18,6 @@ import java.io.IOException;
 @Default
 public class DefaultQueryService extends AbstractRedmineService<Query> implements QueryService {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(DefaultQueryService.class);
-
   protected URIBuilder getQueriesEndpointUriBuilder() {
     return this.getUriBuilder("/queries.json");
   }
@@ -31,8 +29,13 @@ public class DefaultQueryService extends AbstractRedmineService<Query> implement
     Page<Query> p = Request.Get(this.toUri(uriBuilder))
         .addHeader(X_REDMINE_API_KEY, apiAccessKey)
         .execute()
-        .handleResponse(new PageResponseHandler<>(Query.class));
+        .handleResponse(this.createPageResponseHandler());
     return p;
   }
-
+  
+  @Override
+  protected Class<Query> getBeanType()
+  {
+    return Query.class;
+  }
 }
