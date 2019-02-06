@@ -57,9 +57,6 @@ public class InfinispanCacheService implements CacheService
 		if (cacheConfiguration == null) {
 			return this.getCache(injectionPoint.getMember().getName());
 		}
-		
-		CacheExpiration cacheExpiration = annotated.getAnnotation(CacheExpiration.class);
-		
 		return getCache(cacheConfiguration);
 	}
 	
