@@ -24,7 +24,6 @@ import org.slf4j.LoggerFactory;
 @Singleton
 public class DefaultDataLoaderService {
 	
-	private static final Logger LOG = LoggerFactory.getLogger(DefaultDataLoaderService.class);
 	private static final Charset CHARSET = StandardCharsets.UTF_8;
 	private static final CSVFormat CSV_FORMAT = CSVFormat.RFC4180.withFirstRecordAsHeader();
 	
