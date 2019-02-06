@@ -30,11 +30,10 @@ public class DefaultIssueService extends AbstractRedmineService<Issue> implement
   public Page<Issue> findAll(String apiAccessKey, Pager pager) throws IOException {
     URIBuilder uriBuilder = this.getIssuesEndpointUriBuilder();
     pager.serialize(uriBuilder);
-    Page<Issue> p = Request.Get(this.toUri(uriBuilder))
+    return Request.Get(this.toUri(uriBuilder))
         .addHeader(X_REDMINE_API_KEY, apiAccessKey)
         .execute()
         .handleResponse(this.createPageResponseHandler());
-    return p;
   }
 
   @Override
@@ -66,11 +65,10 @@ public class DefaultIssueService extends AbstractRedmineService<Issue> implement
     URIBuilder uriBuilder = this.getIssuesEndpointUriBuilder();
     pager.serialize(uriBuilder);
     filters.forEach(filter -> filter.serialize(uriBuilder));
-    Page<Issue> p = Request.Get(this.toUri(uriBuilder))
+    return Request.Get(this.toUri(uriBuilder))
         .addHeader(X_REDMINE_API_KEY, apiAccessKey)
         .execute()
         .handleResponse(this.createPageResponseHandler());
-    return p;
   }
 
   @Override

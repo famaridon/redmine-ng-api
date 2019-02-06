@@ -16,12 +16,11 @@ public class DefaultVersionsService extends AbstractRedmineService<Version> impl
   @Override
   public Page<Version> findAll(String apiKey, Long project) throws IOException {
     URIBuilder uriBuilder = this.getUriBuilder("/projects/" + project + "/versions.json");
-    Page<Version> r = Request
+    return Request
         .Get(this.toUri(uriBuilder))
         .addHeader(X_REDMINE_API_KEY, apiKey)
         .execute()
         .handleResponse(this.createPageResponseHandler());
-    return r;
   }
   
   @Override

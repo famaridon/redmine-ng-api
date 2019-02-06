@@ -23,22 +23,20 @@ public class DefaultProjectService extends AbstractRedmineService<Project> imple
     URIBuilder uriBuilder = this.getProjectsEndpointUriBuilder();
     pager.serialize(uriBuilder);
     uriBuilder.addParameter("include", "issue_fixed_versions,trackers,issue_categories");
-    Page<Project> p = Request.Get(this.toUri(uriBuilder))
+    return Request.Get(this.toUri(uriBuilder))
         .addHeader(X_REDMINE_API_KEY, apiAccessKey)
         .execute()
         .handleResponse(this.createPageResponseHandler());
-    return p;
   }
 
   @Override
   public Project findById(String apiAccessKey, Long id) throws IOException {
     URIBuilder uriBuilder = this.getUriBuilder("/projects/" + id + ".json");
     uriBuilder.addParameter("include", "trackers,issue_categories");
-    Project p = Request.Get(this.toUri(uriBuilder))
+    return Request.Get(this.toUri(uriBuilder))
         .addHeader(X_REDMINE_API_KEY, apiAccessKey)
         .execute()
         .handleResponse(this.createHolderResponseHandler());
-    return p;
 
   }
   

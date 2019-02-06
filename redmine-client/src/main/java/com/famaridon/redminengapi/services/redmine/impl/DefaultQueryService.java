@@ -22,11 +22,10 @@ public class DefaultQueryService extends AbstractRedmineService<Query> implement
   public Page<Query> findAll(String apiAccessKey, Pager pager) throws IOException {
     URIBuilder uriBuilder = this.getQueriesEndpointUriBuilder();
     pager.serialize(uriBuilder);
-    Page<Query> p = Request.Get(this.toUri(uriBuilder))
+    return Request.Get(this.toUri(uriBuilder))
         .addHeader(X_REDMINE_API_KEY, apiAccessKey)
         .execute()
         .handleResponse(this.createPageResponseHandler());
-    return p;
   }
   
   @Override

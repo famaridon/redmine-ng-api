@@ -20,12 +20,11 @@ public class DefaultMembershipService extends AbstractRedmineService<Membership>
 
     URIBuilder uriBuilder = this.getUriBuilder(String.format("/projects/%s/memberships.json", id));
     pager.serialize(uriBuilder);
-    Page<Membership> p = Request
+    return Request
         .Get(this.toUri(uriBuilder))
         .addHeader(X_REDMINE_API_KEY, apiAccessKey)
         .execute()
         .handleResponse(this.createPageResponseHandler());
-    return p;
   }
   
   @Override
