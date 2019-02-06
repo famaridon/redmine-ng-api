@@ -102,7 +102,7 @@ public class DefaultConfigurationService implements ConfigurationService
 			return Optional.empty();
 		}
 		// Restrict the profile to letters and digits only
-		if (!profile.matches("^[a-zA-Z0-9]*$")) {
+		if (!profile.matches("^[a-zA-Z0-9]++$")) {
 			LOG.warn("profile must only contains letters and digits '{}'", profile);
 			return Optional.empty();
 		}
