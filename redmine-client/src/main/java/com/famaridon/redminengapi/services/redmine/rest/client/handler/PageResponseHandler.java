@@ -16,7 +16,6 @@ public class PageResponseHandler<T> extends AbstractRedmineResponseHandler<Page<
 	
 	@Override
 	protected Page parse(HttpEntity entity) throws IOException {
-		Page<T> page = this.objectMapper.readValue(entity.getContent(),parametricType);
-		return page;
+		return this.objectMapper.readValue(entity.getContent(),parametricType);
 	}
 }
