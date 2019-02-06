@@ -1,6 +1,6 @@
 package com.famaridon.redminengapi.services.redmine.rest.client.handler;
 
-import com.famaridon.redminengapi.services.configuration.ConfigurationService;
+import java.io.IOException;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;
@@ -10,8 +10,6 @@ import org.apache.http.client.ResponseHandler;
 import org.apache.http.entity.ContentType;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-
-import java.io.IOException;
 
 public class HtmlResponseHandler implements ResponseHandler<Document> {
 	

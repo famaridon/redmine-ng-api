@@ -1,11 +1,9 @@
 package com.famaridon.redminengapi.services.redmine.rest.client.handler;
 
-import com.famaridon.redminengapi.services.configuration.ConfigurationService;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Page;
 import com.fasterxml.jackson.databind.JavaType;
-import org.apache.http.HttpEntity;
-
 import java.io.IOException;
+import org.apache.http.HttpEntity;
 
 public class PageResponseHandler<T> extends AbstractRedmineResponseHandler<Page<T>> {
 	
