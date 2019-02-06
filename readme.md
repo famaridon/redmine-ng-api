@@ -1,8 +1,9 @@
 ## Status
 [![Build Status](https://travis-ci.org/famaridon/redmine-ng-api.svg?branch=develop)](https://travis-ci.org/famaridon/redmine-ng-api)
-[![Coverage Status](https://coveralls.io/repos/github/famaridon/redmine-ng-api/badge.svg?branch=develop)](https://coveralls.io/github/famaridon/redmine-ng-api?branch=develop)
 
-
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=com.famaridon%3Aredmine-ng-api&metric=coverage)](https://sonarcloud.io/dashboard?id=com.famaridon%3Aredmine-ng-api)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=com.famaridon%3Aredmine-ng-api&metric=duplicated_lines_density)](https://sonarcloud.io/dashboard?id=com.famaridon%3Aredmine-ng-api)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=com.famaridon%3Aredmine-ng-api&metric=code_smells)](https://sonarcloud.io/dashboard?id=com.famaridon%3Aredmine-ng-api)
 ## Configuration
 
 ### create data-source
