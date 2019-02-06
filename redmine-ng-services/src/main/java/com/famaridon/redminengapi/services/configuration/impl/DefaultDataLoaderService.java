@@ -5,7 +5,6 @@ import com.famaridon.redminengapi.domain.repositories.IterationRepository;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
@@ -36,12 +35,12 @@ public class DefaultDataLoaderService {
     try {
       this.loadIterations();
 
-    } catch (IOException | ParseException e) {
+    } catch (IOException e) {
       throw new IllegalStateException("unable to load default data.", e);
     }
   }
 
-  private void loadIterations() throws IOException, ParseException {
+  private void loadIterations() throws IOException {
     CSVParser csvParser = CSVParser.parse(DefaultDataLoaderService.class.getResource("/default/iterations.csv"), CHARSET, CSV_FORMAT);
     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MM-dd-uuuu");
 
