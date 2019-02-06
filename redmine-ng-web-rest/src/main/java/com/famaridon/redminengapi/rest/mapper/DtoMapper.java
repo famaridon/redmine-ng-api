@@ -41,10 +41,9 @@ public interface DtoMapper {
   @Mappings(@Mapping(target = "elements", ignore = true))
   PageDto pageToPageDto(Page page);
 
-  @Mappings({
-      @Mapping(target = "apiKey", ignore = true),
-      @Mapping(target = "roles", ignore = true)}
-  )
+
+  @Mapping(target = "apiKey", ignore = true)
+  @Mapping(target = "roles", ignore = true)
   UserDto userToUserDto(User project);
 
   ProjectDto projectToProjectDto(Project project);

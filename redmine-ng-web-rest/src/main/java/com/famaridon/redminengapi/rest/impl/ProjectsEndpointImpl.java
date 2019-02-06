@@ -29,8 +29,7 @@ public class ProjectsEndpointImpl extends AbstractRedmineEndpoint implements Pro
   private DtoMapper mapper;
 
   public ProjectDto findById(String apiKey, Long id) throws IOException {
-    ProjectDto p = this.mapper.projectToProjectDto(this.projectService.findById(apiKey, id));
-    return p;
+    return this.mapper.projectToProjectDto(this.projectService.findById(apiKey, id));
   }
 
   public PageDto<ProjectDto> findAll(String apiKey, Long offset, Long limit) throws IOException {
