@@ -39,11 +39,10 @@ public class DefaultIssueService extends AbstractRedmineService<Issue> implement
   @Override
   public Issue findById(String apiAccessKey, Long id) throws IOException {
     URIBuilder uriBuilder = this.getUriBuilder(String.format("/issues/%s.json", id));
-    Issue p = Request.Get(this.toUri(uriBuilder))
+    return Request.Get(this.toUri(uriBuilder))
         .addHeader(X_REDMINE_API_KEY, apiAccessKey)
         .execute()
         .handleResponse(this.createHolderResponseHandler());
-    return p;
   }
 
   @Override
