@@ -19,10 +19,6 @@ import java.util.stream.Collectors;
 public class DefaultFilterFactory implements FilterFactory
 {
   
-  public DefaultFilterFactory()
-  {
-  }
-  
   public Filter createProjectFilter(Project project) {
     return this.createProjectFilter(project.getId());
   }
