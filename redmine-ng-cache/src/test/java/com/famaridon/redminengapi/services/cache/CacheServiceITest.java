@@ -16,7 +16,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
-public class CacheServiceUTest {
+public class CacheServiceITest {
 
   @Inject
   protected CacheService cacheService;
@@ -35,7 +35,7 @@ public class CacheServiceUTest {
   @Deployment
   public static WebArchive createDeployment() {
     return prepareDeployment()
-        .addClass(CacheServiceUTest.class)
+        .addClass(CacheServiceITest.class)
         .addClass(CacheService.class)
         .addClass(InfinispanCacheService.class);
   }

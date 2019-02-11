@@ -19,8 +19,14 @@ public class CacheInterceptor {
 
   @AroundInvoke
   public Object manageCache(InvocationContext ctx) throws Exception {
-    CacheName cacheName = ctx.getMethod().getAnnotation(CacheName.class);
-    Cache<String, Object> cache = this.cacheService.getCache(cacheName.value());
+    CacheName cacheNameAnnotation = ctx.getMethod().getAnnotation(CacheName.class);
+    String cacheName ;
+    if(cacheNameAnnotation == null) {
+      cacheName = ctx.getMethod().getName();
+    } else {
+      cacheName = cacheNameAnnotation.value();
+    }
+    Cache<String, Object> cache = this.cacheService.getCache(cacheName);
 
     StringBuilder keyBuilder = new StringBuilder(ctx.getMethod().getName());
     for (int i = 0; i < ctx.getMethod().getParameters().length; i++) {

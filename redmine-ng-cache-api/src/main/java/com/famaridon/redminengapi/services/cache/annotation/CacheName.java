@@ -11,5 +11,5 @@ import javax.interceptor.InterceptorBinding;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface CacheName {
 
-  String value() default "";
+  String value();
 }
