@@ -1,6 +1,5 @@
 package com.famaridon.redminengapi.services.indicators.impl;
 
-import com.famaridon.redminengapi.domain.entities.BurndownChartEntity;
 import com.famaridon.redminengapi.domain.entities.IterationEntity;
 import com.famaridon.redminengapi.domain.repositories.BurndownChartRepository;
 import com.famaridon.redminengapi.domain.repositories.IterationRepository;
@@ -30,16 +29,6 @@ public class DefaultIterationService extends
   public DefaultIterationService(IterationRepository iterationRepository) {
     this.iterationRepository = iterationRepository;
     this.indicatorsEntityMapper = new IndicatorsEntityMapperImpl();
-  }
-
-  @Override
-  public Iteration create(Iteration bean) {
-    IterationEntity entity = this.map(bean);
-    IterationEntity saved = this.getRepository().save(entity);
-    BurndownChartEntity burndownChartEntity = new BurndownChartEntity();
-    burndownChartEntity.setIteration(saved);
-    this.burndownChartRepository.save(burndownChartEntity);
-    return this.map(saved);
   }
 
   @Override
