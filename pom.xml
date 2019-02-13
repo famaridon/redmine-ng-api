@@ -34,6 +34,7 @@
         <commons-csv.version>1.6</commons-csv.version>
         <org.mapstruct.version>1.2.0.Final</org.mapstruct.version>
         <slf4j-api.version>1.7.25</slf4j-api.version>
+        <flyway.version>5.2.4</flyway.version>
 
         <!-- test version -->
         <junit.version>4.12</junit.version>
@@ -104,7 +105,11 @@
                 <version>${hibernate-validator.version}</version>
                 <scope>provided</scope>
             </dependency>
-
+            <dependency>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-core</artifactId>
+                <version>${flyway.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.mapstruct</groupId>
                 <artifactId>mapstruct-jdk8</artifactId> <!-- use mapstruct-jdk8 for Java 8 or higher -->
