@@ -60,7 +60,7 @@ public class DefaultConfigurationService implements ConfigurationService {
   protected final void loadProfiledConfiguration(CombinedConfiguration combinedConfiguration) throws ConfigurationException {
     Optional<String> profile = this.getEnvironmentProfile();
     if (profile.isPresent()) {
-      this.loadBaseConfiguration(combinedConfiguration, profile.get());
+      this.loadBaseConfiguration(combinedConfiguration, "config-" + profile.get() + ".json");
     }
   }
 
@@ -72,7 +72,7 @@ public class DefaultConfigurationService implements ConfigurationService {
       LOG.warn("Missing configuration file {} .", configurationFile);
       return;
     }
-    if (configurationFile.exists()) {
+    if (configurationFile.isDirectory()) {
       LOG.warn("Configuration file is a directory {} .", configurationFile);
       return;
     }
