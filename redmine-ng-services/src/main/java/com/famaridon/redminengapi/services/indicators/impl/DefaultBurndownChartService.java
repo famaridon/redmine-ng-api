@@ -82,8 +82,6 @@ public class DefaultBurndownChartService extends
       throw new ObjectNotFoundException("No iteration found for id " + iterationId);
     }
 
-    Long developmentCostField = this.configurationService.getLong("redmine.custom-fields.development-cost");
-
     BurndownChart ideal = new BurndownChart();
     ideal.setIteration(this.indicatorsEntityMapper.iterationEntityToIteration(iterationEntityOptional.get()));
     ideal.setId(-1L);
