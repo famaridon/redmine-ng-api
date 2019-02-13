@@ -10,7 +10,6 @@ import com.famaridon.redminengapi.services.indicators.BurndownChartService;
 import com.famaridon.redminengapi.services.indicators.beans.BurndownChart;
 import com.famaridon.redminengapi.services.indicators.beans.ChartTimedValue;
 import com.famaridon.redminengapi.services.indicators.impl.issue.IssueOperator;
-import com.famaridon.redminengapi.services.indicators.impl.issue.SumPointsOperator;
 import com.famaridon.redminengapi.services.indicators.mapper.IndicatorsEntityMapper;
 import com.famaridon.redminengapi.services.indicators.mapper.IndicatorsEntityMapperImpl;
 import com.famaridon.redminengapi.services.redmine.Filter;
@@ -84,7 +83,6 @@ public class DefaultBurndownChartService extends
     }
 
     Long developmentCostField = this.configurationService.getLong("redmine.custom-fields.development-cost");
-    SumPointsOperator sumPointsOperator = new SumPointsOperator(developmentCostField);
 
     BurndownChart ideal = new BurndownChart();
     ideal.setIteration(this.indicatorsEntityMapper.iterationEntityToIteration(iterationEntityOptional.get()));

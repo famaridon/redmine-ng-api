@@ -24,9 +24,7 @@ public class JPAIterationRepository extends AbstractJPARepository<IterationEntit
       burndownChartEntity.setIteration(saved);
       this.em.merge(burndownChartEntity);
     }
-
     return saved;
-
   }
 
 
