@@ -45,7 +45,7 @@ public class BurndownChartScheduler {
   @Schedule(hour = "*")
   @Transactional(TxType.REQUIRED)
   private void scheduled() {
-    Long developmentCostField = this.configurationService.getLong("redmine.projects.process.custom-fields.development-cost");
+    Long developmentCostField = this.configurationService.getLong("redmine.custom-fields.development-cost");
     SumPointsOperator sumPointsOperator = new SumPointsOperator(developmentCostField);
     SumPointsWithProgressOperator sumPointsWithProgressOperator = new SumPointsWithProgressOperator(developmentCostField);
 

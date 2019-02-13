@@ -7,6 +7,9 @@
       "iteration": 35,
       "development-cost": 28
     },
+    "status":{
+      "ongoing": 2
+    },
     "projects": {
       "process": {
         "project": 378,

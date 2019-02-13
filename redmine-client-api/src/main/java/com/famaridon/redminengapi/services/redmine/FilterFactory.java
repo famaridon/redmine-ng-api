@@ -19,5 +19,5 @@ public interface FilterFactory
   Filter createTrackerFilter(List<Long> trackersId) ;
   Filter createCustomFieldFilter(Long fieldId, Long value);
   Filter createCustomFieldFilter(Long fieldId, String value);
-
+  Filter createCategoryFilter(Long categoryId);
 }

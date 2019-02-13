@@ -4,13 +4,18 @@
     "server": {
       "url": "https://projects.visiativ.com"
     },
+
+    "custom-fields": {
+      "iteration": 35,
+      "development-cost": 28
+    },
+    "status":{
+      "ongoing": 2
+    },
     "projects": {
       "process": {
         "project": 378,
-        "custom-fields": {
-          "iteration": 35,
-          "development-cost": 28
-        },
+
         "burndown": {
           "valid-trackers": [36, 37]
         }

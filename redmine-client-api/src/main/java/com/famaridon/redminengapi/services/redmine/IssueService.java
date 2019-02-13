@@ -17,4 +17,6 @@ public interface IssueService {
 	Page<Issue> findAllByFilters(String apiKey, List<Filter> filters, Pager pager) throws IOException;
 
 	Long findCount(String apiKey, Long query, Long project) throws IOException;
+	
+	Long findCountByFilters(String apiKey, List<Filter> filters) throws IOException;
 }

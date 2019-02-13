@@ -146,5 +146,12 @@ public class FilterFactoryUTest {
     f.serialize(uriBuilder);
     verify(uriBuilder).addParameter("cf_1", "azertyuiop");
   }
+  
+  @Test
+  public void createCategoryFilter(){
+    Filter f = this.filterFactory.createCategoryFilter(1223L);
+    f.serialize(uriBuilder);
+    verify(uriBuilder).addParameter("category_id", "1223");
+  }
 
 }

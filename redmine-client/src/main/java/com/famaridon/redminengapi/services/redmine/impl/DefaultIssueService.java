@@ -80,4 +80,11 @@ public class DefaultIssueService extends AbstractRedmineService<Issue> implement
   protected Class<Issue> getBeanType() {
     return Issue.class;
   }
+  
+  @Override
+  public Long findCountByFilters(String apiKey, List<Filter> filters) throws IOException
+  {
+    Page<Issue> p = findAllByFilters(apiKey, filters, new Pager());
+    return p.getTotalCount();
+  }
 }
