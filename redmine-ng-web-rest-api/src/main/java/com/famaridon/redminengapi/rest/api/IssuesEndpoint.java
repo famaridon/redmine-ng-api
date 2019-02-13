@@ -42,4 +42,9 @@ public interface IssuesEndpoint {
   SimpleIndicatorDto findCountByQueryAndProject(@HeaderParam(SecurityHeaders.X_REDMINE_API_KEY) String apiKey,
       @PathParam("query") Long query,
       @PathParam("project") Long project) throws IOException;
+  
+	@GET
+	@Path("/category/{category}/current/count")
+	public SimpleIndicatorDto findCurrentOpenCountByCategory(@HeaderParam(SecurityHeaders.X_REDMINE_API_KEY) String apiKey,
+		@PathParam("category") Long category) throws IOException;
 }

@@ -60,5 +60,10 @@ public class DefaultFilterFactory implements FilterFactory {
   public Filter createCustomFieldFilter(Long fieldId, String value) {
     return new StringFilter("cf_" + fieldId, value);
   }
-
+  
+  @Override
+  public Filter createCategoryFilter(Long categoryId) {
+    return new LongFilter("category_id", categoryId);
+  }
+  
 }

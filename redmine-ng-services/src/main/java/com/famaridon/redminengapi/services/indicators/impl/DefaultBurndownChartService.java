@@ -83,7 +83,7 @@ public class DefaultBurndownChartService extends
       throw new ObjectNotFoundException("No iteration found for id " + iterationId);
     }
 
-    Long developmentCostField = this.configurationService.getLong("redmine.projects.process.custom-fields.development-cost");
+    Long developmentCostField = this.configurationService.getLong("redmine.custom-fields.development-cost");
     SumPointsOperator sumPointsOperator = new SumPointsOperator(developmentCostField);
 
     BurndownChart ideal = new BurndownChart();
