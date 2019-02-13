@@ -1,5 +1,6 @@
 package com.famaridon.redminengapi.domain.entities;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,6 +20,8 @@ public class IterationEntity extends AbstractEntity {
   protected LocalDate end;
   @Column(unique = true, nullable = false)
   protected Long number;
+  @Column(nullable = false)
+  protected BigDecimal plannedDevelopmentCost = BigDecimal.ZERO;
 
   public LocalDate getStart() {
     return start;
@@ -44,6 +47,14 @@ public class IterationEntity extends AbstractEntity {
     this.number = number;
   }
 
+  public BigDecimal getPlannedDevelopmentCost() {
+    return plannedDevelopmentCost;
+  }
+
+  public void setPlannedDevelopmentCost(BigDecimal plannedDevelopmentCost) {
+    this.plannedDevelopmentCost = plannedDevelopmentCost;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -61,6 +72,7 @@ public class IterationEntity extends AbstractEntity {
         .append(start, that.start)
         .append(end, that.end)
         .append(number, that.number)
+        .append(plannedDevelopmentCost, that.plannedDevelopmentCost)
         .isEquals();
   }
 
@@ -71,6 +83,7 @@ public class IterationEntity extends AbstractEntity {
         .append(start)
         .append(end)
         .append(number)
+        .append(plannedDevelopmentCost)
         .toHashCode();
   }
 
@@ -82,6 +95,7 @@ public class IterationEntity extends AbstractEntity {
         .append("number", number)
         .append("id", id)
         .append("name", name)
+        .append("plannedDevelopmentCost", plannedDevelopmentCost)
         .toString();
   }
 }

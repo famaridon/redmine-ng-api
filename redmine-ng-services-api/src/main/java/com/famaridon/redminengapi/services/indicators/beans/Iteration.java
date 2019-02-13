@@ -1,5 +1,6 @@
 package com.famaridon.redminengapi.services.indicators.beans;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -9,6 +10,7 @@ public class Iteration extends AbstractBean {
   private LocalDate start;
   private LocalDate end;
   private Long number;
+  private BigDecimal plannedDevelopmentCost;
 
   public LocalDate getStart() {
     return start;
@@ -34,6 +36,14 @@ public class Iteration extends AbstractBean {
     this.number = number;
   }
 
+  public BigDecimal getPlannedDevelopmentCost() {
+    return plannedDevelopmentCost;
+  }
+
+  public void setPlannedDevelopmentCost(BigDecimal plannedDevelopmentCost) {
+    this.plannedDevelopmentCost = plannedDevelopmentCost;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -51,6 +61,7 @@ public class Iteration extends AbstractBean {
         .append(start, iteration.start)
         .append(end, iteration.end)
         .append(number, iteration.number)
+        .append(plannedDevelopmentCost, iteration.plannedDevelopmentCost)
         .isEquals();
   }
 
@@ -61,6 +72,7 @@ public class Iteration extends AbstractBean {
         .append(start)
         .append(end)
         .append(number)
+        .append(plannedDevelopmentCost)
         .toHashCode();
   }
 }
