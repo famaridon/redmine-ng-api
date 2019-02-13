@@ -102,7 +102,7 @@ public class DefaultBurndownChartService extends
       }
     }
 
-    BigDecimal startPoint = this.agregateIssues(iterationEntityOptional.get(), StatusType.ALL, sumPointsOperator, BigDecimal.ZERO);
+    BigDecimal startPoint = iterationEntityOptional.get().getPlannedDevelopmentCost();
     // we must have a = (Yb-Ya) / (Xb - Xa)
     BigDecimal a = startPoint.subtract(BigDecimal.ZERO).divide(iterationWorkindays.subtract(BigDecimal.ZERO), MathContext.DECIMAL32)
         .multiply(BigDecimal.valueOf(-1));
