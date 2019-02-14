@@ -4,6 +4,7 @@
 
 cd docker
 docker-compose -f docker-compose-test.yml pull
+docker-compose -f docker-compose-test.yml rm -f
 docker-compose -f docker-compose-test.yml up --detach --force-recreate
 
 cd ..
