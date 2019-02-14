@@ -18,8 +18,11 @@ services:
       - 8443:8443
       - 9990:9990
       - 5000:5000
+      - 8860:8860
     environment:
       REDMINE_NG_API_PROFILE: "dev"
+      JPROFILER: "true"
+      JACOCOC: "true"
     volumes:
       - ./api/configuration:/opt/wildfly/configuration
       - ./api/staging:/opt/wildfly/staging

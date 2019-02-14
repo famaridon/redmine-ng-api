@@ -7,6 +7,8 @@ ENV WILDFLY_SHA1 23d6a5889b76702fc518600fc5b2d80d6b3b7bb1
 ENV JBOSS_HOME /opt/wildfly
 ENV RUN_CONF $JBOSS_HOME/standalone-custom.conf
 ENV DOCKER_COMPOSE_WAIT_VERSION 2.4.0
+ENV JPROFILER false
+ENV JPROFILER_PORT 8860
 ENV JACOCO false
 ENV JACOCO_PORT 6300
 ENV JACOCO_VERSION 0.8.3
@@ -46,13 +48,16 @@ COPY scripts $JBOSS_HOME/
 # configure
 RUN ${JBOSS_HOME}/bin/add-user.sh sysadmin manager \
     && ${JBOSS_HOME}/install-jdbc-drivers.sh \
-    && ${JBOSS_HOME}/install-jacoco.sh
+    && ${JBOSS_HOME}/install-jacoco.sh \
+    && ${JBOSS_HOME}/install-jprofiler.sh
 
 # Expose the ports we're interested in
 EXPOSE 8080
 EXPOSE 9990
 EXPOSE 9999
 EXPOSE 5000
+EXPOSE $JPROFILER_PORT
+EXPOSE $JACOCO_PORT
 
 VOLUME $JBOSS_HOME/configuration/
 
