@@ -66,14 +66,13 @@ public class IterationEntity extends AbstractEntity {
     }
 
     IterationEntity that = (IterationEntity) o;
-
+    boolean plannedPoints = plannedDevelopmentCost.compareTo(that.plannedDevelopmentCost) == 0;
     return new EqualsBuilder()
         .appendSuper(super.equals(o))
         .append(start, that.start)
         .append(end, that.end)
         .append(number, that.number)
-        .append(plannedDevelopmentCost, that.plannedDevelopmentCost)
-        .isEquals();
+        .isEquals() && plannedPoints;
   }
 
   @Override
