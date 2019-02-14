@@ -3,6 +3,8 @@ package com.famaridon.redminengapi.domain.repositories;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import com.famaridon.redminengapi.domain.entities.BurndownChartEntity;
+import com.famaridon.redminengapi.domain.entities.ChartTimedValueEntity;
 import com.famaridon.redminengapi.domain.entities.IterationEntity;
 import com.famaridon.redminengapi.domain.repositories.impl.JPAIterationRepository;
 import java.time.LocalDate;
@@ -28,7 +30,9 @@ public class IterationRepositoryITest extends AbstractJPARepositoryITest<Iterati
 
   @Deployment
   public static Archive<?> createDeployment() {
-    return prepare(IterationRepository.class, JPAIterationRepository.class, IterationEntity.class);
+    return prepare(IterationRepository.class, JPAIterationRepository.class, IterationEntity.class)
+        .addClass(BurndownChartEntity.class)
+        .addClass(ChartTimedValueEntity.class);
   }
 
   @Override

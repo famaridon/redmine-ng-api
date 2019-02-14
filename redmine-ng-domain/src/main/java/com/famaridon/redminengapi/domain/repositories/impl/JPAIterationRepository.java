@@ -1,6 +1,5 @@
 package com.famaridon.redminengapi.domain.repositories.impl;
 
-import com.famaridon.redminengapi.domain.entities.BurndownChartEntity;
 import com.famaridon.redminengapi.domain.entities.IterationEntity;
 import com.famaridon.redminengapi.domain.repositories.IterationRepository;
 import java.time.LocalDate;
@@ -11,22 +10,6 @@ import javax.persistence.TypedQuery;
 @Stateful
 public class JPAIterationRepository extends AbstractJPARepository<IterationEntity> implements
     IterationRepository {
-
-  @Override
-  public IterationEntity save(IterationEntity entity) {
-    boolean isCreation = false;
-    if (entity.getId() == null) {
-      isCreation = true;
-    }
-    IterationEntity saved = super.save(entity);
-    if (isCreation) {
-      BurndownChartEntity burndownChartEntity = new BurndownChartEntity();
-      burndownChartEntity.setIteration(saved);
-      this.em.merge(burndownChartEntity);
-    }
-    return saved;
-  }
-
 
   @Override
   public Optional<IterationEntity> findCurrentIteration() {
