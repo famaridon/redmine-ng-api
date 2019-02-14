@@ -54,7 +54,8 @@ public class IssueServiceITest extends AbstractServiceITest {
     Long count = this.issueService.findCount(this.apiKey, 1762L, 1032L);
   }
   
-  @Test void findCountByFilters() throws IOException{
+  @Test
+  public void findCountByFilters() throws IOException{
     List<Filter> filters = new ArrayList<>();
     filters.add(filterFactory.createProjectFilter(372L));
     Long count = this.issueService.findCountByFilters(this.apiKey, filters);
