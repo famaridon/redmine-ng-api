@@ -26,6 +26,11 @@ script:
 
 notifications:
   email:
+    recipients:
+      - famaridon@visiativ.com
+      - omassol@visiativ.com
+      - arthur.pelofi@visiativ.com
+      - fpicot@visiativ.com
     on_failure: always
     on_success: change
 
