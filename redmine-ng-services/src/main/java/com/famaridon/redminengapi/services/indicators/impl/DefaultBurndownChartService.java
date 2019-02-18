@@ -88,7 +88,7 @@ public class DefaultBurndownChartService extends
     ideal.setName("Ideal iteration " + iterationEntityOptional.get().getId());
 
     LocalDate startDate = iterationEntityOptional.get().getStart();
-    LocalDate endDate = iterationEntityOptional.get().getEnd();
+    LocalDate endDate = iterationEntityOptional.get().getEnd().plus(1, ChronoUnit.DAYS);
     long iterationDays = startDate.until(endDate, ChronoUnit.DAYS);
     BigDecimal iterationWorkindays = BigDecimal.ZERO;
     for (int i = 0; i < iterationDays; i++) {
@@ -107,7 +107,7 @@ public class DefaultBurndownChartService extends
       LocalDate loopDate = startDate.plus(i, ChronoUnit.DAYS);
       ChartTimedValue point = new ChartTimedValue();
       point.setDate(loopDate.atStartOfDay());
-      if (i != 0 && !this.isWorkingDayOfWeek(loopDate.getDayOfWeek())) {
+      if (i != 0 && !this.isNonProgressDayOfWeek(loopDate.getDayOfWeek())) {
         point.setValue(ideal.getValues().get(ideal.getValues().size() - 1).getValue());
       } else {
         point.setValue(a.multiply(x).add(startPoint));
@@ -117,6 +117,10 @@ public class DefaultBurndownChartService extends
     }
 
     return ideal;
+  }
+
+  private boolean isNonProgressDayOfWeek(DayOfWeek dayOfWeek) {
+    return !(dayOfWeek == DayOfWeek.SUNDAY || dayOfWeek == DayOfWeek.MONDAY);
   }
 
   private boolean isWorkingDayOfWeek(DayOfWeek dayOfWeek) {
