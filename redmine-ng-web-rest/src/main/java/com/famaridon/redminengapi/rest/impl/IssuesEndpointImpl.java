@@ -71,7 +71,7 @@ public class IssuesEndpointImpl extends AbstractRedmineEndpoint implements Issue
   }
 
 	@Override
-	public SimpleIndicatorDto findCurrentOpenCountByCategory(String apiKey, Long categoryId) throws IOException
+	public SimpleIndicatorDto findCurrentOpenCountByCategory(String apiKey, Long categoryId, Long iteration) throws IOException
 	{
 		SimpleIndicatorDto simpleIndicatorDto = new SimpleIndicatorDto();
 		List<Filter> filters = new ArrayList<Filter>();
@@ -88,11 +88,9 @@ public class IssuesEndpointImpl extends AbstractRedmineEndpoint implements Issue
 		filters.add(statusFilter);
 		
 		Long iterationField = configurationService.getLong("redmine.custom-fields.iteration");
-		Optional<Iteration> iteration = iterationService.findCurrent();
-		if(iteration.isPresent() && iteration.get().getId() !=null){
-			Filter iterationFilter = filterFactory.createCustomFieldFilter(iterationField,iteration.get().getNumber());
-			filters.add(iterationFilter);
-		}
+		Filter iterationFilter = filterFactory.createCustomFieldFilter(iterationField,iteration);
+		filters.add(iterationFilter);
+		
 		simpleIndicatorDto.setName("Count for project : " + projectId + " and iteration : " + iteration + " and category : " + categoryId);
 		simpleIndicatorDto.setValue(this.issueService.findCountByFilters(apiKey,filters));
 		return simpleIndicatorDto;

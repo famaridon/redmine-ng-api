@@ -44,7 +44,8 @@ public interface IssuesEndpoint {
       @PathParam("project") Long project) throws IOException;
   
 	@GET
-	@Path("/category/{category}/current/count")
+	@Path("/category/{category}/iteration/{iteration}/count")
 	public SimpleIndicatorDto findCurrentOpenCountByCategory(@HeaderParam(SecurityHeaders.X_REDMINE_API_KEY) String apiKey,
-		@PathParam("category") Long category) throws IOException;
+		@PathParam("category") Long category,
+		@PathParam("iteration") Long iteration) throws IOException;
 }
