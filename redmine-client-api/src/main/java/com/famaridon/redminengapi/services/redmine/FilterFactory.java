@@ -13,6 +13,7 @@ public interface FilterFactory
   Filter createQueryFilter(Query query);
   Filter createQueryFilter(Long queryId);
   Filter createStatusFilter(Status status);
+  Filter createStatusFilter(List<Long> statusIds);
   Filter createStatusFilter(Long statusId);
   Filter createStatusFilter(StatusType statusType);
   Filter createTrackerFilter(Long trackerId);

@@ -36,7 +36,12 @@ public class DefaultFilterFactory implements FilterFactory {
   public Filter createStatusFilter(Status status) {
     return this.createStatusFilter(status.getId());
   }
-
+  
+  @Override
+  public Filter createStatusFilter(List<Long> statusIds) {
+    return new StringFilter("status_id", statusIds.stream().map(Object::toString).collect(Collectors.joining("|")));
+  }
+  
   public Filter createStatusFilter(Long statusId) {
     return new LongFilter("status_id", statusId);
   }

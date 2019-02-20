@@ -83,8 +83,10 @@ public class IssuesEndpointImpl extends AbstractRedmineEndpoint implements Issue
 		Filter categoryFilter = filterFactory.createCategoryFilter(categoryId);
 		filters.add(categoryFilter);
 		
-		Long ongoingStatusId = configurationService.getLong("redmine.status.ongoing");
-		Filter statusFilter = filterFactory.createStatusFilter(ongoingStatusId);
+		List<Long> statusIds = new ArrayList<>();
+		statusIds.add(configurationService.getLong("redmine.status.ongoing"));
+		statusIds.add(configurationService.getLong("redmine.status.reopen"));
+		Filter statusFilter = filterFactory.createStatusFilter(statusIds);
 		filters.add(statusFilter);
 		
 		Long iterationField = configurationService.getLong("redmine.custom-fields.iteration");

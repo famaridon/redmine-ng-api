@@ -83,6 +83,16 @@ public class FilterFactoryUTest {
     f.serialize(uriBuilder);
     verify(uriBuilder).addParameter("status_id", "10");
   }
+  
+  @Test
+  public void createStatusFilterWithLongArray() {
+    List<Long> statusIds = new ArrayList<>();
+    statusIds.add(2l);
+    statusIds.add(9l);
+    Filter f = this.filterFactory.createStatusFilter(statusIds);
+    f.serialize(uriBuilder);
+    verify(uriBuilder).addParameter("status_id", "2|9");
+  }
 
   @Test
   public void createStatusFilterWithStatus() {

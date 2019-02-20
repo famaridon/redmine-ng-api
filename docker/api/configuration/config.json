@@ -8,7 +8,8 @@
       "development-cost": 28
     },
     "status":{
-      "ongoing": 2
+      "ongoing": 2,
+      "reopen": 9
     },
     "projects": {
       "process": {
