@@ -34,6 +34,7 @@
         <commons-csv.version>1.6</commons-csv.version>
         <org.mapstruct.version>1.2.0.Final</org.mapstruct.version>
         <slf4j-api.version>1.7.25</slf4j-api.version>
+        <aspose-words.version>19.1</aspose-words.version>
 
         <!-- test version -->
         <junit.version>4.12</junit.version>
@@ -191,6 +192,12 @@
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
                 <version>${slf4j-api.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.aspose</groupId>
+                <artifactId>aspose-words</artifactId>
+                <version>${aspose-words.version}</version>
+                <classifier>jdk16</classifier>
             </dependency>
 
             <!-- test dependencies -->

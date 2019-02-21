@@ -61,4 +61,9 @@ public class DefaultFilterFactory implements FilterFactory {
     return new StringFilter("cf_" + fieldId, value);
   }
 
+  @Override
+  public Filter createVersionFilter(Long versionId) {
+    return new LongFilter("fixed_version_id" , versionId);
+  }
+
 }

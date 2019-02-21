@@ -146,5 +146,11 @@ public class FilterFactoryUTest {
     f.serialize(uriBuilder);
     verify(uriBuilder).addParameter("cf_1", "azertyuiop");
   }
+  @Test
+  public void createVersionFilterWithLong() {
+    Filter f = this.filterFactory.createCustomFieldFilter(1L, "azertyuiop");
+    f.serialize(uriBuilder);
+    verify(uriBuilder).addParameter("cf_1", "azertyuiop");
+  }
 
 }
