@@ -45,9 +45,9 @@ update_mvn() {
   wget http://apache.mirror.gtcomm.net/maven/maven-3/$version/binaries/apache-maven-$version-bin.tar.gz
   sudo mkdir /usr/local/maven-$version
   sudo tar xzvf apache-maven-$version-bin.tar.gz
-  export PATH=/usr/local/maven-$version/bin:$PATH
+  sudo mv maven-$version/* /usr/local/maven-$version/
+  ls -l /usr/local/maven-$version
   which mvn
-  update-alternatives --list mvn
   mvn -v
  }
 
