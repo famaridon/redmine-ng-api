@@ -24,8 +24,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * TODO : this is a draft class to start collecting data.
- * this class is moovapps process team specific
+ * TODO : this is a draft class to start collecting data. this class is moovapps process team specific
  */
 @Singleton
 public class BurndownChartScheduler {
@@ -42,15 +41,11 @@ public class BurndownChartScheduler {
   private IterationRepository iterationRepository;
 
 
-
-  public BurndownChartScheduler() {
-  }
-
   @Lock(LockType.WRITE)
   @Schedule(hour = "*")
   @Transactional(TxType.REQUIRED)
   private void scheduled() {
-    Long developmentCostField = this.configurationService.getLong("redmine.projects.process.custom-fields.development-cost");
+    Long developmentCostField = this.configurationService.getLong("redmine.custom-fields.development-cost");
     SumPointsOperator sumPointsOperator = new SumPointsOperator(developmentCostField);
     SumPointsWithProgressOperator sumPointsWithProgressOperator = new SumPointsWithProgressOperator(developmentCostField);
 
@@ -68,14 +63,13 @@ public class BurndownChartScheduler {
       if (burndownChartEntityOptional.isPresent()) {
         burndownChartEntity = burndownChartEntityOptional.get();
       } else {
-        // TODO : create BurndownChartEntity
         burndownChartEntity = new BurndownChartEntity();
         burndownChartEntity.setIteration(iterationEntityOptional.get());
 
         ChartTimedValueEntity firtsPoint = new ChartTimedValueEntity();
         firtsPoint.setDate(iterationEntityOptional.get().getStart().atStartOfDay());
         firtsPoint.setValue(this.internalBurndownChartService.agregateIssues(iterationEntityOptional.get(), StatusType.ALL,
-                sumPointsOperator, BigDecimal.ZERO));
+            sumPointsOperator, BigDecimal.ZERO));
         burndownChartEntity.getValues().add(firtsPoint);
       }
 

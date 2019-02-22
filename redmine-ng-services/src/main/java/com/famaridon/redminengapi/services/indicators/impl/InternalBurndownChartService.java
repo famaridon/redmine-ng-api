@@ -7,6 +7,7 @@ import com.famaridon.redminengapi.services.redmine.StatusType;
 import java.io.IOException;
 
 public interface InternalBurndownChartService extends BurndownChartService {
-  public <T> T agregateIssues(IterationEntity iterationEntity, StatusType statusType, IssueOperator<T> issueOperator, T initial)
+
+  <T> T agregateIssues(IterationEntity iterationEntity, StatusType statusType, IssueOperator<T> issueOperator, T initial)
       throws IOException;
 }

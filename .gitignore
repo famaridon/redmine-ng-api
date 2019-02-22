@@ -28,7 +28,7 @@ buildNumber.properties
 # exclude sample configuration
 test-configuration.sh
 
-docker/api/deployments/*.war
+docker/api/deployments/
 docker/api/staging/*.war
 docker/api/configuration/config-*.json
 docker/database/data/

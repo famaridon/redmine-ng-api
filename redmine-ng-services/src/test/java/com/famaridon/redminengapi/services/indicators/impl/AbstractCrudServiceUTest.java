@@ -20,6 +20,7 @@ public abstract class AbstractCrudServiceUTest<S extends CrudService<B>, B exten
 
 
   protected abstract S getService();
+
   protected abstract R getRepository();
 
   @Test
@@ -51,13 +52,13 @@ public abstract class AbstractCrudServiceUTest<S extends CrudService<B>, B exten
 
   @Test
   public void findAll() {
-    Pager page = new Pager(0L,25L);
+    Pager page = new Pager(0L, 25L);
     this.getService().findAll(page);
     verify(this.getRepository()).findAll(0L, 25L);
   }
 
   @Test
-  public void  update() throws ObjectNotFoundException {
+  public void update() throws ObjectNotFoundException {
     B bean = this.buildBean();
     bean.setId(0L);
     bean.setName("update");
@@ -69,7 +70,7 @@ public abstract class AbstractCrudServiceUTest<S extends CrudService<B>, B exten
   }
 
   @Test
-  public void  updateNotFound(){
+  public void updateNotFound() {
     B bean = this.buildBean();
     bean.setId(0L);
     bean.setName("update");
@@ -84,7 +85,7 @@ public abstract class AbstractCrudServiceUTest<S extends CrudService<B>, B exten
   }
 
   @Test
-  public void  deleteById() throws ObjectNotFoundException {
+  public void deleteById() throws ObjectNotFoundException {
     when(getRepository().findById(0L)).thenReturn(Optional.of(this.buildEntity()));
     this.getService().deleteById(0L);
     verify(this.getRepository()).delete(any());
@@ -116,9 +117,10 @@ public abstract class AbstractCrudServiceUTest<S extends CrudService<B>, B exten
   }
 
   protected abstract E buildEntity();
+
   protected abstract B buildBean();
 
 
-  protected abstract void validate(E entity, B bean) ;
+  protected abstract void validate(E entity, B bean);
 
 }

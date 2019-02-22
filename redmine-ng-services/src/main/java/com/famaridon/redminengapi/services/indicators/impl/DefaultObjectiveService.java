@@ -6,17 +6,14 @@ import com.famaridon.redminengapi.domain.repositories.IterationRepository;
 import com.famaridon.redminengapi.domain.repositories.ObjectiveRepository;
 import com.famaridon.redminengapi.services.exceptions.ObjectNotFoundException;
 import com.famaridon.redminengapi.services.indicators.ObjectiveService;
-import com.famaridon.redminengapi.services.indicators.beans.Iteration;
 import com.famaridon.redminengapi.services.indicators.beans.Objective;
 import com.famaridon.redminengapi.services.indicators.mapper.IndicatorsEntityMapper;
 import com.famaridon.redminengapi.services.indicators.mapper.IndicatorsEntityMapperImpl;
 import com.famaridon.redminengapi.services.redmine.Pager;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Page;
-
 import java.util.Optional;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import java.util.List;
 
 @Stateless
 public class DefaultObjectiveService extends

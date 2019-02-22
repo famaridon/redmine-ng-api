@@ -3,18 +3,14 @@ package com.famaridon.redminengapi.domain.entities;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 @Entity
-@AttributeOverrides({
-    @AttributeOverride(name = "name", column = @Column(unique = false, nullable = true))
-})
+@AttributeOverride(name = "name", column = @Column(unique = false, nullable = true))
 public class ChartTimedValueEntity extends AbstractEntity {
 
   @Column(nullable = false)

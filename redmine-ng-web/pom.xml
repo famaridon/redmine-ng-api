@@ -5,7 +5,7 @@
 	<parent>
 		<artifactId>redmine-ng-api</artifactId>
 		<groupId>com.famaridon</groupId>
-		<version>0.0.2</version>
+		<version>0.0.3</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 
@@ -13,6 +13,22 @@
 	<packaging>war</packaging>
 
 	<dependencies>
+		<dependency>
+			<groupId>com.famaridon</groupId>
+			<artifactId>redmine-ng-cache</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.famaridon</groupId>
+			<artifactId>redmine-ng-domain</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.famaridon</groupId>
+			<artifactId>redmine-client</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.famaridon</groupId>
+			<artifactId>redmine-ng-services</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>com.famaridon</groupId>
 			<artifactId>redmine-ng-web-rest</artifactId>

@@ -10,7 +10,6 @@ import com.famaridon.redminengapi.services.indicators.BurndownChartService;
 import com.famaridon.redminengapi.services.indicators.beans.BurndownChart;
 import com.famaridon.redminengapi.services.indicators.beans.ChartTimedValue;
 import com.famaridon.redminengapi.services.indicators.impl.issue.IssueOperator;
-import com.famaridon.redminengapi.services.indicators.impl.issue.SumPointsOperator;
 import com.famaridon.redminengapi.services.indicators.mapper.IndicatorsEntityMapper;
 import com.famaridon.redminengapi.services.indicators.mapper.IndicatorsEntityMapperImpl;
 import com.famaridon.redminengapi.services.redmine.Filter;
@@ -49,15 +48,13 @@ public class DefaultBurndownChartService extends
   private IterationRepository iterationRepository;
   @Inject
   private IssueService issueService;
-
+  @Inject
   private FilterFactory filterFactory;
 
   public DefaultBurndownChartService() {
-    this.filterFactory = new FilterFactory();
   }
 
   public DefaultBurndownChartService(BurndownChartRepository burndownChartRepository) {
-    this();
     this.burndownChartRepository = burndownChartRepository;
     this.indicatorsEntityMapper = new IndicatorsEntityMapperImpl();
   }
@@ -85,35 +82,33 @@ public class DefaultBurndownChartService extends
       throw new ObjectNotFoundException("No iteration found for id " + iterationId);
     }
 
-    Long developmentCostField = this.configurationService.getLong("redmine.projects.process.custom-fields.development-cost");
-    SumPointsOperator sumPointsOperator = new SumPointsOperator(developmentCostField);
-
     BurndownChart ideal = new BurndownChart();
     ideal.setIteration(this.indicatorsEntityMapper.iterationEntityToIteration(iterationEntityOptional.get()));
     ideal.setId(-1L);
     ideal.setName("Ideal iteration " + iterationEntityOptional.get().getId());
 
     LocalDate startDate = iterationEntityOptional.get().getStart();
-    LocalDate endDate = iterationEntityOptional.get().getEnd();
+    LocalDate endDate = iterationEntityOptional.get().getEnd().plus(1, ChronoUnit.DAYS);
     long iterationDays = startDate.until(endDate, ChronoUnit.DAYS);
     BigDecimal iterationWorkindays = BigDecimal.ZERO;
-    for(int i=0; i < iterationDays; i++){
+    for (int i = 0; i < iterationDays; i++) {
       LocalDate loopDate = startDate.plus(i, ChronoUnit.DAYS);
-      if(this.isWorkingDayOfWeek(loopDate.getDayOfWeek())){
+      if (this.isWorkingDayOfWeek(loopDate.getDayOfWeek())) {
         iterationWorkindays = iterationWorkindays.add(BigDecimal.ONE);
       }
     }
 
-    BigDecimal startPoint = this.agregateIssues(iterationEntityOptional.get(),StatusType.ALL,sumPointsOperator, BigDecimal.ZERO);
+    BigDecimal startPoint = iterationEntityOptional.get().getPlannedDevelopmentCost();
     // we must have a = (Yb-Ya) / (Xb - Xa)
-    BigDecimal a = startPoint.subtract(BigDecimal.ZERO).divide(iterationWorkindays.subtract(BigDecimal.ZERO), MathContext.DECIMAL32).multiply(BigDecimal.valueOf(-1)) ;
+    BigDecimal a = startPoint.subtract(BigDecimal.ZERO).divide(iterationWorkindays.subtract(BigDecimal.ZERO), MathContext.DECIMAL32)
+        .multiply(BigDecimal.valueOf(-1));
     BigDecimal x = BigDecimal.ZERO;
-    for(int i=0; i <= iterationDays; i++){
+    for (int i = 0; i <= iterationDays; i++) {
       LocalDate loopDate = startDate.plus(i, ChronoUnit.DAYS);
       ChartTimedValue point = new ChartTimedValue();
       point.setDate(loopDate.atStartOfDay());
-      if(i != 0 && !this.isWorkingDayOfWeek(loopDate.getDayOfWeek())){
-        point.setValue(ideal.getValues().get(ideal.getValues().size()-1).getValue());
+      if (i != 0 && !this.isNonProgressDayOfWeek(loopDate.getDayOfWeek())) {
+        point.setValue(ideal.getValues().get(ideal.getValues().size() - 1).getValue());
       } else {
         point.setValue(a.multiply(x).add(startPoint));
         x = x.add(BigDecimal.ONE);
@@ -122,6 +117,10 @@ public class DefaultBurndownChartService extends
     }
 
     return ideal;
+  }
+
+  private boolean isNonProgressDayOfWeek(DayOfWeek dayOfWeek) {
+    return !(dayOfWeek == DayOfWeek.SUNDAY || dayOfWeek == DayOfWeek.MONDAY);
   }
 
   private boolean isWorkingDayOfWeek(DayOfWeek dayOfWeek) {

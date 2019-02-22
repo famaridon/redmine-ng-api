@@ -1,19 +1,15 @@
 package com.famaridon.redminengapi.domain.entities;
 
+import javax.persistence.Entity;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.hibernate.validator.constraints.Length;
 
-import javax.persistence.Entity;
-import javax.persistence.Lob;
 
-@NamedQueries({
-    @NamedQuery(name = "ObjectiveEntity.findAllByIteration", query = "select o from ObjectiveEntity o where o.iteration = :iteration")})
-
+@NamedQuery(name = "ObjectiveEntity.findAllByIteration", query = "select o from ObjectiveEntity o where o.iteration = :iteration")
 @Entity
 public class ObjectiveEntity extends AbstractEntity {
 

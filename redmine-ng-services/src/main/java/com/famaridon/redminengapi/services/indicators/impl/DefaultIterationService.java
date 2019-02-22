@@ -1,20 +1,15 @@
 package com.famaridon.redminengapi.services.indicators.impl;
 
 import com.famaridon.redminengapi.domain.entities.IterationEntity;
-import com.famaridon.redminengapi.domain.entities.ObjectiveEntity;
+import com.famaridon.redminengapi.domain.repositories.BurndownChartRepository;
 import com.famaridon.redminengapi.domain.repositories.IterationRepository;
-import com.famaridon.redminengapi.domain.repositories.ObjectiveRepository;
 import com.famaridon.redminengapi.services.indicators.IterationService;
 import com.famaridon.redminengapi.services.indicators.beans.Iteration;
-import com.famaridon.redminengapi.services.indicators.beans.Objective;
 import com.famaridon.redminengapi.services.indicators.mapper.IndicatorsEntityMapper;
-
 import com.famaridon.redminengapi.services.indicators.mapper.IndicatorsEntityMapperImpl;
+import java.util.Optional;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.ws.rs.NotFoundException;
-import java.util.List;
-import java.util.Optional;
 
 @Stateless
 public class DefaultIterationService extends
@@ -22,9 +17,11 @@ public class DefaultIterationService extends
     IterationService {
 
   @Inject
-  private IndicatorsEntityMapper indicatorsEntityMapper;
-  @Inject
   protected IterationRepository iterationRepository;
+  @Inject
+  protected BurndownChartRepository burndownChartRepository;
+  @Inject
+  private IndicatorsEntityMapper indicatorsEntityMapper;
 
   public DefaultIterationService() {
   }

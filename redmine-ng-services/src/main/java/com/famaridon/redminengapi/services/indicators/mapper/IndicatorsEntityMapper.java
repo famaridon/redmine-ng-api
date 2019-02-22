@@ -12,24 +12,31 @@ import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValueCheckStrategy;
 
-import java.util.List;
-
-@Mapper( nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
+@Mapper(nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
 public interface IndicatorsEntityMapper {
 
-	public Objective objectiveEntityToObjective(ObjectiveEntity objectiveEntity);
-	public ObjectiveEntity objectiveToObjectiveEntity(Objective objective);
-	public void updateObjectiveEntityFromObjective(Objective objective, @MappingTarget ObjectiveEntity objectiveEntity);
+  Objective objectiveEntityToObjective(ObjectiveEntity objectiveEntity);
 
-	public Iteration iterationEntityToIteration(IterationEntity entity);
-	public IterationEntity iterationToIterationEntity(Iteration iteration);
-	public void updateIterationEntityFromIteration(Iteration iteration, @MappingTarget IterationEntity iterationEntity);
+  ObjectiveEntity objectiveToObjectiveEntity(Objective objective);
 
-	public BurndownChart burndownChartEntityToBurndownChart(BurndownChartEntity burndownChartEntity);
-	public BurndownChartEntity burndownChartToBurndownChartEntity(BurndownChart burndownChart);
-	public void updateBurndownChartEntityFromBurndownChart(BurndownChart burndownChart, @MappingTarget BurndownChartEntity burndownChartEntity);
+  void updateObjectiveEntityFromObjective(Objective objective, @MappingTarget ObjectiveEntity objectiveEntity);
 
-	public ChartTimedValue chartTimedValueEntityToChartTimedValue(ChartTimedValueEntity chartTimedValueEntity);
-	public ChartTimedValueEntity chartTimedValueToChartTimedValueEntity(ChartTimedValue chartTimedValue);
-	public void updateChartTimedValueEntityFromChartTimedValue(ChartTimedValue chartTimedValue, @MappingTarget ChartTimedValueEntity chartTimedValueEntity);
+  Iteration iterationEntityToIteration(IterationEntity entity);
+
+  IterationEntity iterationToIterationEntity(Iteration iteration);
+
+  void updateIterationEntityFromIteration(Iteration iteration, @MappingTarget IterationEntity iterationEntity);
+
+  BurndownChart burndownChartEntityToBurndownChart(BurndownChartEntity burndownChartEntity);
+
+  BurndownChartEntity burndownChartToBurndownChartEntity(BurndownChart burndownChart);
+
+  void updateBurndownChartEntityFromBurndownChart(BurndownChart burndownChart, @MappingTarget BurndownChartEntity burndownChartEntity);
+
+  ChartTimedValue chartTimedValueEntityToChartTimedValue(ChartTimedValueEntity chartTimedValueEntity);
+
+  ChartTimedValueEntity chartTimedValueToChartTimedValueEntity(ChartTimedValue chartTimedValue);
+
+  void updateChartTimedValueEntityFromChartTimedValue(ChartTimedValue chartTimedValue,
+      @MappingTarget ChartTimedValueEntity chartTimedValueEntity);
 }

@@ -20,72 +20,73 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.UriInfo;
 
-public abstract class AbstractCrudEndpoint<DTO extends AbstractDto, S extends CrudService<B>, B extends AbstractBean> implements CrudEndpoint<DTO> {
+public abstract class AbstractCrudEndpoint<D extends AbstractDto, S extends CrudService<B>, B extends AbstractBean> implements
+    CrudEndpoint<D> {
 
-	@Context
-	protected UriInfo uriInfo;
-	@Inject
-	protected DtoMapper mapper;
+  @Context
+  protected UriInfo uriInfo;
+  @Inject
+  protected DtoMapper mapper;
 
-	protected abstract S getService();
+  protected abstract S getService();
 
-	protected abstract B dtoToBean(DTO dto);
+  protected abstract B dtoToBean(D dto);
 
-	protected List<B> dtosToBeans(List<DTO> dtos) {
-		return dtos.stream().map(this::dtoToBean).collect(Collectors.toList());
-	}
+  protected List<B> dtosToBeans(List<D> dtos) {
+    return dtos.stream().map(this::dtoToBean).collect(Collectors.toList());
+  }
 
-	protected abstract DTO beanToDto(B bean);
+  protected abstract D beanToDto(B bean);
 
-	protected List<DTO> beansToDtos(List<B> beans) {
-		return beans.stream().map(this::beanToDto).collect(Collectors.toList());
-	}
+  protected List<D> beansToDtos(List<B> beans) {
+    return beans.stream().map(this::beanToDto).collect(Collectors.toList());
+  }
 
 
-	@Override
-	public PageDto<DTO> findAll(Long offset, Long limit) throws IOException {
-		Page<B> page = this.getService().findAll(new Pager(offset, limit));
-		PageDto<DTO> pageDto = this.mapper.pageToPageDto(page);
-		pageDto.setElements(this.beansToDtos(page.getElements()));
-		return pageDto;
-	}
-	
-	@Override
-	public Response create(DTO dto) {
-		B bean = this.dtoToBean(dto);
-		bean = this.getService().create(bean);
-		UriBuilder uriBuilder = uriInfo.getAbsolutePathBuilder();
-		uriBuilder.path(Long.toString(bean.getId()));
-		return Response.created(uriBuilder.build()).entity(this.beanToDto(bean)).build();
-	}
-	
-	@Override
-	public DTO findById(Long id) {
-		Optional<B> optional = this.getService().findById(id);
-		if(!optional.isPresent()) {
-			throw new NotFoundException();
-		}
-		return this.beanToDto(optional.get());
-	}
-	
-	@Override
-	public Response update( Long id, DTO iterationDto) {
-		B bean = this.dtoToBean(iterationDto);
-		bean.setId(id);
-		try {
-			this.getService().update(bean);
-		} catch (ObjectNotFoundException e) {
-			throw new NotFoundException(e);
-		}
-		return Response.ok(bean).build();
-	}
+  @Override
+  public PageDto<D> findAll(Long offset, Long limit) throws IOException {
+    Page<B> page = this.getService().findAll(new Pager(offset, limit));
+    PageDto<D> pageDto = this.mapper.pageToPageDto(page);
+    pageDto.setElements(this.beansToDtos(page.getElements()));
+    return pageDto;
+  }
 
-	@Override
-	public void deleteById(Long id) {
-		try {
-			this.getService().deleteById(id);
-		} catch (ObjectNotFoundException e) {
-			throw new NotFoundException(e);
-		}
-	}
+  @Override
+  public Response create(D dto) {
+    B bean = this.dtoToBean(dto);
+    bean = this.getService().create(bean);
+    UriBuilder uriBuilder = uriInfo.getAbsolutePathBuilder();
+    uriBuilder.path(Long.toString(bean.getId()));
+    return Response.created(uriBuilder.build()).entity(this.beanToDto(bean)).build();
+  }
+
+  @Override
+  public D findById(Long id) {
+    Optional<B> optional = this.getService().findById(id);
+    if (!optional.isPresent()) {
+      throw new NotFoundException();
+    }
+    return this.beanToDto(optional.get());
+  }
+
+  @Override
+  public Response update(Long id, D iterationDto) {
+    B bean = this.dtoToBean(iterationDto);
+    bean.setId(id);
+    try {
+      this.getService().update(bean);
+    } catch (ObjectNotFoundException e) {
+      throw new NotFoundException(e);
+    }
+    return Response.ok(bean).build();
+  }
+
+  @Override
+  public void deleteById(Long id) {
+    try {
+      this.getService().deleteById(id);
+    } catch (ObjectNotFoundException e) {
+      throw new NotFoundException(e);
+    }
+  }
 }

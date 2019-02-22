@@ -5,7 +5,7 @@
 	<parent>
 		<artifactId>redmine-ng-api</artifactId>
 		<groupId>com.famaridon</groupId>
-		<version>0.0.2</version>
+		<version>0.0.3</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<packaging>ejb</packaging>
@@ -16,6 +16,14 @@
 		<dependency>
 			<groupId>com.famaridon</groupId>
 			<artifactId>redmine-ng-domain</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.famaridon</groupId>
+			<artifactId>redmine-client-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.famaridon</groupId>
+			<artifactId>redmine-ng-services-api</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.infinispan</groupId>
@@ -47,6 +55,12 @@
 		<dependency>
 			<groupId>org.jsoup</groupId>
 			<artifactId>jsoup</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.aspose</groupId>
+			<artifactId>aspose-words</artifactId>
+			<classifier>jdk16</classifier>
 		</dependency>
 
 	</dependencies>

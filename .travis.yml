@@ -1,7 +1,7 @@
 sudo: 'required'
 language: java
 jdk:
-  - openjdk8
+  - openjdk11
 services:
   - docker
 addons:
@@ -9,6 +9,9 @@ addons:
     organization: "famaridon-github"
     token:
       secure: $SONAR_TOKEN
+
+git:
+  depth: false
 
 cache:
   directories:
@@ -23,6 +26,11 @@ script:
 
 notifications:
   email:
+    recipients:
+      - famaridon@visiativ.com
+      - omassol@visiativ.com
+      - arthur.pelofi@visiativ.com
+      - fpicot@visiativ.com
     on_failure: always
     on_success: change
 

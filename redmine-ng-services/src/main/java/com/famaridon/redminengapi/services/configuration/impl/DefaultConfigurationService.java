@@ -1,22 +1,23 @@
 package com.famaridon.redminengapi.services.configuration.impl;
 
 import com.famaridon.redminengapi.services.configuration.ConfigurationService;
-import java.net.MalformedURLException;
+import java.io.File;
+import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
+import java.util.Optional;
+import javax.annotation.PostConstruct;
+import javax.ejb.Singleton;
+import javax.ejb.Startup;
 import org.apache.commons.configuration2.CombinedConfiguration;
-import org.apache.commons.configuration2.CompositeConfiguration;
 import org.apache.commons.configuration2.Configuration;
 import org.apache.commons.configuration2.JSONConfiguration;
 import org.apache.commons.configuration2.builder.FileBasedConfigurationBuilder;
-import org.apache.commons.configuration2.builder.combined.CombinedConfigurationBuilder;
-import org.apache.commons.configuration2.builder.fluent.Configurations;
 import org.apache.commons.configuration2.builder.fluent.FileBasedBuilderParameters;
 import org.apache.commons.configuration2.builder.fluent.Parameters;
 import org.apache.commons.configuration2.ex.ConfigurationException;
-import org.apache.commons.configuration2.io.BasePathLocationStrategy;
-import org.apache.commons.configuration2.io.FileLocationStrategy;
-import org.apache.commons.configuration2.tree.NodeCombiner;
+import org.apache.commons.configuration2.io.AbsoluteNameLocationStrategy;
 import org.apache.commons.configuration2.tree.OverrideCombiner;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -24,19 +25,12 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.PostConstruct;
-import javax.ejb.Singleton;
-import javax.ejb.Startup;
-import java.net.URL;
-import java.util.List;
-
 @Startup
 @Singleton
 public class DefaultConfigurationService implements ConfigurationService {
 
-  private static final Logger LOG = LoggerFactory.getLogger(DefaultConfigurationService.class);
   public static final String REDMINE_NG_API_PROFILE = "REDMINE_NG_API_PROFILE";
-
+  private static final Logger LOG = LoggerFactory.getLogger(DefaultConfigurationService.class);
   private Configuration configuration;
 
   @PostConstruct
@@ -48,54 +42,72 @@ public class DefaultConfigurationService implements ConfigurationService {
     ToStringBuilder.setDefaultStyle(ToStringStyle.SHORT_PREFIX_STYLE);
     LOG.info("Init configuration.");
     try {
-
-      String profile = System.getenv(REDMINE_NG_API_PROFILE);
-
       CombinedConfiguration combinedConfiguration = new CombinedConfiguration();
       combinedConfiguration.setNodeCombiner(new OverrideCombiner());
 
-      if (StringUtils.isNotBlank(profile)) {
-        combinedConfiguration.addConfiguration(this.getConfiguration(profile));
-      }
-      combinedConfiguration.addConfiguration(this.getConfiguration(null));
-      combinedConfiguration.addConfiguration(this.getDefaultConfiguration());
-
+      this.loadProfiledConfiguration(combinedConfiguration);
+      this.loadBaseConfiguration(combinedConfiguration, "config.json");
+      this.loadDefaultConfiguration(combinedConfiguration);
 
       this.configuration = combinedConfiguration;
+
     } catch (ConfigurationException e) {
       throw new IllegalArgumentException("Can't read configuration!", e);
     }
 
   }
 
-  protected final Configuration getConfiguration(String profile) throws ConfigurationException {
-    Path configurationFile;
-    if (StringUtils.isEmpty(profile)) {
-      configurationFile = Paths.get(".","config.json");
-    } else {
-      configurationFile = Paths.get(".","config-" + profile + ".json");
+  protected final void loadProfiledConfiguration(CombinedConfiguration combinedConfiguration) throws ConfigurationException {
+    Optional<String> profile = this.getEnvironmentProfile();
+    if (profile.isPresent()) {
+      this.loadBaseConfiguration(combinedConfiguration, "config-" + profile.get() + ".json");
     }
-    LOG.info("Add optional {} configuration files.", configurationFile);
+  }
+
+  protected final void loadBaseConfiguration(CombinedConfiguration combinedConfiguration, String fileName) throws ConfigurationException {
+
+    Path configurationPath = Paths.get(fileName);
+    File configurationFile = configurationPath.toAbsolutePath().toFile();
+    if (!configurationFile.exists()) {
+      LOG.warn("Missing configuration file {} .", configurationFile);
+      return;
+    }
+    if (configurationFile.isDirectory()) {
+      LOG.warn("Configuration file is a directory {} .", configurationFile);
+      return;
+    }
+    LOG.info("Add configuration file {} .", fileName);
     FileBasedBuilderParameters params = new Parameters()
         .fileBased()
         .setThrowExceptionOnMissing(false)
         .setEncoding("UTF-8")
-        .setFile(configurationFile.toAbsolutePath().toFile());
+        .setFileName(configurationFile.getPath())
+        .setLocationStrategy(new AbsoluteNameLocationStrategy());
     FileBasedConfigurationBuilder<JSONConfiguration> jsonConfigurationBuilder = new FileBasedConfigurationBuilder<>(
         JSONConfiguration.class);
-    return jsonConfigurationBuilder.configure(params).getConfiguration();
+    combinedConfiguration.addConfiguration(jsonConfigurationBuilder.configure(params).getConfiguration());
   }
 
-  protected final Configuration getDefaultConfiguration() throws ConfigurationException {
+  protected final void loadDefaultConfiguration(CombinedConfiguration combinedConfiguration) throws ConfigurationException {
     LOG.info("Add default configuration files.");
-    FileBasedBuilderParameters params = new Parameters()
-        .fileBased()
-        .setThrowExceptionOnMissing(true)
-        .setEncoding("UTF-8")
+    FileBasedBuilderParameters params = new Parameters().fileBased().setThrowExceptionOnMissing(true).setEncoding("UTF-8")
         .setURL(this.getDefaultConfigurationFile());
     FileBasedConfigurationBuilder<JSONConfiguration> jsonConfigurationBuilder = new FileBasedConfigurationBuilder<>(
         JSONConfiguration.class);
-    return jsonConfigurationBuilder.configure(params).getConfiguration();
+    combinedConfiguration.addConfiguration(jsonConfigurationBuilder.configure(params).getConfiguration());
+  }
+
+  private Optional<String> getEnvironmentProfile() {
+    String profile = System.getenv(REDMINE_NG_API_PROFILE);
+    if (StringUtils.isEmpty(profile)) {
+      return Optional.empty();
+    }
+    // Restrict the profile to letters and digits only
+    if (!profile.matches("^[a-zA-Z0-9]++$")) {
+      LOG.warn("profile must only contains letters and digits '{}'", profile);
+      return Optional.empty();
+    }
+    return Optional.of(profile);
   }
 
   protected final URL getDefaultConfigurationFile() {
@@ -131,6 +143,5 @@ public class DefaultConfigurationService implements ConfigurationService {
   public <T> List<T> getList(Class<T> type, String key, List<T> defaultValues) {
     return this.configuration.getList(type, key, defaultValues);
   }
-
 
 }

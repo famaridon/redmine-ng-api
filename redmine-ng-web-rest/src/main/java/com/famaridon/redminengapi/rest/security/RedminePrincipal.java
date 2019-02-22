@@ -6,14 +6,14 @@ import java.security.Principal;
 
 public class RedminePrincipal implements Principal, Serializable {
 
-    private final String login;
+  private final String login;
 
-    public RedminePrincipal(User user) {
-        this.login = user.getLogin();
-    }
+  public RedminePrincipal(User user) {
+    this.login = user.getLogin();
+  }
 
-    @Override
-    public String getName() {
-        return this.login;
-    }
+  @Override
+  public String getName() {
+    return this.login;
+  }
 }

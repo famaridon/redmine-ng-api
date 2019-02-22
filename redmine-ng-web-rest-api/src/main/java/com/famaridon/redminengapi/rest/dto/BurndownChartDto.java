@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BurndownChartDto extends AbstractDto {
+
   private IterationRef iteration;
 
   private List<ChartTimedValueDto> values = new ArrayList<>();
