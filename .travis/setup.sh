@@ -46,8 +46,8 @@ update_mvn() {
   sudo mkdir /usr/local/maven-$version
   sudo tar xzvf apache-maven-$version-bin.tar.gz
   export PATH=/usr/local/maven-$version/bin:$PATH
-  echo $PATH
   which mvn
+  update-alternatives --list mvn
   mvn -v
  }
 
