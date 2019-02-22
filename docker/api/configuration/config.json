@@ -23,7 +23,7 @@
   },
   "http": {
     "cors": {
-      "allowedOrigins": ["localhost:4200"]
+      "allowedOrigins": []
     }
   }
 }
