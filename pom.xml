@@ -509,12 +509,11 @@
         </profile>
     </profiles>
 
-    <repositories>
+    <distributionManagement>
         <repository>
-            <id>AsposeJavaAPI</id>
-            <name>Aspose Java API</name>
-            <url>http://maven.aspose.com/artifactory/simple/ext-release-local/</url>
+            <id>aspose</id>
+            <name>repository.aspose.com-releases</name>
+            <url>http://repository.aspose.com/repo</url>
         </repository>
-    </repositories>
-
+    </distributionManagement>
 </project>
