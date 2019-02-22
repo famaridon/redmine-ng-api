@@ -15,6 +15,7 @@ set -o errexit
 
 main() {
   setup_dependencies
+  update_mvn
 
   echo "INFO:
   Done! Finished setting up Travis-CI machine.
@@ -38,5 +39,12 @@ setup_dependencies() {
   docker version
   docker-compose version
 }
+
+update_mvn() {
+  wget http://apache.mirror.gtcomm.net/maven/maven-3/3.6.0/binaries/apache-maven-3.6.0-bin.tar.gz
+  tar xzvf apache-maven-3.6.0-bin.tar.gz
+  export PATH=`pwd`/apache-maven-3.6.0/bin:$PATH
+  mvn -v
+ }
 
 main
