@@ -35,7 +35,7 @@
         <org.mapstruct.version>1.2.0.Final</org.mapstruct.version>
         <slf4j-api.version>1.7.25</slf4j-api.version>
         <flyway.version>5.2.4</flyway.version>
-        <aspose-words.version>19.1</aspose-words.version>
+        <aspose-words.version>19.2</aspose-words.version>
 
         <!-- test version -->
         <junit.version>4.12</junit.version>
