@@ -15,7 +15,7 @@ set -o errexit
 
 main() {
   setup_dependencies
-  update_mvn
+  update_mvn "3.6.0"
 
   echo "INFO:
   Done! Finished setting up Travis-CI machine.
@@ -41,9 +41,13 @@ setup_dependencies() {
 }
 
 update_mvn() {
-  wget http://apache.mirror.gtcomm.net/maven/maven-3/3.6.0/binaries/apache-maven-3.6.0-bin.tar.gz
-  tar xzvf apache-maven-3.6.0-bin.tar.gz
-  export PATH=`pwd`/apache-maven-3.6.0/bin:$PATH
+  version=$1
+  wget http://apache.mirror.gtcomm.net/maven/maven-3/$version/binaries/apache-maven-$version-bin.tar.gz
+  sudo mkdir /usr/local/maven-$version
+  sudo tar xzvf apache-maven-$version-bin.tar.gz
+  export PATH=/usr/local/maven-$version/bin:$PATH
+  echo $PATH
+  which mvn
   mvn -v
  }
 
