@@ -41,9 +41,6 @@ public class DefaultReleaseNoteService implements ReleaseNoteService {
   @Inject
   private FilterFactory filterFactory;
 
-  public DefaultReleaseNoteService(){
-  }
-
   @Override
   public Response generateReleaseNote(FileType type) {
   //public File generateReleaseNote() {
