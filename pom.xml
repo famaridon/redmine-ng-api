@@ -509,11 +509,12 @@
         </profile>
     </profiles>
 
-    <distributionManagement>
+    <repositories>
         <repository>
             <id>aspose</id>
             <name>repository.aspose.com-releases</name>
             <url>http://repository.aspose.com/repo</url>
         </repository>
-    </distributionManagement>
+    </repositories>
+
 </project>
