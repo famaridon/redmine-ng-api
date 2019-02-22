@@ -83,7 +83,7 @@ public class FilterFactoryUTest {
     f.serialize(uriBuilder);
     verify(uriBuilder).addParameter("status_id", "10");
   }
-  
+
   @Test
   public void createStatusFilterWithLongArray() {
     List<Long> statusIds = new ArrayList<>();
@@ -156,12 +156,18 @@ public class FilterFactoryUTest {
     f.serialize(uriBuilder);
     verify(uriBuilder).addParameter("cf_1", "azertyuiop");
   }
-  
+
   @Test
   public void createCategoryFilter(){
     Filter f = this.filterFactory.createCategoryFilter(1223L);
     f.serialize(uriBuilder);
     verify(uriBuilder).addParameter("category_id", "1223");
+  }
+  @Test
+  public void createVersionFilterWithLong() {
+    Filter f = this.filterFactory.createCustomFieldFilter(1L, "azertyuiop");
+    f.serialize(uriBuilder);
+    verify(uriBuilder).addParameter("cf_1", "azertyuiop");
   }
 
 }

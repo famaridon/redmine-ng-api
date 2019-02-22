@@ -21,4 +21,6 @@ public interface FilterFactory
   Filter createCustomFieldFilter(Long fieldId, Long value);
   Filter createCustomFieldFilter(Long fieldId, String value);
   Filter createCategoryFilter(Long categoryId);
+  Filter createVersionFilter(Long versionId);
+
 }

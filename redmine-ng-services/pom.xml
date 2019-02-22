@@ -57,6 +57,12 @@
 			<artifactId>jsoup</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>com.aspose</groupId>
+			<artifactId>aspose-words</artifactId>
+			<classifier>jdk16</classifier>
+		</dependency>
+
 	</dependencies>
 
 	<build>
