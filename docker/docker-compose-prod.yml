@@ -16,6 +16,9 @@ services:
     volumes:
       - ./api/configuration:/opt/wildfly/configuration
       - ./api/staging:/opt/wildfly/staging
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
   front:
     image: nginx:1.15-alpine
     volumes:
