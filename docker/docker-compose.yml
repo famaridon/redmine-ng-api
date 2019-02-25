@@ -11,6 +11,9 @@ services:
       MYSQL_PASSWORD: secret
       MYSQL_ROOT_PASSWORD: secret
       MYSQL_DATABASE: redminengapi
+    networks:
+      - redminengapi
+
   api:
     build: ./api
     ports:
@@ -27,4 +30,10 @@ services:
       - ./api/configuration:/opt/wildfly/configuration
       - ./api/staging:/opt/wildfly/staging
       - ./api/deployments:/opt/wildfly/standalone/deployments
+    networks:
+      - redminengapi
 
+
+networks:
+  redminengapi:
+    driver: bridge
