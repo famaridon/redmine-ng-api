@@ -1,4 +1,5 @@
 version: '3'
+
 services:
   database:
     image: mysql:5.7
@@ -9,6 +10,9 @@ services:
       MYSQL_PASSWORD: secret
       MYSQL_ROOT_PASSWORD: secret
       MYSQL_DATABASE: redminengapi
+    networks:
+      - redminengapi
+
   api:
     build: ./api
     environment:
@@ -16,14 +20,26 @@ services:
     volumes:
       - ./api/configuration:/opt/wildfly/configuration
       - ./api/staging:/opt/wildfly/staging
+    networks:
+      - redminengapi
+
   front:
     image: nginx:1.15-alpine
     volumes:
       - ./front/www:/opt/www
       - ./front/nginx/conf.d:/etc/nginx/conf.d/
+    networks:
+      - redminengapi
+
   proxy:
     image: nginx:1.15-alpine
     ports:
       - 80:80
     volumes:
       - ./proxy/nginx/conf.d:/etc/nginx/conf.d/
+    networks:
+      - redminengapi
+
+networks:
+  redminengapi:
+    driver: bridge
