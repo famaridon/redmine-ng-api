@@ -5,7 +5,7 @@
     <groupId>com.famaridon</groupId>
     <artifactId>redmine-ng-api</artifactId>
     <name>redmine-ng-server</name>
-    <version>0.0.4</version>
+    <version>0.0.5-SNAPSHOT</version>
     <modules>
         <module>redmine-ng-web</module>
         <module>redmine-client</module>
