@@ -38,6 +38,7 @@ public class XRedmineAPIKeyRequestFilter implements ContainerRequestFilter {
       LOG.debug("{} match user {}", SecurityHeaders.X_REDMINE_API_KEY, user.getLogin());
       requestContext.setSecurityContext(this.toSecurityContext(user, requestContext.getSecurityContext()));
     } catch (IOException e) {
+      LOG.error("Can't validate " + SecurityHeaders.X_REDMINE_API_KEY, e);
       throw new SecurityException("Can't validate " + SecurityHeaders.X_REDMINE_API_KEY, e);
     }
   }
