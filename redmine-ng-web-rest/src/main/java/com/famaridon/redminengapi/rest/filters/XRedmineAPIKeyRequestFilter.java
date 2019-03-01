@@ -12,6 +12,8 @@ import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.container.PreMatching;
 import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.ext.Provider;
+
+import io.prometheus.client.Summary;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +24,10 @@ import org.slf4j.LoggerFactory;
 public class XRedmineAPIKeyRequestFilter implements ContainerRequestFilter {
 
   private static final Logger LOG = LoggerFactory.getLogger(XRedmineAPIKeyRequestFilter.class);
+  private static final Summary API_KEYVALIDATION_TIME = Summary.build()
+    .name("redmineng_api_key_validation_time")
+    .help("How many time take by api key validation")
+    .register();
 
   @Inject
   UserService userService;
@@ -32,7 +38,9 @@ public class XRedmineAPIKeyRequestFilter implements ContainerRequestFilter {
     if (StringUtils.isBlank(apiKey)) {
       throw new SecurityException(SecurityHeaders.X_REDMINE_API_KEY + " not found!");
     }
-
+  
+    Summary.Timer timer = API_KEYVALIDATION_TIME.startTimer();
+    
     try {
       User user = this.userService.findCurrent(apiKey);
       LOG.debug("{} match user {}", SecurityHeaders.X_REDMINE_API_KEY, user.getLogin());
@@ -40,6 +48,8 @@ public class XRedmineAPIKeyRequestFilter implements ContainerRequestFilter {
     } catch (IOException e) {
       LOG.error("Can't validate " + SecurityHeaders.X_REDMINE_API_KEY, e);
       throw new SecurityException("Can't validate " + SecurityHeaders.X_REDMINE_API_KEY, e);
+    } finally {
+      timer.observeDuration();
     }
   }
 

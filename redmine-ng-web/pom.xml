@@ -33,6 +33,13 @@
 			<groupId>com.famaridon</groupId>
 			<artifactId>redmine-ng-web-rest</artifactId>
 		</dependency>
+
+		<!-- exposing metrics -->
+		<dependency>
+			<groupId>io.prometheus</groupId>
+			<artifactId>simpleclient_servlet</artifactId>
+		</dependency>
+
 	</dependencies>
 
 	<build>
