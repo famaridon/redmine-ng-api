@@ -40,7 +40,6 @@ public class XRedmineAPIKeyRequestFilter implements ContainerRequestFilter {
     }
   
     Summary.Timer timer = API_KEYVALIDATION_TIME.startTimer();
-    
     try {
       User user = this.userService.findCurrent(apiKey);
       LOG.debug("{} match user {}", SecurityHeaders.X_REDMINE_API_KEY, user.getLogin());

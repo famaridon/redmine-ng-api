@@ -33,6 +33,14 @@ services:
     networks:
       - redminengapi
 
+  metrics:
+    image: prom/prometheus
+    ports:
+      - 9090:9090
+    volumes:
+      - ./metrics/prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - redminengapi
 
 networks:
   redminengapi:
