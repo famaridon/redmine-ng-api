@@ -156,6 +156,17 @@
                         <user-name>redmine-ng</user-name>
                         <password>secret</password>
                     </security>
+                    <pool>
+                        <min-pool-size>2</min-pool-size>
+                        <max-pool-size>50</max-pool-size>
+                        <prefill>true</prefill>
+                    </pool>
+                    <validation>
+                        <background-validation>true</background-validation>
+                        <background-validation-millis>10000</background-validation-millis>
+                        <valid-connection-checker class-name="org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLValidConnectionChecker"/>
+                        <exception-sorter class-name="org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLExceptionSorter"/>
+                    </validation>
                 </datasource>
                 <drivers>
                     <driver name="postgresql" module="org.postgresql">
