@@ -16,9 +16,9 @@ scrape_configs:
   # The job name assigned to scraped metrics by default.
   - job_name: 'redmineng'
     # The HTTP resource path on which to fetch metrics from targets.
-    metrics_path: '/redmine-ng-api/metrics'
+    metrics_path: '/metrics'
     static_configs:
-      - targets: ['api:8080']
+      - targets: ['api:9990']
 
 
   - job_name: 'prometheus'
