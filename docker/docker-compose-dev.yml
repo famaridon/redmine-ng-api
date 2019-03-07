@@ -26,10 +26,12 @@ services:
       REDMINE_NG_API_PROFILE: "dev"
       JPROFILER: "true"
       JACOCOC: "true"
+      DEBUG: "true"
     volumes:
       - ./api/configuration:/opt/wildfly/configuration
       - ./api/staging:/opt/wildfly/staging
       - ./api/deployments:/opt/wildfly/standalone/deployments
+      - ./api/logs:/opt/wildfly/standalone/logs
     networks:
       - redminengapi
 
