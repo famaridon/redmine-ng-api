@@ -30,6 +30,7 @@ test-configuration.sh
 
 docker/api/deployments/
 docker/api/staging/*.war
+docker/api/log/*.log
 docker/api/configuration/config-*.json
 docker/database/data/
 docker/front/www/
