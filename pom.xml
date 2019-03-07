@@ -36,7 +36,6 @@
         <slf4j-api.version>1.7.25</slf4j-api.version>
         <flyway.version>5.2.4</flyway.version>
         <aspose-words.version>19.2</aspose-words.version>
-        <prometheus.version>0.6.0</prometheus.version>
 
         <!-- test version -->
         <junit.version>4.12</junit.version>
@@ -205,19 +204,6 @@
                 <version>${aspose-words.version}</version>
                 <classifier>jdk16</classifier>
             </dependency>
-
-            <!-- metrics -->
-            <dependency>
-                <groupId>io.prometheus</groupId>
-                <artifactId>simpleclient</artifactId>
-                <version>${prometheus.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.prometheus</groupId>
-                <artifactId>simpleclient_servlet</artifactId>
-                <version>${prometheus.version}</version>
-            </dependency>
-
 
             <!-- test dependencies -->
             <!-- https://mvnrepository.com/artifact/junit/junit -->
