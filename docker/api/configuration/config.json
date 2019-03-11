@@ -14,7 +14,6 @@
     "projects": {
       "process": {
         "project": 378,
-
         "burndown": {
           "valid-trackers": [36, 37]
         }
