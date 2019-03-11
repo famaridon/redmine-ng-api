@@ -52,7 +52,7 @@ abstract class AbstractDocumentBuilder implements IDocumentBuilder {
     IssueList issues = new IssueList();
     List<Issue> list = listIssue.getElements();
     for (Issue issue : list) {
-      issues.add(new IssueTemp(issue.getCategory().getName(),issue.getSubject(),issue.getId()));
+      issues.add(new IssueTemp(issue.getSubject(),issue.getId()));
     }
     return new TableDataSource(issues);
   }

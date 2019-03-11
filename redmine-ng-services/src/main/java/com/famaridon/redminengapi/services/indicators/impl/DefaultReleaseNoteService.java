@@ -31,7 +31,7 @@ public class DefaultReleaseNoteService implements ReleaseNoteService {
   private static final Logger LOGGER = LoggerFactory.getLogger(DefaultReleaseNoteService.class);
   private static final String API_KEY = "005556de9c58b855dd32042afb8955858eb02c01";
   private static final Long PAGER_OFFSET = 0L;
-  private static final Long PAGER_LIMIT = 20L;
+  private static final Long PAGER_LIMIT = 50L;
 //  private static final String FILE_EXTENSION_PDF = "pdf";
   private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
   private static final SimpleDateFormat DATE_FORMAT_LONG = new SimpleDateFormat("yyyMMddHHmm");
@@ -53,9 +53,7 @@ public class DefaultReleaseNoteService implements ReleaseNoteService {
       DocumentBuilderFactory factory = new DocumentBuilderFactory();
       IDocumentBuilder documentBuilder = factory.getDocumentBuilder(type);
       File file = documentBuilder.getFile(listIssue,name,header);
-    /*
-     TODO : création du zip et création d'une methode getfile en fonction du type de fichier voulu
-     */
+
       try {
         file.createTempFile(name,type.getExtension());
       } catch (IOException e) {
@@ -85,7 +83,6 @@ public class DefaultReleaseNoteService implements ReleaseNoteService {
   private List<Filter> getFilter(){
     List<Filter> filter = new ArrayList<>();
     filter.add(this.filterFactory.createStatusFilter(5L));
-    filter.add(this.filterFactory.createProjectFilter(378L));
     filter.add(this.filterFactory.createVersionFilter(1444L));
     return filter;
   }
