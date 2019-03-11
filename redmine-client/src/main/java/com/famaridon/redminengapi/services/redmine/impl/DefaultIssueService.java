@@ -6,14 +6,15 @@ import com.famaridon.redminengapi.services.redmine.IssueService;
 import com.famaridon.redminengapi.services.redmine.Pager;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Issue;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Page;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import org.apache.http.client.fluent.Request;
+import org.apache.http.client.utils.URIBuilder;
+
 import javax.enterprise.inject.Default;
 import javax.inject.Inject;
 import javax.inject.Named;
-import org.apache.http.client.fluent.Request;
-import org.apache.http.client.utils.URIBuilder;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Named
 @Default
