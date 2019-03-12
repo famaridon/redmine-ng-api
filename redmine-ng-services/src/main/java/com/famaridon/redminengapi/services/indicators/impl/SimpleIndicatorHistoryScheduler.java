@@ -4,11 +4,8 @@ import com.famaridon.redminengapi.services.configuration.ConfigurationService;
 import com.famaridon.redminengapi.services.indicators.IterationService;
 import com.famaridon.redminengapi.services.indicators.SimpleIndicatorService;
 import com.famaridon.redminengapi.services.indicators.beans.Iteration;
-import org.eclipse.microprofile.metrics.Gauge;
-import org.eclipse.microprofile.metrics.Metadata;
-import org.eclipse.microprofile.metrics.MetricRegistry;
-import org.eclipse.microprofile.metrics.MetricType;
-import org.eclipse.microprofile.metrics.annotation.RegistryType;
+import com.famaridon.redminengapi.services.metrics.MetricFactory;
+import com.famaridon.redminengapi.services.metrics.beans.UpgradeableGauge;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,9 +27,8 @@ public class SimpleIndicatorHistoryScheduler {
 	private static final Logger LOGGER = LoggerFactory.getLogger(SimpleIndicatorHistoryScheduler.class);
 	
 	@Inject
-	@RegistryType(type = MetricRegistry.Type.APPLICATION)
-	private MetricRegistry metricRegistry;
-	private Map<Long, NumberGauge> gaugeMap;
+	private MetricFactory metricFactory;
+	private Map<Long, UpgradeableGauge> gaugeMap;
 	@Inject
 	private ConfigurationService configurationService;
 	@Inject
@@ -43,16 +39,10 @@ public class SimpleIndicatorHistoryScheduler {
 	@PostConstruct
 	private void init() {
 		this.gaugeMap = new HashMap<>();
-		initGauge(1225L, "process_open_tickets_test");
-		initGauge(1224L, "process_open_tickets_integration");
-		initGauge(1223L, "process_open_tickets_dev");
-		initGauge(1231L, "process_open_tickets_techcenter");
-	}
-	
-	private void initGauge(Long id, String name) {
-		Metadata m = new Metadata(name, MetricType.GAUGE);
-		NumberGauge gauge = this.metricRegistry.register(m, new NumberGauge(null));
-		this.gaugeMap.put(id, gauge);
+		gaugeMap.put(1225L, this.metricFactory.registerUpgradeableGauge("process_open_tickets_test"));
+		gaugeMap.put(1224L, this.metricFactory.registerUpgradeableGauge("process_open_tickets_integration"));
+		gaugeMap.put(1223L, this.metricFactory.registerUpgradeableGauge("process_open_tickets_dev"));
+		gaugeMap.put(1231L, this.metricFactory.registerUpgradeableGauge("process_open_tickets_techcenter"));
 	}
 	
 	@Schedule(second = "*/15", minute = "*", hour = "*")
@@ -75,22 +65,6 @@ public class SimpleIndicatorHistoryScheduler {
 		
 	}
 	
-	private class NumberGauge implements Gauge<Long> {
-		
-		private Long number;
-		
-		protected NumberGauge(Long number) {
-			this.number = number;
-		}
-		
-		@Override
-		public Long getValue() {
-			return this.number;
-		}
-		
-		public void update(Long number) {
-			this.number = number;
-		}
-	}
+
 	
 }
