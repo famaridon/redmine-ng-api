@@ -8,8 +8,12 @@
       "development-cost": 28
     },
     "status":{
-      "ongoing": 2,
-      "reopen": 9
+      "new": 1,
+      "inwork": 2,
+      "done": 23,
+      "closed": 5,
+      "rejected": 6,
+      "tobetested": 24
     },
     "projects": {
       "process": {

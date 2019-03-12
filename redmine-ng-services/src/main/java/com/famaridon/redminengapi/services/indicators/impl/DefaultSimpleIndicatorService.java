@@ -34,7 +34,7 @@ public class DefaultSimpleIndicatorService implements SimpleIndicatorService {
     filters.add(categoryFilter);
   
     List<Long> statusIds = new ArrayList<>();
-    statusIds.add(configurationService.getLong("redmine.status.ongoing"));
+    statusIds.add(configurationService.getLong("redmine.status.inwork"));
     statusIds.add(configurationService.getLong("redmine.status.reopen"));
     Filter statusFilter = filterFactory.createStatusFilter(statusIds);
     filters.add(statusFilter);
