@@ -9,11 +9,12 @@
     },
     "status":{
       "new": 1,
-      "inwork": 2,
+      "in-work": 2,
+      "re-open": 9,
       "done": 23,
       "closed": 5,
       "rejected": 6,
-      "tobetested": 24
+      "to-be-tested": 24
     },
     "projects": {
       "process": {
@@ -21,6 +22,10 @@
         "burndown": {
           "valid-trackers": [36, 37]
         }
+      },
+      "support": {
+        "project": 1032,
+        "open-issues-query": 1762
       }
     }
   },

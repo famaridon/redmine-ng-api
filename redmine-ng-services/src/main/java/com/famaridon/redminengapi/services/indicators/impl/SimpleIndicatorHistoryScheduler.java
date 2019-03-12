@@ -6,6 +6,10 @@ import com.famaridon.redminengapi.services.indicators.SimpleIndicatorService;
 import com.famaridon.redminengapi.services.indicators.beans.Iteration;
 import com.famaridon.redminengapi.services.metrics.MetricFactory;
 import com.famaridon.redminengapi.services.metrics.beans.UpgradeableGauge;
+import com.famaridon.redminengapi.services.redmine.IssueService;
+import com.famaridon.redminengapi.services.redmine.Pager;
+import com.famaridon.redminengapi.services.redmine.rest.client.beans.Issue;
+import com.famaridon.redminengapi.services.redmine.rest.client.beans.Page;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,20 +33,24 @@ public class SimpleIndicatorHistoryScheduler {
 	@Inject
 	private MetricFactory metricFactory;
 	private Map<Long, UpgradeableGauge> gaugeMap;
+	private UpgradeableGauge supportGauge;
 	@Inject
 	private ConfigurationService configurationService;
 	@Inject
 	private IterationService iterationService;
+	@Inject
+	private IssueService issueService;
 	@Inject
 	private SimpleIndicatorService simpleIndicatorService;
 	
 	@PostConstruct
 	private void init() {
 		this.gaugeMap = new HashMap<>();
-		gaugeMap.put(1225L, this.metricFactory.registerUpgradeableGauge("process_open_tickets_test"));
-		gaugeMap.put(1224L, this.metricFactory.registerUpgradeableGauge("process_open_tickets_integration"));
-		gaugeMap.put(1223L, this.metricFactory.registerUpgradeableGauge("process_open_tickets_dev"));
-		gaugeMap.put(1231L, this.metricFactory.registerUpgradeableGauge("process_open_tickets_techcenter"));
+		gaugeMap.put(1225L, this.metricFactory.registerUpgradeableGauge("process_open_tickets_test", 0L));
+		gaugeMap.put(1224L, this.metricFactory.registerUpgradeableGauge("process_open_tickets_integration", 0L));
+		gaugeMap.put(1223L, this.metricFactory.registerUpgradeableGauge("process_open_tickets_dev", 0L));
+		gaugeMap.put(1231L, this.metricFactory.registerUpgradeableGauge("process_open_tickets_techcenter", 0L));
+		this.supportGauge = this.metricFactory.registerUpgradeableGauge("process_open_tickets_support", 0L);
 	}
 	
 	@Schedule(second = "*/15", minute = "*", hour = "*")
@@ -60,8 +68,17 @@ public class SimpleIndicatorHistoryScheduler {
 					LOGGER.warn("Can't update gauge {}", entry.getKey(), e);
 				}
 			});
-			
 		});
+		
+		Long supportProjectId = this.configurationService.getLong("redmine.projects.support.project");
+		Long supportopenIssuesQueryId = this.configurationService.getLong("redmine.projects.support.open-issues-query");
+		try {
+			Page<Issue> page = this.issueService.findByQueryAndProject(apiKey,supportopenIssuesQueryId,supportProjectId, new Pager(0L,1L));
+			this.supportGauge.update(page.getTotalCount());
+		} catch (IOException e) {
+			LOGGER.warn("Can't update support gauge", e);
+		}
+		
 		
 	}
 	

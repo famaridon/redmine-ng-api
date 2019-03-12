@@ -6,7 +6,8 @@ public class UpgradeableGauge<T extends Number> implements Gauge<T> {
 	
 	private T number;
 	
-	public UpgradeableGauge() {
+	public UpgradeableGauge(T initialValue) {
+		this.number = initialValue;
 	}
 	
 	@Override
