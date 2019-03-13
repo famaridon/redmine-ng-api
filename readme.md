@@ -7,6 +7,10 @@
 
 ## Configuration
 
+### Wildfly configuration
+
+#### standalone.xml
+
 You can use the prebuild standalone.xml file in ```docker/api/configuration```.
 
 This file contains :
@@ -54,7 +58,7 @@ The datasource is set to use
 </cache-container>
 ```
 
-### create data-source
+#### Ussing jboss-cli
 
 1. install the mysql jdbc driver
  1. download the latest [MySQL driver](https://dev.mysql.com/downloads/connector/j/)
@@ -72,6 +76,6 @@ module add --name=org.mysql --resources=mysql-connector-java-5.1.45.jar --depend
 data-source add --jndi-name=java:jboss/datasources/redmine-ng --name=redmine-ng --connection-url=jdbc:mysql://localhost:3306/redmine-ng?autoReconnect=true&useSSL=false --driver-name=mysql --user-name=root --password=manager --jta=false
 ```
 
-### create cache-container
+1. create cache-container
 
 
