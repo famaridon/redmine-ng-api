@@ -57,6 +57,7 @@
         <maven-enforcer-plugin.version>3.0.0-M2</maven-enforcer-plugin.version>
         <wildfly-maven-plugin.version>2.0.0.Final</wildfly-maven-plugin.version>
         <versions-maven-plugin.version>2.7</versions-maven-plugin.version>
+        <wildfly-maven-plugin.version>2.0.1.Final</wildfly-maven-plugin.version>
 
         <!-- java configuration -->
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -367,6 +368,11 @@
                     <groupId>org.jacoco</groupId>
                     <artifactId>jacoco-maven-plugin</artifactId>
                     <version>${jacoco-core.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.wildfly.plugins</groupId>
+                    <artifactId>wildfly-maven-plugin</artifactId>
+                    <version>${wildfly-maven-plugin.version}</version>
                 </plugin>
 
             </plugins>
