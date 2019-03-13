@@ -7,6 +7,9 @@ services:
       MYSQL_PASSWORD: secret
       MYSQL_ROOT_PASSWORD: secret
       MYSQL_DATABASE: redminengapi
+    networks:
+      - redminengapi
+
   api:
     build: ./api
     ports:
@@ -21,4 +24,10 @@ services:
       JACOCO: "true"
       TEST_REDMINE_API_KEY: ${TEST_REDMINE_API_KEY}
       TEST_REDMINE_SERVER: ${TEST_REDMINE_SERVER}
+    networks:
+      - redminengapi
+
+networks:
+  redminengapi:
+    driver: bridge
 
