@@ -7,6 +7,16 @@
 
 ## Configuration
 
+## Application configuration
+
+The application read 3 configurations files :
+
+1. config.json in classpath (mandatory). This file contains only default configuration or prebuild with environment variable.
+1. config.json in working directory. This file contains common configuration of visiativ (or process) redmine.
+1. config-<profile>.json in working directory. This file must not be committed and contains all sensibles data like Redmine Api Key.
+
+Configurations files are merged into 1 result configuration.
+
 ### Wildfly configuration
 
 #### standalone.xml
