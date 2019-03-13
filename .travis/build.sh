@@ -17,6 +17,7 @@ result=$?
 cd docker
 docker-compose stop
 
-tar --exclude='**/.gitkeep' --exclude='**/*.war' --exclude='**/config-*.json' --exclude='database/data/*' --exclude='front/www/*' -czvf target/docker-compose.tar.gz docker/*
+cd ..
+tar -czvf target/docker-compose.tar.gz --exclude='**/.gitkeep' --exclude='**/*.war' --exclude='**/config-*.json' --exclude='database/data/*' --exclude='front/www/*' docker/*
 
 exit ${result}

@@ -46,8 +46,9 @@ update_mvn() {
   sudo mkdir /usr/local/maven-$version
   sudo tar xzvf apache-maven-$version-bin.tar.gz
   sudo mv apache-maven-$version/* /usr/local/maven-$version/
-  ls -l /usr/local/maven-$version
-  which mvn
+  sudo rm -rf /usr/local/maven-3.5.2
+  sudo ln -s /usr/local/maven-$version /usr/local/maven-3.5.2
+  ls -l /usr/local/maven-3.5.2
   mvn -v
  }
 

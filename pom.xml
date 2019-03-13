@@ -5,7 +5,7 @@
     <groupId>com.famaridon</groupId>
     <artifactId>redmine-ng-api</artifactId>
     <name>redmine-ng-server</name>
-    <version>0.0.3-SNAPSHOT</version>
+    <version>0.0.6-SNAPSHOT</version>
     <modules>
         <module>redmine-ng-web</module>
         <module>redmine-client</module>
@@ -22,7 +22,7 @@
 
     <properties>
         <!-- runtime versions -->
-        <wildfly.version>15.0.1.Final</wildfly.version>
+        <wildfly.version>16.0.0.Final</wildfly.version>
         <javaee-api.version>8.0</javaee-api.version>
         <infinispan.version>9.4.3.Final</infinispan.version>
         <hibernate-validator.version>6.0.14.Final</hibernate-validator.version>
@@ -35,7 +35,7 @@
         <org.mapstruct.version>1.2.0.Final</org.mapstruct.version>
         <slf4j-api.version>1.7.25</slf4j-api.version>
         <flyway.version>5.2.4</flyway.version>
-        <aspose-words.version>19.1</aspose-words.version>
+        <aspose-words.version>19.2</aspose-words.version>
 
         <!-- test version -->
         <junit.version>4.12</junit.version>
@@ -57,6 +57,7 @@
         <maven-enforcer-plugin.version>3.0.0-M2</maven-enforcer-plugin.version>
         <wildfly-maven-plugin.version>2.0.0.Final</wildfly-maven-plugin.version>
         <versions-maven-plugin.version>2.7</versions-maven-plugin.version>
+        <wildfly-maven-plugin.version>2.0.1.Final</wildfly-maven-plugin.version>
 
         <!-- java configuration -->
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -264,6 +265,8 @@
             <scope>provided</scope>
         </dependency>
 
+
+
         <dependency>
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct-jdk8</artifactId> <!-- use mapstruct-jdk8 for Java 8 or higher -->
@@ -367,6 +370,11 @@
                     <groupId>org.jacoco</groupId>
                     <artifactId>jacoco-maven-plugin</artifactId>
                     <version>${jacoco-core.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.wildfly.plugins</groupId>
+                    <artifactId>wildfly-maven-plugin</artifactId>
+                    <version>${wildfly-maven-plugin.version}</version>
                 </plugin>
 
             </plugins>
@@ -511,9 +519,9 @@
 
     <repositories>
         <repository>
-            <id>AsposeJavaAPI</id>
-            <name>Aspose Java API</name>
-            <url>http://maven.aspose.com/artifactory/simple/ext-release-local/</url>
+            <id>aspose</id>
+            <name>repository.aspose.com-releases</name>
+            <url>http://repository.aspose.com/repo</url>
         </repository>
     </repositories>
 
