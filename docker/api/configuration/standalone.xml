@@ -169,12 +169,6 @@
                     </validation>
                 </datasource>
                 <drivers>
-                    <driver name="postgresql" module="org.postgresql">
-                        <!-- for xa datasource -->
-                        <xa-datasource-class>org.postgresql.xa.PGXADataSource</xa-datasource-class>
-                        <!-- for non-xa datasource -->
-                        <driver-class>org.postgresql.Driver</driver-class>
-                    </driver>
                     <driver name="mysql" module="com.mysql">
                         <!-- for xa datasource -->
                         <xa-datasource-class>com.mysql.jdbc.jdbc2.optional.MysqlXADataSource</xa-datasource-class>
