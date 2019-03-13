@@ -1,9 +1,14 @@
 package com.famaridon.redminengapi.services.indicators.impl.releasenote.documentbuilder;
 
+import com.aspose.words.Document;
+import com.famaridon.redminengapi.services.indicators.beans.FileType;
 import com.famaridon.redminengapi.services.indicators.beans.Header;
+import com.famaridon.redminengapi.services.indicators.beans.ZipFileWritter;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Issue;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Page;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,7 +18,7 @@ public class ZipDocumentBuilder extends AbstractDocumentBuilder {
 
   @Override
   public File getFile(Page<Issue> listIssue, String name, Header header) {
-    /*Document document = doMailMerge(listIssue,name,header);
+    Document document = doMailMerge(listIssue,name,header);
     try {
       saveAsposeDocument(name, document, FileType.PDF);
       saveAsposeDocument(name, document, FileType.DOC);
@@ -32,8 +37,9 @@ public class ZipDocumentBuilder extends AbstractDocumentBuilder {
     } catch (IOException e) {
       LOGGER.error("Archive problem", e);
       throw new IllegalStateException(e);
-    }*/
-    return null;
+    }
+    File zipFile=new File(name+"."+FileType.ZIP.getExtension());
+    return zipFile;
   }
 
 

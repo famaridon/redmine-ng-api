@@ -16,7 +16,6 @@ public class DocumentBuilderFactory {
         documentBuilder = new PdfDocumentBuilder();
         break;
       default:
-        //Est-ce qu'un throw peut se faire dans un default d'un switch?
         throw new IllegalStateException();
     }
     return documentBuilder;

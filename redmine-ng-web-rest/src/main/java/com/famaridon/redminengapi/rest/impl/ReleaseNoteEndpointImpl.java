@@ -16,24 +16,26 @@ import javax.ws.rs.core.Response;
 @RequestScoped
 public class ReleaseNoteEndpointImpl implements ReleaseNoteEndpoint {
 
-
   @Inject
   private ReleaseNoteService releaseNoteService;
 
   @Override
-  public Response releaseNoteZip() {
-   return releaseNoteService.generateReleaseNote(FileType.ZIP);
-   /*File file = releaseNoteService.generateReleaseNote();
-   return Response.ok(file,"application/msword").header("Content-Disposition", "attachment; filename=\"filename.doc\"").build();*/
+  public Response releaseNoteZip(String version, String product) {
+   return releaseNoteService.generateReleaseNote(FileType.ZIP, version, product);
   }
 
   @Override
-  public Response releaseNotePdf() {
-    return releaseNoteService.generateReleaseNote(FileType.PDF);
+  public Response releaseNotePdf(String version, String product) {
+    return releaseNoteService.generateReleaseNote(FileType.PDF, version, product);
   }
 
   @Override
-  public Response releaseNoteDoc() {
-    return releaseNoteService.generateReleaseNote(FileType.DOC);
+  public Response releaseNoteDoc(String version, String product) {
+    return releaseNoteService.generateReleaseNote(FileType.DOC, version, product);
+  }
+
+  @Override
+  public Response releaseNoteVersion() {
+    return releaseNoteService.getVersion();
   }
 }
