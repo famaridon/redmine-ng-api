@@ -33,6 +33,7 @@
 			<groupId>com.famaridon</groupId>
 			<artifactId>redmine-ng-web-rest</artifactId>
 		</dependency>
+
 	</dependencies>
 
 	<build>

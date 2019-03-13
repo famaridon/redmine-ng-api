@@ -1,0 +1,28 @@
+# my global config
+global:
+  # How frequently to scrape targets by default.
+  scrape_interval: 15s
+  # How long until a scrape request times out.
+  scrape_timeout: 15s
+  # How frequently to evaluate rules.
+  evaluation_interval: 1m
+
+# Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
+rule_files:
+# - "first.rules"
+# - "second.rules"
+
+scrape_configs:
+  # The job name assigned to scraped metrics by default.
+  - job_name: 'redmineng'
+    # The HTTP resource path on which to fetch metrics from targets.
+    metrics_path: '/metrics'
+    static_configs:
+      - targets: ['api:9990']
+
+
+  - job_name: 'prometheus'
+    # Override the global default and scrape targets from this job every 5 seconds.
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['localhost:9090']

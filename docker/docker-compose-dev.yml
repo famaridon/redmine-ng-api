@@ -20,19 +20,29 @@ services:
       - 8080:8080
       - 8443:8443
       - 9990:9990
-      - 5000:5000
+      - 33073:5005
       - 8860:8860
     environment:
       REDMINE_NG_API_PROFILE: "dev"
       JPROFILER: "true"
       JACOCOC: "true"
+      DEBUG: "true"
     volumes:
       - ./api/configuration:/opt/wildfly/configuration
       - ./api/staging:/opt/wildfly/staging
       - ./api/deployments:/opt/wildfly/standalone/deployments
+      - ./api/log:/opt/wildfly/standalone/log
     networks:
       - redminengapi
 
+  metrics:
+    image: prom/prometheus
+    ports:
+      - 9090:9090
+    volumes:
+      - ./metrics/prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - redminengapi
 
 networks:
   redminengapi:

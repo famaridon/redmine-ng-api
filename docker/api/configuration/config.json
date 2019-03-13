@@ -8,16 +8,24 @@
       "development-cost": 28
     },
     "status":{
-      "ongoing": 2,
-      "reopen": 9
+      "new": 1,
+      "in-work": 2,
+      "re-open": 9,
+      "done": 23,
+      "closed": 5,
+      "rejected": 6,
+      "to-be-tested": 24
     },
     "projects": {
       "process": {
         "project": 378,
-
         "burndown": {
           "valid-trackers": [36, 37]
         }
+      },
+      "support": {
+        "project": 1032,
+        "open-issues-query": 1762
       }
     }
   },

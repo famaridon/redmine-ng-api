@@ -11,8 +11,8 @@
 	<packaging>ejb</packaging>
 
 	<artifactId>redmine-ng-services</artifactId>
-	<dependencies>
 
+	<dependencies>
 		<dependency>
 			<groupId>com.famaridon</groupId>
 			<artifactId>redmine-ng-domain</artifactId>
@@ -32,6 +32,15 @@
 		<dependency>
 			<groupId>org.infinispan</groupId>
 			<artifactId>infinispan-commons</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.eclipse.microprofile.health</groupId>
+			<artifactId>microprofile-health-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.microprofile.metrics</groupId>
+			<artifactId>microprofile-metrics-api</artifactId>
 		</dependency>
 
 		<dependency>
