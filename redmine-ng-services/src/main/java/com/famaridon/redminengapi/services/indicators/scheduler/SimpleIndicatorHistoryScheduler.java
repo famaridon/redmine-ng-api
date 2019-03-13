@@ -1,4 +1,4 @@
-package com.famaridon.redminengapi.services.indicators.impl;
+package com.famaridon.redminengapi.services.indicators.scheduler;
 
 import com.famaridon.redminengapi.services.configuration.ConfigurationService;
 import com.famaridon.redminengapi.services.indicators.IterationService;

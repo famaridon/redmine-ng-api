@@ -1,4 +1,4 @@
-package com.famaridon.redminengapi.services.indicators.impl;
+package com.famaridon.redminengapi.services.indicators.scheduler;
 
 import com.famaridon.redminengapi.domain.entities.BurndownChartEntity;
 import com.famaridon.redminengapi.domain.entities.ChartTimedValueEntity;
@@ -6,13 +6,13 @@ import com.famaridon.redminengapi.domain.entities.IterationEntity;
 import com.famaridon.redminengapi.domain.repositories.BurndownChartRepository;
 import com.famaridon.redminengapi.domain.repositories.IterationRepository;
 import com.famaridon.redminengapi.services.configuration.ConfigurationService;
+import com.famaridon.redminengapi.services.indicators.impl.InternalBurndownChartService;
 import com.famaridon.redminengapi.services.indicators.impl.issue.SumPointsOperator;
 import com.famaridon.redminengapi.services.indicators.impl.issue.SumPointsWithProgressOperator;
 import com.famaridon.redminengapi.services.redmine.StatusType;
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.Optional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.ejb.Lock;
 import javax.ejb.LockType;
 import javax.ejb.Schedule;
@@ -20,8 +20,10 @@ import javax.ejb.Singleton;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.transaction.Transactional.TxType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.Optional;
 
 /**
  * TODO : this is a draft class to start collecting data. this class is moovapps process team specific
