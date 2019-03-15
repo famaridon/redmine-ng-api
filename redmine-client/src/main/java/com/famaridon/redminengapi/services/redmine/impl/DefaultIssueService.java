@@ -2,6 +2,7 @@ package com.famaridon.redminengapi.services.redmine.impl;
 
 import com.famaridon.redminengapi.services.redmine.Filter;
 import com.famaridon.redminengapi.services.redmine.FilterFactory;
+import com.famaridon.redminengapi.services.redmine.IssueAssociatedData;
 import com.famaridon.redminengapi.services.redmine.IssueService;
 import com.famaridon.redminengapi.services.redmine.Pager;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Issue;
@@ -14,7 +15,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Named
 @Default
@@ -38,8 +41,14 @@ public class DefaultIssueService extends AbstractRedmineService<Issue> implement
   }
 
   @Override
-  public Issue findById(String apiAccessKey, Long id) throws IOException {
+  public Issue findById(String apiAccessKey, Long id, IssueAssociatedData... associatedData) throws IOException {
     URIBuilder uriBuilder = this.getUriBuilder(String.format("/issues/%s.json", id));
+    if(associatedData != null && associatedData.length > 0){
+      uriBuilder.addParameter("include", Arrays.stream(associatedData)
+        .map(ad -> ad.queryParam)
+        .collect(Collectors.joining(",")));
+    }
+    
     return Request.Get(this.toUri(uriBuilder))
         .addHeader(X_REDMINE_API_KEY, apiAccessKey)
         .execute()

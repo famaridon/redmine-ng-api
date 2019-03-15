@@ -44,6 +44,8 @@ public class Issue extends AbstractRedmineBean {
 	private Date updatedOn;
 	@JsonProperty("closed_on")
 	private Date closedOn;
+	@JsonProperty("journals")
+	private List<Journal> journals = new ArrayList<>();
 	
 	public Project getProject() {
 		return this.project;
@@ -215,6 +217,14 @@ public class Issue extends AbstractRedmineBean {
 	
 	public void setClosedOn(Date closedOn) {
 		this.closedOn = closedOn;
+	}
+	
+	public List<Journal> getJournals() {
+		return journals;
+	}
+	
+	public void setJournals(List<Journal> journals) {
+		this.journals = journals;
 	}
 	
 	@Override

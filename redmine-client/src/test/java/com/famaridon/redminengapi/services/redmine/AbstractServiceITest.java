@@ -2,13 +2,14 @@ package com.famaridon.redminengapi.services.redmine;
 
 import com.famaridon.redminengapi.services.redmine.impl.AbstractRedmineService;
 import com.famaridon.redminengapi.services.redmine.mock.MockRedmineClientConfiguration;
-import java.io.File;
 import junit.framework.Assert;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.Before;
+
+import java.io.File;
 
 public abstract class AbstractServiceITest {
 
@@ -31,6 +32,8 @@ public abstract class AbstractServiceITest {
         .addClass(AbstractServiceITest.class)
         .addClass(Pager.class)
         .addClass(Filter.class)
+        .addClass(FilterFactory.class)
+        .addClass(IssueAssociatedData.class)
         .addClass(QueryParamSerializable.class)
         .addClass(AbstractRedmineService.class)
         .addClass(RedmineClientConfiguration.class)
@@ -40,7 +43,7 @@ public abstract class AbstractServiceITest {
         .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 
   }
-
+  
   @Before
   public void setUp() {
     this.apiKey = System.getenv("TEST_REDMINE_API_KEY");
