@@ -1,14 +1,14 @@
 package com.famaridon.redminengapi.services.redmine;
 
 import com.famaridon.redminengapi.services.redmine.impl.DefaultVersionsService;
-import org.jboss.arquillian.junit.Arquillian;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
 import java.io.IOException;
 
-@RunWith(Arquillian.class)
+@RunWith(JUnit4.class)
 public class VersionsServiceITest extends AbstractServiceITest {
 
   private VersionsService versionsService;

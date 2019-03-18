@@ -1,48 +1,26 @@
 package com.famaridon.redminengapi.services.configuration.impl;
 
+import com.famaridon.redminengapi.services.configuration.ConfigurationService;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
+
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
-import com.famaridon.redminengapi.services.configuration.ConfigurationService;
-import java.io.File;
-import java.util.Arrays;
-import java.util.List;
-import javax.ejb.EJB;
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.jboss.shrinkwrap.resolver.api.maven.Maven;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
-@RunWith(Arquillian.class)
+@RunWith(JUnit4.class)
 public class DefaultConfigurationServiceUTest {
-
-  public static final String[] REDMINE_CLIENT_DEPENDENCIES = new String[]{
-      "org.apache.commons:commons-lang3",
-      "org.apache.commons:commons-configuration2",
-      "commons-beanutils:commons-beanutils",
-      "org.slf4j:slf4j-api"
-  };
-  @EJB
+  
   protected ConfigurationService configurationService;
-
-  @Deployment
-  public static WebArchive deployment() {
-    File[] dependencies = Maven.resolver()
-        .loadPomFromFile(new File("pom.xml"))
-        .resolve(REDMINE_CLIENT_DEPENDENCIES)
-        .withTransitivity().asFile();
-
-    return ShrinkWrap.create(WebArchive.class)
-        .addClass(ConfigurationService.class)
-        .addClass(DefaultConfigurationService.class)
-        .addClass(DefaultConfigurationServiceUTest.class)
-        .addAsLibraries(dependencies)
-        .addAsResource("config-utest.json", "config.json")
-        .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+  
+  @Before
+  public void setUp() {
+    this.configurationService = new DefaultConfigurationService();
+    ((DefaultConfigurationService)this.configurationService).startup();
   }
 
   @Test

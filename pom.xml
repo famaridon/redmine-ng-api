@@ -447,6 +447,7 @@
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <configuration>
+                    <append>true</append>
                     <excludes>
                         <exclude>com/famaridon/redminengapi/domain/entities/*</exclude>
                         <exclude>com/famaridon/redminengapi/services/indicators/beans/*</exclude>
@@ -462,10 +463,48 @@
 
     <profiles>
         <profile>
-            <id>with-test-env</id>
+            <id>with-test</id>
             <properties>
                 <skipTests>false</skipTests>
             </properties>
+        </profile>
+        <profile>
+            <id>with-arquillian-test</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
+                        <configuration>
+                            <address>127.0.0.1</address>
+                            <port>6300</port>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <phase>post-integration-test</phase>
+                                <goals>
+                                    <goal>dump</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>with-jee-integration-test</id>
+        </profile>
+        <profile>
+            <id>with-jee-unit-test</id>
+        </profile>
+        <profile>
+            <id>with-junit-test</id>
+        </profile>
+        <profile>
+            <id>with-junit-intergartion-test</id>
+        </profile>
+        <profile>
+            <id>with-junit-unit-test</id>
         </profile>
         <profile>
             <id>with-version-check</id>

@@ -2,17 +2,24 @@ package com.famaridon.redminengapi.services.configuration.impl;
 
 import com.famaridon.redminengapi.services.configuration.ConfigurationService;
 import com.famaridon.redminengapi.services.redmine.RedmineClientConfiguration;
-import java.util.Collections;
-import java.util.List;
+
 import javax.enterprise.inject.Default;
 import javax.inject.Inject;
+import javax.inject.Named;
+import java.util.Collections;
+import java.util.List;
 
+@Named
 @Default
 public class DefaultRedmineClientConfiguration implements RedmineClientConfiguration {
 
-  @Inject
   private ConfigurationService configurationService;
-
+  
+  @Inject
+  public DefaultRedmineClientConfiguration(@Named ConfigurationService configurationService) {
+    this.configurationService = configurationService;
+  }
+  
   @Override
   public String getServerUrl() {
     return this.configurationService.getString("redmine.server.url");

@@ -1,10 +1,6 @@
 package com.famaridon.redminengapi.services.cache;
 
-import static org.junit.Assert.assertNotNull;
-
 import com.famaridon.redminengapi.services.cache.impl.InfinispanCacheService;
-import java.io.File;
-import javax.inject.Inject;
 import org.infinispan.Cache;
 import org.infinispan.configuration.cache.ConfigurationBuilder;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -15,8 +11,13 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import javax.inject.Inject;
+import java.io.File;
+
+import static org.junit.Assert.assertNotNull;
+
 @RunWith(Arquillian.class)
-public class CacheServiceITest {
+public class CacheServiceJEETest {
 
   @Inject
   protected CacheService cacheService;
@@ -35,7 +36,7 @@ public class CacheServiceITest {
   @Deployment
   public static WebArchive createDeployment() {
     return prepareDeployment()
-        .addClass(CacheServiceITest.class)
+        .addClass(CacheServiceJEETest.class)
         .addClass(CacheService.class)
         .addClass(InfinispanCacheService.class);
   }

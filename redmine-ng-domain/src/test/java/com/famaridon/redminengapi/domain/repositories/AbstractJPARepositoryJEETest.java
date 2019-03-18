@@ -1,14 +1,15 @@
 package com.famaridon.redminengapi.domain.repositories;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
 import com.famaridon.redminengapi.domain.entities.AbstractEntity;
 import com.famaridon.redminengapi.domain.repositories.impl.AbstractJPARepository;
-import java.io.File;
-import java.util.Optional;
-import java.util.concurrent.atomic.AtomicLong;
+import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.EmptyAsset;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.shrinkwrap.resolver.api.maven.Maven;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -18,16 +19,16 @@ import javax.transaction.NotSupportedException;
 import javax.transaction.RollbackException;
 import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
-import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.jboss.shrinkwrap.resolver.api.maven.Maven;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import java.io.File;
+import java.util.Optional;
+import java.util.concurrent.atomic.AtomicLong;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(Arquillian.class)
-public abstract class AbstractJPARepositoryITest<R extends Repository<E>, E extends AbstractEntity> {
+public abstract class AbstractJPARepositoryJEETest<R extends Repository<E>, E extends AbstractEntity> {
 
   public static final String[] REDMINE_CLIENT_DEPENDENCIES = new String[]{
       "org.apache.commons:commons-lang3"
@@ -45,7 +46,7 @@ public abstract class AbstractJPARepositoryITest<R extends Repository<E>, E exte
         .resolve(REDMINE_CLIENT_DEPENDENCIES)
         .withTransitivity().asFile();
 
-    return ShrinkWrap.create(WebArchive.class).addClass(AbstractJPARepositoryITest.class).addClass(AbstractEntity.class)
+    return ShrinkWrap.create(WebArchive.class).addClass(AbstractJPARepositoryJEETest.class).addClass(AbstractEntity.class)
         .addAsLibraries(dependencies)
         .addClass(entityClass)
         .addClass(Repository.class)

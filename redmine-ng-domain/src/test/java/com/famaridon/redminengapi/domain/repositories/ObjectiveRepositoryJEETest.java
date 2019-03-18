@@ -1,17 +1,8 @@
 package com.famaridon.redminengapi.domain.repositories;
 
-import static org.junit.Assert.assertEquals;
-
 import com.famaridon.redminengapi.domain.entities.IterationEntity;
 import com.famaridon.redminengapi.domain.entities.ObjectiveEntity;
 import com.famaridon.redminengapi.domain.repositories.impl.JPAObjectiveRepository;
-import java.time.LocalDate;
-import javax.ejb.EJB;
-import javax.transaction.HeuristicMixedException;
-import javax.transaction.HeuristicRollbackException;
-import javax.transaction.NotSupportedException;
-import javax.transaction.RollbackException;
-import javax.transaction.SystemException;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
@@ -19,9 +10,18 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import javax.ejb.EJB;
+import javax.transaction.HeuristicMixedException;
+import javax.transaction.HeuristicRollbackException;
+import javax.transaction.NotSupportedException;
+import javax.transaction.RollbackException;
+import javax.transaction.SystemException;
+import java.time.LocalDate;
+
+import static org.junit.Assert.assertEquals;
+
 @RunWith(Arquillian.class)
-public class ObjectiveRepositoryITest extends
-    AbstractJPARepositoryITest<ObjectiveRepository, ObjectiveEntity> {
+public class ObjectiveRepositoryJEETest extends AbstractJPARepositoryJEETest<ObjectiveRepository, ObjectiveEntity> {
 
   @EJB
   private ObjectiveRepository objectiveRepository;

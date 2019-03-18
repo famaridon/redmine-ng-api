@@ -1,41 +1,38 @@
 package com.famaridon.redminengapi.services.configuration.impl;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import com.famaridon.redminengapi.services.configuration.ConfigurationService;
-import com.famaridon.redminengapi.services.configuration.MockStaticConfigurationService;
 import com.famaridon.redminengapi.services.redmine.RedmineClientConfiguration;
-import java.util.List;
-import javax.inject.Inject;
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
-@RunWith(Arquillian.class)
+import java.util.Collections;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.startsWith;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+@RunWith(JUnit4.class)
 public class DefaultRedmineClientConfigurationTest {
-
-  @Inject
-  private ConfigurationService mockStaticConfigurationService;
-
-  @Inject
+  
+  protected ConfigurationService mockConfigurationService;
   private RedmineClientConfiguration redmineClientConfiguration;
+  
+  @Before
+  public void setUp() {
+    this.mockConfigurationService = mock(ConfigurationService.class);
+    this.redmineClientConfiguration = new DefaultRedmineClientConfiguration(this.mockConfigurationService);
+    when(this.mockConfigurationService.getString("redmine.server.url")).thenReturn("https://example/com");
+    when(this.mockConfigurationService.getList(eq(String.class), startsWith("security.users."), any())).thenReturn(Collections.singletonList("admin"));
 
-  @Deployment
-  public static WebArchive deployment() {
-    return ShrinkWrap.create(WebArchive.class)
-        .addClass(ConfigurationService.class)
-        .addClass(MockStaticConfigurationService.class)
-        .addClass(RedmineClientConfiguration.class)
-        .addClass(DefaultRedmineClientConfiguration.class)
-        .addClass(DefaultRedmineClientConfigurationTest.class)
-        .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
   }
-
+  
   @Test
   public void getServerUrl() {
     assertEquals("https://example/com", this.redmineClientConfiguration.getServerUrl());

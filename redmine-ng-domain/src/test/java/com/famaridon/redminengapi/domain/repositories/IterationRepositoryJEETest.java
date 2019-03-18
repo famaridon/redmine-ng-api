@@ -1,29 +1,30 @@
 package com.famaridon.redminengapi.domain.repositories;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import com.famaridon.redminengapi.domain.entities.BurndownChartEntity;
 import com.famaridon.redminengapi.domain.entities.ChartTimedValueEntity;
 import com.famaridon.redminengapi.domain.entities.IterationEntity;
 import com.famaridon.redminengapi.domain.repositories.impl.JPAIterationRepository;
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
-import java.util.Optional;
-import javax.ejb.EJB;
-import javax.transaction.HeuristicMixedException;
-import javax.transaction.HeuristicRollbackException;
-import javax.transaction.NotSupportedException;
-import javax.transaction.RollbackException;
-import javax.transaction.SystemException;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import javax.ejb.EJB;
+import javax.transaction.HeuristicMixedException;
+import javax.transaction.HeuristicRollbackException;
+import javax.transaction.NotSupportedException;
+import javax.transaction.RollbackException;
+import javax.transaction.SystemException;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.Optional;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 @RunWith(Arquillian.class)
-public class IterationRepositoryITest extends AbstractJPARepositoryITest<IterationRepository, IterationEntity> {
+public class IterationRepositoryJEETest extends AbstractJPARepositoryJEETest<IterationRepository, IterationEntity> {
 
   @EJB
   private IterationRepository iterationRepository;
