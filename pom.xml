@@ -443,6 +443,20 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>com/famaridon/redminengapi/domain/entities/*</exclude>
+                        <exclude>com/famaridon/redminengapi/services/indicators/beans/*</exclude>
+                        <exclude>com/famaridon/redminengapi/services/redmine/rest/client/beans*</exclude>
+                        <exclude>**/*MapperImpl*</exclude>
+                        <exclude>com/famaridon/redminengapi/rest/**/*</exclude> <!-- I don't know how to test it -->
+                    </excludes>
+                    <destFile>${project.build.directory}/jacoco.exec</destFile>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
@@ -452,44 +466,6 @@
             <properties>
                 <skipTests>false</skipTests>
             </properties>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.jacoco</groupId>
-                        <artifactId>jacoco-maven-plugin</artifactId>
-                        <configuration>
-                            <address>127.0.0.1</address>
-                            <port>6300</port>
-                            <reset>true</reset>
-                            <append>true</append>
-                            <excludes>
-                                <exclude>com/famaridon/redminengapi/domain/entities/*</exclude>
-                                <exclude>com/famaridon/redminengapi/services/indicators/beans/*</exclude>
-                                <exclude>com/famaridon/redminengapi/services/redmine/rest/client/beans*</exclude>
-                                <exclude>**/*MapperImpl*</exclude>
-                                <exclude>com/famaridon/redminengapi/rest/**/*</exclude> <!-- I don't know how to test it -->
-                            </excludes>
-                            <destFile>${project.build.directory}/jacoco.exec</destFile>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <phase>post-integration-test</phase>
-                                <goals>
-                                    <goal>dump</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.eluder.coveralls</groupId>
-                        <artifactId>coveralls-maven-plugin</artifactId>
-                        <version>4.3.0</version>
-                        <configuration>
-                            <repoToken>DIsBnEkBqXDJcl2l5Pc7BYm8E9caqLLo1</repoToken>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
         </profile>
         <profile>
             <id>with-version-check</id>
