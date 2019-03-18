@@ -1,26 +1,22 @@
 package com.famaridon.redminengapi.services.redmine;
 
 import com.famaridon.redminengapi.services.redmine.impl.DefaultVersionsService;
-import java.io.IOException;
-import javax.inject.Inject;
-import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import java.io.IOException;
 
 @RunWith(Arquillian.class)
 public class VersionsServiceITest extends AbstractServiceITest {
 
-  @Inject
   private VersionsService versionsService;
-
-  @Deployment
-  public static WebArchive createDeployment() {
-    return prepareDeployment()
-        .addClass(VersionsServiceITest.class)
-        .addClass(VersionsService.class)
-        .addClass(DefaultVersionsService.class);
+  
+  @Before
+  public void setUp() {
+    super.setUp();
+    this.versionsService = new DefaultVersionsService(this.redmineClientConfiguration);
   }
 
   @Test

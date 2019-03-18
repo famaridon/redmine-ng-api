@@ -1,26 +1,22 @@
 package com.famaridon.redminengapi.services.redmine;
 
 import com.famaridon.redminengapi.services.redmine.impl.DefaultProjectService;
-import java.io.IOException;
-import javax.inject.Inject;
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
-@RunWith(Arquillian.class)
+import java.io.IOException;
+
+@RunWith(JUnit4.class)
 public class ProjectServiceITest extends AbstractServiceITest {
 
-  @Inject
   ProjectService projectService;
-
-  @Deployment
-  public static WebArchive createDeployment() {
-    return prepareDeployment()
-        .addClass(ProjectServiceITest.class)
-        .addClass(ProjectService.class)
-        .addClass(DefaultProjectService.class);
+  
+  @Before
+  public void setUp() {
+    super.setUp();
+    this.projectService = new DefaultProjectService(this.redmineClientConfiguration);
   }
 
   @Test
