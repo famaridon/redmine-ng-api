@@ -25,7 +25,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @RunWith(JUnit4.class)
-public class DefaultStatsServiceTest {
+public class DefaultStatsServiceUTest {
 	
 	private static final String MOCK_API_KEY = "mock";
 	private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy/MM/dd");

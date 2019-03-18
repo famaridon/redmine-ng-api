@@ -46,12 +46,6 @@
 			<groupId>com.famaridon</groupId>
 			<artifactId>redmine-ng-services-api</artifactId>
 		</dependency>
-
 	</dependencies>
-
-	<build>
-		<plugins>
-		</plugins>
-	</build>
 
 </project>

@@ -19,7 +19,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @RunWith(JUnit4.class)
-public class DefaultRedmineClientConfigurationTest {
+public class DefaultRedmineClientConfigurationUTest {
   
   protected ConfigurationService mockConfigurationService;
   private RedmineClientConfiguration redmineClientConfiguration;

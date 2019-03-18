@@ -11,7 +11,11 @@ cd ..
 
 sleep $WAIT_DOCKER
 
-mvn -Pwith-test-env clean install sonar:sonar -B --fail-at-end
+mvn -Pjunit-itests test -B --fail-at-end
+mvn -Pjunit-utests test -B --fail-at-end
+mvn -Pjee-tests test -B --fail-at-end
+mvn jacoco:merge --non-recursive
+mvn sonar:sonar -B
 result=$?
 
 cd docker
