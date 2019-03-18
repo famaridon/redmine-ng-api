@@ -9,6 +9,8 @@ import com.famaridon.redminengapi.services.redmine.rest.client.beans.Issue;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Journal;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -18,6 +20,7 @@ import java.util.Date;
 
 import static org.mockito.Mockito.*;
 
+@RunWith(JUnit4.class)
 public class DefaultStatsServiceTest {
 	
 	private static final String MOCK_API_KEY = "mock";
