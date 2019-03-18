@@ -54,7 +54,7 @@ public class DefaultStatsService implements StatsService {
 				if (statusDuration == null) {
 					statusDuration = Duration.ZERO;
 				}
-				statusDuration = statusDuration.plus(Duration.between(journal.getCreatedOn().toInstant(), previousStatusChangeDate));
+				statusDuration = statusDuration.plus(Duration.between(previousStatusChangeDate, journal.getCreatedOn().toInstant()));
 				issueStats.getDurationByTracker().put(previousStatus, statusDuration);
 				previousStatusChangeDate = journal.getCreatedOn().toInstant();
 			}

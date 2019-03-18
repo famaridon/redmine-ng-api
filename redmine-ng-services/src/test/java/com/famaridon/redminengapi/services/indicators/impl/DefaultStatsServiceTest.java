@@ -16,9 +16,13 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @RunWith(JUnit4.class)
 public class DefaultStatsServiceTest {
@@ -46,6 +50,9 @@ public class DefaultStatsServiceTest {
 		when(this.mockedIssueService.findById(MOCK_API_KEY, 1L, IssueAssociatedData.JOURNALS)).thenReturn(this.buildIssueWithJournal());
 		IssueStats issueStats = this.statsService.computeIssueStats(MOCK_API_KEY, 1L);
 		System.out.println(issueStats);
+		assertEquals(0, Duration.of(48, ChronoUnit.HOURS).compareTo(issueStats.getDurationByTracker().get(1L)));
+		assertEquals(0, Duration.of(24, ChronoUnit.HOURS).compareTo(issueStats.getDurationByTracker().get(2L)));
+		assertEquals(0, Duration.of(24, ChronoUnit.HOURS).compareTo(issueStats.getDurationByTracker().get(3L)));
 	}
 	
 	private Issue buildIssueWithoutJournal() {
