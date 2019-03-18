@@ -393,20 +393,6 @@
 							<goal>prepare-agent</goal>
 						</goals>
 					</execution>
-					<execution>
-						<id>default-cli</id>
-						<goals>
-							<goal>merge</goal>
-						</goals>
-						<configuration>
-							<fileSets>
-								<fileSet>
-									<directory>.</directory>
-									<include>**/target/*.exec</include>
-								</fileSet>
-							</fileSets>
-						</configuration>
-					</execution>
 				</executions>
 				<configuration>
 					<append>true</append>
@@ -530,6 +516,34 @@
 				<skipTests>false</skipTests>
 				<skipItests>**/*UTest.java</skipItests>
 			</properties>
+		</profile>
+		<profile>
+			<id>jacoco-merge</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.jacoco</groupId>
+						<artifactId>jacoco-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<inherited>false</inherited>
+								<id>default-cli</id>
+								<goals>
+									<goal>merge</goal>
+								</goals>
+								<configuration>
+									<fileSets>
+										<fileSet>
+											<directory>.</directory>
+											<include>**/target/*.exec</include>
+										</fileSet>
+									</fileSets>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
 		</profile>
 
 		<profile>
