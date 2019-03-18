@@ -10,7 +10,7 @@ public interface IssueService {
 	
 	Page<Issue> findAll(String apiKey, Pager pager) throws IOException;
 	
-	Issue findById(String apiKey, Long id) throws IOException;
+	Issue findById(String apiKey, Long id, IssueAssociatedData ... associatedData) throws IOException;
 	
 	Page<Issue> findByQueryAndProject(String apiKey, Long query, Long project, Pager pager) throws IOException;
 

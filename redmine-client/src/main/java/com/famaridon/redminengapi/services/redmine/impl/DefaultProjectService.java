@@ -2,13 +2,16 @@ package com.famaridon.redminengapi.services.redmine.impl;
 
 import com.famaridon.redminengapi.services.redmine.Pager;
 import com.famaridon.redminengapi.services.redmine.ProjectService;
+import com.famaridon.redminengapi.services.redmine.RedmineClientConfiguration;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Page;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Project;
-import java.io.IOException;
-import javax.enterprise.inject.Default;
-import javax.inject.Named;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.client.utils.URIBuilder;
+
+import javax.enterprise.inject.Default;
+import javax.inject.Inject;
+import javax.inject.Named;
+import java.io.IOException;
 
 @Named
 @Default
@@ -17,7 +20,12 @@ public class DefaultProjectService extends AbstractRedmineService<Project> imple
   protected URIBuilder getProjectsEndpointUriBuilder() {
     return this.getUriBuilder("/projects.json");
   }
-
+  
+  @Inject
+  public DefaultProjectService(@Named RedmineClientConfiguration redmineClientConfiguration) {
+    super(redmineClientConfiguration);
+  }
+  
   @Override
   public Page<Project> findAll(String apiAccessKey, Pager pager) throws IOException {
     URIBuilder uriBuilder = this.getProjectsEndpointUriBuilder();

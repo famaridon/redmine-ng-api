@@ -2,20 +2,28 @@ package com.famaridon.redminengapi.services.redmine.impl;
 
 import com.famaridon.redminengapi.services.redmine.Pager;
 import com.famaridon.redminengapi.services.redmine.QueryService;
+import com.famaridon.redminengapi.services.redmine.RedmineClientConfiguration;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Page;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Query;
-import java.io.IOException;
-import javax.enterprise.inject.Default;
-import javax.inject.Named;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.client.utils.URIBuilder;
+
+import javax.enterprise.inject.Default;
+import javax.inject.Inject;
+import javax.inject.Named;
+import java.io.IOException;
 
 @Named
 @Default
 public class DefaultQueryService extends AbstractRedmineService<Query> implements QueryService {
-
+  
   protected URIBuilder getQueriesEndpointUriBuilder() {
     return this.getUriBuilder("/queries.json");
+  }
+  
+  @Inject
+  public DefaultQueryService(@Named RedmineClientConfiguration redmineClientConfiguration) {
+    super(redmineClientConfiguration);
   }
 
   @Override
