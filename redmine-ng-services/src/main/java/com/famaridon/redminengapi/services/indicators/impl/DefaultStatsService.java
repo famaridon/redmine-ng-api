@@ -26,7 +26,8 @@ public class DefaultStatsService implements StatsService {
 	public DefaultStatsService() {
 	}
 	
-	public DefaultStatsService( IssueService issueService) {
+	@Inject
+	public DefaultStatsService(IssueService issueService) {
 		this.issueService = issueService;
 	}
 	

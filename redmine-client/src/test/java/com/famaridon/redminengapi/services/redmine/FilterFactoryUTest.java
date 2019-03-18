@@ -1,41 +1,26 @@
 package com.famaridon.redminengapi.services.redmine;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-
 import com.famaridon.redminengapi.services.redmine.impl.DefaultFilterFactory;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Project;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Query;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Status;
-import java.util.ArrayList;
-import java.util.List;
 import org.apache.http.client.utils.URIBuilder;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+
 @RunWith(JUnit4.class)
 public class FilterFactoryUTest {
 
   private FilterFactory filterFactory;
   private URIBuilder uriBuilder;
-
-//	@Deployment
-//	public static WebArchive createDeployment() {
-//		WebArchive webArchive = ShrinkWrap.create(WebArchive.class)
-//			.addClass(FilterFactory.class)
-//			.addClass(DefaultFilterFactory.class)
-//			.addClass(QueryParamSerializable.class)
-//			.addClass(URIBuilder.class)
-//			.addClass(Filter.class)
-//			.addClass(StatusType.class)
-//			.addPackage(AbstractFilter.class.getPackage())
-//			.addPackages(true, AbstractRedmineBean.class.getPackage())
-//			.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
-//
-//		return webArchive;
-//	}
 
   @Before
   public void initialize() {
