@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 import java.io.IOException;
 
 @Health
@@ -20,11 +21,17 @@ public class RedmineCheck implements HealthCheck {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(RedmineCheck.class);
 	
-	@Inject
 	private ConfigurationService configurationService;
+	private UserService userService;
+	
+	public RedmineCheck() {
+	}
 	
 	@Inject
-	private UserService userService;
+	public RedmineCheck(@Named UserService userService, @Named ConfigurationService configurationService) {
+		this.configurationService = configurationService;
+		this.userService = userService;
+	}
 	
 	@Override
 	public HealthCheckResponse call() {
