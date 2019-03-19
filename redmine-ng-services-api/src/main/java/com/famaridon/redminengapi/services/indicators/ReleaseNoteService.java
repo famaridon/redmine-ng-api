@@ -9,8 +9,6 @@ import javax.ws.rs.core.Response;
  */
 public interface ReleaseNoteService {
 
-  Response generateReleaseNote(FileType type, String version, String product);
-
-  Response getVersion();
+  Response generateReleaseNote(FileType type, String version, String product, Long idV);
 
 }

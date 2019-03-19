@@ -4,18 +4,14 @@ package com.famaridon.redminengapi.services.indicators.impl;
 import com.famaridon.redminengapi.services.indicators.ReleaseNoteService;
 import com.famaridon.redminengapi.services.indicators.beans.FileType;
 import com.famaridon.redminengapi.services.indicators.beans.Header;
-import com.famaridon.redminengapi.services.indicators.impl.releasenote.VersionList;
-import com.famaridon.redminengapi.services.indicators.impl.releasenote.VersionTemp;
 import com.famaridon.redminengapi.services.indicators.impl.releasenote.documentbuilder.DocumentBuilderFactory;
 import com.famaridon.redminengapi.services.indicators.impl.releasenote.documentbuilder.IDocumentBuilder;
 import com.famaridon.redminengapi.services.redmine.Filter;
 import com.famaridon.redminengapi.services.redmine.FilterFactory;
 import com.famaridon.redminengapi.services.redmine.IssueService;
 import com.famaridon.redminengapi.services.redmine.Pager;
-import com.famaridon.redminengapi.services.redmine.VersionsService;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Issue;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Page;
-import com.famaridon.redminengapi.services.redmine.rest.client.beans.Version;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -43,14 +39,12 @@ public class DefaultReleaseNoteService implements ReleaseNoteService {
   private IssueService issueService;
   @Inject
   private FilterFactory filterFactory;
-  @Inject
-  private VersionsService versionsService;
 
   @Override
-  public Response generateReleaseNote(FileType type, String version, String product) {
+  public Response generateReleaseNote(FileType type, String version, String product, Long idV) {
     try {
       Pager page = new Pager(PAGER_OFFSET, PAGER_LIMIT);
-      List<Filter> filter = getFilter();
+      List<Filter> filter = getFilter(idV);
       Page<Issue> listIssue = issueService.findAllByFilters(API_KEY, filter, page);
       Header header = getHeader(version, product);
       String name = header.getName();
@@ -70,41 +64,19 @@ public class DefaultReleaseNoteService implements ReleaseNoteService {
     }
   }
 
-  @Override
-  public Response getVersion() {
-    try {
-      Page<Version> listVersion = versionsService.findAll(API_KEY, 378L);
-      VersionList versions = new VersionList();
-      List<Version> list = listVersion.getElements();
-      for (Version version : list) {
-        versions.add(new VersionTemp(version.getId(), version.getName()));
-      }
-      return Response.ok(list).build();
-    } catch (IOException e) {
-      LOGGER.warn("get listVersion problem", e);
-      return Response.noContent().build();
-    }
-
-
-
-  }
-
-
-  private Header getHeader(String vers, String prod){
+  private Header getHeader(String version, String product){
     Date actual = new Date();
     String date = DATE_FORMAT.format(actual);
     String name = "RLN-" + DATE_FORMAT_LONG.format(actual);
     String author = "Arthur Pelofi";
-    String product = prod;
-    String version = vers;
     return new Header(name, author, date, product, version);
   }
 
 
-  private List<Filter> getFilter(){
+  private List<Filter> getFilter(Long idV){
     List<Filter> filter = new ArrayList<>();
     filter.add(this.filterFactory.createStatusFilter(5L));
-    filter.add(this.filterFactory.createVersionFilter(1444L));
+    filter.add(this.filterFactory.createVersionFilter(idV));
     return filter;
   }
 }

@@ -20,17 +20,19 @@ public interface ReleaseNoteEndpoint {
     @GET
     @Path("/releaseNote/zip")
     Response releaseNoteZip(@QueryParam("version") @DefaultValue("prob version") String version,
-        @QueryParam("product") @DefaultValue("prob product") String product);
+        @QueryParam("product") @DefaultValue("prob product") String product,
+        @QueryParam("id") @DefaultValue("prob version") Long idV);
 
     @GET
     @Path("/releaseNote/pdf")
-    Response releaseNotePdf(@QueryParam("version") @DefaultValue("probv") String version, @QueryParam("product") @DefaultValue("probp") String product);
+    Response releaseNotePdf(@QueryParam("version") @DefaultValue("probv") String version,
+        @QueryParam("product") @DefaultValue("prob product") String product,
+        @QueryParam("id") @DefaultValue("prob version") Long idV);
 
     @GET
     @Path("/releaseNote/doc")
-    Response releaseNoteDoc(@QueryParam("version") @DefaultValue("probv") String version, @QueryParam("product") @DefaultValue("probp") String product);
+    Response releaseNoteDoc(@QueryParam("version") @DefaultValue("probv") String version,
+        @QueryParam("product") @DefaultValue("prob product") String product,
+        @QueryParam("id") @DefaultValue("prob version") Long idV);
 
-    @GET
-    @Path("/releaseNote/version")
-    Response releaseNoteVersion();
 }

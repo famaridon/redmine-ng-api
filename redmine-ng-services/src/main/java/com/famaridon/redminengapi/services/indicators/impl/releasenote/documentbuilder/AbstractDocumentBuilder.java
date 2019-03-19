@@ -60,6 +60,7 @@ abstract class AbstractDocumentBuilder implements IDocumentBuilder {
   private Document getDocumentFromTemplate() {
     Document document;
     try {
+      File file = new File("test.doc");
       document = new Document(TEMPLATE_DOC);
       document.getMailMerge().setTrimWhitespaces(false);
     } catch (Exception e) {
