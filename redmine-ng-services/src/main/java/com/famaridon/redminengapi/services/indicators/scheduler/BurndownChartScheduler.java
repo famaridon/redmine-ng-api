@@ -8,7 +8,7 @@ import com.famaridon.redminengapi.domain.repositories.IterationRepository;
 import com.famaridon.redminengapi.services.configuration.ConfigurationService;
 import com.famaridon.redminengapi.services.indicators.impl.InternalBurndownChartService;
 import com.famaridon.redminengapi.services.indicators.impl.issue.SumPointsOperator;
-import com.famaridon.redminengapi.services.indicators.impl.issue.SumPointsWithProgressOperator;
+import com.famaridon.redminengapi.services.indicators.impl.issue.SumDuePointsOperator;
 import com.famaridon.redminengapi.services.redmine.StatusType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,7 +49,7 @@ public class BurndownChartScheduler {
   private void scheduled() {
     Long developmentCostField = this.configurationService.getLong("redmine.custom-fields.development-cost");
     SumPointsOperator sumPointsOperator = new SumPointsOperator(developmentCostField);
-    SumPointsWithProgressOperator sumPointsWithProgressOperator = new SumPointsWithProgressOperator(developmentCostField);
+    SumDuePointsOperator sumPointsWithProgressOperator = new SumDuePointsOperator(developmentCostField);
 
     Optional<IterationEntity> iterationEntityOptional = this.iterationRepository
         .findCurrentIteration();
