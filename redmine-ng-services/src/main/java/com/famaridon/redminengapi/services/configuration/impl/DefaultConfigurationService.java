@@ -1,15 +1,6 @@
 package com.famaridon.redminengapi.services.configuration.impl;
 
 import com.famaridon.redminengapi.services.configuration.ConfigurationService;
-import java.io.File;
-import java.net.URL;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.List;
-import java.util.Optional;
-import javax.annotation.PostConstruct;
-import javax.ejb.Singleton;
-import javax.ejb.Startup;
 import org.apache.commons.configuration2.CombinedConfiguration;
 import org.apache.commons.configuration2.Configuration;
 import org.apache.commons.configuration2.JSONConfiguration;
@@ -25,12 +16,23 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.PostConstruct;
+import javax.ejb.Singleton;
+import javax.ejb.Startup;
+import java.io.File;
+import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
+import java.util.Optional;
+
 @Startup
 @Singleton
 public class DefaultConfigurationService implements ConfigurationService {
 
   public static final String REDMINE_NG_API_PROFILE = "REDMINE_NG_API_PROFILE";
   private static final Logger LOG = LoggerFactory.getLogger(DefaultConfigurationService.class);
+  private final EnvironmentNameChecker environmentNameChecker = new EnvironmentNameChecker();
   private Configuration configuration;
 
   @PostConstruct
@@ -102,14 +104,9 @@ public class DefaultConfigurationService implements ConfigurationService {
     if (StringUtils.isEmpty(profile)) {
       return Optional.empty();
     }
-    // Restrict the profile to letters and digits only
-    if (!profile.matches("^[a-zA-Z0-9]++$")) {
-      LOG.warn("profile must only contains letters and digits '{}'", profile);
-      return Optional.empty();
-    }
-    return Optional.of(profile);
+    return environmentNameChecker.validate(profile);
   }
-
+  
   protected final URL getDefaultConfigurationFile() {
     return DefaultConfigurationService.class.getResource("/config.json");
   }
