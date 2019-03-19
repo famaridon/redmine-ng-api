@@ -383,41 +383,6 @@
 
 		<plugins>
 			<plugin>
-				<groupId>org.jacoco</groupId>
-				<artifactId>jacoco-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>default-prepare-agent</id>
-						<phase>initialize</phase>
-						<goals>
-							<goal>prepare-agent</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<excludes>
-						<exclude>com/famaridon/redminengapi/domain/entities/*</exclude>
-						<exclude>com/famaridon/redminengapi/services/indicators/beans/*</exclude>
-						<exclude>com/famaridon/redminengapi/services/redmine/rest/client/beans*</exclude>
-						<exclude>**/*MapperImpl*</exclude>
-						<exclude>com/famaridon/redminengapi/rest/**/*</exclude> <!-- I don't know how to test it -->
-					</excludes>
-					<destFile>${project.build.directory}/jacoco.exec</destFile>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<configuration>
-					<argLine>@{argLine}</argLine>
-					<includes>
-						<include>${skipUtests}</include>
-						<include>${skipItests}</include>
-						<include>${skipJEEtests}</include>
-					</includes>
-				</configuration>
-			</plugin>
-			<plugin>
 				<groupId>org.wildfly.plugins</groupId>
 				<artifactId>wildfly-maven-plugin</artifactId>
 				<version>${wildfly-maven-plugin.version}</version>
@@ -475,14 +440,18 @@
 
 	<profiles>
 		<profile>
-			<id>jee-tests</id>
-			<properties>
-				<skipTests>false</skipTests>
-				<forkCount>1</forkCount>
-				<skipJEEtests>**/*JEETest.java</skipJEEtests>
-			</properties>
+			<id>arquillian</id>
 			<build>
 				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<configuration>
+							<includes>
+								<include>${skipJEEtests}</include>
+							</includes>
+						</configuration>
+					</plugin>
 					<plugin>
 						<groupId>org.jacoco</groupId>
 						<artifactId>jacoco-maven-plugin</artifactId>
@@ -492,14 +461,54 @@
 								<goals>
 									<goal>dump</goal>
 								</goals>
-								<configuration>
-									<address>127.0.0.1</address>
-									<port>6300</port>
-									<reset>true</reset>
-									<append>true</append>
-								</configuration>
 							</execution>
 						</executions>
+						<configuration>
+							<address>127.0.0.1</address>
+							<port>6300</port>
+							<reset>true</reset>
+							<append>true</append>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>jee-tests</id>
+			<properties>
+				<skipTests>false</skipTests>
+				<forkCount>1</forkCount>
+				<skipJEEtests>**/*JEETest.java</skipJEEtests>
+			</properties>
+		</profile>
+		<profile>
+			<id>junit</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.jacoco</groupId>
+						<artifactId>jacoco-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>default-prepare-agent</id>
+								<phase>initialize</phase>
+								<goals>
+									<goal>prepare-agent</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<configuration>
+							<argLine>@{argLine}</argLine>
+							<includes>
+								<include>${skipUtests}</include>
+								<include>${skipItests}</include>
+								<include>${skipJEEtests}</include>
+							</includes>
+						</configuration>
 					</plugin>
 				</plugins>
 			</build>

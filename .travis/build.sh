@@ -14,17 +14,17 @@ main() {
 }
 
 build_and_test() {
-	mvn -Pjunit-itests test -B --fail-at-end
+	mvn -B --fail-at-end -q -Pjunit,junit-itests test
 	if [[ $? -ne 0 ]]; then
 		echo "Integration test failed."
 		return 1
 	fi
-	mvn -Pjunit-utests test -B --fail-at-end
+	mvn -B --fail-at-end -q -Pjunit,junit-utests test
 	if [[ $? -ne 0 ]]; then
 		echo "Unit test failed."
 		return 2
 	fi
-	mvn -Pjee-tests test -B --fail-at-end
+	mvn -B --fail-at-end -q -Parquillian,jee-tests verify
 	if [[ $? -ne 0 ]]; then
 		echo "JEE test failed."
 		return 3
@@ -55,7 +55,7 @@ start_docker() {
 
 stop_docker() {
 	cd docker
-	docker-compose stop
+	docker-compose -f docker-compose-test.yml stop
 	cd ..
 }
 declare -i build_result=100
