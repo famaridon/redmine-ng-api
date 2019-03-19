@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.inject.Named;
 import java.io.IOException;
 
 @Health
@@ -28,7 +27,7 @@ public class RedmineCheck implements HealthCheck {
 	}
 	
 	@Inject
-	public RedmineCheck(@Named UserService userService, @Named ConfigurationService configurationService) {
+	public RedmineCheck(UserService userService, ConfigurationService configurationService) {
 		this.configurationService = configurationService;
 		this.userService = userService;
 	}

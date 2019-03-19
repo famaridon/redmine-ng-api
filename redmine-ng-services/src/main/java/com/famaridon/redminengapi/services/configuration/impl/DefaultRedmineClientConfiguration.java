@@ -16,7 +16,7 @@ public class DefaultRedmineClientConfiguration implements RedmineClientConfigura
   private ConfigurationService configurationService;
   
   @Inject
-  public DefaultRedmineClientConfiguration(@Named ConfigurationService configurationService) {
+  public DefaultRedmineClientConfiguration(ConfigurationService configurationService) {
     this.configurationService = configurationService;
   }
   

@@ -18,7 +18,7 @@ import java.io.IOException;
 public class DefaultMembershipService extends AbstractRedmineService<Membership> implements MembershipService {
   
   @Inject
-  public DefaultMembershipService(@Named RedmineClientConfiguration redmineClientConfiguration) {
+  public DefaultMembershipService(RedmineClientConfiguration redmineClientConfiguration) {
     super(redmineClientConfiguration);
   }
   

@@ -22,7 +22,7 @@ public class DefaultQueryService extends AbstractRedmineService<Query> implement
   }
   
   @Inject
-  public DefaultQueryService(@Named RedmineClientConfiguration redmineClientConfiguration) {
+  public DefaultQueryService(RedmineClientConfiguration redmineClientConfiguration) {
     super(redmineClientConfiguration);
   }
 

@@ -22,7 +22,7 @@ public class DefaultProjectService extends AbstractRedmineService<Project> imple
   }
   
   @Inject
-  public DefaultProjectService(@Named RedmineClientConfiguration redmineClientConfiguration) {
+  public DefaultProjectService(RedmineClientConfiguration redmineClientConfiguration) {
     super(redmineClientConfiguration);
   }
   

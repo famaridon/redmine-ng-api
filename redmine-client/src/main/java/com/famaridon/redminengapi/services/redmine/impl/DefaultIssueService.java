@@ -27,7 +27,7 @@ public class DefaultIssueService extends AbstractRedmineService<Issue> implement
 	protected FilterFactory filterFactory;
 	
 	@Inject
-	public DefaultIssueService(@Named RedmineClientConfiguration redmineClientConfiguration, @Named FilterFactory filterFactory) {
+	public DefaultIssueService(RedmineClientConfiguration redmineClientConfiguration, FilterFactory filterFactory) {
 		super(redmineClientConfiguration);
 		this.filterFactory = filterFactory;
 	}

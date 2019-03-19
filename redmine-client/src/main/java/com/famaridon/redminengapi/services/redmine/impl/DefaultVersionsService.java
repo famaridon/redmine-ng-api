@@ -17,7 +17,7 @@ import java.io.IOException;
 public class DefaultVersionsService extends AbstractRedmineService<Version> implements VersionsService {
   
   @Inject
-  public DefaultVersionsService(@Named RedmineClientConfiguration redmineClientConfiguration) {
+  public DefaultVersionsService(RedmineClientConfiguration redmineClientConfiguration) {
     super(redmineClientConfiguration);
   }
   

@@ -23,7 +23,7 @@ import java.util.List;
 public class DefaultUserService extends AbstractRedmineService<User> implements UserService {
   
   @Inject
-  public DefaultUserService(@Named RedmineClientConfiguration redmineClientConfiguration) {
+  public DefaultUserService(RedmineClientConfiguration redmineClientConfiguration) {
     super(redmineClientConfiguration);
   }
   

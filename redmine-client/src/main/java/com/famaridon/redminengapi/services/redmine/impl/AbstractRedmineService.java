@@ -7,7 +7,6 @@ import com.famaridon.redminengapi.services.redmine.rest.client.handler.PageRespo
 import org.apache.http.client.utils.URIBuilder;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -18,7 +17,7 @@ public abstract class AbstractRedmineService<B> {
   protected RedmineClientConfiguration redmineClientConfiguration;
 
   @Inject
-  public AbstractRedmineService(@Named RedmineClientConfiguration redmineClientConfiguration) {
+  public AbstractRedmineService(RedmineClientConfiguration redmineClientConfiguration) {
     this.redmineClientConfiguration = redmineClientConfiguration;
   }
 
