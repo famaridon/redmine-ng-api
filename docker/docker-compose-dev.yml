@@ -44,6 +44,13 @@ services:
     networks:
       - redminengapi
 
+  dashboard:
+    image: grafana/grafana
+    ports:
+      - 3000:3000
+    networks:
+      - redminengapi
+
 networks:
   redminengapi:
     driver: bridge
