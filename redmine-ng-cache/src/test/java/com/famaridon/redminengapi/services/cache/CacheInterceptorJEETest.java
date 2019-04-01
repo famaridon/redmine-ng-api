@@ -1,13 +1,8 @@
 package com.famaridon.redminengapi.services.cache;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-
 import com.famaridon.redminengapi.services.cache.impl.InfinispanCacheService;
 import com.famaridon.redminengapi.services.cache.interceptors.CacheInterceptor;
 import com.famaridon.redminengapi.services.cache.interceptors.CachedCdiBean;
-import java.io.File;
-import javax.inject.Inject;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -15,8 +10,14 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import javax.inject.Inject;
+import java.io.File;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+
 @RunWith(Arquillian.class)
-public class CacheInterceptorITest {
+public class CacheInterceptorJEETest {
 
   @Inject
   protected CacheService cacheService;
@@ -38,7 +39,7 @@ public class CacheInterceptorITest {
   @Deployment
   public static WebArchive createDeployment() {
     return prepareDeployment()
-        .addClass(CacheInterceptorITest.class)
+        .addClass(CacheInterceptorJEETest.class)
         .addClass(CachedCdiBean.class)
         .addClass(CacheInterceptor.class)
         .addClass(CacheService.class)

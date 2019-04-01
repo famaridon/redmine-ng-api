@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@JsonIgnoreProperties({ "api_key" })
+@JsonIgnoreProperties({ "api_key", "gravatar" })
 public class User extends AbstractRedmineBean {
 	
 	private String login;
@@ -23,6 +23,7 @@ public class User extends AbstractRedmineBean {
 	private Date lastLoginOn;
 	@JsonProperty("api_key")
 	private String apiKey;
+	private Long status;
 	@JsonProperty("custom_fields")
 	private List<CustomField> customFields = new ArrayList<>();
 	
@@ -96,6 +97,14 @@ public class User extends AbstractRedmineBean {
 	
 	public void setCustomFields(List<CustomField> customFields) {
 		this.customFields = customFields;
+	}
+	
+	public Long getStatus() {
+		return status;
+	}
+	
+	public void setStatus(Long status) {
+		this.status = status;
 	}
 	
 	@Override
