@@ -13,6 +13,10 @@
 	<artifactId>redmine-ng-domain</artifactId>
 	<dependencies>
 		<dependency>
+			<groupId>com.famaridon</groupId>
+			<artifactId>redmine-ng-domain-api</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 		</dependency>
