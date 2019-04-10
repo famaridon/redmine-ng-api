@@ -1,7 +1,8 @@
 package com.famaridon.redminengapi.services.indicators;
 
 import com.famaridon.redminengapi.services.indicators.beans.FileType;
-import javax.ws.rs.core.Response;
+import com.famaridon.redminengapi.services.redmine.rest.client.beans.Version;
+import java.io.File;
 
 
 /**
@@ -9,6 +10,6 @@ import javax.ws.rs.core.Response;
  */
 public interface ReleaseNoteService {
 
-  Response generateReleaseNote(FileType type, String version, String product, Long idV);
+  File generateReleaseNote(FileType type, String apiKey, Version version);
 
 }

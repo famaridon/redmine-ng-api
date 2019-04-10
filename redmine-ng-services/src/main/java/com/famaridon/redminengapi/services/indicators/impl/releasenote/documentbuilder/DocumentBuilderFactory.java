@@ -3,17 +3,17 @@ package com.famaridon.redminengapi.services.indicators.impl.releasenote.document
 import com.famaridon.redminengapi.services.indicators.beans.FileType;
 
 public class DocumentBuilderFactory {
-  public IDocumentBuilder getDocumentBuilder(FileType type){
-    IDocumentBuilder documentBuilder;
+  public DocumentBuilder getDocumentBuilder(FileType type){
+    DocumentBuilder documentBuilder;
     switch (type) {
       case DOC:
-        documentBuilder = new DocDocumentBuilder();
+        documentBuilder = new FileDocumentBuilder();
+        break;
+      case PDF:
+        documentBuilder = new FileDocumentBuilder();
         break;
       case ZIP:
         documentBuilder = new ZipDocumentBuilder();
-        break;
-      case PDF:
-        documentBuilder = new PdfDocumentBuilder();
         break;
       default:
         throw new IllegalStateException();

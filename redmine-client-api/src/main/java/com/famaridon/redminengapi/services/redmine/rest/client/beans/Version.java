@@ -1,10 +1,9 @@
 package com.famaridon.redminengapi.services.redmine.rest.client.beans;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Date;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-
-import java.util.Date;
 
 public class Version extends AbstractRedmineBean {
 	private Project project;
