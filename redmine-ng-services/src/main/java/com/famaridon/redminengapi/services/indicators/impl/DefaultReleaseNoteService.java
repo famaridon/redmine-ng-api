@@ -3,20 +3,20 @@ package com.famaridon.redminengapi.services.indicators.impl;
 
 import com.famaridon.redminengapi.services.indicators.ReleaseNoteService;
 import com.famaridon.redminengapi.services.indicators.beans.FileType;
+import com.famaridon.redminengapi.services.indicators.impl.releasenote.PageWalker;
 import com.famaridon.redminengapi.services.indicators.impl.releasenote.documentbuilder.DocumentBuilder;
 import com.famaridon.redminengapi.services.indicators.impl.releasenote.documentbuilder.DocumentBuilderFactory;
 import com.famaridon.redminengapi.services.redmine.Filter;
 import com.famaridon.redminengapi.services.redmine.FilterFactory;
 import com.famaridon.redminengapi.services.redmine.IssueService;
-import com.famaridon.redminengapi.services.redmine.Pager;
 import com.famaridon.redminengapi.services.redmine.StatusType;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Issue;
-import com.famaridon.redminengapi.services.redmine.rest.client.beans.Page;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Version;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 import javax.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,8 +27,6 @@ import org.slf4j.LoggerFactory;
 public class DefaultReleaseNoteService implements ReleaseNoteService {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(DefaultReleaseNoteService.class);
-  private static final Long PAGER_OFFSET = 0L;
-  private static final Long PAGER_LIMIT = 50L;
 
   @Inject
   private IssueService issueService;
@@ -37,15 +35,19 @@ public class DefaultReleaseNoteService implements ReleaseNoteService {
 
   @Override
   public File generateReleaseNote(FileType type, String apiKey, Version version) {
+    List<Filter> filter = buildReleaseNoteFilters(version);
+    PageWalker walker = new PageWalker();
+    Future<List<Issue>> futureIssueList = walker.walk(pager -> this.issueService.findAllByFilters(apiKey,filter,pager));
+    DocumentBuilderFactory factory = new DocumentBuilderFactory();
+    DocumentBuilder documentBuilder = factory.getDocumentBuilder(type);
     try {
-      Pager page = new Pager(PAGER_OFFSET, PAGER_LIMIT);
-      List<Filter> filter = buildReleaseNoteFilters(version);
-      Page<Issue> listIssue = issueService.findAllByFilters(apiKey, filter, page);
-      DocumentBuilderFactory factory = new DocumentBuilderFactory();
-      DocumentBuilder documentBuilder = factory.getDocumentBuilder(type);
-      return documentBuilder.build(listIssue, version, type);
-    } catch (IOException e) {
-      LOGGER.error("No issue in the list", e);
+      List<Issue> issueList = futureIssueList.get();
+      return documentBuilder.build(issueList, version, type);
+    } catch (InterruptedException e) {
+      LOGGER.error("Execution thread interrupted", e);
+      throw new IllegalStateException(e);
+    } catch (ExecutionException e) {
+      LOGGER.error("Execution thread fail", e);
       throw new IllegalStateException(e);
     }
   }

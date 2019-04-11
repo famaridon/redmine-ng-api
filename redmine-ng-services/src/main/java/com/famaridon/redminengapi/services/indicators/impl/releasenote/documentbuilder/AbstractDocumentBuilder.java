@@ -8,7 +8,6 @@ import com.famaridon.redminengapi.services.indicators.impl.releasenote.IssueList
 import com.famaridon.redminengapi.services.indicators.impl.releasenote.IssueTemp;
 import com.famaridon.redminengapi.services.indicators.impl.releasenote.TableDataSource;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Issue;
-import com.famaridon.redminengapi.services.redmine.rest.client.beans.Page;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Version;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -33,7 +32,7 @@ abstract class AbstractDocumentBuilder implements DocumentBuilder {
     return header;
   }
 
-  private Document doMailMerge(Page<Issue> listIssue, Header header){
+  private Document doMailMerge(List<Issue> listIssue, Header header){
     Document document = getDocumentFromTemplate();
     mergeHeader(header, document);
     TableDataSource tableIssue = getTableDataSource(listIssue);
@@ -60,10 +59,9 @@ abstract class AbstractDocumentBuilder implements DocumentBuilder {
     }
   }
 
-  private TableDataSource getTableDataSource(Page<Issue> listIssue) {
+  private TableDataSource getTableDataSource(List<Issue> listIssue) {
     IssueList issues = new IssueList();
-    List<Issue> list = listIssue.getElements();
-    for (Issue issue : list) {
+    for (Issue issue : listIssue) {
       issues.add(new IssueTemp(issue.getSubject(),issue.getId()));
     }
     return new TableDataSource(issues);
@@ -103,7 +101,7 @@ abstract class AbstractDocumentBuilder implements DocumentBuilder {
     String author = "Arthur Pelofi";
     return new Header(name, author, date, version);
   }
-  File getSaveType(Page<Issue> listIssue, Version version, FileType type) {
+  File getSaveType(List<Issue> listIssue, Version version, FileType type) {
     this.header = createHeader(version);
     Document document = doMailMerge(listIssue, this.header);
     try {
