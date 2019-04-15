@@ -150,7 +150,7 @@
         <subsystem xmlns="urn:jboss:domain:datasources:5.0">
             <datasources>
                 <datasource jndi-name="java:jboss/datasources/redmine-ng" pool-name="redmine-ng">
-                    <connection-url>jdbc:mysql://database:3306/redminengapi</connection-url>
+                    <connection-url>jdbc:mysql://database:3306/redminengapi?useSSL=false</connection-url>
                     <driver>mysql</driver>
                     <security>
                         <user-name>redmine-ng</user-name>

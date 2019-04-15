@@ -2,15 +2,16 @@ package com.famaridon.redminengapi.services.indicators.impl.issue;
 
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.CustomField;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Issue;
-import java.math.BigDecimal;
-import java.util.Optional;
 import org.apache.commons.lang3.StringUtils;
 
-public class SumPointsWithProgressOperator implements IssueOperator<BigDecimal> {
+import java.math.BigDecimal;
+import java.util.Optional;
+
+public class SumDuePointsOperator implements IssueOperator<BigDecimal> {
 
   private final Long developmentCostField;
 
-  public SumPointsWithProgressOperator(Long developmentCostField) {
+  public SumDuePointsOperator(Long developmentCostField) {
     this.developmentCostField = developmentCostField;
   }
 

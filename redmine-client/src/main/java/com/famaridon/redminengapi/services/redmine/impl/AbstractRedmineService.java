@@ -4,19 +4,21 @@ package com.famaridon.redminengapi.services.redmine.impl;
 import com.famaridon.redminengapi.services.redmine.RedmineClientConfiguration;
 import com.famaridon.redminengapi.services.redmine.rest.client.handler.HolderResponseHandler;
 import com.famaridon.redminengapi.services.redmine.rest.client.handler.PageResponseHandler;
+import org.apache.http.client.utils.URIBuilder;
+
+import javax.inject.Inject;
 import java.net.URI;
 import java.net.URISyntaxException;
-import javax.inject.Inject;
-import org.apache.http.client.utils.URIBuilder;
 
 public abstract class AbstractRedmineService<B> {
 
   public static final String X_REDMINE_API_KEY = "X-Redmine-API-Key";
-
-  @Inject
+  
   protected RedmineClientConfiguration redmineClientConfiguration;
 
-  public AbstractRedmineService() {
+  @Inject
+  public AbstractRedmineService(RedmineClientConfiguration redmineClientConfiguration) {
+    this.redmineClientConfiguration = redmineClientConfiguration;
   }
 
   protected String getRedmineServer() {

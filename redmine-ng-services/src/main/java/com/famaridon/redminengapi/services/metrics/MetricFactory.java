@@ -15,9 +15,15 @@ public class MetricFactory {
 	
 	private static final String METRICS_PREFIX = "com_famaridon_redminengapi_metrics_";
 	
-	@Inject
-	@RegistryType(type = MetricRegistry.Type.APPLICATION)
 	private MetricRegistry metricRegistry;
+	
+	public MetricFactory() {
+	}
+	
+	@Inject
+	public MetricFactory(@RegistryType(type = MetricRegistry.Type.APPLICATION) MetricRegistry metricRegistry) {
+		this.metricRegistry = metricRegistry;
+	}
 	
 	public <T extends Number> UpgradeableGauge<T> registerUpgradeableGauge(String name, T initialValue) {
 		Validate.notNull(initialValue);

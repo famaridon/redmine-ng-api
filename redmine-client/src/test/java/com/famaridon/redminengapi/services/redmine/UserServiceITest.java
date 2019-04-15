@@ -1,33 +1,29 @@
 package com.famaridon.redminengapi.services.redmine;
 
+import com.famaridon.redminengapi.services.redmine.impl.DefaultUserService;
+import com.famaridon.redminengapi.services.redmine.rest.client.beans.User;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
+
+import java.io.IOException;
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-import com.famaridon.redminengapi.services.redmine.impl.DefaultUserService;
-import com.famaridon.redminengapi.services.redmine.rest.client.beans.User;
-import java.io.IOException;
-import java.util.List;
-import javax.inject.Inject;
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
-@RunWith(Arquillian.class)
+@RunWith(JUnit4.class)
 public class UserServiceITest extends AbstractServiceITest {
 
-  @Inject
   private UserService userService;
-
-  @Deployment
-  public static WebArchive createDeployment() {
-    return prepareDeployment()
-        .addClass(UserServiceITest.class)
-        .addClass(UserService.class)
-        .addClass(DefaultUserService.class);
+  
+  @Before
+  public void setUp() {
+    super.setUp();
+    this.userService = new DefaultUserService(this.redmineClientConfiguration);
   }
 
   @Test

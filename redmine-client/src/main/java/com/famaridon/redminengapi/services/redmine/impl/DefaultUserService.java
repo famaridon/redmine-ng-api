@@ -3,22 +3,30 @@ package com.famaridon.redminengapi.services.redmine.impl;
 import com.famaridon.redminengapi.services.cache.annotation.CacheKey;
 import com.famaridon.redminengapi.services.cache.annotation.CacheName;
 import com.famaridon.redminengapi.services.cache.annotation.CachePut;
+import com.famaridon.redminengapi.services.redmine.RedmineClientConfiguration;
 import com.famaridon.redminengapi.services.redmine.UserService;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.User;
 import com.famaridon.redminengapi.services.redmine.rest.client.handler.HtmlResponseHandler;
-import java.io.IOException;
-import java.util.List;
-import javax.enterprise.inject.Default;
-import javax.inject.Named;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.client.utils.URIBuilder;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
+import javax.enterprise.inject.Default;
+import javax.inject.Inject;
+import javax.inject.Named;
+import java.io.IOException;
+import java.util.List;
+
 @Named
 @Default
 public class DefaultUserService extends AbstractRedmineService<User> implements UserService {
-
+  
+  @Inject
+  public DefaultUserService(RedmineClientConfiguration redmineClientConfiguration) {
+    super(redmineClientConfiguration);
+  }
+  
   @Override
   @CachePut
   @CacheName("userByApiKey")

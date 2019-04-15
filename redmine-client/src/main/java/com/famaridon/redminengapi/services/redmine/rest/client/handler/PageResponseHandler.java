@@ -2,10 +2,12 @@ package com.famaridon.redminengapi.services.redmine.rest.client.handler;
 
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Page;
 import com.fasterxml.jackson.databind.JavaType;
-import java.io.IOException;
 import org.apache.http.HttpEntity;
+import org.apache.http.entity.ContentType;
 
-public class PageResponseHandler<T> extends AbstractRedmineResponseHandler<Page<T>> {
+import java.io.IOException;
+
+public class PageResponseHandler<T> extends AbstractRedmineJsonResponseHandler<Page<T>> {
 
   private final JavaType parametricType;
 
@@ -15,7 +17,7 @@ public class PageResponseHandler<T> extends AbstractRedmineResponseHandler<Page<
   }
 
   @Override
-  protected Page parse(HttpEntity entity) throws IOException {
+  protected Page parse(HttpEntity entity, ContentType contentType) throws IOException {
     return this.objectMapper.readValue(entity.getContent(), parametricType);
   }
 }

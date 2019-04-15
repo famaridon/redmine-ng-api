@@ -19,6 +19,10 @@ import com.famaridon.redminengapi.services.redmine.Pager;
 import com.famaridon.redminengapi.services.redmine.StatusType;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Issue;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Page;
+
+import javax.ejb.Stateless;
+import javax.enterprise.inject.Default;
+import javax.inject.Inject;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -28,9 +32,6 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import javax.ejb.Stateless;
-import javax.enterprise.inject.Default;
-import javax.inject.Inject;
 
 @Stateless
 @Default
@@ -76,7 +77,7 @@ public class DefaultBurndownChartService extends
   }
 
   @Override
-  public BurndownChart buildIdealIteration(Long iterationId) throws ObjectNotFoundException, IOException {
+  public BurndownChart buildIdealIteration(Long iterationId) throws ObjectNotFoundException {
     Optional<IterationEntity> iterationEntityOptional = this.iterationRepository.findById(iterationId);
     if (!iterationEntityOptional.isPresent()) {
       throw new ObjectNotFoundException("No iteration found for id " + iterationId);

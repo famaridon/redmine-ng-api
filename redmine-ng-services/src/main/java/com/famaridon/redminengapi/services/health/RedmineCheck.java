@@ -20,11 +20,17 @@ public class RedmineCheck implements HealthCheck {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(RedmineCheck.class);
 	
-	@Inject
 	private ConfigurationService configurationService;
+	private UserService userService;
+	
+	public RedmineCheck() {
+	}
 	
 	@Inject
-	private UserService userService;
+	public RedmineCheck(UserService userService, ConfigurationService configurationService) {
+		this.configurationService = configurationService;
+		this.userService = userService;
+	}
 	
 	@Override
 	public HealthCheckResponse call() {
