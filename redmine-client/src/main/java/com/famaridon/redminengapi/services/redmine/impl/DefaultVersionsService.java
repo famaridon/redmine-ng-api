@@ -32,6 +32,16 @@ public class DefaultVersionsService extends AbstractRedmineService<Version> impl
   }
 
   @Override
+  public Version findById(String apiKey, Long version) throws IOException {
+    URIBuilder uriBuilder = this.getUriBuilder(String.format("/versions/%s.json", version));
+    return Request
+        .Get(this.toUri(uriBuilder))
+        .addHeader(X_REDMINE_API_KEY, apiKey)
+        .execute()
+        .handleResponse(this.createHolderResponseHandler());
+  }
+
+  @Override
   protected Class<Version> getBeanType() {
     return Version.class;
   }

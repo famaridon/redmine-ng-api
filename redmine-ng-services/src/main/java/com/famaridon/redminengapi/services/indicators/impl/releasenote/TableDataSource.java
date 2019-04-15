@@ -29,12 +29,7 @@ public class TableDataSource implements IMailMergeDataSource {
 
   @Override
   public boolean getValue(String fieldName, Ref<Object> fieldValue){
-    if (fieldName.equals("catIssue"))
-    {
-      fieldValue.set(mIssue.get(mRecordIndex).getCatIssue());
-      return true;
-    } else if (fieldName.equals("Sub"))
-    {
+    if (fieldName.equals("Sub")) {
       fieldValue.set(mIssue.get(mRecordIndex).getSubIssue());
       return true;
     } else if (fieldName.equals("id")) {
