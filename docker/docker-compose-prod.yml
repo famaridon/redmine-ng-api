@@ -23,6 +23,21 @@ services:
     networks:
       - redminengapi
 
+  metrics:
+    image: prom/prometheus
+    volumes:
+      - ./metrics/prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - redminengapi
+
+  dashboard:
+    image: grafana/grafana
+    environment:
+      GF_SERVER_DOMAIN: "process-internal-indicators.preview.visiativsoftware.com"
+      GF_SERVER_ROOT_URL: "%(protocol)s://%(domain)s/grafana/"
+    networks:
+      - redminengapi
+
   front:
     image: nginx:1.15-alpine
     volumes:

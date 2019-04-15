@@ -30,7 +30,12 @@ public class Holder<T> {
 	public void setIssue(T issue) {
 		this.element = issue;
 	}
-	
+
+	@JsonProperty("version")
+	public void setVersion(T version) {
+		this.element = version;
+	}
+
 	@Override
 	public boolean equals(Object o)
 	{

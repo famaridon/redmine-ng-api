@@ -1,11 +1,12 @@
 package com.famaridon.redminengapi.services.redmine.rest.client.beans;
 
+import com.famaridon.redminengapi.services.redmine.Pager;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 public class Page<T> {
 	
@@ -74,6 +75,15 @@ public class Page<T> {
 
 	public boolean hasNextPage() {
 		return this.offset + this.elements.size() < this.totalCount;
+	}
+
+	public Optional<Pager> nextPager() {
+		if(this.hasNextPage()) {
+			Pager nextPager= new Pager(this.offset += this.limit, this.limit);
+			return Optional.of(nextPager);
+		} else {
+			return Optional.empty();
+		}
 	}
 	
 	@Override
