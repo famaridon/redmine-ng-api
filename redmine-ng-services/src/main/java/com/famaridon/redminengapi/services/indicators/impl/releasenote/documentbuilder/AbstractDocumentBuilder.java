@@ -94,15 +94,14 @@ abstract class AbstractDocumentBuilder implements DocumentBuilder {
     return date;
   }
 
-  private Header createHeader(Version version){
+  private Header createHeader(Version version, String author){
     Date actual = new Date();
     String date = DATE_FORMAT.format(actual);
     String name = "RLN-" + setDate(actual);
-    String author = "Arthur Pelofi";
     return new Header(name, author, date, version);
   }
-  File getSaveType(List<Issue> listIssue, Version version, FileType type) {
-    this.header = createHeader(version);
+  File getSaveType(List<Issue> listIssue, Version version, FileType type, String author) {
+    this.header = createHeader(version, author);
     Document document = doMailMerge(listIssue, this.header);
     try {
       return saveAsposeDocument(this.header.getName(), document, type);

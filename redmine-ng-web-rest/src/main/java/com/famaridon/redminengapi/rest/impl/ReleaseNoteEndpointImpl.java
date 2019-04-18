@@ -9,6 +9,7 @@ import java.io.IOException;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.SecurityContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,10 +29,10 @@ public class ReleaseNoteEndpointImpl implements ReleaseNoteEndpoint {
   private static final Logger LOGGER = LoggerFactory.getLogger(ReleaseNoteEndpointImpl.class);
 
   @Override
-  public Response releaseNoteZip(String apiKey, Long versionId) {
+  public Response releaseNoteZip(String apiKey, Long versionId, SecurityContext securityContext) {
     try {
       FileType type = FileType.ZIP;
-      File file = releaseNoteService.generateReleaseNote(type, apiKey, versionsService.findById(apiKey,versionId));
+      File file = releaseNoteService.generateReleaseNote(type, apiKey, versionsService.findById(apiKey,versionId),securityContext);
       return Response
           .ok(file,type.getMimeType())
           .header("Content-Disposition", "attachment; filename=\""+file.getName()+"\"")
@@ -43,10 +44,10 @@ public class ReleaseNoteEndpointImpl implements ReleaseNoteEndpoint {
   }
 
   @Override
-  public Response releaseNotePdf(String apiKey, Long versionId) {
+  public Response releaseNotePdf(String apiKey, Long versionId, SecurityContext securityContext) {
     try {
       FileType type = FileType.PDF;
-      File file = releaseNoteService.generateReleaseNote(type, apiKey, versionsService.findById(apiKey,versionId));
+      File file = releaseNoteService.generateReleaseNote(type, apiKey, versionsService.findById(apiKey,versionId),securityContext);
       return Response
           .ok(file,type.getMimeType())
           .header("Content-Disposition", "attachment; filename=\""+file.getName()+"\"")
@@ -58,10 +59,10 @@ public class ReleaseNoteEndpointImpl implements ReleaseNoteEndpoint {
   }
 
   @Override
-  public Response releaseNoteDoc(String apiKey, Long versionId) {
+  public Response releaseNoteDoc(String apiKey, Long versionId, SecurityContext securityContext) {
     try {
       FileType type = FileType.DOC;
-      File file = releaseNoteService.generateReleaseNote(type, apiKey, versionsService.findById(apiKey,versionId));
+      File file = releaseNoteService.generateReleaseNote(type, apiKey, versionsService.findById(apiKey,versionId),securityContext);
       return Response
           .ok(file,type.getMimeType())
           .header("Content-Disposition", "attachment; filename=\""+file.getName()+"\"")

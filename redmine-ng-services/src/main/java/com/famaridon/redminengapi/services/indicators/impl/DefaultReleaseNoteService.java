@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import javax.inject.Inject;
+import javax.ws.rs.core.SecurityContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,8 +34,15 @@ public class DefaultReleaseNoteService implements ReleaseNoteService {
   @Inject
   private FilterFactory filterFactory;
 
+  /**
+   * TODO : author
+   * Faut-il utiliser le Sécurity Context au niveau de l'AbstractDocumentBuilder?
+   *   -> Permet de ne pas transmettre le string author via :
+   *         -DefaultReleaseNoteService, DocumentBuilder, AbstractDocumentBuilder et Header
+   */
   @Override
-  public File generateReleaseNote(FileType type, String apiKey, Version version) {
+  public File generateReleaseNote(FileType type, String apiKey, Version version, SecurityContext securityContext) {
+    String author =securityContext.getUserPrincipal().getName();
     List<Filter> filter = buildReleaseNoteFilters(version);
     PageWalker walker = new PageWalker();
     Future<List<Issue>> futureIssueList = walker.walk(pager -> this.issueService.findAllByFilters(apiKey,filter,pager));
@@ -42,7 +50,7 @@ public class DefaultReleaseNoteService implements ReleaseNoteService {
     DocumentBuilder documentBuilder = factory.getDocumentBuilder(type);
     try {
       List<Issue> issueList = futureIssueList.get();
-      return documentBuilder.build(issueList, version, type);
+      return documentBuilder.build(issueList, version, type, author);
     } catch (InterruptedException e) {
       LOGGER.error("Execution thread interrupted", e);
       throw new IllegalStateException(e);
