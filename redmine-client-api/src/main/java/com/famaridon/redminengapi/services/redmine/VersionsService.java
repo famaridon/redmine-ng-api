@@ -8,4 +8,5 @@ import java.io.IOException;
 public interface VersionsService
 {
 	Page<Version> findAll(String apiKey, Long project) throws IOException;
+	Version findById (String apiKey, Long version) throws IOException;
 }

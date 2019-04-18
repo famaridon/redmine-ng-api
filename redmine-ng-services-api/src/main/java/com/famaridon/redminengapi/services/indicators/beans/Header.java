@@ -1,5 +1,7 @@
 package com.famaridon.redminengapi.services.indicators.beans;
 
+import com.famaridon.redminengapi.services.redmine.rest.client.beans.Version;
+
 public class Header {
   public static final String FIELD_REF="Ref";
   public static final String FIELD_AUTHOR="Auteur";
@@ -12,12 +14,12 @@ public class Header {
   private String product;
   private String version;
 
-  public Header(String name, String author, String date, String product, String version) {
+  public Header(String name, String author, String date, Version version) {
     this.name = name;
     this.author = author;
     this.date = date;
-    this.product = product;
-    this.version = version;
+    this.product = version.getProject().getName();
+    this.version = version.getName();
   }
 
   public String getName() {
