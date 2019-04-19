@@ -1,5 +1,8 @@
 package com.famaridon.redminengapi.domain.entities;
 
-public class ContextEntity {
+import javax.persistence.Entity;
+
+@Entity
+public class ContextEntity extends AbstractEntity {
 
 }

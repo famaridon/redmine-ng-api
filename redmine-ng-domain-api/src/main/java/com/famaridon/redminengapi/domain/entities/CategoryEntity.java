@@ -1,5 +1,13 @@
 package com.famaridon.redminengapi.domain.entities;
 
-public class CategoryEntity {
+import javax.persistence.Column;
+import javax.persistence.Entity;
 
+@Entity
+public class CategoryEntity extends AbstractEntity {
+
+  @Column
+  protected ScopeEntity scope;
+  @Column
+  protected ContextEntity context;
 }

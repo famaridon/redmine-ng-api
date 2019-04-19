@@ -3,7 +3,6 @@ package com.famaridon.redminengapi.domain.hibernate;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-import org.flywaydb.core.Flyway;
 import org.hibernate.boot.Metadata;
 import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.integrator.spi.Integrator;
@@ -18,10 +17,10 @@ public class FlywayIntegrator implements Integrator {
   @Override
   public void integrate(Metadata metadata, SessionFactoryImplementor sessionFactoryImplementor,
       SessionFactoryServiceRegistry sessionFactoryServiceRegistry) {
-    LOGGER.info("Starting Flyway Migration");
-    Flyway flyway = Flyway.configure().dataSource(getDataSource()).load();
-    flyway.migrate();
-    LOGGER.info("Finished Flyway Migration");
+//    LOGGER.info("Starting Flyway Migration");
+//    Flyway flyway = Flyway.configure().dataSource(getDataSource()).load();
+//    flyway.migrate();
+//    LOGGER.info("Finished Flyway Migration");
 
   }
 

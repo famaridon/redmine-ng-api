@@ -1,5 +1,7 @@
 package com.famaridon.redminengapi.domain.repositories;
 
-public interface CategoryRepository {
+import com.famaridon.redminengapi.domain.entities.CategoryEntity;
+
+public interface CategoryRepository extends Repository<CategoryEntity> {
 
 }

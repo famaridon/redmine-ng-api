@@ -1,5 +1,8 @@
 package com.famaridon.redminengapi.domain.entities;
 
-public class ScopeEntity {
+import javax.persistence.Entity;
+
+@Entity
+public class ScopeEntity extends AbstractEntity {
 
 }

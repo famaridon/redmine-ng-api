@@ -1,5 +1,7 @@
 package com.famaridon.redminengapi.domain.repositories;
 
-public interface ScopeRepository {
+import com.famaridon.redminengapi.domain.entities.ScopeEntity;
+
+public interface ScopeRepository extends Repository<ScopeEntity> {
 
 }

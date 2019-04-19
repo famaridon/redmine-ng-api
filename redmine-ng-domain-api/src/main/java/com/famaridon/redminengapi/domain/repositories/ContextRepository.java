@@ -1,5 +1,7 @@
 package com.famaridon.redminengapi.domain.repositories;
 
-public interface ContextRepository {
+import com.famaridon.redminengapi.domain.entities.ContextEntity;
+
+public interface ContextRepository extends Repository<ContextEntity> {
 
 }
