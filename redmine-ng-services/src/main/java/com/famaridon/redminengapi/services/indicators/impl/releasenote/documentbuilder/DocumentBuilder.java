@@ -8,6 +8,6 @@ import java.io.File;
 import java.util.List;
 
 public interface DocumentBuilder {
-  File build(List<Issue> listIssue, Version version, FileType type);
+  File build(List<Issue> listIssue, Version version, FileType type, String author);
   Header getHeader();
 }

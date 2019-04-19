@@ -10,8 +10,8 @@ public class FileDocumentBuilder extends AbstractDocumentBuilder {
 
 
   @Override
-  public File build(List<Issue> listIssue, Version version, FileType type) {
-    return getSaveType(listIssue, version, type);
+  public File build(List<Issue> listIssue, Version version, FileType type, String author) {
+    return getSaveType(listIssue, version, type, author);
   }
 
 }

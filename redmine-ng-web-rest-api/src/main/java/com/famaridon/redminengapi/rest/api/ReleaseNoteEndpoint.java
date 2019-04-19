@@ -7,8 +7,10 @@ import javax.ws.rs.HeaderParam;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.SecurityContext;
 
 /**
  * Release note Endpoint Interface
@@ -21,16 +23,19 @@ public interface ReleaseNoteEndpoint {
     @GET
     @Path("/releaseNote/zip")
     Response releaseNoteZip(@HeaderParam(SecurityHeaders.X_REDMINE_API_KEY) String apiKey,
-        @QueryParam("version") @DefaultValue("prob version") Long versionId);
+        @QueryParam("version") @DefaultValue("prob version") Long versionId,
+        @Context SecurityContext securityContext);
 
     @GET
     @Path("/releaseNote/pdf")
     Response releaseNotePdf(@HeaderParam(SecurityHeaders.X_REDMINE_API_KEY) String apiKey,
-        @QueryParam("version") @DefaultValue("prob version") Long versionId);
+        @QueryParam("version") @DefaultValue("prob version") Long versionId,
+        @Context SecurityContext securityContext);
 
     @GET
     @Path("/releaseNote/doc")
     Response releaseNoteDoc(@HeaderParam(SecurityHeaders.X_REDMINE_API_KEY) String apiKey,
-        @QueryParam("version") @DefaultValue("prob version") Long versionId);
+        @QueryParam("version") @DefaultValue("prob version") Long versionId,
+        @Context SecurityContext securityContext);
 
 }

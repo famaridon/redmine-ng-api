@@ -16,10 +16,10 @@ public class ZipDocumentBuilder extends AbstractDocumentBuilder {
   private static final Logger LOGGER = LoggerFactory.getLogger(ZipDocumentBuilder.class);
 
   @Override
-  public File build(List<Issue> listIssue, Version version, FileType type) {
+  public File build(List<Issue> listIssue, Version version, FileType type, String author) {
     DocumentBuilderFactory factory = new DocumentBuilderFactory();
-    File filePdf = factory.getDocumentBuilder(FileType.PDF).build(listIssue, version, FileType.PDF);
-    File fileDoc = factory.getDocumentBuilder(FileType.DOC).build(listIssue, version, FileType.DOC);
+    File filePdf = factory.getDocumentBuilder(FileType.PDF).build(listIssue, version, FileType.PDF, author);
+    File fileDoc = factory.getDocumentBuilder(FileType.DOC).build(listIssue, version, FileType.DOC, author);
     try {
       String name = "RLN-" + setDate(new Date());
       ZipFileWritter zip = new ZipFileWritter(name + "." + type.getExtension());
