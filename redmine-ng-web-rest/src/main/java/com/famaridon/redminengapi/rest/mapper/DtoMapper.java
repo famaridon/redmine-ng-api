@@ -3,7 +3,9 @@ package com.famaridon.redminengapi.rest.mapper;
 import com.famaridon.redminengapi.rest.dto.BurndownChartDto;
 import com.famaridon.redminengapi.rest.dto.CategoryDto;
 import com.famaridon.redminengapi.rest.dto.ChartTimedValueDto;
+import com.famaridon.redminengapi.rest.dto.IssueContextDto;
 import com.famaridon.redminengapi.rest.dto.IssueDto;
+import com.famaridon.redminengapi.rest.dto.IssueScopeDto;
 import com.famaridon.redminengapi.rest.dto.IterationDto;
 import com.famaridon.redminengapi.rest.dto.MembershipDto;
 import com.famaridon.redminengapi.rest.dto.ObjectiveDto;
@@ -17,6 +19,8 @@ import com.famaridon.redminengapi.rest.dto.UserDto;
 import com.famaridon.redminengapi.rest.dto.VersionDto;
 import com.famaridon.redminengapi.services.indicators.beans.BurndownChart;
 import com.famaridon.redminengapi.services.indicators.beans.ChartTimedValue;
+import com.famaridon.redminengapi.services.indicators.beans.IssueContext;
+import com.famaridon.redminengapi.services.indicators.beans.IssueScope;
 import com.famaridon.redminengapi.services.indicators.beans.Iteration;
 import com.famaridon.redminengapi.services.indicators.beans.Objective;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Category;
@@ -100,5 +104,17 @@ public interface DtoMapper {
   BurndownChart burndownChartDtoToBurndownChart(BurndownChartDto burndownChartDto);
 
   BurndownChartDto burndownChartToBurndownChartDto(BurndownChart burndownChart);
+
+  IssueContext issueContextDtoToIssueContext(IssueContextDto issueContextDto);
+
+  IssueContextDto issueContextToIssueContextDto(IssueContext issueContext);
+
+  List<IssueContextDto> issueContextsToIssueContextDtos(List<IssueContext> issueContexts);
+
+  List<IssueContext> issueContextDtosToIssueContexts(List<IssueContextDto> issueContextDtos);
+
+  IssueScope issueScopeDtoToIssueScope(IssueScopeDto issueScopeDto);
+
+  IssueScopeDto issueScopeToIssueScopeDto(IssueScope issueScope);
 
 }
