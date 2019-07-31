@@ -44,7 +44,7 @@ WORKDIR $JBOSS_HOME
 # Add the WildFly distribution to /opt, and make wildfly the owner of the extracted tar content
 # Make sure the distribution is available from a well-known place
 RUN cd $JBOSS_HOME \
-    && wget -O wildfly-$WILDFLY_VERSION.tar.gz "https://download.jboss.org/wildfly/$WILDFLY_VERSION/wildfly-$WILDFLY_VERSION.tar.gz" \
+    && wget -nv -O wildfly-$WILDFLY_VERSION.tar.gz "https://download.jboss.org/wildfly/$WILDFLY_VERSION/wildfly-$WILDFLY_VERSION.tar.gz" \
     && sha1sum wildfly-$WILDFLY_VERSION.tar.gz | grep $WILDFLY_SHA1 \
     && tar --extract --file wildfly-$WILDFLY_VERSION.tar.gz --directory $JBOSS_HOME --strip-components 1 \
     && rm wildfly-$WILDFLY_VERSION.tar.gz \

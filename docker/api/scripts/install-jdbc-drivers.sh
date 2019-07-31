@@ -23,7 +23,7 @@
 
 # MySQL
 mkdir -p $JBOSS_HOME/modules/com/mysql/main
-wget "http://central.maven.org/maven2/mysql/mysql-connector-java/$MYSQL_JDBC_VERSION/mysql-connector-java-$MYSQL_JDBC_VERSION.jar" \
+wget -nv "http://central.maven.org/maven2/mysql/mysql-connector-java/$MYSQL_JDBC_VERSION/mysql-connector-java-$MYSQL_JDBC_VERSION.jar" \
     -O "$JBOSS_HOME/modules/com/mysql/main/mysql-connector-java-$MYSQL_JDBC_VERSION.jar"
 
 cat  <<EOL > $JBOSS_HOME/modules/com/mysql/main/module.xml
