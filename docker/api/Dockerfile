@@ -33,7 +33,7 @@ USER root
 
 # Add JBoss User
 RUN apt-get update \
-	&& apt-get install wget -y  && apt-get clean \
+	&& apt-get install wget unzip -y  && apt-get clean \
     && groupadd -r $WILDFLY_GROUP -g 1000 \
     && useradd -u 1000 -r -g $WILDFLY_GROUP -m -d $JBOSS_HOME -s /sbin/nologin -c "JBoss user" $WILDFLY_USER \
     && chmod 755 $JBOSS_HOME
