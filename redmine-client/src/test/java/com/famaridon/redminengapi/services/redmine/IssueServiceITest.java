@@ -1,19 +1,18 @@
 package com.famaridon.redminengapi.services.redmine;
 
+import static org.junit.Assert.assertNotNull;
+
 import com.famaridon.redminengapi.services.redmine.impl.DefaultFilterFactory;
 import com.famaridon.redminengapi.services.redmine.impl.DefaultIssueService;
 import com.famaridon.redminengapi.services.redmine.mock.TestRedmineClientConfiguration;
 import com.famaridon.redminengapi.services.redmine.rest.client.beans.Issue;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.Assert.assertNotNull;
 
 @RunWith(JUnit4.class)
 public class IssueServiceITest extends AbstractServiceITest {
@@ -49,7 +48,7 @@ public class IssueServiceITest extends AbstractServiceITest {
 	
 	@Test
 	public void findByQueryAndProject() throws IOException {
-		this.issueService.findByQueryAndProject(this.apiKey, 906L, 372L, new Pager());
+		this.issueService.findByQueryAndProject(this.apiKey, 1571L, 378L, new Pager());
 	}
 	
 	@Test
